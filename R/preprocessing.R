@@ -183,15 +183,17 @@ rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = F
 #' @return A data table of the input data after removing the duplicates
 #' @export
 rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
+  attribute <- deparse(substitute(attribute))
+
   if(exactMatch == TRUE){
     if(caseSensitive == FALSE){
       cat("argument 'caseSensitive = FALSE' will be ignored\n")
     }
-    exclude <- subset(input, attribute %in% ...)
+    exclude <- subset(input, input[,attribute] %in% ...)
   }
 
   else{
-    exclude <- subset(input, grepl(paste(..., collapse = "|"), attribute, ignore.case = !caseSensitive))
+    exclude <- subset(input, grepl(paste(..., collapse = "|"), input[,attribute], ignore.case = !caseSensitive))
   }
 
   exclude <- unique(exclude$ObservationID)
