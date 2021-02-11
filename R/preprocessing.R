@@ -175,18 +175,23 @@ rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = F
 #' This function filters data from the input data based on the specified criteria.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Criteria for filtering
+#' @param attribute Attribute (column name) for filtering
+#' @param ... Values for filtering
 #' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
+#' @param exactMatch Default \code{TRUE} performs exact match filtering. Overrides all conflicting arguments.
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after removing the duplicates
 #' @export
-rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, showOverview = TRUE){
-  if(caseSensitive == TRUE){
+rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
+  if(exactMatch == TRUE){
+    if(caseSensitive == FALSE){
+      cat("argument 'caseSensitive = FALSE' will be ignored\n")
+    }
     exclude <- subset(input, attribute %in% ...)
   }
 
-  if(caseSensitive == FALSE){
-    exclude <- subset(input, tolower(attribute) %in% tolower(...))
+  else{
+    exclude <- subset(input, grepl(..., attribute, ignore.case = !caseSensitive))
   }
 
   exclude <- unique(exclude$ObservationID)
