@@ -22,7 +22,7 @@ rtry_filter(
 
 \item{caseSensitive}{Default \code{TRUE} performs case-sensitive filtering}
 
-\item{exactMatch}{Default \code{TRUE} performs exact match filtering. Overrides all conflicting arguments.}
+\item{exactMatch}{Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }

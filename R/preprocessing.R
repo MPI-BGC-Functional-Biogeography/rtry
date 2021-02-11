@@ -178,7 +178,7 @@ rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = F
 #' @param attribute Attribute (column name) for filtering
 #' @param ... Values for filtering
 #' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
-#' @param exactMatch Default \code{TRUE} performs exact match filtering. Overrides all conflicting arguments.
+#' @param exactMatch Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after removing the duplicates
 #' @export
