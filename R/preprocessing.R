@@ -191,7 +191,7 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
   }
 
   else{
-    exclude <- subset(input, grepl(..., attribute, ignore.case = !caseSensitive))
+    exclude <- subset(input, grepl(paste(..., collapse = "|"), attribute, ignore.case = !caseSensitive))
   }
 
   exclude <- unique(exclude$ObservationID)
