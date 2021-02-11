@@ -176,11 +176,18 @@ rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = F
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for filtering
+#' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after removing the duplicates
 #' @export
-rtry_filter <- function(input = "", ..., showOverview = TRUE){
-  exclude <- subset(input, ...)
+rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, showOverview = TRUE){
+  if(caseSensitive == TRUE){
+    exclude <- subset(input, attribute %in% ...)
+  }
+
+  if(caseSensitive == FALSE){
+    exclude <- subset(input, tolower(attribute) %in% tolower(...))
+  }
 
   exclude <- unique(exclude$ObservationID)
 
