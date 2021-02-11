@@ -4,12 +4,25 @@
 \alias{rtry_filter}
 \title{Filter TRY data}
 \usage{
-rtry_filter(input = "", ..., showOverview = TRUE)
+rtry_filter(
+  input = "",
+  attribute = "",
+  ...,
+  caseSensitive = TRUE,
+  exactMatch = TRUE,
+  showOverview = TRUE
+)
 }
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{...}{Criteria for filtering}
+\item{attribute}{Attribute (column name) for filtering}
+
+\item{...}{Values for filtering}
+
+\item{caseSensitive}{Default \code{TRUE} performs case-sensitive filtering}
+
+\item{exactMatch}{Default \code{TRUE} performs exact match filtering. Overrides all conflicting arguments.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }
