@@ -93,7 +93,7 @@ Note that sometimes R may show a column 28, which should be empty. This column i
 
 
 
-An R package is developed to facilitate the preprocessing
+An R package is developed to facilitate the preprocessing of the TRY data.
 
 
 
@@ -106,6 +106,7 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - ```rtry_bind```
 - ```rtry_cselect```
 - ```rtry_rselect```
+- ```rtry_filter```
 - ```rtry_rmduplicates```
 - ```rtry_export```
 - ```rtry_geocoding```
@@ -204,17 +205,17 @@ Since the default value of ```showOverview``` is set to be ```TRUE```, the dimen
 
 **Use case 2**
 
-To explore the unique values in ```TRYdata2``` based on the attributes ```DataID```, ```DataName```, ```ObsDataID```, ```OrigObsDataID```, and grouped by the first attribute, i.e. ```DataID```:
+To explore the unique values in ```TRYdata2``` based on the attributes ```TraitID```, ```TraitName```, ```DataID```, ```DataName```, and grouped by the first attribute, i.e. ```TraitID```:
 
 ```R
-TRYdata2_explore <- rtry_explore(TRYdata2, DataID, DataName, showOverview = FALSE)
+TRYdata2_explore <- rtry_explore(TRYdata2, TraitID, TraitName, DataID, DataName, showOverview = FALSE)
 ```
 
 Since the ```showOverview``` in this use case is set to ```FALSE```, the dimension of the output data would not be displayed in the console.
 
 The output ```TRYdata2_explore``` would look like the following:
 
-![image-20201204025753990](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201204025753990.png)
+![image-20201214084248082](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201214084248082.png)
 
 
 
@@ -362,16 +363,26 @@ This function filters data from the input data based on the specified criteria.
 
 
 ```R
-rtry_rselect(input = "", ..., showOverview = TRUE)
+rtry_filter(
+  input = "",
+  attribute = "",
+  ...,
+  caseSensitive = TRUE,
+  exactMatch = TRUE,
+  showOverview = TRUE
+)
 ```
 
 
 
-| Argument           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
-| ```...```          | Criteria for filtering                                       |
-| ```showOverview``` | Default ```TRUE``` displays the dimension of data table after filtering |
+| Argument            | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| ```input```         | Input data, imported by ```rtry_import()``` or in data table format |
+| attribute           | Attribute (column name) for filtering                        |
+| ```...```           | Values for filtering                                         |
+| ```caseSensitive``` | Default ```TRUE``` performs case-sensitive filtering         |
+| ```exactMatch```    | Default ```TRUE``` performs exact match filtering, overrides all conflicting arguments |
+| ```showOverview```  | Default ```TRUE``` displays the dimension of data table after filtering |
 
 
 
@@ -401,21 +412,47 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![image-20201208114859259](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201208114859259.png)
+![image-20210212003032439](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20210212003032439.png)
 
 
 
-Once the filtering criteria are identified, perform the filtering using ```rtry_filter()```:
+Once the filtering criteria are identified, perform the filtering using ```rtry_filter()```.
+
+(a) Manually enters the values for exact match (by default also case sensitive) filtering:
 
 ```R
-tmp2 <- rtry_filter(tmp, OrigValueStr %in% c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
+tmp2 <- rtry_filter(tmp, OrigValueStr, c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
 ```
 
 ```R
 dim:    52 28 
 ```
 
+(b) Filtering with case-insensitive keywords:
+
+```R
+tmp3 <- rtry_filter(tmp, OrigValueStr, c("2.5", "juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
+```
+
+```R
+dim:    52 28 
+```
+
+Note that both (a) and (b) output the same results in this case, with only the data where `OrigValueStr` equals to `mature` or `Mature` remaining.
+
 ![image-20201208115026642](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201208115026642.png)
+
+
+
+```R
+tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
+```
+
+```R
+dim:    2 6
+```
+
+![image-20210212002735840](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20210212002735840.png)
 
 
 
