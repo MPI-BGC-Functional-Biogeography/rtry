@@ -211,6 +211,42 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
 
 
 
+#' Remove TRY columns
+#'
+#' This function removes specified columns from the imported data for further processing.
+#'
+#' @param input Input data, imported by \code{rtry_import()} or in data table format
+#' @param ... Column names to be removed
+#' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
+#' @return A data table of the remaining columns of the input data
+#' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
+#' @export
+rtry_rmColumns <- function(input, ..., showOverview = TRUE){
+  if(missing(input)){
+    cat("Please specify the input data for removing the specified column(s)\n")
+  }
+  else{
+    if(missing(...)){
+      cat("Please specify the column names you would like to remove\n")
+      cat("To remove the column Reference, Comment and V28 from the input data, refer to the following example:\n")
+      cat("   rtry_rmColumns(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)\n")
+      cat("\nAvailable column names: ", ls(input), "\n")
+    }
+    else{
+      input <- dplyr::select(input, -c(...))
+      remainingColumns <- input
+
+      if(showOverview == TRUE){
+        cat("dim:   ", dim(remainingColumns), "\n")
+      }
+
+      return(remainingColumns)
+    }
+  }
+}
+
+
+
 #' Remove duplicates in TRY data
 #'
 #' This function identifies and removed the duplicates from the input data.
