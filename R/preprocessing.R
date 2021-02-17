@@ -99,7 +99,7 @@ rtry_bind <- function(..., showOverview = TRUE){
 #' @return A data table of the selected columns of the input data
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
-rtry_cselect <- function(input = "", ..., showOverview = TRUE){
+rtry_select_col <- function(input = "", ..., showOverview = TRUE){
   if(missing(input)){
     cat("Please specify the input data for column selection.\n")
   }
@@ -107,7 +107,7 @@ rtry_cselect <- function(input = "", ..., showOverview = TRUE){
     if(missing(...)){
       cat("Please specify the column names you would like to select.\n")
       cat("To select the input data by DataID and DataName, refer to the following example:\n")
-      cat("   rtry_cselect(input = TRYdata, DataID, DataName, showOverview = TRUE)\n")
+      cat("   rtry_select_col(input = TRYdata, DataID, DataName, showOverview = TRUE)\n")
       cat("\nAvailable column names: ", ls(input), "\n")
     }
     else{
@@ -136,7 +136,7 @@ rtry_cselect <- function(input = "", ..., showOverview = TRUE){
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection
 #' @return A data table of the selected rows of the input data
 #' @export
-rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
+rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   if(missing(input)){
     cat("Please specify the input data for row selection.")
   }
@@ -144,7 +144,7 @@ rtry_rselect <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = F
     if(missing(...)){
       cat("Please specify the criteria for row selection.\n")
       cat("To select the rows where TraitID is larger than 0 or where DataID is 59 or 60, refer to the following example:\n")
-      cat("   rtry_rselect(input = TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)), showOverview = TRUE)\n")
+      cat("   rtry_select_row(input = TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)), showOverview = TRUE)\n")
     }
     else{
       selectedRows <- subset(input, ...)
@@ -221,7 +221,7 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
 #' @return A data table of the remaining columns of the input data
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
-rtry_rmColumns <- function(input, ..., showOverview = TRUE){
+rtry_rm_col <- function(input, ..., showOverview = TRUE){
   if(missing(input)){
     cat("Please specify the input data for removing the specified column(s)\n")
   }
@@ -229,7 +229,7 @@ rtry_rmColumns <- function(input, ..., showOverview = TRUE){
     if(missing(...)){
       cat("Please specify the column names you would like to remove\n")
       cat("To remove the column Reference, Comment and V28 from the input data, refer to the following example:\n")
-      cat("   rtry_rmColumns(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)\n")
+      cat("   rtry_rm_col(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)\n")
       cat("\nAvailable column names: ", ls(input), "\n")
     }
     else{
@@ -256,7 +256,7 @@ rtry_rmColumns <- function(input, ..., showOverview = TRUE){
 #' @param showOverview Default \code{TRUE} displays the the dimension of data table after removal
 #' @return A data table of the input data after removing the duplicates
 #' @export
-rtry_rmduplicates <- function(input = "", showOverview = TRUE){
+rtry_rm_dup <- function(input = "", showOverview = TRUE){
   if(missing(input)){
     cat("Please specify the input data for removing duplicates.\n")
   }
