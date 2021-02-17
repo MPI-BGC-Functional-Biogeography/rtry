@@ -50,10 +50,11 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - ```rtry_import```
 - ```rtry_explore```
 - ```rtry_bind```
-- ```rtry_cselect```
-- ```rtry_rselect```
+- ```rtry_select_col```
+- ```rtry_select_row```
 - ```rtry_filter```
-- ```rtry_rmduplicates```
+- ```rtry_rm_col```
+- ```rtry_rm_dup```
 - ```rtry_export```
 - ```rtry_geocoding```
 - ```rtry_revgeocoding```
