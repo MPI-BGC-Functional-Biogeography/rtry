@@ -68,7 +68,28 @@ rtry_explore <- function(input = "", ..., showOverview = TRUE){
 
 
 
-#' Bind TRY data
+#' Bind TRY data by columns
+#'
+#' This function takes a sequence of data imported by \code{rtry_import()} and combined them by columns
+#'
+#' @param ... A sequence of data frame to be combined by columns
+#' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
+#' @return A data table of the input data
+#' @export
+rtry_bind_col <- function(..., showOverview = TRUE){
+  TRYdata <- cbind(...)
+
+  if(showOverview == TRUE){
+    cat("dim:   ", dim(TRYdata), "\n")
+    cat("ls:    ", ls(TRYdata), "\n")
+  }
+
+  return(TRYdata)
+}
+
+
+
+#' Bind TRY data by rows
 #'
 #' This function takes a sequence of data imported by \code{rtry_import()} and combined them by rows.
 #'
@@ -76,7 +97,7 @@ rtry_explore <- function(input = "", ..., showOverview = TRUE){
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
 #' @return A data table of the input data
 #' @export
-rtry_bind <- function(..., showOverview = TRUE){
+rtry_bind_row <- function(..., showOverview = TRUE){
   TRYdata <- rbind(...)
 
   if(showOverview == TRUE){
