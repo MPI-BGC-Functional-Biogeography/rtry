@@ -10,11 +10,11 @@
 #' @export
 rtry_geocoding <- function(address = NULL, email = NULL){
   if(missing(address)){
-    cat("Please make sure you have entered an address.\n")
+    message("Please make sure you have entered an address.")
   }
   else{
     if(missing(email)){
-      cat("Please make sure you have provided a valid email address.\n")
+      message("Please make sure you have provided a valid email address.")
     }
     else{
       if(is.null(address))
@@ -49,11 +49,11 @@ rtry_geocoding <- function(address = NULL, email = NULL){
 #' @export
 rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
   if(missing(lat_lon)){
-    cat("Please make sure you have entered a data frame with latitude and longitude.\n")
+    message("Please make sure you have entered a data frame with latitude and longitude.")
   }
   else{
     if(missing(email)){
-      cat("Please make sure you have provided a valid email address.\n")
+      message("Please make sure you have provided a valid email address.")
     }
     else{
       lat = lat_lon[[1]]

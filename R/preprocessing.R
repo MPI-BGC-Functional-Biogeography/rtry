@@ -11,15 +11,15 @@
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for grouping.")
+    message("Please specify the input data for grouping.")
   }
   else{
     TRYdata <- data.table::fread(input, header = TRUE, sep = separator, dec = ".", encoding = encoding, quote = "", data.table = TRUE)
 
     if(showOverview == TRUE){
-      cat("input: ", input, "\n")
-      cat("dim:   ", dim(TRYdata), "\n")
-      cat("ls:    ", ls(TRYdata), "\n")
+      message("input: ", input)
+      message("dim:   ", paste0(dim(TRYdata), sep = " "))
+      message("ls:    ", paste0(ls(TRYdata), sep = " "))
     }
 
     return(TRYdata)
@@ -43,14 +43,14 @@ rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', showOv
 #' @export
 rtry_explore <- function(input = "", ..., showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for grouping.")
+    message("Please specify the input data for grouping.")
   }
   else{
     if(missing(...)){
-      cat("Please specify the attribute names you would like to group together.\n")
-      cat("To group the input data by DataID and DataName, refer to the following example:\n")
-      cat("   explore_data(input = TRYdata, DataID, DataName, showOverview = TRUE)\n")
-      cat("\nAvailable column names: ", ls(input), "\n")
+      message("Please specify the attribute names you would like to group together.")
+      message("To group the input data by DataID and DataName, refer to the following example:")
+      message("   explore_data(input = TRYdata, DataID, DataName, showOverview = TRUE)")
+      message("\nAvailable column names: ", paste0(ls(input), sep=" "))
     }
     else{
       input <- dplyr::group_by(input, ...)
@@ -58,7 +58,7 @@ rtry_explore <- function(input = "", ..., showOverview = TRUE){
       uniqueData <- input
 
       if(showOverview == TRUE){
-        cat("dim:   ", dim(uniqueData), "\n")
+        message("dim:   ", paste0(dim(uniqueData), sep = " "))
       }
 
       return(uniqueData)
@@ -80,8 +80,8 @@ rtry_bind_col <- function(..., showOverview = TRUE){
   TRYdata <- cbind(...)
 
   if(showOverview == TRUE){
-    cat("dim:   ", dim(TRYdata), "\n")
-    cat("ls:    ", ls(TRYdata), "\n")
+    message("dim:   ", paste0(dim(TRYdata), sep = " "))
+    message("ls:    ", paste0(ls(TRYdata), sep = " "))
   }
 
   return(TRYdata)
@@ -101,8 +101,8 @@ rtry_bind_row <- function(..., showOverview = TRUE){
   TRYdata <- rbind(...)
 
   if(showOverview == TRUE){
-    cat("dim:   ", dim(TRYdata), "\n")
-    cat("ls:    ", ls(TRYdata), "\n")
+    message("dim:   ", paste0(dim(TRYdata), sep = " "))
+    message("ls:    ", paste0(ls(TRYdata), sep = " "))
   }
 
   return(TRYdata)
@@ -122,21 +122,21 @@ rtry_bind_row <- function(..., showOverview = TRUE){
 #' @export
 rtry_select_col <- function(input = "", ..., showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for column selection.\n")
+    message("Please specify the input data for column selection.")
   }
   else{
     if(missing(...)){
-      cat("Please specify the column names you would like to select.\n")
-      cat("To select the input data by DataID and DataName, refer to the following example:\n")
-      cat("   rtry_select_col(input = TRYdata, DataID, DataName, showOverview = TRUE)\n")
-      cat("\nAvailable column names: ", ls(input), "\n")
+      message("Please specify the column names you would like to select.")
+      message("To select the input data by DataID and DataName, refer to the following example:")
+      message("   rtry_select_col(input = TRYdata, DataID, DataName, showOverview = TRUE)")
+      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
     }
     else{
       input <- dplyr::select(input, ...)
       selectedColumns <- input
 
       if(showOverview == TRUE){
-        cat("dim:   ", dim(selectedColumns), "\n")
+        message("dim:   ", paste0(dim(selectedColumns), sep = " "))
       }
 
       return(selectedColumns)
@@ -159,13 +159,13 @@ rtry_select_col <- function(input = "", ..., showOverview = TRUE){
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for row selection.")
+    message("Please specify the input data for row selection.")
   }
   else{
     if(missing(...)){
-      cat("Please specify the criteria for row selection.\n")
-      cat("To select the rows where TraitID is larger than 0 or where DataID is 59 or 60, refer to the following example:\n")
-      cat("   rtry_select_row(input = TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)), showOverview = TRUE)\n")
+      message("Please specify the criteria for row selection.")
+      message("To select the rows where TraitID is larger than 0 or where DataID is 59 or 60, refer to the following example:")
+      message("   rtry_select_row(input = TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)), showOverview = TRUE)")
     }
     else{
       selectedRows <- subset(input, ...)
@@ -181,7 +181,7 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
       }
 
       if(showOverview == TRUE){
-        cat("dim:   ", dim(selectedRows), "\n")
+        message("dim:   ", paste0(dim(selectedRows), sep = " "))
       }
 
       return(selectedRows)
@@ -208,7 +208,7 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
 
   if(exactMatch == TRUE){
     if(caseSensitive == FALSE){
-      cat("argument 'caseSensitive = FALSE' will be ignored\n")
+      message("argument 'caseSensitive = FALSE' will be ignored.")
     }
     exclude <- subset(input, input[,attribute] %in% ...)
   }
@@ -224,7 +224,7 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
   filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
 
   if(showOverview == TRUE){
-    cat("dim:   ", dim(filteredData), "\n")
+    message("dim:   ", paste0(dim(filteredData), sep = " "))
   }
 
   return(filteredData)
@@ -244,21 +244,21 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
 #' @export
 rtry_rm_col <- function(input, ..., showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for removing the specified column(s)\n")
+    message("Please specify the input data for removing the specified column(s).")
   }
   else{
     if(missing(...)){
-      cat("Please specify the column names you would like to remove\n")
-      cat("To remove the column Reference, Comment and V28 from the input data, refer to the following example:\n")
-      cat("   rtry_rm_col(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)\n")
-      cat("\nAvailable column names: ", ls(input), "\n")
+      message("Please specify the column names you would like to remove")
+      message("To remove the column Reference, Comment and V28 from the input data, refer to the following example:")
+      message("   rtry_rm_col(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)")
+      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
     }
     else{
       input <- dplyr::select(input, -c(...))
       remainingColumns <- input
 
       if(showOverview == TRUE){
-        cat("dim:   ", dim(remainingColumns), "\n")
+        message("dim:   ", paste0(dim(remainingColumns), sep = " "))
       }
 
       return(remainingColumns)
@@ -279,7 +279,7 @@ rtry_rm_col <- function(input, ..., showOverview = TRUE){
 #' @export
 rtry_rm_dup <- function(input = "", showOverview = TRUE){
   if(missing(input)){
-    cat("Please specify the input data for removing duplicates.\n")
+    message("Please specify the input data for removing duplicates.")
   }
   else{
     exclude <- subset(input, OrigObsDataID > 0)
@@ -292,10 +292,10 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
     input <- subset(input, input$exclude == FALSE, select = -(exclude))
 
     inputRemovedDuplicates <- input
-    cat(numDuplicates, "duplicates removed.\n")
+    message(numDuplicates, "duplicates removed.")
 
     if(showOverview == TRUE){
-      cat("dim:   ", dim(inputRemovedDuplicates), "\n")
+      message("dim:   ", paste0(dim(inputRemovedDuplicates), sep = " "))
     }
 
     return(inputRemovedDuplicates)
@@ -320,15 +320,15 @@ rtry_reformat <- function(){
 #' @export
 rtry_export <- function(data = "", output = "", encoding = 'UTF-8'){
   if(missing(data) || missing(output)){
-    cat("Please make sure you have specified the data to be saved or the output path.\n")
+    message("Please make sure you have specified the data to be saved or the output path.")
   }
   else{
     if (!dir.exists(dirname(output))){
       dir.create(dirname(output))
-      cat("New directory created at: ", dirname(output), "\n")
+      message("New directory created at: ", paste0(dirname(output), sep = " "))
     }
 
     write.csv(x = data, file = output, quote = FALSE, fileEncoding = encoding)
-    cat("File saved at: ", output, "\n")
+    message("File saved at: ", output)
   }
 }
