@@ -304,7 +304,31 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
 
 
 
-rtry_reformat <- function(){
+#' Transform TRY data from long to wide table
+#'
+#' This function transforms the original long table format of the TRY data into a wide table format.
+#'
+#' @param input Input data, imported by \code{rtry_import()} function or in data table format
+#' @param names_from The column(s) from which the output column names to be obtained
+#' @param values_from The column(s) from which the output values to be obtained
+#' @param values_fn (Optional) Function to be applied to the output values
+#' @param showOverview Default \code{TRUE} displays the dimension of the result data table
+#' @return The transformed wide table
+#' @references \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
+#' @export
+rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, values_fn = NULL, showOverview = TRUE){
+  longTable <- input
+
+  wideTable <- tidyr::pivot_wider(longTable,
+                                  names_from = {{names_from}},
+                                  values_from = {{values_from}},
+                                  values_fn = {{values_fn}})
+
+  if(showOverview == TRUE){
+    message("dim:   ", paste0(dim(wideTable), sep = " "))
+  }
+
+  return(wideTable)
 }
 
 
