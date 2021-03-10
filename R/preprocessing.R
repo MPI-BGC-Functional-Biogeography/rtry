@@ -344,9 +344,10 @@ rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, 
 #'
 #' @param data The data to be saved
 #' @param output Output path
+#' @param quote Default \code{TRUE} inserts double quotes around any character or factor columns
 #' @param encoding File encoding. Default \code{"UTF-8"}
 #' @export
-rtry_export <- function(data = "", output = "", encoding = 'UTF-8'){
+rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"){
   if(missing(data) || missing(output)){
     message("Please make sure you have specified the data to be saved or the output path.")
   }
@@ -356,7 +357,7 @@ rtry_export <- function(data = "", output = "", encoding = 'UTF-8'){
       message("New directory created at: ", paste0(dirname(output), sep = " "))
     }
 
-    write.csv(x = data, file = output, quote = FALSE, fileEncoding = encoding)
+    write.csv(x = data, file = output, quote = quote, fileEncoding = encoding)
     message("File saved at: ", output)
   }
 }

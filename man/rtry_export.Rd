@@ -4,12 +4,14 @@
 \alias{rtry_export}
 \title{Export pre-processed TRY data}
 \usage{
-rtry_export(data = "", output = "", encoding = "UTF-8")
+rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 }
 \arguments{
 \item{data}{The data to be saved}
 
 \item{output}{Output path}
+
+\item{quote}{Default \code{TRUE} inserts double quotes around any character or factor columns}
 
 \item{encoding}{File encoding. Default \code{"UTF-8"}}
 }
