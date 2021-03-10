@@ -4,12 +4,14 @@
 \alias{rtry_explore}
 \title{Explore TRY data}
 \usage{
-rtry_explore(input = "", ..., showOverview = TRUE)
+rtry_explore(input = "", ..., arrangeBy = "", showOverview = TRUE)
 }
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} function or in data table format}
 
 \item{...}{Attribute names to group together}
+
+\item{arrangeBy}{(Optional) Specify the attribute name used to reorder the rows}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the result data table}
 }
@@ -19,7 +21,7 @@ A data table of the unique values grouped by the desired attribute(s)
 \description{
 This function takes the data table imported by \code{rtry_import()} and converts it into
 a grouped data table based on the specified column names.
-Note the the output data is grouped by the first attribute.
+Note the the output data is grouped by the first attribute if not specified using the parameter \code{arrangeBy}.
 To provide a first understanding of the data, an additional column is added to show the total count within each group.
 }
 \references{

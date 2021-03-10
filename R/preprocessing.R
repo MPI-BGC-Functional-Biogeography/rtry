@@ -32,16 +32,17 @@ rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', showOv
 #'
 #' This function takes the data table imported by \code{rtry_import()} and converts it into
 #' a grouped data table based on the specified column names.
-#' Note the the output data is grouped by the first attribute.
+#' Note the the output data is grouped by the first attribute if not specified using the parameter \code{arrangeBy}.
 #' To provide a first understanding of the data, an additional column is added to show the total count within each group.
 #'
 #' @param input Input data, imported by \code{rtry_import()} function or in data table format
 #' @param ... Attribute names to group together
+#' @param arrangeBy (Optional) Specify the attribute name used to reorder the rows
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return A data table of the unique values grouped by the desired attribute(s)
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
-rtry_explore <- function(input = "", ..., showOverview = TRUE){
+rtry_explore <- function(input = "", ..., arrangeBy = "", showOverview = TRUE){
   if(missing(input)){
     message("Please specify the input data for grouping.")
   }
@@ -55,6 +56,9 @@ rtry_explore <- function(input = "", ..., showOverview = TRUE){
     else{
       input <- dplyr::group_by(input, ...)
       input <- dplyr::summarise(input, Count = dplyr::n(), .groups = 'drop')
+
+      input <- dplyr::arrange(input, {{arrangeBy}})
+
       uniqueData <- input
 
       if(showOverview == TRUE){
