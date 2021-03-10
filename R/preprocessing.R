@@ -45,6 +45,11 @@ rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', showOv
 #' @param arrangeBy (Optional) Specify the attribute name used to reorder the rows
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return A data table of the unique values grouped by the desired attribute(s)
+#' @examples
+#' \dontrun{
+#' rtry_explore(TRYdata, DataID, DataName, ObsDataID, OrigObsDataID)
+#' rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, arrangeBy = DataName)
+#' }
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
 rtry_explore <- function(input = "", ..., arrangeBy = "", showOverview = TRUE){

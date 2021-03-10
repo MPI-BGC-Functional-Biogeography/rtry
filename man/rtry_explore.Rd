@@ -24,6 +24,12 @@ a grouped data table based on the specified column names.
 Note the the output data is grouped by the first attribute if not specified using the parameter \code{arrangeBy}.
 To provide a first understanding of the data, an additional column is added to show the total count within each group.
 }
+\examples{
+\dontrun{
+rtry_explore(TRYdata, DataID, DataName, ObsDataID, OrigObsDataID)
+rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, arrangeBy = DataName)
+}
+}
 \references{
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 }
