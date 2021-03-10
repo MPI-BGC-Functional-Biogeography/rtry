@@ -27,3 +27,9 @@ A data table of the input data
 This function imports the text file downloaded from the TRY database (\url{https://www.try-db.org})
 as a data.table for further processing.
 }
+\examples{
+\dontrun{
+rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/7956.txt")
+rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/8200.txt", showOverview = FALSE)
+}
+}

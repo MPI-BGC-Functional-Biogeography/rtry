@@ -8,6 +8,11 @@
 #' @param encoding File encoding. Default \code{"UTF-8"}
 #' @param showOverview Default \code{TRUE} displays the input path, dimension and column names of the input data
 #' @return A data table of the input data
+#' @examples
+#' \dontrun{
+#' rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/7956.txt")
+#' rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/8200.txt", showOverview = FALSE)
+#' }
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', showOverview = TRUE){
   if(missing(input)){
