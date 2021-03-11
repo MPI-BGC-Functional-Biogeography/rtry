@@ -4,25 +4,12 @@
 \alias{rtry_filter}
 \title{Filter TRY data}
 \usage{
-rtry_filter(
-  input = "",
-  attribute = "",
-  ...,
-  caseSensitive = TRUE,
-  exactMatch = TRUE,
-  showOverview = TRUE
-)
+rtry_filter(input = "", ..., showOverview = TRUE)
 }
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{attribute}{Attribute (column name) for filtering}
-
-\item{...}{Values for filtering}
-
-\item{caseSensitive}{Default \code{TRUE} performs case-sensitive filtering}
-
-\item{exactMatch}{Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments}
+\item{...}{Criteria for filtering}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }
@@ -30,5 +17,5 @@ rtry_filter(
 A data table of the input data after removing the duplicates
 }
 \description{
-This function filters data from the input data based on the specified criteria.
+This function filters data from the input data based on the specified criteria
 }
