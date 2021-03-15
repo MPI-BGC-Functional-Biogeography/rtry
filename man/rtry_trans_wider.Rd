@@ -29,6 +29,11 @@ The transformed wide table
 \description{
 This function transforms the original long table format of the TRY data into a wide table format.
 }
+\examples{
+\dontrun{
+rtry_trans_wider(TRYdata, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue, ErrorRisk), values_fn = list(StdValue = mean, ErrorRisk = mean))
+}
+}
 \references{
 \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
 }

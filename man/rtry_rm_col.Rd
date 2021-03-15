@@ -19,6 +19,14 @@ A data table of the remaining columns of the input data
 \description{
 This function removes specified columns from the imported data for further processing.
 }
+\examples{
+\dontrun{
+rtry_rm_col(TRYdata, Reference, Comment)
+}
+}
 \references{
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
+}
+\seealso{
+\code{\link{rtry_select_col}}
 }

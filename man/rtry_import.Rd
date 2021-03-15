@@ -32,7 +32,7 @@ as a data.table for further processing.
 }
 \examples{
 \dontrun{
-rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/7956.txt")
-rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/8200.txt", showOverview = FALSE)
+rtry_import("./data/7956.txt")
+rtry_import("./data/8200.txt", showOverview = FALSE)
 }
 }

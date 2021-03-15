@@ -32,3 +32,11 @@ A data table of the input data after removing the duplicates
 \description{
 This function filters data from the input data based on the specified keyword(s)
 }
+\examples{
+\dontrun{
+rtry_filter_keyword(TRYdata, OrigValueStr, c("juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
+}
+}
+\seealso{
+\code{\link{rtry_filter}}
+}

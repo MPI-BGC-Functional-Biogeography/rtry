@@ -19,3 +19,8 @@ This function uses Nominatim, a search engine for OpenStreetMap data, to
 perform Geocoding, i.e. converting an address into coordinates (latitudes, longitudes).
 For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim}.
 }
+\examples{
+\dontrun{
+rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
+}
+}

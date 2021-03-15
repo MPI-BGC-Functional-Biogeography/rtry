@@ -26,8 +26,8 @@ To provide a first understanding of the data, an additional column is added to s
 }
 \examples{
 \dontrun{
-rtry_explore(TRYdata, DataID, DataName, ObsDataID, OrigObsDataID)
-rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, arrangeBy = DataName)
+rtry_explore(TRYdata, AccSpeciesID, DataID, DataName, TraitID, TraitName)
+rtry_explore(TRYdata, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName)
 }
 }
 \references{

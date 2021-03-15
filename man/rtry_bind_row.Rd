@@ -17,3 +17,8 @@ A data table of the input data
 \description{
 This function takes a sequence of data imported by \code{rtry_import()} and combined them by rows.
 }
+\examples{
+\dontrun{
+rtry_bind_row(TRYdata1, TRYdata2)
+}
+}

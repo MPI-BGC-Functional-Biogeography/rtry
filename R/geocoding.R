@@ -7,6 +7,10 @@
 #' @param address String of an address
 #' @param email String of an email address
 #' @return A data frame that contains latitudes (lat) and longitudes (lon)
+#' @examples
+#' \dontrun{
+#' rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
+#' }
 #' @export
 rtry_geocoding <- function(address = NULL, email = NULL){
   if(missing(address)){
@@ -46,6 +50,10 @@ rtry_geocoding <- function(address = NULL, email = NULL){
 #' @param lat_lon A data frame consisting latitude and longitude
 #' @param email String of an email address
 #' @return A data frame that contains address
+#' @examples
+#' \dontrun{
+#' rtry_revgeocoding(data.frame(50.91012, 11.56674), email = email)
+#' }
 #' @export
 rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
   if(missing(lat_lon)){

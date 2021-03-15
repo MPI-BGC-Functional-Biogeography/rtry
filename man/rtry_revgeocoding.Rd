@@ -19,3 +19,8 @@ This function uses Nominatim, a search engine for OpenStreetMap data, to
 perform reverse Geocoding, i.e. converting coordinates (latitudes, longitudes) into an address.
 For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim}.
 }
+\examples{
+\dontrun{
+rtry_revgeocoding(data.frame(50.91012, 11.56674), email = email)
+}
+}

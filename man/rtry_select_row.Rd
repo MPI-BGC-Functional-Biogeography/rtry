@@ -19,7 +19,7 @@ rtry_select_row(
 
 \item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria}
 
-\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rmDuplicates()} function}
+\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rm_dup()} function}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the data after row selection}
 }
@@ -28,4 +28,14 @@ A data table of the selected rows of the input data
 }
 \description{
 This function selects specified rows from the imported data for further processing.
+}
+\examples{
+\dontrun{
+rtry_select_row(TRYdata, (TraitID > 0) | (DataID \%in\% c(59, 60)))
+rtry_select_row(TRYdata, TraitID \%in\% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
+rtry_select_row(TRYdata, ErrorRisk < 4 | DataID \%in\% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
+}
+}
+\seealso{
+\code{\link{rtry_rm_dup}}
 }

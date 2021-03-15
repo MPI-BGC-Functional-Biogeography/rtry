@@ -18,3 +18,14 @@ A data table of the input data after removing the duplicates
 This function identifies and removed the duplicates from the input data.
 Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
 }
+\note{
+This function depends on the duplicate identifier \code{OrigObsDataID} listed in the TRYdata,
+therefore, if the column \code{OrigObsDataID} has been removed, this function will not work. Also,
+if the imported TRYdata contains restricted dataset that belongs to another dataset (i.e. having an
+\code{OrigObsDataID}), these restricted data will also be removed resulting in data loss.
+}
+\examples{
+\dontrun{
+rtry_rm_dup(TRYdata)
+}
+}

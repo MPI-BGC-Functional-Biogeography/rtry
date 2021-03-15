@@ -11,11 +11,11 @@
 #' @return A data table of the input data
 #' @examples
 #' \dontrun{
-#' rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/7956.txt")
-#' rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/8200.txt", showOverview = FALSE)
+#' rtry_import("./data/7956.txt")
+#' rtry_import("./data/8200.txt", showOverview = FALSE)
 #' }
 #' @export
-rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', quote = "", showOverview = TRUE){
+rtry_import <- function(input = "", separator = "\t", encoding = "UTF-8", quote = "", showOverview = TRUE){
   if(missing(input)){
     message("Please specify the input data for grouping.")
   }
@@ -48,8 +48,8 @@ rtry_import <- function(input = "", separator = "\t", encoding = 'UTF-8', quote 
 #' @return A data table of the unique values grouped by the desired attribute(s)
 #' @examples
 #' \dontrun{
-#' rtry_explore(TRYdata, DataID, DataName, ObsDataID, OrigObsDataID)
-#' rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, arrangeBy = DataName)
+#' rtry_explore(TRYdata, AccSpeciesID, DataID, DataName, TraitID, TraitName)
+#' rtry_explore(TRYdata, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName)
 #' }
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
@@ -62,7 +62,7 @@ rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
       message("Please specify the attribute names you would like to group together.")
       message("To group the input data by DataID and DataName, refer to the following example:")
       message("   explore_data(input = TRYdata, DataID, DataName, showOverview = TRUE)")
-      message("\nAvailable column names: ", paste0(ls(input), sep=" "))
+      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
     }
     else{
       input <- dplyr::group_by(input, ...)
@@ -111,6 +111,10 @@ rtry_bind_col <- function(..., showOverview = TRUE){
 #' @param ... A sequence of data frame to be combined by rows
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
 #' @return A data table of the input data
+#' @examples
+#' \dontrun{
+#' rtry_bind_row(TRYdata1, TRYdata2)
+#' }
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){
   TRYdata <- rbind(...)
@@ -133,6 +137,11 @@ rtry_bind_row <- function(..., showOverview = TRUE){
 #' @param ... Column names to be selected
 #' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
 #' @return A data table of the selected columns of the input data
+#' @examples
+#' \dontrun{
+#' rtry_select_col(TRYdata, DataID, DataName)
+#' }
+#' @seealso \code{\link{rtry_rm_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
 rtry_select_col <- function(input = "", ..., showOverview = TRUE){
@@ -168,9 +177,16 @@ rtry_select_col <- function(input = "", ..., showOverview = TRUE){
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for row selection
 #' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria
-#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rmDuplicates()} function
+#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rm_dup()} function
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection
 #' @return A data table of the selected rows of the input data
+#' @examples
+#' \dontrun{
+#' rtry_select_row(TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)))
+#' rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
+#' rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
+#' }
+#' @seealso \code{\link{rtry_rm_dup}}
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   if(missing(input)){
@@ -192,7 +208,7 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
       }
 
       if(rmDuplicates == TRUE){
-        selectedRows <- rtry_rmduplicates(selectedRows, showOverview = FALSE)
+        selectedRows <- rtry_rm_dup(selectedRows, showOverview = FALSE)
       }
 
       if(showOverview == TRUE){
@@ -208,17 +224,53 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
 
 #' Filter TRY data
 #'
-#' This function filters data from the input data based on the specified criteria.
+#' This function filters data from the input data based on the specified criteria
+#'
+#' @param input Input data, imported by \code{rtry_import()} or in data table format
+#' @param ... Criteria for filtering
+#' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
+#' @return A data table of the input data after removing the duplicates
+#' @examples
+#' \dontrun{
+#' rtry_filter(TRYdata, OrigValueStr %in% c("juvenile", "Juvenile", "juvenile, 6 weeks"))
+#' }
+#' @seealso \code{\link{rtry_filter_keyword}}
+#' @export
+rtry_filter <- function(input = "", ..., showOverview = TRUE){
+  exclude <- subset(input, ...)
+  exclude <- unique(exclude$ObservationID)
+
+  input$exclude <- input$ObservationID %in% exclude
+
+  filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
+
+  if(showOverview == TRUE){
+    message("dim:   ", paste0(dim(filteredData), sep = " "))
+  }
+
+  return(filteredData)
+}
+
+
+
+#' Filter TRY data using keywords
+#'
+#' This function filters data from the input data based on the specified keyword(s)
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param attribute Attribute (column name) for filtering
-#' @param ... Values for filtering
+#' @param ... Values (keywords) for filtering
 #' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
 #' @param exactMatch Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after removing the duplicates
+#' @examples
+#' \dontrun{
+#' rtry_filter_keyword(TRYdata, OrigValueStr, c("juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
+#' }
+#' @seealso \code{\link{rtry_filter}}
 #' @export
-rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
+rtry_filter_keyword <- function(input = "", attribute = "", ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
   attribute <- deparse(substitute(attribute))
 
   if(exactMatch == TRUE){
@@ -255,6 +307,11 @@ rtry_filter <- function(input = "", attribute = "", ..., caseSensitive = TRUE, e
 #' @param ... Column names to be removed
 #' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
 #' @return A data table of the remaining columns of the input data
+#' @examples
+#' \dontrun{
+#' rtry_rm_col(TRYdata, Reference, Comment)
+#' }
+#' @seealso \code{\link{rtry_select_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
 rtry_rm_col <- function(input, ..., showOverview = TRUE){
@@ -291,6 +348,14 @@ rtry_rm_col <- function(input, ..., showOverview = TRUE){
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param showOverview Default \code{TRUE} displays the the dimension of data table after removal
 #' @return A data table of the input data after removing the duplicates
+#' @examples
+#' \dontrun{
+#' rtry_rm_dup(TRYdata)
+#' }
+#' @note This function depends on the duplicate identifier \code{OrigObsDataID} listed in the TRYdata,
+#' therefore, if the column \code{OrigObsDataID} has been removed, this function will not work. Also,
+#' if the imported TRYdata contains restricted dataset that belongs to another dataset (i.e. having an
+#' \code{OrigObsDataID}), these restricted data will also be removed resulting in data loss.
 #' @export
 rtry_rm_dup <- function(input = "", showOverview = TRUE){
   if(missing(input)){
@@ -307,7 +372,7 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
     input <- subset(input, input$exclude == FALSE, select = -(exclude))
 
     inputRemovedDuplicates <- input
-    message(numDuplicates, "duplicates removed.")
+    message(numDuplicates, " duplicates removed.")
 
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(inputRemovedDuplicates), sep = " "))
@@ -329,6 +394,10 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
 #' @param values_fn (Optional) Function to be applied to the output values
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return The transformed wide table
+#' @examples
+#' \dontrun{
+#' rtry_trans_wider(TRYdata, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue, ErrorRisk), values_fn = list(StdValue = mean, ErrorRisk = mean))
+#' }
 #' @references \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
 #' @export
 rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, values_fn = NULL, showOverview = TRUE){
@@ -357,6 +426,10 @@ rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, 
 #' @param output Output path
 #' @param quote Default \code{TRUE} inserts double quotes around any character or factor columns
 #' @param encoding File encoding. Default \code{"UTF-8"}
+#' @examples
+#' \dontrun{
+#' rtry_export(TRYdata, "./output/TRYdata_processed.csv")
+#' }
 #' @export
 rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"){
   if(missing(data) || missing(output)){

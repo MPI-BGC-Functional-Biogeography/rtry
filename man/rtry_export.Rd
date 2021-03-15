@@ -19,3 +19,8 @@ rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 This function exports the pre-processed data as a CSV file.
 If the specified output directory does not exist, it will be created.
 }
+\examples{
+\dontrun{
+rtry_export(TRYdata, "./output/TRYdata_processed.csv")
+}
+}

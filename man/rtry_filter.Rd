@@ -19,3 +19,11 @@ A data table of the input data after removing the duplicates
 \description{
 This function filters data from the input data based on the specified criteria
 }
+\examples{
+\dontrun{
+rtry_filter(TRYdata, OrigValueStr \%in\% c("juvenile", "Juvenile", "juvenile, 6 weeks"))
+}
+}
+\seealso{
+\code{\link{rtry_filter_keyword}}
+}
