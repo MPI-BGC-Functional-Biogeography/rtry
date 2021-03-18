@@ -249,7 +249,7 @@ Since the ```showOverview``` in this use case is set to ```FALSE```, the dimensi
 
 The output ```TRYdata2_explore``` would look like the following:
 
-![rtry_explore_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_2.png)
+![rtry_explore_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_2.png){width=100%}
 
 
 
@@ -265,7 +265,7 @@ Since the ```showOverview``` in this use case is set to ```FALSE```, the dimensi
 
 The output ```TRYdata2_explore_accSpecies``` would look like the following:
 
-![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png)
+![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png){width=80%}
 
 
 
@@ -380,7 +380,7 @@ TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
 dim:   435764 8 
 ```
 
-![rtry_select_col_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_col_usecase_2.png)
+![rtry_select_col_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_col_usecase_2.png){width=100%}
 
 Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the extracted data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_selectNeighborColumns```.
 
@@ -445,7 +445,7 @@ TraitID6_Auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary =
 dim:    110725 28 
 ```
 
-![rtry_select_row_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_2.png)
+![rtry_select_row_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_2.png){width=100%}
 
 Since the default value of  ```showOverview``` is set to be ```TRUE```, the dimension of the filtered data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TraitID6_Auxiliary```.
 
@@ -463,7 +463,7 @@ Outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60
 dim:   77183 28 
 ```
 
-![rtry_select_row_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_3.png)
+![rtry_select_row_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_3.png){width=100%}
 
 
 
@@ -503,7 +503,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png)
+![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -513,7 +513,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png)
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=80%}
 
 Once the filtering criteria are identified, perform the filtering using ```rtry_filter()```. It is also possible to simply this step by using ```rtry_filter_keyword()``` in which only the keywords such as ```juvenile``` needs to be specified to perform the filtering.
 
@@ -525,7 +525,7 @@ tmp2 <- rtry_filter(tmp, OrigValueStr %in% c("2.5", "juvenile", "Juvenile", "juv
 dim:    52 28 
 ```
 
-![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png)
+![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -535,7 +535,7 @@ tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png)
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=80%}
 
 
 
@@ -589,7 +589,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png)
+![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -599,7 +599,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png)
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=80%}
 
 Once the filtering criteria are identified, perform the filtering using ```rtry_filter_keyword()```.
 
@@ -625,7 +625,7 @@ dim:    52 28
 
 Note that both (a) and (b) output the same results in this case, with only the data where `OrigValueStr` equals to `mature` or `Mature` remaining.
 
-![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png)
+![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -635,7 +635,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png)
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=80%}
 
 
 
@@ -879,7 +879,7 @@ dim:    167 5
 ls:     Country Country code Latitude Location Longitude 
 ```
 
-![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png)
+![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png){width=80%}
 
 Make sure there is the file encoding is correct and the special characters are displayed as they should. Then, extract and combine the location names and country names into the format ```<location>, <country>```:
 
@@ -939,7 +939,7 @@ input_locations$Latitude <- output_coordinates$lat
 input_locations$Longitude <- output_coordinates$lon
 ```
 
-![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png)
+![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png){width=80%}
 
 Note that for location which is unknown to OpenStreetMap, the resulting latitude and longitude will remain or marked as ```NA```.
 
@@ -995,7 +995,7 @@ dim:    167 5
 ls:     Country Country code Latitude Location Longitude 
 ```
 
-![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png)
+![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png){width=80%}
 
 Then, extract the latitude and longitude data for reverse geocoding:
 
@@ -1041,7 +1041,7 @@ output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   bind_rows() %>% data.frame()
 ```
 
-![rtry_revgeocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_02.png)
+![rtry_revgeocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_02.png){width=100%}
 
 Substitute the ```country_code``` and ```country``` into the corresponding columns of the input list, while the location information is extracted from either town or city 
 
@@ -1051,7 +1051,7 @@ input_coordinates$Country <- output_locations$country
 input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locations$town, output_locations$city)
 ```
 
-![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png)
+![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png){width=80%}
 
 Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, the ```Location``` column will be marked as ```NA```.
 
