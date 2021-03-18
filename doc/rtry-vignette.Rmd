@@ -90,10 +90,13 @@ Note that sometimes R may show a column 28, which should be empty. This column i
 # The TRY R project (rtry)
 
 > Reason for having a R package - unique data format/structure?
+>
+> 1. Some usage data for the TRY database?
+> 2. Before data can be analyzed, it must be pre-processed in a way such that it is easy to handle and understand.
 
 
 
-An R package is developed to facilitate the preprocessing of the TRY data.
+The ```rtry``` package for ```R``` provides a set of functions to facilitate the pre-process the TRY data, that allows users who are not familiar with the ```R``` programming language or the TRY dataset structure to easily prepare the data for further analysis.
 
 
 
@@ -103,11 +106,16 @@ Function naming convention where each function begins with the prefix ```rtry_``
 
 - ```rtry_import```
 - ```rtry_explore```
-- ```rtry_bind```
-- ```rtry_cselect```
-- ```rtry_rselect```
+- ```rtry_bind_col```
+- ```rtry_bind_row```
+- ```rtry_select_col```
+- ```rtry_select_row```
 - ```rtry_filter```
-- ```rtry_rmduplicates```
+- ```rtry_filter_keyword```
+- ```rtry_exclude```
+- ```rtry_rm_col```
+- ```rtry_rm_dup```
+- ```rtry_trans_wider```
 - ```rtry_export```
 - ```rtry_geocoding```
 - ```rtry_revgeocoding```
@@ -116,12 +124,18 @@ Function naming convention where each function begins with the prefix ```rtry_``
 
 ### ```rtry_import```
 
-This function imports the text file downloaded from the TRY database (https://www.try-db.org) as a data.table for further processing.
+This function imports the text file downloaded from the TRY database (https://www.try-db.org) as a data.table for further processing. It can also be used to import other data file, such as .csv file with comma as separator.
 
 
 
 ```R
-rtry_import(input = "", separator = "\t", encoding = "UTF-8", showOverview = TRUE)
+rtry_import(
+  input = "",
+  separator = "\t",
+  encoding = "UTF-8",
+  quote = "",
+  showOverview = TRUE
+)
 ```
 
 
@@ -131,6 +145,7 @@ rtry_import(input = "", separator = "\t", encoding = "UTF-8", showOverview = TRU
 | ```input```        | Path to the text file downloaded from TRY                    |
 | ```separator```    | Data separator. Default ```"\t"``` for the TRY data output   |
 | ```encoding```     | File encoding. Default ```"UTF-8"```                         |
+| ```quote```        | Default ```""``` reads the fields as is. If the fields start with a double quote, use ```"\""``` instead |
 | ```showOverview``` | Default ```TRUE``` displays the input path, dimension and column names of the input data |
 
 
@@ -165,16 +180,34 @@ Since the ```showOverview``` in this use case is set to ```FALSE```, the overvie
 
 
 
+**Use case 3**
+
+To import previously saved file from ```rtry``` for further analysis:
+
+```R
+TraitsAuxNames <- rtry_import("./rtry_output/Traits_auxilliary_Data_incl_Names.csv", separator = ",", quote = "\"")
+```
+
+```R
+input: ./rtry_output/Traits_auxilliary_Data_incl_Names.csv
+dim:   1374 6 
+ls:    Count DataID DataName TraitID TraitName V1 
+```
+
+Since the default value of ```showOverview``` is set to be ```TRUE```, the overview of the data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata1```.
+
+
+
 
 
 ### ```rtry_explore```
 
-This function takes the data table imported by ```rtry_import()``` and converts it into a grouped data table based on the specified column names. Note the the output data is grouped by the first attribute. To provide a first understanding of the data, an additional column is added to show the total count within each group.
+This function takes the data table imported by ```rtry_import()``` and converts it into a grouped data table based on the specified column names. Note the the output data is grouped by the first attribute if not specified using the parameter ```sortBy```. To provide a first understanding of the data, an additional column is added to show the total count within each group.
 
 
 
 ```R
-rtry_explore(input = "", ..., showOverview = TRUE)
+rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 ```
 
 
@@ -183,6 +216,7 @@ rtry_explore(input = "", ..., showOverview = TRUE)
 | ------------------ | ------------------------------------------------------------ |
 | ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
 | ```...```          | Attribute names to group together                            |
+| ```sortBy```       | (Optional) Specify the attribute name used to reorder the rows |
 | ```showOverview``` | Default ```TRUE``` displays the dimension of the result data table |
 
 
@@ -215,20 +249,57 @@ Since the ```showOverview``` in this use case is set to ```FALSE```, the dimensi
 
 The output ```TRYdata2_explore``` would look like the following:
 
-![image-20201214084248082](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201214084248082.png)
+![rtry_explore_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_2.png)
+
+
+
+**Use case 3**
+
+To explore the unique values in ```TRYdata2``` based on the attributes ```AccSpeciesID```, ```DataID```, ```DataName```, ```TraitID``` and ```TraitName```, and sorted by ```DataName```:
+
+```R
+TRYdata2_explore_accSpecies <- rtry_explore(TRYdata2, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName, showOverview = FALSE)
+```
+
+Since the ```showOverview``` in this use case is set to ```FALSE```, the dimension of the output data would not be displayed in the console.
+
+The output ```TRYdata2_explore_accSpecies``` would look like the following:
+
+![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png)
 
 
 
 
 
-### ```rtry_bind```
+### ```rtry_bind_col```
+
+This function takes a sequence of data imported by ```rtry_import()``` and combined them by columns.
+
+
+
+```R
+rtry_bind_col(..., showOverview = TRUE)
+```
+
+
+
+| Argument           | Description                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| ```...```          | A sequence of data frame to be combined by columns           |
+| ```showOverview``` | Default ```TRUE``` displays the dimension and column names of the combined data |
+
+
+
+
+
+### ```rtry_bind_row```
 
 This function takes a sequence of data imported by ```rtry_import()``` and combined them by rows.
 
 
 
 ```R
-rtry_bind(..., showOverview = TRUE)
+rtry_bind_row(..., showOverview = TRUE)
 ```
 
 
@@ -245,7 +316,7 @@ rtry_bind(..., showOverview = TRUE)
 To combine the data ```TRYdata1``` and ```TRYdata2``` together by rows:
 
 ```R
-TRYdata <- rtry_bind(TRYdata1, TRYdata2)
+TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
 ```
 
 ```R
@@ -259,14 +330,14 @@ Since the default value of ```showOverview``` is set to be ```TRUE```, the dimen
 
 
 
-### ```rtry_cselect```
+### ```rtry_select_col```
 
-This function selects specified columns from the imported data for further processing.
+This function selects specified columns from the imported data for further processing. Another alternative to achieve this purpose would be ```rtry_rm_col()``` where the columns to be removed are specified instead.
 
 
 
 ```R
-rtry_cselect(input = "", ..., showOverview = TRUE)
+rtry_select_col(input = "", ..., showOverview = TRUE)
 ```
 
 
@@ -284,27 +355,53 @@ rtry_cselect(input = "", ..., showOverview = TRUE)
 To select (or say extract) the columns ```ObsDataID```, ```ObservationID```, ```AccSpeciesID```, ```AccSpeciesName```, ```ValueKindName```, ```TraitID```, ```TraitName```, ```DataID```, ```DataName```, ```OriglName```, ```OrigValueStr```, ```OrigUnitStr```, ```StdValue```, ```UnitName```, ```OrigObsDataID```, ```ErrorRisk```, ```Comment``` within the ```TRYdata```:
 
 ```R
-TRYdata_select_col <- rtry_cselect(TRYdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
+TRYdata_selectColumns <- rtry_select_col(TRYdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
 ```
 
 ```R
 dim:    435764 17 
 ```
 
-Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the extracted data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_select_col```.
+Note that the resulting data table would be the same as in the example provided in ```rtry_rm_col()``` in this case.
+
+Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the extracted data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_selectColumns```.
+
+
+
+**Use case 2**
+
+To select (or extract) neighboring columns, e.g. ```TraitID``` to ```ValueKindName```:
+
+```R
+TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
+```
+
+```R
+dim:   435764 8 
+```
+
+![rtry_select_col_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_col_usecase_2.png)
+
+Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the extracted data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_selectNeighborColumns```.
 
 
 
 
 
-### ```rtry_rselect```
+### ```rtry_select_row```
 
 This function selects specified rows from the imported data for further processing.
 
 
 
 ```R
-rtry_cselect(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE)
+rtry_select_row(
+  input = "",
+  ...,
+  getAuxiliary = FALSE,
+  rmDuplicates = FALSE,
+  showOverview = TRUE
+)
 ```
 
 
@@ -324,14 +421,14 @@ rtry_cselect(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOv
 To select (or say filter) the rows where ```TraitID``` is larger than 0 (```TraitID > 0```) or where ```DataID``` is 59, 60, 61, 6601, 327, 413, 1961, 210 or 308 (```DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)```) within the data ```TRYdata_select_col```:
 
 ```R
-TRYdata_select_row <- rtry_rselect(TRYdata_select_col, (TraitID > 0) | (DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)))
+TRYdata_selectRow <- rtry_select_row(TRYdata_selectColumns, (TraitID > 0) | (DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)))
 ```
 
 ```R
 dim:    79918 17 
 ```
 
-Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the filtered data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_select_row```.
+Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of the filtered data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_selectRow```.
 
 
 
@@ -340,7 +437,7 @@ Since the default value of ```showOverview``` is set to be ```TRUE```, the dimen
 To select all ```TraitID``` that is ```6``` together with all the corresponding auxiliary data without any duplicates within the data ```TRYdata```: 
 
 ```R
-TraitID6_Auxiliary <- rtry_rselect(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
+TraitID6_Auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
 ```
 
 ```R
@@ -348,9 +445,25 @@ TraitID6_Auxiliary <- rtry_rselect(TRYdata, TraitID %in% c(6), getAuxiliary = TR
 dim:    110725 28 
 ```
 
-![image-20201208120806131](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201208120806131.png)
+![rtry_select_row_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_2.png)
 
 Since the default value of  ```showOverview``` is set to be ```TRUE```, the dimension of the filtered data would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TraitID6_Auxiliary```.
+
+
+
+**Use case 3**
+
+To remove outliers, or say to select all interested auxiliary data and only the trait data with with ErrorRisk < 4:
+
+```
+Outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
+```
+
+```R
+dim:   77183 28 
+```
+
+![rtry_select_row_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_3.png)
 
 
 
@@ -358,12 +471,88 @@ Since the default value of  ```showOverview``` is set to be ```TRUE```, the dime
 
 ### ```rtry_filter```
 
-This function filters data from the input data based on the specified criteria.
+This function filters data from the input data based on the specified criteria and the corresponding ```ObservationID```.
 
 
 
 ```R
-rtry_filter(
+rtry_filter(input = "", ..., showOverview = TRUE)
+```
+
+
+
+| Argument           | Description                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
+| ```...```          | Criteria for filtering based on ```ObservationID```          |
+| ```showOverview``` | Default ```TRUE``` displays the dimension of data table after filtering |
+
+
+
+**Use case 1**
+
+To filter juveniles while excluding the whole Observation.
+
+First, check the ```DataID``` that contains information about plant development status, i.e. ```413```, then check the different states of the ```OrigValueStr``` using the functions ```rtry_select_row()``` and ```rtry_explore()```.
+
+```R
+tmp <- rtry_select_row(TRYdata, DataID %in% 413)
+```
+
+```R
+dim:    907 28
+```
+
+![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png)
+
+```R
+tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
+```
+
+```R
+dim:    7 6
+```
+
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png)
+
+Once the filtering criteria are identified, perform the filtering using ```rtry_filter()```. It is also possible to simply this step by using ```rtry_filter_keyword()``` in which only the keywords such as ```juvenile``` needs to be specified to perform the filtering.
+
+```R
+tmp2 <- rtry_filter(tmp, OrigValueStr %in% c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
+```
+
+```R
+dim:    52 28 
+```
+
+![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png)
+
+```R
+tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
+```
+
+```R
+dim:    2 6
+```
+
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png)
+
+
+
+Since the default value of ```showOverview``` are set to be ```TRUE```, the dimension of data table after each step would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the specified variables.
+
+
+
+
+
+### ```rtry_filter_keyword```
+
+This function filters data from the input data based on the specified keywords and the corresponding ```ObservationID```.
+
+
+
+```R
+rtry_filter_keyword(
   input = "",
   attribute = "",
   ...,
@@ -379,7 +568,7 @@ rtry_filter(
 | ------------------- | ------------------------------------------------------------ |
 | ```input```         | Input data, imported by ```rtry_import()``` or in data table format |
 | attribute           | Attribute (column name) for filtering                        |
-| ```...```           | Values for filtering                                         |
+| ```...```           | Values (keywords) for filtering                              |
 | ```caseSensitive``` | Default ```TRUE``` performs case-sensitive filtering         |
 | ```exactMatch```    | Default ```TRUE``` performs exact match filtering, overrides all conflicting arguments |
 | ```showOverview```  | Default ```TRUE``` displays the dimension of data table after filtering |
@@ -390,19 +579,17 @@ rtry_filter(
 
 To filter juveniles while excluding the whole Observation.
 
-First, check the ```DataID``` that contains information about plant development status, i.e. ```413```, then check the different states of the ```OrigValueStr``` using the functions ```rtry_rselect()``` and ```rtry_explore()```.
+First, check the ```DataID``` that contains information about plant development status, i.e. ```413```, then check the different states of the ```OrigValueStr``` using the functions ```rtry_select_row()``` and ```rtry_explore()```.
 
 ```R
-tmp <- rtry_rselect(TRYdata, DataID %in% 413)
+tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 ```
 
 ```R
 dim:    907 28
 ```
 
-![image-20201208115110964](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201208115110964.png)
-
-
+![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png)
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -412,16 +599,14 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![image-20210212003032439](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20210212003032439.png)
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png)
 
+Once the filtering criteria are identified, perform the filtering using ```rtry_filter_keyword()```.
 
-
-Once the filtering criteria are identified, perform the filtering using ```rtry_filter()```.
-
-(a) Manually enters the values for exact match (by default also case sensitive) filtering:
+(a) Manually enters the values for exact match (by default also case sensitive) filtering, which works as if ```rtry_filter()``` is used:
 
 ```R
-tmp2 <- rtry_filter(tmp, OrigValueStr, c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
+tmp2 <- rtry_filter_keyword(tmp, OrigValueStr, c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
 ```
 
 ```R
@@ -431,7 +616,7 @@ dim:    52 28
 (b) Filtering with case-insensitive keywords:
 
 ```R
-tmp3 <- rtry_filter(tmp, OrigValueStr, c("2.5", "juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
+tmp3 <- rtry_filter_keyword(tmp, OrigValueStr, c("2.5", "juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
 ```
 
 ```R
@@ -440,9 +625,7 @@ dim:    52 28
 
 Note that both (a) and (b) output the same results in this case, with only the data where `OrigValueStr` equals to `mature` or `Mature` remaining.
 
-![image-20201208115026642](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20201208115026642.png)
-
-
+![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png)
 
 ```R
 tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -452,7 +635,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 dim:    2 6
 ```
 
-![image-20210212002735840](C:\Users\hlam\AppData\Roaming\Typora\typora-user-images\image-20210212002735840.png)
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png)
 
 
 
@@ -462,14 +645,94 @@ Since the default value of ```showOverview``` are set to be ```TRUE```, the dime
 
 
 
-### ```rtry_rmDuplicates```
+### ```rtry_exclude```
 
-This function identifies and removed the duplicates from the input data. Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
+This function excludes data from the input data based on the specified criteria and the corresponding ```ObsDataID```.
 
 
 
 ```R
-rtry_rmduplicates(input = "", showOverview = TRUE)
+rtry_exclude(input = "", ..., showOverview = TRUE)
+```
+
+
+
+| Argument           | Description                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
+| ```...```          | Criteria for excluding the data                              |
+| ```showOverview``` | Default ```TRUE``` displays the dimension of data table after excluding |
+
+
+
+**Use case 1**
+
+To exclude the data with incorrect units:
+
+```R
+tmp <- rtry_exclude(TRYdata, (TraitID == 3116  & UnitName != "mm2 mg-1") |
+                               (TraitID == 144  & UnitName != "mm") |
+                               (TraitID == 3107  & UnitName != "m") |
+                               (TraitID == 21  & UnitName != "m") |
+                               (TraitID == 4  & UnitName != "g/cm3"), showOverview = FALSE)
+```
+
+Since the ```showOverview``` in this use case is set to ```FALSE```, the overview of the data would not be displayed in the console.
+
+
+
+
+
+### ```rtry_rm_col```
+
+This function removes the specified columns from the input data for further processing. This function can be viewed as an alternatives than ```rtry_select_col()```.
+
+
+
+```R
+rtry_rm_col(input = "", ..., showOverview = TRUE)
+```
+
+
+
+| Argument           | Description                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
+| ```...```          | Column names to be removed                                   |
+| ```showOverview``` | Default ```TRUE``` displays the dimension of data table after removal |
+
+
+
+**Use case 1**
+
+To remove the columns ```LastName```, ```FirstName```, ```DatasetID```, ```Dataset```, ```SpeciesName```, ```OrigUncertaintyStr```, ```UncertaintyName```, ```Replicates```, ```RelUncertaintyPercent```, ```Reference```, ```V28``` from ```TRYdata```:
+
+```R
+TRYdata_rmColumns <- rtry_rm_col(TRYdata, LastName, FirstName, DatasetID, Dataset, SpeciesName, OrigUncertaintyStr, UncertaintyName, Replicates, RelUncertaintyPercent, Reference, V28)
+```
+
+```R
+dim:    435764 17 
+```
+
+Note that the resulting data table would be the same as in the example provided in ```rtry_select_col()``` in this case.
+
+Since the default value of ```showOverview``` is set to be ```TRUE```, the dimension of data table after removal would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the variable ```TRYdata_rmColumns```.
+
+
+
+
+
+### ```rtry_rm_dup```
+
+This function identifies and removes the duplicates from the input data. Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
+
+Note that this function depends on the duplicate identifier ```OrigObsDataID``` listed in the TRYdata, therefore, if the column ```OrigObsDataID``` has been removed, this function will not work. Also,  if the imported TRYdata contains restricted dataset that belongs to another dataset (i.e. having an ```OrigObsDataID```), these restricted data will also be removed resulting in data loss.
+
+
+
+```R
+rtry_rm_dup(input = "", showOverview = TRUE)
 ```
 
 
@@ -483,10 +746,10 @@ rtry_rmduplicates(input = "", showOverview = TRUE)
 
 **Use case 1**
 
-To remove the duplicates within ```TRYdata_select_row```:
+To remove the duplicates within ```TRYdata_selectRow```:
 
 ```R
-tmp_rmDuplicates <- rtry_rmduplicates(TRYdata_select_row)
+tmp_rmDuplicates <- rtry_rm_dup(TRYdata_selectRow)
 ```
 
 ```R
@@ -500,6 +763,34 @@ Since the default value of ```showOverview``` is set to be ```TRUE```, the dimen
 
 
 
+### ```rtry_trans_wider```
+
+This function transforms a long table into wide table, i.e. increasing the number of columns and decreasing the number of rows. For details, please refer to ```tidyr::pivot_wider()```.
+
+```R
+rtry_trans_wider(
+  input = "",
+  names_from = NULL,
+  values_from = NULL,
+  values_fn = NULL,
+  showOverview = TRUE
+)
+```
+
+
+
+| Argument           | Description                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
+| ```names_from```   | The column(s) from which the output column names to be obtained |
+| ```values_from```  | The column(s) from which the output values to be obtained    |
+| ```values_fn```    | (Optional) Function to be applied to the output values       |
+| ```showOverview``` | Default ```TRUE``` displays the dimension of the result data table |
+
+
+
+
+
 ### ```rtry_export```
 
 This function exports the pre-processed data as a CSV file. If the specified output directory does not exist, it will be created.
@@ -507,16 +798,17 @@ This function exports the pre-processed data as a CSV file. If the specified out
 
 
 ```R
-rtry_export(data = "", output = "", encoding = "UTF-8")
+rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 ```
 
 
 
-| Argument       | Description                          |
-| -------------- | ------------------------------------ |
-| ```data```     | The data to be saved                 |
-| ```output```   | Output path                          |
-| ```encoding``` | File encoding. Default ```"UTF-8"``` |
+| Argument       | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| ```data```     | The data to be saved                                         |
+| ```output```   | Output path                                                  |
+| ```quote```    | Default ```TRUE``` inserts double quotes around any character or factor columns |
+| ```encoding``` | File encoding. Default ```"UTF-8"```                         |
 
 
 
@@ -541,7 +833,7 @@ Since the specified output directory does not exist in this case, it was created
 
 ### ```rtry_geocoding```
 
-This function uses Nominatim, a search engine for OpenStreetMap data, to perform Geocoding, i.e. converting an address into coordinates (latitudes, longitudes). For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
+This function uses Nominatim, a search engine for OpenStreetMap data, to perform geocoding, i.e. converting an address into coordinates (latitudes, longitudes). For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
 
 
 
@@ -560,10 +852,10 @@ rtry_geocoding(address = NULL, email = NULL)
 
 **Use case 1**
 
-To convert the address of MPI-BGC (```"Hans-Knöll-Straße 10, 07745 Jena, Germany"```) into coordinates in latitudes and longitudes:
+To convert the address of MPI-BGC (```"Hans-Knoell-Strasse 10, 07745 Jena, Germany"```) into coordinates in latitudes and longitudes:
 
 ```R
-rtry_geocoding("Hans-Knöll-Straße 10, 07745 Jena, Germany", email = "hlam@bgc-jena.mpg.de")
+rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = "hlam@bgc-jena.mpg.de")
 ```
 
 ```R
@@ -573,11 +865,91 @@ rtry_geocoding("Hans-Knöll-Straße 10, 07745 Jena, Germany", email = "hlam@bgc-
 
 
 
+**Use case 2**
+
+To convert a list of addresses into coordinates in latitudes and longitudes. First, read the list of addresses from a .csv file or a data table. In this case, the input locations are imported from a comma delimited CSV file with the file coding to be ```UTF-8``` (default):
+
+```R
+input_locations <- rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Locations.csv", separator = ",")
+```
+
+```R
+input:  C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Locations.csv 
+dim:    167 5 
+ls:     Country Country code Latitude Location Longitude 
+```
+
+![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png)
+
+Make sure there is the file encoding is correct and the special characters are displayed as they should. Then, extract and combine the location names and country names into the format ```<location>, <country>```:
+
+```R
+input_addresses <- paste(input_locations$Location, input_locations$Country, sep = ", ")
+head(input_addresses)
+```
+
+```R
+[1] "Hajdúdorog, Hungary" "Diósd, Hungary"      "Fót, Hungary"        "Bőcs, Hungary"       "Regéc, Hungary" 
+[6] "Eger, Hungary"  
+```
+
+Apply the ```rtry_geocoding()``` function using ```lapply()``` to the list of addresses:
+
+```R
+# Prepare counter for printed progress messages
+counter <- 1
+output_coordinates <- NULL # somethings received error messages 'no object found'
+
+# Use lapply to apply function to the list of addresses
+output_coordinates <- lapply(input_addresses, function(address) {
+  # Calling the Nominatim OpenStreetMap API
+  geocode_output <- rtry_geocoding(address, email = "hlam@bgc-jena.mpg.de")
+  
+  # No heavy uses (an absolute maximum of 1 request per second)
+  # Here set to 2 seconds between each search
+  Sys.sleep(2)
+  
+  # Print message in console to see the progress
+  message("Geocoding ", counter, "/", nrow(input_locations), " completed.")
+  counter <<- counter + 1
+  
+  # Return data.frame with the input address, output of the rtry_geocoding function
+  return(data.frame(address = address, geocode_output))
+}) %>%
+  # Stack the list output into data.frame
+  bind_rows() %>% data.frame()
+
+head(output_coordinates)
+```
+
+```R
+              address      lat      lon
+1 Hajdúdorog, Hungary 47.81572 21.50068
+2      Diósd, Hungary 47.40626 18.94486
+3        Fót, Hungary 47.61259 19.19801
+4       Bocs, Hungary 48.03855 20.97164
+5      Regéc, Hungary 48.39307 21.34520
+6       Eger, Hungary 47.89899 20.37437
+```
+
+Substitute the coordinates into the input list:
+
+```R
+input_locations$Latitude <- output_coordinates$lat
+input_locations$Longitude <- output_coordinates$lon
+```
+
+![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png)
+
+Note that for location which is unknown to OpenStreetMap, the resulting latitude and longitude will remain or marked as ```NA```.
+
+
+
 
 
 ### ```rtry_revgeocoding```
 
-This function uses Nominatim, a search engine for OpenStreetMap data, to perform reverse Geocoding, i.e. converting coordinates (latitudes, longitudes) into an address. For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
+This function uses Nominatim, a search engine for OpenStreetMap data, to perform reverse geocoding, i.e. converting coordinates (latitudes, longitudes) into an address. For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
 
 
 
@@ -606,6 +978,82 @@ rtry_revgeocoding(data.frame(50.91012, 11.56674), email = "hlam@bgc-jena.mpg.de"
               full_address town city country country_code
 1 Jena, Thuringia, Germany   NA Jena Germany           de
 ```
+
+
+
+**Use case 2**
+
+Similar to ```rtry_geocoding()```, it is possible to perform reverse geocoding on a list of coordinates. To do so, first read the list of coordinates from a .csv file or a data table. In this case, the input coordinates are imported from a comma delimited CSV file with the file coding to be ```UTF-8``` (default):
+
+```R
+input_coordinates <- rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Coordinates.csv", separator = ",")
+```
+
+```R
+input:  C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Coordinates.csv 
+dim:    167 5 
+ls:     Country Country code Latitude Location Longitude 
+```
+
+![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png)
+
+Then, extract the latitude and longitude data for reverse geocoding:
+
+```R
+input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
+head(input_lat_lon)
+```
+
+```R
+       lat      lon
+1 47.81572 21.50068
+2 47.40626 18.94486
+3 47.61259 19.19801
+4 48.03855 20.97164
+5 48.39307 21.34520
+6 47.89899 20.37437
+```
+
+Apply the ```rtry_revgeocoding()``` function using ```lapply()``` to the list of coordinates:
+
+```R
+# Prepare counter for printed progress messages
+counter <- 1
+output_locations <- NULL # somethings received error messages 'no object found'
+
+# Use apply to apply function to the list of coordinates
+output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
+  # Calling the Nominatim OpenStreetMap API
+  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "hlam@bgc-jena.mpg.de")
+  
+  # No heavy uses (an absolute maximum of 1 request per second)
+  # Here set to 2 seconds between each search
+  Sys.sleep(2)
+  
+  # Print message in console to see the progress
+  message("Reverse Geocoding ", counter, "/", length(input_lat_lon$lat), " completed.")
+  counter <<- counter + 1
+  
+  # Return data.frame with the input coordinates, output of the rtry_revgeocoding function
+  return(data.frame(lat = lat_lon[1], lon = lat_lon[2], rev_geocode_output))
+}) %>%
+  # Stack the list output into data.frame
+  bind_rows() %>% data.frame()
+```
+
+![rtry_revgeocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_02.png)
+
+Substitute the ```country_code``` and ```country``` into the corresponding columns of the input list, while the location information is extracted from either town or city 
+
+```R
+input_coordinates$'Country code' <- output_locations$country_code
+input_coordinates$Country <- output_locations$country
+input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locations$town, output_locations$city)
+```
+
+![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png)
+
+Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, the ```Location``` column will be marked as ```NA```.
 
 
 
