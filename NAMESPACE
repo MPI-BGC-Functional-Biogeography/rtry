@@ -2,6 +2,7 @@
 
 export(rtry_bind_col)
 export(rtry_bind_row)
+export(rtry_exclude)
 export(rtry_explore)
 export(rtry_export)
 export(rtry_filter)
