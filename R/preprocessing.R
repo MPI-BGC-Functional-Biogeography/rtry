@@ -85,7 +85,7 @@ rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
 
 #' Bind TRY data by columns
 #'
-#' This function takes a sequence of data imported by \code{rtry_import()} and combined them by columns
+#' This function takes a sequence of data imported by \code{rtry_import()} and combined them by columns.
 #'
 #' @param ... A sequence of data frame to be combined by columns
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
@@ -224,12 +224,12 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
 
 #' Filter TRY data
 #'
-#' This function filters data from the input data based on the specified criteria
+#' This function filters data from the input data based on the specified criteria and the corresponding \code{ObservationID}.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for filtering
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
-#' @return A data table of the input data after removing the duplicates
+#' @return A data table of the input data after filtering
 #' @examples
 #' \dontrun{
 #' rtry_filter(TRYdata, OrigValueStr %in% c("juvenile", "Juvenile", "juvenile, 6 weeks"))
@@ -255,7 +255,7 @@ rtry_filter <- function(input = "", ..., showOverview = TRUE){
 
 #' Filter TRY data using keywords
 #'
-#' This function filters data from the input data based on the specified keyword(s)
+#' This function filters data from the input data based on the specified keyword(s) and the corresponding \code{ObservationID}.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param attribute Attribute (column name) for filtering
@@ -263,7 +263,7 @@ rtry_filter <- function(input = "", ..., showOverview = TRUE){
 #' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
 #' @param exactMatch Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
-#' @return A data table of the input data after removing the duplicates
+#' @return A data table of the input data after filtering
 #' @examples
 #' \dontrun{
 #' rtry_filter_keyword(TRYdata, OrigValueStr, c("juvenile"), caseSensitive = FALSE, exactMatch = FALSE)

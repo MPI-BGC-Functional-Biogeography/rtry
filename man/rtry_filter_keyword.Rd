@@ -27,10 +27,10 @@ rtry_filter_keyword(
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }
 \value{
-A data table of the input data after removing the duplicates
+A data table of the input data after filtering
 }
 \description{
-This function filters data from the input data based on the specified keyword(s)
+This function filters data from the input data based on the specified keyword(s) and the corresponding \code{ObservationID}.
 }
 \examples{
 \dontrun{

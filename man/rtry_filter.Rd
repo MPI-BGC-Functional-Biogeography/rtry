@@ -14,10 +14,10 @@ rtry_filter(input = "", ..., showOverview = TRUE)
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }
 \value{
-A data table of the input data after removing the duplicates
+A data table of the input data after filtering
 }
 \description{
-This function filters data from the input data based on the specified criteria
+This function filters data from the input data based on the specified criteria and the corresponding \code{ObservationID}.
 }
 \examples{
 \dontrun{

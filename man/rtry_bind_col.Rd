@@ -15,5 +15,5 @@ rtry_bind_col(..., showOverview = TRUE)
 A data table of the input data
 }
 \description{
-This function takes a sequence of data imported by \code{rtry_import()} and combined them by columns
+This function takes a sequence of data imported by \code{rtry_import()} and combined them by columns.
 }
