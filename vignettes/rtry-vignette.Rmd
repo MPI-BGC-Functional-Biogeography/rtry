@@ -25,6 +25,8 @@ library(rtry)
 
 ***
 
+
+
 # Introduction of TRY
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
@@ -112,7 +114,6 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - ```rtry_select_row```
 - ```rtry_filter```
 - ```rtry_filter_keyword```
-- ```rtry_exclude```
 - ```rtry_rm_col```
 - ```rtry_rm_dup```
 - ```rtry_trans_wider```
@@ -476,7 +477,7 @@ This function filters data from the input data based on the specified criteria a
 
 
 ```R
-rtry_filter(input = "", ..., showOverview = TRUE)
+rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 ```
 
 
@@ -485,6 +486,7 @@ rtry_filter(input = "", ..., showOverview = TRUE)
 | ------------------ | ------------------------------------------------------------ |
 | ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
 | ```...```          | Criteria for filtering based on ```ObservationID```          |
+| ```baseOn```       | Default ```ObservationID```, the parameter used for filtering the data |
 | ```showOverview``` | Default ```TRUE``` displays the dimension of data table after filtering |
 
 
@@ -543,6 +545,22 @@ Since the default value of ```showOverview``` are set to be ```TRUE```, the dime
 
 
 
+**Use case 2**
+
+To exclude the data with incorrect units, the parameter ```ObsDataID``` needs to be specified:
+
+```R
+tmp <- rtry_filter(TRYdata, (TraitID == 3116  & UnitName != "mm2 mg-1") |
+                               (TraitID == 144  & UnitName != "mm") |
+                               (TraitID == 3107  & UnitName != "m") |
+                               (TraitID == 21  & UnitName != "m") |
+                               (TraitID == 4  & UnitName != "g/cm3"), baseOn = ObsDataID, showOverview = FALSE)
+```
+
+Since the ```showOverview``` in this use case is set to ```FALSE```, the overview of the data would not be displayed in the console.
+
+
+
 
 
 ### ```rtry_filter_keyword```
@@ -554,7 +572,7 @@ This function filters data from the input data based on the specified keywords a
 ```R
 rtry_filter_keyword(
   input = "",
-  attribute = "",
+  attribute = attribute,
   ...,
   caseSensitive = TRUE,
   exactMatch = TRUE,
@@ -640,44 +658,6 @@ dim:    2 6
 
 
 Since the default value of ```showOverview``` are set to be ```TRUE```, the dimension of data table after each step would be displayed in the console despite the argument ```showOverview = TRUE``` is not specified, and that the return data was assigned to the specified variables.
-
-
-
-
-
-### ```rtry_exclude```
-
-This function excludes data from the input data based on the specified criteria and the corresponding ```ObsDataID```.
-
-
-
-```R
-rtry_exclude(input = "", ..., showOverview = TRUE)
-```
-
-
-
-| Argument           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| ```input```        | Input data, imported by ```rtry_import()``` or in data table format |
-| ```...```          | Criteria for excluding the data                              |
-| ```showOverview``` | Default ```TRUE``` displays the dimension of data table after excluding |
-
-
-
-**Use case 1**
-
-To exclude the data with incorrect units:
-
-```R
-tmp <- rtry_exclude(TRYdata, (TraitID == 3116  & UnitName != "mm2 mg-1") |
-                               (TraitID == 144  & UnitName != "mm") |
-                               (TraitID == 3107  & UnitName != "m") |
-                               (TraitID == 21  & UnitName != "m") |
-                               (TraitID == 4  & UnitName != "g/cm3"), showOverview = FALSE)
-```
-
-Since the ```showOverview``` in this use case is set to ```FALSE```, the overview of the data would not be displayed in the console.
 
 
 
