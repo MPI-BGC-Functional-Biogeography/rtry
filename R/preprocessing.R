@@ -273,18 +273,18 @@ rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = 
 #' }
 #' @seealso \code{\link{rtry_filter}}
 #' @export
-rtry_filter_keyword <- function(input = "", attribute = "", ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
+rtry_filter_keyword <- function(input = "", attribute = attribute, ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
   attribute <- deparse(substitute(attribute))
 
   if(exactMatch == TRUE){
     if(caseSensitive == FALSE){
       message("argument 'caseSensitive = FALSE' will be ignored.")
     }
-    exclude <- subset(input, input[,attribute] %in% ...)
+    exclude <- subset(input, input[[attribute]] %in% ...)
   }
 
   else{
-    exclude <- subset(input, grepl(paste(..., collapse = "|"), input[,attribute], ignore.case = !caseSensitive))
+    exclude <- subset(input, grepl(paste(..., collapse = "|"), input[[attribute]], ignore.case = !caseSensitive))
   }
 
   exclude <- unique(exclude$ObservationID)
