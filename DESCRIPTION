@@ -1,6 +1,6 @@
 Package: rtry
 Title: The TRY R Project: An R Package to Preprocess Plant Trait Data in the TRY Database
-Version: 0.0.0.9000
+Version: 0.0.0.9100
 Authors@R: c(
     person("Jens", "Kattge", email = "jkattge@bgc-jena.mpg.de", role = c("aut")),
     person("Gerhard", "Boenisch", email = "boenisch@bgc-jena.mpg.de", role = c("aut")),
