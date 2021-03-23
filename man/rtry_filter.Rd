@@ -4,12 +4,14 @@
 \alias{rtry_filter}
 \title{Filter TRY data}
 \usage{
-rtry_filter(input = "", ..., showOverview = TRUE)
+rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 }
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
 \item{...}{Criteria for filtering}
+
+\item{baseOn}{Default \code{ObservationID}, the parameter used for filtering}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
 }

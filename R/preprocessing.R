@@ -228,6 +228,7 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for filtering
+#' @param baseOn Default \code{ObservationID}, the parameter used for filtering
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after filtering
 #' @examples
@@ -236,11 +237,13 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
 #' }
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @export
-rtry_filter <- function(input = "", ..., showOverview = TRUE){
-  exclude <- subset(input, ...)
-  exclude <- unique(exclude$ObservationID)
+rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = TRUE){
+  baseOn <- deparse(substitute(baseOn))
 
-  input$exclude <- input$ObservationID %in% exclude
+  exclude <- subset(input, ...)
+  exclude <- unique(exclude[[baseOn]])
+
+  input$exclude <- input[[baseOn]] %in% exclude
 
   filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
 
@@ -295,36 +298,6 @@ rtry_filter_keyword <- function(input = "", attribute = "", ..., caseSensitive =
   }
 
   return(filteredData)
-}
-
-
-
-#' Exclude TRY data
-#'
-#' This function excludes data from the input data based on the specified criteria and the corresponding \code{ObsDataID}.
-#'
-#' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Criteria for excluding the data
-#' @param showOverview Default \code{TRUE} displays the dimension of data table after excluding
-#' @return A data table of the input data after excluding the data
-#' @examples
-#' \dontrun{
-#' rtry_exclude(TRYdata, TraitID == 3116 & UnitName != "mm2 mg-1")
-#' }
-#' @export
-rtry_exclude <- function(input = "", ..., showOverview = TRUE){
-  exclude <- subset(input, ...)
-  exclude <- unique(exclude$ObsDataID)
-
-  input$exclude <- input$ObsDataID %in% exclude
-
-  excludedData <- subset(input, input$exclude == FALSE, select = -(exclude))
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(excludedData), sep = " "))
-  }
-
-  return(excludedData)
 }
 
 
