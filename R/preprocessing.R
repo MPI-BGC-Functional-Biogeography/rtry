@@ -273,31 +273,36 @@ rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = 
 #' }
 #' @seealso \code{\link{rtry_filter}}
 #' @export
-rtry_filter_keyword <- function(input = "", attribute = attribute, ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
-  attribute <- deparse(substitute(attribute))
-
-  if(exactMatch == TRUE){
-    if(caseSensitive == FALSE){
-      message("argument 'caseSensitive = FALSE' will be ignored.")
-    }
-    exclude <- subset(input, input[[attribute]] %in% ...)
+rtry_filter_keyword <- function(input = "", attribute = NULL, ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
+  if(missing(attribute) | missing(...)){
+    message("Please specify the attribute or criteria for filtering.")
   }
-
   else{
-    exclude <- subset(input, grepl(paste(..., collapse = "|"), input[[attribute]], ignore.case = !caseSensitive))
+    attribute <- deparse(substitute(attribute))
+
+    if(exactMatch == TRUE){
+      if(caseSensitive == FALSE){
+        message("argument 'caseSensitive = FALSE' will be ignored.")
+      }
+      exclude <- subset(input, input[[attribute]] %in% ...)
+    }
+
+    else{
+      exclude <- subset(input, grepl(paste(..., collapse = "|"), input[[attribute]], ignore.case = !caseSensitive))
+    }
+
+    exclude <- unique(exclude$ObservationID)
+
+    input$exclude <- input$ObservationID %in% exclude
+
+    filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
+
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(filteredData), sep = " "))
+    }
+
+    return(filteredData)
   }
-
-  exclude <- unique(exclude$ObservationID)
-
-  input$exclude <- input$ObservationID %in% exclude
-
-  filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(filteredData), sep = " "))
-  }
-
-  return(filteredData)
 }
 
 
