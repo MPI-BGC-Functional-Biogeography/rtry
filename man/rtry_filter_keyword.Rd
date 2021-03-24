@@ -6,7 +6,7 @@
 \usage{
 rtry_filter_keyword(
   input = "",
-  attribute = attribute,
+  attribute = NULL,
   ...,
   caseSensitive = TRUE,
   exactMatch = TRUE,
