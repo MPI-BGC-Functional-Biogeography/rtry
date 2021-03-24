@@ -107,7 +107,7 @@ The `rtry` package for `R` provides a set of functions to facilitate the pre-pro
 
 ### Prepare the system
 
-**Install R**
+#### Install R
 
 To get started, download and install the latest version of R (at least 4.0.2, which is the version used to build the `rtry` package).
 
@@ -115,7 +115,7 @@ The latest version of R can be downloaded from CRAN, a network of ftp and web se
 
 
 
-**Install RStudio**
+#### Install RStudio
 
 Make sure your machine has a recent version of the RStudio, an integrated development environment (IDE) designed for productive R programming.
 
@@ -127,7 +127,7 @@ The released version can be found at https://rstudio.com/products/rstudio/downlo
 
 ### Download and install the `rtry` package
 
-**Download the `rtry` package**
+#### Download the `rtry` package
 
 The source package and documentation of the `rtry` package can be downloaded from the Nextcloud operated by the Max Planck Institute for Biogeochemistry at Jena, Germany. 
 
@@ -138,7 +138,7 @@ Once the download is completed, extract the folder to a desired location.
 
 
 
-**Overview of the file structure**
+#### Overview of the file structure
 
 ```markdown
 .
@@ -154,7 +154,7 @@ Note: If user wishes to try out the package with the provided example scripts, i
 
 
 
-**Install `rtry` package**
+#### Install `rtry` package
 
 The installation of the `rtry` package can be performed through the RStudio UI (user interface) or console.
 
@@ -168,7 +168,7 @@ Then, in the `Install Packages` dialog:
 - Use `Browse...` to navigate to the downloaded `rtry` source package (`.tar.gz`)
 - Click `Install`
 
-![install_rtry](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\install_rtry.png)
+![install_rtry](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\install_rtry.png){width=40%}
 
 
 
@@ -188,7 +188,7 @@ Once installation is completed, the `rtry` package can be loaded with the comman
 
 ### Useful commands
 
-**Load package**
+#### Load package
 
 To use the installed package, it is required to load the installed package when a new session of RStudio is opened. To load the `rtry` package, use the following command:
 
@@ -198,7 +198,17 @@ library(rtry)
 
 
 
-**Set work directory**
+#### Check work directory
+
+To check the current (or default) R working directory, use the command:
+
+```R
+getwd()
+```
+
+
+
+#### Set work directory
 
 To try out the provided example script, set the work directory to the location where the downloaded `test` directory is located:
 
@@ -212,7 +222,7 @@ Or in RStudio, use the top menu to change the working directory: `Session` > `Se
 
 
 
-**Obtain documentations of the entire `rtry` package**
+#### Obtain documentations of the entire `rtry` package
 
 To get an overview of the `rtry` package and the corresponding documentations:
 
@@ -220,11 +230,11 @@ To get an overview of the `rtry` package and the corresponding documentations:
 ??rtry
 ```
 
-![help_rtry_package](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_package.png){width=100%}
+![help_rtry_package](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_package.png){width=90%}
 
 
 
-**Obtain complete documentation for a specific function**
+#### Obtain complete documentation for a specific function
 
 For the documentation of the function `rtry_import()`:
 
@@ -232,11 +242,11 @@ For the documentation of the function `rtry_import()`:
 ?rtry_import
 ```
 
-![help_rtry_import](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_import.png){width=100%}
+![help_rtry_import](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_import.png){width=90%}
 
 
 
-**View vignettes of the package**
+#### View vignettes of the package
 
 To open a list of vignettes for the `rtry` package:
 
@@ -254,7 +264,7 @@ vignette("rtry-vignette")
 
 
 
-**Install additional packages**
+#### Install additional packages
 
 In case additional packages are needed, the command `install.packages()` can be used.
 
@@ -262,6 +272,20 @@ For example, to install `ggplot2` for plotting, use the command:
 
 ```R
 install.packages("ggplot2")
+```
+
+
+
+When preparing a R script or a R markdown file which might be used or shared with others, such dependencies can also be dealt with the following command:
+
+```R
+#----------------------------------------------------------
+# Check if the required packages are installed
+# If not, install the required packages before loading
+#----------------------------------------------------------
+# ggplot2
+if (!require(ggplot2)) install.packages('ggplot2')
+library(ggplot2)
 ```
 
 
@@ -432,7 +456,7 @@ Since the `showOverview` in this use case is set to `FALSE`, the dimension of th
 
 The output `TRYdata2_explore_accSpecies` would look like the following:
 
-![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png){width=80%}
+![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png){width=70%}
 
 
 
@@ -681,7 +705,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=80%}
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter()`. It is also possible to simply this step by using `rtry_filter_keyword()` in which only the keywords such as `juvenile` needs to be specified to perform the filtering.
 
@@ -703,7 +727,7 @@ tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=80%}
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=70%}
 
 
 
@@ -783,7 +807,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=80%}
+![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter_keyword()`.
 
@@ -819,7 +843,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=80%}
+![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=70%}
 
 
 
@@ -1025,7 +1049,7 @@ dim:    167 5
 ls:     Country Country code Latitude Location Longitude 
 ```
 
-![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png){width=80%}
+![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png){width=60%}
 
 Make sure there is the file encoding is correct and the special characters are displayed as they should. Then, extract and combine the location names and country names into the format `<location>, <country>`:
 
@@ -1085,7 +1109,7 @@ input_locations$Latitude <- output_coordinates$lat
 input_locations$Longitude <- output_coordinates$lon
 ```
 
-![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png){width=80%}
+![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png){width=60%}
 
 Note that for location which is unknown to OpenStreetMap, the resulting latitude and longitude will remain or marked as `NA`.
 
@@ -1141,7 +1165,7 @@ dim:    167 5
 ls:     Country Country code Latitude Location Longitude 
 ```
 
-![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png){width=80%}
+![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png){width=60%}
 
 Then, extract the latitude and longitude data for reverse geocoding:
 
@@ -1197,7 +1221,7 @@ input_coordinates$Country <- output_locations$country
 input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locations$town, output_locations$city)
 ```
 
-![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png){width=80%}
+![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png){width=60%}
 
 Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, the `Location` column will be marked as `NA`.
 
