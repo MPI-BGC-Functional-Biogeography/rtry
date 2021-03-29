@@ -20,7 +20,7 @@ rtry_geocoding <- function(address = NULL, email = NULL){
     if(missing(email)){
       message("Please make sure you have provided a valid email address.")
     }
-    else{
+    else if(grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(email), ignore.case=TRUE)){
       if(is.null(address))
         return(data.frame("NA"))
 
@@ -36,6 +36,9 @@ rtry_geocoding <- function(address = NULL, email = NULL){
       }
 
       return(data.frame(lat = as.numeric(geocode$lat), lon = as.numeric(geocode$lon)))
+    }
+    else{
+      message("Please provide a valid email address.")
     }
   }
 }
@@ -63,7 +66,7 @@ rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
     if(missing(email)){
       message("Please make sure you have provided a valid email address.")
     }
-    else{
+    else if(grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(email), ignore.case=TRUE)){
       lat = lat_lon[[1]]
       lon = lat_lon[[2]]
 
@@ -101,6 +104,9 @@ rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
       }
 
       return(data.frame(extracted_address))
+    }
+    else{
+      message("Please provide a valid email address.")
     }
   }
 }
