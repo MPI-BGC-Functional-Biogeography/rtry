@@ -8,7 +8,7 @@ Authors@R: c(
     person("Olee Hoi Ying", "Lam", email = "hlam@bgc-jena.mpg.de", role = c("aut", "cre")))
 Description: An R package to preprocess plant trait data in the TRY database.
 Depends: R (>= 4.0.2)
-Imports: data.table, dplyr, tidyr
+Imports: data.table, dplyr, tidyr, jsonlite, curl
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
