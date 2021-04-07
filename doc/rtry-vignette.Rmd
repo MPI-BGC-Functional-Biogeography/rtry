@@ -30,15 +30,9 @@ library(rtry)
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
-
-
 In 2014, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php). This Portal organizes data uploads, searches and requests, and enables interaction between data contributors, management and users. At the same time, it provides a link to the TRY File Archive (https://www.try-db.org/TryWeb/Data.php), which offers climate and soil data for TRY measurement sites, standardized categorical traits relevant to attribute species to plant functional types (PFTs), and provides the opportunity to publish plant trait data sets and receive a DOI.
 
-
-
 The TRY database version 5 released on 26 March 2019, contained 387 data sets providing 11.8 million trait records, accompanied by 35 million ancillary data, for 2091 traits and 280000 plant taxa, mostly at the species level. Our team at the Max Planck Institute for Biogeochemistry (MPI-BGC) is currently working towards the release of version 6.
-
-
 
 
 
@@ -84,9 +78,7 @@ Note that sometimes R may show a column 28, which should be empty. This column i
 
 
 
-
-
-***
+---
 
 # The TRY R project (rtry)
 
@@ -95,200 +87,9 @@ Note that sometimes R may show a column 28, which should be empty. This column i
 > 1. Some usage data for the TRY database?
 > 2. Before data can be analyzed, it must be pre-processed in a way such that it is easy to handle and understand.
 
-
-
 The `rtry` package for `R` provides a set of functions to facilitate the pre-process the TRY data, that allows users who are not familiar with the `R` programming language or the TRY dataset structure to easily prepare the data for further analysis.
 
-
-
-
-
-## Environment setup
-
-### Prepare the system
-
-#### Install R
-
-To get started, download and install the latest version of R (at least 4.0.2, which is the version used to build the `rtry` package).
-
-The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
-
-
-
-#### Install RStudio
-
-Make sure your machine has a recent version of the RStudio, an integrated development environment (IDE) designed for productive R programming.
-
-The released version can be found at https://rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
-
-
-
-
-
-### Download and install the `rtry` package
-
-#### Download the `rtry` package
-
-The source package and documentation of the `rtry` package can be downloaded from the Nextcloud operated by the Max Planck Institute for Biogeochemistry at Jena, Germany. 
-
-- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
-- Password: `mpi-bgc-rtry`
-
-Once the download is completed, extract the folder to a desired location.
-
-
-
-#### Overview of the file structure
-
-```markdown
-.
-├── build				# Source files for the rtry package
-│   ├── YYYYMMDD_rtry_x.x.x.xxxx	# Version controlled source package
-├── docs				# Documentation files
-├── test				# Scripts for testing
-│   ├── input				# Input files needed for testing
-└── README.md
-```
-
-Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory and maintain the file structure.
-
-
-
-#### Install `rtry` package
-
-The installation of the `rtry` package can be performed through the RStudio UI (user interface) or console.
-
-
-
-To install the `rtry` package via the RStudio UI, go to the top menu `Tools`, then select `Install Packages...`.
-
-Then, in the `Install Packages` dialog:
-
-- Under `Install from:`, choose `Package Archive File (.zip; .tar.gz)`
-- Use `Browse...` to navigate to the downloaded `rtry` source package (`.tar.gz`)
-- Click `Install`
-
-![install_rtry](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\install_rtry.png){width=40%}
-
-
-
-Another option is to install the `rtry` package through the console of RStudio. To do so, type the following command in the console:
-
-```R
-install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
-```
-
-
-
-Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
-
-
-
-
-
-### Useful commands
-
-#### Load package
-
-To use the installed package, it is required to load the installed package when a new session of RStudio is opened. To load the `rtry` package, use the following command:
-
-```R
-library(rtry)
-```
-
-
-
-#### Check work directory
-
-To check the current (or default) R working directory, use the command:
-
-```R
-getwd()
-```
-
-
-
-#### Set work directory
-
-To try out the provided example script, set the work directory to the location where the downloaded `test` directory is located:
-
-```R
-setwd("<path_to_rtry_test_dir>")
-```
-
-
-
-Or in RStudio, use the top menu to change the working directory: `Session` > `Set Working Directory` > `Choose Directory`, and then select the downloaded `test` directory.
-
-
-
-#### Obtain documentations of the entire `rtry` package
-
-To get an overview of the `rtry` package and the corresponding documentations:
-
-```R
-??rtry
-```
-
-![help_rtry_package](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_package.png){width=90%}
-
-
-
-#### Obtain complete documentation for a specific function
-
-For the documentation of the function `rtry_import()`:
-
-```R
-?rtry_import
-```
-
-![help_rtry_import](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\help_rtry_import.png){width=90%}
-
-
-
-#### View vignettes of the package
-
-To open a list of vignettes for the `rtry` package:
-
-```R
-browseVignettes("rtry")
-```
-
-
-
-To directly view the vignette of the `rtry` package from the `Help` panel:
-
-```R
-vignette("rtry-vignette")
-```
-
-
-
-#### Install additional packages
-
-In case additional packages are needed, the command `install.packages()` can be used.
-
-For example, to install `ggplot2` for plotting, use the command:
-
-```R
-install.packages("ggplot2")
-```
-
-
-
-When preparing a R script or a R markdown file which might be used or shared with others, such dependencies can also be dealt with the following command:
-
-```R
-#----------------------------------------------------------
-# Check if the required packages are installed
-# If not, install the required packages before loading
-#----------------------------------------------------------
-# ggplot2
-if (!require(ggplot2)) install.packages('ggplot2')
-library(ggplot2)
-```
-
-
+Since the `rtry` package is developed and built with R 4.0.2, it is also the minimum version of R required to use the package. It is also recommended to use the latest version of RStudio when using the package.
 
 
 
@@ -317,8 +118,6 @@ Function naming convention where each function begins with the prefix `rtry_` fo
 
 This function imports the text file downloaded from the TRY database (https://www.try-db.org) as a data.table for further processing. It can also be used to import other data file, such as .csv file with comma as separator.
 
-
-
 ```R
 rtry_import(
   input = "",
@@ -328,8 +127,6 @@ rtry_import(
   showOverview = TRUE
 )
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -389,19 +186,13 @@ Since the default value of `showOverview` is set to be `TRUE`, the overview of t
 
 
 
-
-
 ### `rtry_explore`
 
 This function takes the data table imported by `rtry_import()` and converts it into a grouped data table based on the specified column names. Note the the output data is grouped by the first attribute if not specified using the parameter `sortBy`. To provide a first understanding of the data, an additional column is added to show the total count within each group.
 
-
-
 ```R
 rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -460,19 +251,13 @@ The output `TRYdata2_explore_accSpecies` would look like the following:
 
 
 
-
-
 ### `rtry_bind_col`
 
 This function takes a sequence of data imported by `rtry_import()` and combined them by columns.
 
-
-
 ```R
 rtry_bind_col(..., showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -481,19 +266,13 @@ rtry_bind_col(..., showOverview = TRUE)
 
 
 
-
-
 ### `rtry_bind_row`
 
 This function takes a sequence of data imported by `rtry_import()` and combined them by rows.
 
-
-
 ```R
 rtry_bind_row(..., showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -519,19 +298,13 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension and
 
 
 
-
-
 ### `rtry_select_col`
 
 This function selects specified columns from the imported data for further processing. Another alternative to achieve this purpose would be `rtry_rm_col()` where the columns to be removed are specified instead.
 
-
-
 ```R
 rtry_select_col(input = "", ..., showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -577,13 +350,9 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 
 
-
-
 ### `rtry_select_row`
 
 This function selects specified rows from the imported data for further processing.
-
-
 
 ```R
 rtry_select_row(
@@ -594,8 +363,6 @@ rtry_select_row(
   showOverview = TRUE
 )
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -658,19 +425,13 @@ dim:   77183 28
 
 
 
-
-
 ### `rtry_filter`
 
 This function filters data from the input data based on the specified criteria and the corresponding `ObservationID`.
 
-
-
 ```R
 rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -751,13 +512,9 @@ Since the `showOverview` in this use case is set to `FALSE`, the overview of the
 
 
 
-
-
 ### `rtry_filter_keyword`
 
 This function filters data from the input data based on the specified keywords and the corresponding `ObservationID`.
-
-
 
 ```R
 rtry_filter_keyword(
@@ -769,8 +526,6 @@ rtry_filter_keyword(
   showOverview = TRUE
 )
 ```
-
-
 
 | Argument        | Description                                                  |
 | --------------- | ------------------------------------------------------------ |
@@ -851,19 +606,13 @@ Since the default value of `showOverview` are set to be `TRUE`, the dimension of
 
 
 
-
-
 ### `rtry_rm_col`
 
 This function removes the specified columns from the input data for further processing. This function can be viewed as an alternatives than `rtry_select_col()`.
 
-
-
 ```R
 rtry_rm_col(input = "", ..., showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -891,21 +640,15 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 
 
-
-
 ### `rtry_rm_dup`
 
 This function identifies and removes the duplicates from the input data. Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
 
 Note that this function depends on the duplicate identifier `OrigObsDataID` listed in the TRYdata, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also,  if the imported TRYdata contains restricted dataset that belongs to another dataset (i.e. having an `OrigObsDataID`), these restricted data will also be removed resulting in data loss.
 
-
-
 ```R
 rtry_rm_dup(input = "", showOverview = TRUE)
 ```
-
-
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -931,8 +674,6 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 
 
-
-
 ### `rtry_trans_wider`
 
 This function transforms a long table into wide table, i.e. increasing the number of columns and decreasing the number of rows. For details, please refer to `tidyr::pivot_wider()`.
@@ -947,8 +688,6 @@ rtry_trans_wider(
 )
 ```
 
-
-
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
 | `input`        | Input data, imported by `rtry_import()` or in data table format |
@@ -959,19 +698,13 @@ rtry_trans_wider(
 
 
 
-
-
 ### `rtry_export`
 
 This function exports the pre-processed data as a CSV file. If the specified output directory does not exist, it will be created.
 
-
-
 ```R
 rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 ```
-
-
 
 | Argument   | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -999,19 +732,13 @@ Since the specified output directory does not exist in this case, it was created
 
 
 
-
-
 ### `rtry_geocoding`
 
 This function uses Nominatim, a search engine for OpenStreetMap data, to perform geocoding, i.e. converting an address into coordinates (latitudes, longitudes). For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
 
-
-
 ```R
 rtry_geocoding(address = NULL, email = NULL)
 ```
-
-
 
 | Argument  | Description                |
 | --------- | -------------------------- |
@@ -1035,99 +762,13 @@ rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = "hlam@bgc-
 
 
 
-**Use case 2**
-
-To convert a list of addresses into coordinates in latitudes and longitudes. First, read the list of addresses from a .csv file or a data table. In this case, the input locations are imported from a comma delimited CSV file with the file coding to be `UTF-8` (default):
-
-```R
-input_locations <- rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Locations.csv", separator = ",")
-```
-
-```R
-input:  C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Locations.csv 
-dim:    167 5 
-ls:     Country Country code Latitude Location Longitude 
-```
-
-![rtry_geocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_01.png){width=60%}
-
-Make sure there is the file encoding is correct and the special characters are displayed as they should. Then, extract and combine the location names and country names into the format `<location>, <country>`:
-
-```R
-input_addresses <- paste(input_locations$Location, input_locations$Country, sep = ", ")
-head(input_addresses)
-```
-
-```R
-[1] "Hajdúdorog, Hungary" "Diósd, Hungary"      "Fót, Hungary"        "Bőcs, Hungary"       "Regéc, Hungary" 
-[6] "Eger, Hungary"  
-```
-
-Apply the `rtry_geocoding()` function using `lapply()` to the list of addresses:
-
-```R
-# Prepare counter for printed progress messages
-counter <- 1
-output_coordinates <- NULL # somethings received error messages 'no object found'
-
-# Use lapply to apply function to the list of addresses
-output_coordinates <- lapply(input_addresses, function(address) {
-  # Calling the Nominatim OpenStreetMap API
-  geocode_output <- rtry_geocoding(address, email = "hlam@bgc-jena.mpg.de")
-  
-  # No heavy uses (an absolute maximum of 1 request per second)
-  # Here set to 2 seconds between each search
-  Sys.sleep(2)
-  
-  # Print message in console to see the progress
-  message("Geocoding ", counter, "/", nrow(input_locations), " completed.")
-  counter <<- counter + 1
-  
-  # Return data.frame with the input address, output of the rtry_geocoding function
-  return(data.frame(address = address, geocode_output))
-}) %>%
-  # Stack the list output into data.frame
-  bind_rows() %>% data.frame()
-
-head(output_coordinates)
-```
-
-```R
-              address      lat      lon
-1 Hajdúdorog, Hungary 47.81572 21.50068
-2      Diósd, Hungary 47.40626 18.94486
-3        Fót, Hungary 47.61259 19.19801
-4       Bocs, Hungary 48.03855 20.97164
-5      Regéc, Hungary 48.39307 21.34520
-6       Eger, Hungary 47.89899 20.37437
-```
-
-Substitute the coordinates into the input list:
-
-```R
-input_locations$Latitude <- output_coordinates$lat
-input_locations$Longitude <- output_coordinates$lon
-```
-
-![rtry_geocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_geocoding_usecase_2_02.png){width=60%}
-
-Note that for location which is unknown to OpenStreetMap, the resulting latitude and longitude will remain or marked as `NA`.
-
-
-
-
-
 ### `rtry_revgeocoding`
 
 This function uses Nominatim, a search engine for OpenStreetMap data, to perform reverse geocoding, i.e. converting coordinates (latitudes, longitudes) into an address. For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
 
-
-
 ```R
 rtry_revgeocoding(lat_lon = NULL, email = NULL)
 ```
-
-
 
 | Argument  | Description                                    |
 | --------- | ---------------------------------------------- |
@@ -1151,87 +792,7 @@ rtry_revgeocoding(data.frame(50.91012, 11.56674), email = "hlam@bgc-jena.mpg.de"
 
 
 
-**Use case 2**
-
-Similar to `rtry_geocoding()`, it is possible to perform reverse geocoding on a list of coordinates. To do so, first read the list of coordinates from a .csv file or a data table. In this case, the input coordinates are imported from a comma delimited CSV file with the file coding to be `UTF-8` (default):
-
-```R
-input_coordinates <- rtry_import("C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Coordinates.csv", separator = ",")
-```
-
-```R
-input:  C:/Users/hlam/ownCloud/TRY_R/Input/TRY_ExcelFile_1044_Coordinates.csv 
-dim:    167 5 
-ls:     Country Country code Latitude Location Longitude 
-```
-
-![rtry_revgeocoding_usecase_2_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_01.png){width=60%}
-
-Then, extract the latitude and longitude data for reverse geocoding:
-
-```R
-input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
-head(input_lat_lon)
-```
-
-```R
-       lat      lon
-1 47.81572 21.50068
-2 47.40626 18.94486
-3 47.61259 19.19801
-4 48.03855 20.97164
-5 48.39307 21.34520
-6 47.89899 20.37437
-```
-
-Apply the `rtry_revgeocoding()` function using `lapply()` to the list of coordinates:
-
-```R
-# Prepare counter for printed progress messages
-counter <- 1
-output_locations <- NULL # somethings received error messages 'no object found'
-
-# Use apply to apply function to the list of coordinates
-output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
-  # Calling the Nominatim OpenStreetMap API
-  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "hlam@bgc-jena.mpg.de")
-  
-  # No heavy uses (an absolute maximum of 1 request per second)
-  # Here set to 2 seconds between each search
-  Sys.sleep(2)
-  
-  # Print message in console to see the progress
-  message("Reverse Geocoding ", counter, "/", length(input_lat_lon$lat), " completed.")
-  counter <<- counter + 1
-  
-  # Return data.frame with the input coordinates, output of the rtry_revgeocoding function
-  return(data.frame(lat = lat_lon[1], lon = lat_lon[2], rev_geocode_output))
-}) %>%
-  # Stack the list output into data.frame
-  bind_rows() %>% data.frame()
-```
-
-![rtry_revgeocoding_usecase_2_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_02.png){width=100%}
-
-Substitute the `country_code` and `country` into the corresponding columns of the input list, while the location information is extracted from either town or city 
-
-```R
-input_coordinates$'Country code' <- output_locations$country_code
-input_coordinates$Country <- output_locations$country
-input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locations$town, output_locations$city)
-```
-
-![rtry_revgeocoding_usecase_2_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_revgeocoding_usecase_2_03.png){width=60%}
-
-Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, the `Location` column will be marked as `NA`.
-
-
-
-
-
 ***
-
-
 
 # Data license
 
@@ -1243,11 +804,7 @@ The TRY database is open source under a Creative Commons Attribution license (CC
 
 
 
-
-
 ***
-
-
 
 # Authorship guidelines
 
