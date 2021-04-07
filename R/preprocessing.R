@@ -54,30 +54,22 @@ rtry_import <- function(input = "", separator = "\t", encoding = "UTF-8", quote 
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
 rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
-  if(missing(input)){
-    message("Please specify the input data for grouping.")
+  if(missing(input) || missing(...)){
+      message("Please specify the input data and/or attribute names you would like to group together.")
   }
   else{
-    if(missing(...)){
-      message("Please specify the attribute names you would like to group together.")
-      message("To group the input data by DataID and DataName, refer to the following example:")
-      message("   explore_data(input = TRYdata, DataID, DataName, showOverview = TRUE)")
-      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
+    input <- dplyr::group_by(input, ...)
+    input <- dplyr::summarise(input, Count = dplyr::n(), .groups = 'drop')
+
+    input <- dplyr::arrange(input, {{sortBy}})
+
+    uniqueData <- input
+
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(uniqueData), sep = " "))
     }
-    else{
-      input <- dplyr::group_by(input, ...)
-      input <- dplyr::summarise(input, Count = dplyr::n(), .groups = 'drop')
 
-      input <- dplyr::arrange(input, {{sortBy}})
-
-      uniqueData <- input
-
-      if(showOverview == TRUE){
-        message("dim:   ", paste0(dim(uniqueData), sep = " "))
-      }
-
-      return(uniqueData)
-    }
+    return(uniqueData)
   }
 }
 
@@ -92,14 +84,19 @@ rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
 #' @return A data table of the input data
 #' @export
 rtry_bind_col <- function(..., showOverview = TRUE){
-  TRYdata <- cbind(...)
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(TRYdata), sep = " "))
-    message("ls:    ", paste0(ls(TRYdata), sep = " "))
+  if(missing(...)){
+    message("Please specify at least two data frames to be combined by columns.")
   }
+  else{
+    TRYdata <- cbind(...)
 
-  return(TRYdata)
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(TRYdata), sep = " "))
+      message("ls:    ", paste0(ls(TRYdata), sep = " "))
+    }
+
+    return(TRYdata)
+  }
 }
 
 
@@ -117,14 +114,19 @@ rtry_bind_col <- function(..., showOverview = TRUE){
 #' }
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){
-  TRYdata <- rbind(...)
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(TRYdata), sep = " "))
-    message("ls:    ", paste0(ls(TRYdata), sep = " "))
+  if(missing(...)){
+    message("Please specify at least two data frames to be combined by rows")
   }
+  else{
+    TRYdata <- rbind(...)
 
-  return(TRYdata)
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(TRYdata), sep = " "))
+      message("ls:    ", paste0(ls(TRYdata), sep = " "))
+    }
+
+    return(TRYdata)
+  }
 }
 
 
@@ -145,26 +147,18 @@ rtry_bind_row <- function(..., showOverview = TRUE){
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
 rtry_select_col <- function(input = "", ..., showOverview = TRUE){
-  if(missing(input)){
-    message("Please specify the input data for column selection.")
+  if(missing(input) || missing(...)){
+      message("Please specify the input data and/or column names you would like to select.")
   }
   else{
-    if(missing(...)){
-      message("Please specify the column names you would like to select.")
-      message("To select the input data by DataID and DataName, refer to the following example:")
-      message("   rtry_select_col(input = TRYdata, DataID, DataName, showOverview = TRUE)")
-      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
-    }
-    else{
-      input <- dplyr::select(input, ...)
-      selectedColumns <- input
+    input <- dplyr::select(input, ...)
+    selectedColumns <- input
 
-      if(showOverview == TRUE){
-        message("dim:   ", paste0(dim(selectedColumns), sep = " "))
-      }
-
-      return(selectedColumns)
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(selectedColumns), sep = " "))
     }
+
+    return(selectedColumns)
   }
 }
 
@@ -189,34 +183,27 @@ rtry_select_col <- function(input = "", ..., showOverview = TRUE){
 #' @seealso \code{\link{rtry_rm_dup}}
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
-  if(missing(input)){
-    message("Please specify the input data for row selection.")
+  if(missing(input) || missing(...)){
+      message("Please specify the input data and/or criteria for row selection.")
   }
   else{
-    if(missing(...)){
-      message("Please specify the criteria for row selection.")
-      message("To select the rows where TraitID is larger than 0 or where DataID is 59 or 60, refer to the following example:")
-      message("   rtry_select_row(input = TRYdata, (TraitID > 0) | (DataID %in% c(59, 60)), showOverview = TRUE)")
+    selectedRows <- subset(input, ...)
+
+    if(getAuxiliary == TRUE){
+      auxiliary <- unique(selectedRows$ObservationID)
+
+      selectedRows <- subset(input, ObservationID %in% auxiliary)
     }
-    else{
-      selectedRows <- subset(input, ...)
 
-      if(getAuxiliary == TRUE){
-        auxiliary <- unique(selectedRows$ObservationID)
-
-        selectedRows <- subset(input, ObservationID %in% auxiliary)
-      }
-
-      if(rmDuplicates == TRUE){
-        selectedRows <- rtry_rm_dup(selectedRows, showOverview = FALSE)
-      }
-
-      if(showOverview == TRUE){
-        message("dim:   ", paste0(dim(selectedRows), sep = " "))
-      }
-
-      return(selectedRows)
+    if(rmDuplicates == TRUE){
+      selectedRows <- rtry_rm_dup(selectedRows, showOverview = FALSE)
     }
+
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(selectedRows), sep = " "))
+    }
+
+    return(selectedRows)
   }
 }
 
@@ -238,20 +225,25 @@ rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates 
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @export
 rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = TRUE){
-  baseOn <- deparse(substitute(baseOn))
-
-  exclude <- subset(input, ...)
-  exclude <- unique(exclude[[baseOn]])
-
-  input$exclude <- input[[baseOn]] %in% exclude
-
-  filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(filteredData), sep = " "))
+  if(missing(input) || missing(...)){
+    message("Please specify the input data and/or criteria for filtering.")
   }
+  else{
+    baseOn <- deparse(substitute(baseOn))
 
-  return(filteredData)
+    exclude <- subset(input, ...)
+    exclude <- unique(exclude[[baseOn]])
+
+    input$exclude <- input[[baseOn]] %in% exclude
+
+    filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
+
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(filteredData), sep = " "))
+    }
+
+    return(filteredData)
+  }
 }
 
 
@@ -274,8 +266,8 @@ rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = 
 #' @seealso \code{\link{rtry_filter}}
 #' @export
 rtry_filter_keyword <- function(input = "", attribute = NULL, ..., caseSensitive = TRUE, exactMatch = TRUE, showOverview = TRUE){
-  if(missing(attribute) | missing(...)){
-    message("Please specify the attribute or criteria for filtering.")
+  if(missing(input) || missing(attribute) || missing(...)){
+    message("Please specify the input data and/or attribute and/or keywords for filtering.")
   }
   else{
     attribute <- deparse(substitute(attribute))
@@ -323,26 +315,18 @@ rtry_filter_keyword <- function(input = "", attribute = NULL, ..., caseSensitive
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
 rtry_rm_col <- function(input, ..., showOverview = TRUE){
-  if(missing(input)){
-    message("Please specify the input data for removing the specified column(s).")
+  if(missing(input) || missing(...)){
+    message("Please specify the input data and/or column names you would like to remove")
   }
   else{
-    if(missing(...)){
-      message("Please specify the column names you would like to remove")
-      message("To remove the column Reference, Comment and V28 from the input data, refer to the following example:")
-      message("   rtry_rm_col(input = TRYdata, Reference, Comment, V28, showOverview = TRUE)")
-      message("\nAvailable column names: ", paste0(ls(input), sep = " "))
-    }
-    else{
-      input <- dplyr::select(input, -c(...))
-      remainingColumns <- input
+    input <- dplyr::select(input, -c(...))
+    remainingColumns <- input
 
-      if(showOverview == TRUE){
-        message("dim:   ", paste0(dim(remainingColumns), sep = " "))
-      }
-
-      return(remainingColumns)
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(remainingColumns), sep = " "))
     }
+
+    return(remainingColumns)
   }
 }
 
@@ -409,18 +393,23 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
 #' @references \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
 #' @export
 rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, values_fn = NULL, showOverview = TRUE){
-  longTable <- input
-
-  wideTable <- tidyr::pivot_wider(longTable,
-                                  names_from = {{names_from}},
-                                  values_from = {{values_from}},
-                                  values_fn = {{values_fn}})
-
-  if(showOverview == TRUE){
-    message("dim:   ", paste0(dim(wideTable), sep = " "))
+  if(missing(input)){
+    message("Please specify the input data for transforming from long table to wide table.")
   }
+  else{
+    longTable <- input
 
-  return(wideTable)
+    wideTable <- tidyr::pivot_wider(longTable,
+                                    names_from = {{names_from}},
+                                    values_from = {{values_from}},
+                                    values_fn = {{values_fn}})
+
+    if(showOverview == TRUE){
+      message("dim:   ", paste0(dim(wideTable), sep = " "))
+    }
+
+    return(wideTable)
+  }
 }
 
 
