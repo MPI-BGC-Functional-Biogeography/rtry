@@ -12,7 +12,7 @@ rtry_geocoding(address = NULL, email = NULL)
 \item{email}{String of an email address}
 }
 \value{
-A data frame that contains latitudes (lat) and longitudes (lon)
+A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection
 }
 \description{
 This function uses Nominatim, a search engine for OpenStreetMap data, to

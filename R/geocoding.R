@@ -6,7 +6,7 @@
 #'
 #' @param address String of an address
 #' @param email String of an email address
-#' @return A data frame that contains latitudes (lat) and longitudes (lon)
+#' @return A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection
 #' @examples
 #' \dontrun{
 #' rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
@@ -50,7 +50,7 @@ rtry_geocoding <- function(address = NULL, email = NULL){
 #' perform reverse Geocoding, i.e. converting coordinates (latitudes, longitudes) into an address.
 #' For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim}.
 #'
-#' @param lat_lon A data frame consisting latitude and longitude
+#' @param lat_lon A data frame consisting latitude and longitude in WGS84 projection
 #' @param email String of an email address
 #' @return A data frame that contains address
 #' @examples
