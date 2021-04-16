@@ -6,7 +6,7 @@ output:
     # number_sections: true
     # toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{rtry-workflow-geocoding}
+  %\VignetteIndexEntry{Using rtry for (reverse) geocoding}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
