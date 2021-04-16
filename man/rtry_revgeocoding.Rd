@@ -24,3 +24,6 @@ For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim
 rtry_revgeocoding(data.frame(50.91012, 11.56674), email = email)
 }
 }
+\seealso{
+\code{\link{rtry_geocoding}}
+}

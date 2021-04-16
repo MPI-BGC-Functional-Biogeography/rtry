@@ -24,3 +24,6 @@ For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim
 rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
 }
 }
+\seealso{
+\code{\link{rtry_revgeocoding}}
+}

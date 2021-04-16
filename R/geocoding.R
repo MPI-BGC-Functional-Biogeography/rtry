@@ -11,6 +11,7 @@
 #' \dontrun{
 #' rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
 #' }
+#' @seealso \code{\link{rtry_revgeocoding}}
 #' @export
 rtry_geocoding <- function(address = NULL, email = NULL){
   if(missing(address)){
@@ -57,6 +58,7 @@ rtry_geocoding <- function(address = NULL, email = NULL){
 #' \dontrun{
 #' rtry_revgeocoding(data.frame(50.91012, 11.56674), email = email)
 #' }
+#' @seealso \code{\link{rtry_geocoding}}
 #' @export
 rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
   if(missing(lat_lon)){
