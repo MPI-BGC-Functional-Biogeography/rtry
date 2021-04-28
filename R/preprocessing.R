@@ -445,7 +445,7 @@ rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"
       message("New directory created at: ", paste0(dirname(output), sep = " "))
     }
 
-    write.csv(x = data, file = output, quote = quote, fileEncoding = encoding)
+    utils::write.csv(x = data, file = output, quote = quote, fileEncoding = encoding)
     message("File saved at: ", output)
   }
 }
