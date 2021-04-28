@@ -316,7 +316,7 @@ rtry_filter_keyword <- function(input = "", attribute = NULL, ..., caseSensitive
 #' @export
 rtry_rm_col <- function(input, ..., showOverview = TRUE){
   if(missing(input) || missing(...)){
-    message("Please specify the input data and/or column names you would like to remove")
+    message("Please specify the input data and/or column names you would like to remove.")
   }
   else{
     input <- dplyr::select(input, -c(...))
