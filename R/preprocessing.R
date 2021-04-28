@@ -90,7 +90,7 @@ rtry_bind_col <- function(..., showOverview = TRUE){
   else{
     TRYdata <- cbind(...)
 
-    if(showOverview == TRUE){
+    if(!is.null(TRYdata) && showOverview == TRUE){
       message("dim:   ", paste0(dim(TRYdata), sep = " "))
       message("ls:    ", paste0(ls(TRYdata), sep = " "))
     }
