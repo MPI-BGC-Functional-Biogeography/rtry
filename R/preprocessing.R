@@ -120,7 +120,7 @@ rtry_bind_row <- function(..., showOverview = TRUE){
   else{
     TRYdata <- rbind(...)
 
-    if(showOverview == TRUE){
+    if(!is.null(TRYdata) && showOverview == TRUE){
       message("dim:   ", paste0(dim(TRYdata), sep = " "))
       message("ls:    ", paste0(ls(TRYdata), sep = " "))
     }
