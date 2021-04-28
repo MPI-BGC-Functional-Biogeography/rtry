@@ -388,11 +388,18 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
 #' @return The transformed wide table
 #' @examples
 #' \dontrun{
-#' rtry_trans_wider(TRYdata, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue, ErrorRisk), values_fn = list(StdValue = mean, ErrorRisk = mean))
+#' rtry_trans_wider(TRYdata,
+#'                  names_from = c(TraitID, TraitName, UnitName),
+#'                  values_from = c(StdValue, ErrorRisk),
+#'                  values_fn = list(StdValue = mean, ErrorRisk = mean))
 #' }
 #' @references \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
 #' @export
-rtry_trans_wider <- function(input = "", names_from = NULL, values_from = NULL, values_fn = NULL, showOverview = TRUE){
+rtry_trans_wider <- function(input = "",
+                             names_from = NULL,
+                             values_from = NULL,
+                             values_fn = NULL,
+                             showOverview = TRUE){
   if(missing(input)){
     message("Please specify the input data for transforming from long table to wide table.")
   }
