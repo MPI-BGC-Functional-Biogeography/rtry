@@ -14,14 +14,14 @@ test_that("basic test", {
   expect_equal(class(df_rm1), "data.frame")
   expect_equal(ncol(df_rm1), 3)
   expect_equal(nrow(df_rm1), 10)
-  expect_equal(ls(df_rm1), c("char2", "id", "value"))
+  expect_equal(colnames(df_rm1), c("id", "value", "char2"))
 
   df_rm2 <- rtry_rm_col(df, char1, char2)
 
   expect_equal(class(df_rm2), "data.frame")
   expect_equal(ncol(df_rm2), 2)
   expect_equal(nrow(df_rm2), 10)
-  expect_equal(ls(df_rm2), c("id", "value"))
+  expect_equal(colnames(df_rm2), c("id", "value"))
 })
 
 
