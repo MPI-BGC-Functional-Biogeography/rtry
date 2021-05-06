@@ -20,22 +20,27 @@ rtry_rm_dup <- function(input = "", showOverview = TRUE){
     message("Please specify the input data for removing duplicates.")
   }
   else{
-    exclude <- subset(input, OrigObsDataID > 0)
+    if("OrigObsDataID" %in% colnames(input)){
+      exclude <- subset(input, OrigObsDataID > 0)
 
-    exclude <- unique(exclude$OrigObsDataID)
+      exclude <- unique(exclude$OrigObsDataID)
 
-    input$exclude <- input$OrigObsDataID %in% exclude
-    numDuplicates <- length(which(input$exclude == TRUE))
+      input$exclude <- input$OrigObsDataID %in% exclude
+      numDuplicates <- length(which(input$exclude == TRUE))
 
-    input <- subset(input, input$exclude == FALSE, select = -(exclude))
+      input <- subset(input, input$exclude == FALSE, select = -(exclude))
 
-    inputRemovedDuplicates <- input
-    message(numDuplicates, " duplicates removed.")
+      inputRemovedDuplicates <- input
+      message(numDuplicates, " duplicates removed.")
 
-    if(showOverview == TRUE){
-      message("dim:   ", paste0(dim(inputRemovedDuplicates), sep = " "))
+      if(showOverview == TRUE){
+        message("dim:   ", paste0(dim(inputRemovedDuplicates), sep = " "))
+      }
+
+      return(inputRemovedDuplicates)
     }
-
-    return(inputRemovedDuplicates)
+    else{
+      message("Please make sure the column 'OrigObsDataID' exists in the input data.")
+    }
   }
 }
