@@ -17,7 +17,7 @@ test_that("basic test", {
   expect_equal(class(df), "data.frame")
   expect_equal(ncol(df), 2)
   expect_equal(nrow(df), 20)
-  expect_equal(ls(df), c("id", "value"))
+  expect_equal(colnames(df), c("id", "value"))
 })
 
 
