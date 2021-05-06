@@ -17,6 +17,8 @@
 #' @seealso \code{\link{rtry_rm_dup}}
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
+  ObservationID <- NULL  # bind the variable OrigObsDataID locally to the function
+
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or criteria for row selection.")
   }

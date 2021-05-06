@@ -14,6 +14,8 @@
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @export
 rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = TRUE){
+  ObservationID <- NULL  # bind the variable OrigObsDataID locally to the function
+
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or criteria for filtering.")
   }

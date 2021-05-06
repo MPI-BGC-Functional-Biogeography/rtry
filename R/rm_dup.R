@@ -16,6 +16,8 @@
 #' \code{OrigObsDataID}), these restricted data will also be removed resulting in data loss.
 #' @export
 rtry_rm_dup <- function(input = "", showOverview = TRUE){
+  OrigObsDataID <- NULL  # bind the variable OrigObsDataID locally to the function
+
   if(missing(input)){
     message("Please specify the input data for removing duplicates.")
   }
