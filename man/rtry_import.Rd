@@ -7,7 +7,7 @@
 rtry_import(
   input = "",
   separator = "\\t",
-  encoding = "UTF-8",
+  encoding = "Latin-1",
   quote = "",
   showOverview = TRUE
 )
@@ -17,7 +17,7 @@ rtry_import(
 
 \item{separator}{Data separator. Default \code{"\t"} for the TRY data output}
 
-\item{encoding}{File encoding. Default \code{"UTF-8"}}
+\item{encoding}{File encoding. Default \code{"Latin-1"}}
 
 \item{quote}{Default \code{""} reads the fields as is. If the fields start with a double quote, use \code{"\""} instead}
 
