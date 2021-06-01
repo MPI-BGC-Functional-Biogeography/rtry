@@ -27,7 +27,8 @@ rtry_select_row(
 A data table of the selected rows of the input data
 }
 \description{
-This function selects specified rows from the imported data for further processing.
+This function selects specified rows based on the specified criteria  and the corresponding \code{ObservationID}
+from the imported data for further processing.
 }
 \examples{
 \dontrun{
