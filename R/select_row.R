@@ -1,6 +1,7 @@
 #' Select TRY rows
 #'
-#' This function selects specified rows from the imported data for further processing.
+#' This function selects specified rows based on the specified criteria  and the corresponding \code{ObservationID}
+#' from the imported data for further processing.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for row selection
