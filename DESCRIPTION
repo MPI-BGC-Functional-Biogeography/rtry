@@ -5,7 +5,8 @@ Authors@R: c(
     person("Jens", "Kattge", email = "jkattge@bgc-jena.mpg.de", role = c("aut")),
     person("Gerhard", "Boenisch", email = "boenisch@bgc-jena.mpg.de", role = c("aut")),
     person("Susanne", "Tautenhahn", email = "staut@bgc-jena.mpg.de", role = c("aut")),
-    person("Olee Hoi Ying", "Lam", email = "hlam@bgc-jena.mpg.de", role = c("aut", "cre")))
+    person("Olee Hoi Ying", "Lam", email = "hlam@bgc-jena.mpg.de", role = c("aut", "cre")), 
+    person("Pramod", "Baddam", email = "pbaddam@bgc-jena.mpg.de", role = c("aut")))
 Description: An R package to preprocess plant trait data in the TRY database.
 Depends: R (>= 4.0.0)
 Imports: utils, data.table, dplyr, tidyr, jsonlite, curl
