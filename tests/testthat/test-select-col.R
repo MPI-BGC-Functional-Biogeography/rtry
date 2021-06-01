@@ -1,4 +1,4 @@
-context("Select data columns (rtry_select_col)")
+context("Select data by columns (rtry_select_col)")
 
 
 test_that("basic test", {
