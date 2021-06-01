@@ -43,7 +43,7 @@ TRYdata_14833
 }
 \description{
 A dataset requested from the \href{https://www.try-db.org/TryWeb/Prop0.php}{TRY Database}.
-The request ID of this dataset is 14833, containing \code{TraitID}: 3115, 3116, 3117
+The request ID of this dataset is 14833, which contains \code{TraitID}: 3115, 3116, 3117
 and \code{AccSpeciesID}: 10773, 35846, 45737.
 }
 \keyword{datasets}
