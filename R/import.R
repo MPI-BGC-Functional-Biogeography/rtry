@@ -17,7 +17,7 @@
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = "Latin-1", quote = "", showOverview = TRUE){
   if(missing(input)){
-    message("Please specify the input data for grouping.")
+    message("Please specify the input file.")
   }
   else{
     TRYdata <- data.table::fread(input, header = TRUE, sep = separator, dec = ".", encoding = encoding, quote = quote, data.table = TRUE)
