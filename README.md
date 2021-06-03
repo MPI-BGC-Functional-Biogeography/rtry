@@ -1,5 +1,15 @@
 # The TRY R Project (rtry): An R Package to Preprocess Plant Trait Data in the TRY Database
 
+>**[Introduction](#introduction)**
+>
+>**[Installation guide](#installation)**
+>
+>**[Functions](#functions)**
+
+
+
+# <a name="introduction">Introduction
+
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
 Through the TRY Data Portal, the trait data is provided as zipped text file (.txt). In version 5, there are 27 columns in the provided data, which is indicated as header in the first row of the text file.
@@ -36,25 +46,122 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (.tx
 | 26.  | Reference             | Reference to be cited if trait record is used in analysis    |
 | 27.  | Comment               | Explanation for the OriginalName in the contributed dataset  |
 
+Note: sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
 
-Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
+
+# <a name="installation">Installation guide
+
+### R environment
+
+R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package. It is also recommended to use the latest version of RStudio when using the package.
+
+The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
+
+The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
 
-***
 
-## Functions
+### Download the `rtry` package
+
+The source package and documentation of the `rtry` package can be downloaded from the Nextcloud operated by MPI-BGC. 
+
+- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
+- Password: `mpi-bgc-rtry`
+
+Once the download is completed, extract the folder to a desired location.
+
+
+
+#### Overview of the file structure
+
+```markdown
+.
+├── archive				# Archived files for the rtry package
+│   ├── build				# Previous versions of source package
+│   ├── docs				# Previous documentation files
+├── build				# Source files for the rtry package
+│   ├── YYYYMMDD_rtry_x.x.x.xxxx	# Source package
+├── docs				# Documentation files
+├── examples				# Scripts of example workflow
+│   ├── input				# Input files needed for testing
+└── README.md
+```
+
+Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory (optional: `archive` directory) and maintain the file structure.
+
+
+
+#### Install `rtry` package
+
+The installation of the `rtry` package can be performed through the RStudio console.
+
+
+
+First, install all the dependencies with the command.
+
+```R
+install.packages(c("data.table", "dplyr", "tidyr", "jsonlite", "curl"))
+```
+
+Once installation is completed, the message `The downloaded source packages are in <path>` should be seen.
+
+
+
+Next, install the `rtry` package with the command:
+
+```R
+install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
+```
+
+You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
+
+Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
+
+
+
+To try out the example scripts, open the `.Rmd` (e.g. `TRYdata_7571_2020_01_20_rtry.Rmd`) inside the `examples` directory. Then, set the work directory to the location where the directory is located:
+
+```R
+setwd("<path_to_rtry_examples_dir>")
+```
+
+Place the cursor in the code block you wish to execute, then press `Ctrl+Shift+Enter` to execute the codes in that particular block.
+
+Note that the expected results could be viewed in the corresponding `.html` file.
+
+
+
+#### Update `rtry` package
+
+To update the `rtry` package to a newer version, simply restart RStudio and use the same installation command:
+
+```R
+# Remember to restart RStudio first
+install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
+```
+
+You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
+
+
+
+
+
+# <a name="functions">Functions
 
 Function naming convention where each function begins with the prefix ```rtry_``` followed by the description of what the specific function does.
 
-- ```rtry_import```
-- ```rtry_explore```
-- ```rtry_bind```
-- ```rtry_select_col```
-- ```rtry_select_row```
-- ```rtry_filter```
-- ```rtry_rm_col```
-- ```rtry_rm_dup```
-- ```rtry_export```
-- ```rtry_geocoding```
-- ```rtry_revgeocoding```
+- `rtry_import`
+- `rtry_explore`
+- `rtry_bind_col`
+- `rtry_bind_row`
+- `rtry_select_col`
+- `rtry_select_row`
+- `rtry_filter`
+- `rtry_filter_keyword`
+- `rtry_rm_col`
+- `rtry_rm_dup`
+- `rtry_trans_wider`
+- `rtry_export`
+- `rtry_geocoding`
+- `rtry_revgeocoding`
