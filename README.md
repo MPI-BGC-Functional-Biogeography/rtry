@@ -6,14 +6,13 @@
 >
 >**[Functions](#functions)**
 
-
+<br>
 
 # <a name="introduction">Introduction
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
 Through the TRY Data Portal, the trait data is provided as zipped text file (.txt). In version 5, there are 27 columns in the provided data, which is indicated as header in the first row of the text file.
-
 
 
 |      | Column                | Comment                                                      |
@@ -48,7 +47,7 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (.tx
 
 Note: sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
-
+<br>
 
 # <a name="installation">Installation guide
 
@@ -60,7 +59,7 @@ The latest version of R can be downloaded from CRAN, a network of ftp and web se
 
 The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
-
+<br>
 
 ### Download the `rtry` package
 
@@ -71,7 +70,7 @@ The source package and documentation of the `rtry` package can be downloaded fro
 
 Once the download is completed, extract the folder to a desired location.
 
-
+<br>
 
 #### Overview of the file structure
 
@@ -90,13 +89,11 @@ Once the download is completed, extract the folder to a desired location.
 
 Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory (optional: `archive` directory) and maintain the file structure.
 
-
+<br>
 
 #### Install `rtry` package
 
 The installation of the `rtry` package can be performed through the RStudio console.
-
-
 
 First, install all the dependencies with the command.
 
@@ -108,6 +105,7 @@ Once installation is completed, the message `The downloaded source packages are 
 
 
 
+
 Next, install the `rtry` package with the command:
 
 ```R
@@ -116,8 +114,9 @@ install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 
 You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
 
-Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
 
+
+Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
 
 
 To try out the example scripts, open the `.Rmd` (e.g. `TRYdata_7571_2020_01_20_rtry.Rmd`) inside the `examples` directory. Then, set the work directory to the location where the directory is located:
@@ -128,9 +127,9 @@ setwd("<path_to_rtry_examples_dir>")
 
 Place the cursor in the code block you wish to execute, then press `Ctrl+Shift+Enter` to execute the codes in that particular block.
 
-Note that the expected results could be viewed in the corresponding `.html` file.
+Note: the expected results could be viewed in the corresponding `.html` file.
 
-
+<br>
 
 #### Update `rtry` package
 
@@ -143,9 +142,7 @@ install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 
 You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
 
-
-
-
+<br>
 
 # <a name="functions">Functions
 
