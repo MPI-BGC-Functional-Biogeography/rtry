@@ -303,7 +303,7 @@ This function imports the text file downloaded from the TRY database (https://ww
 rtry_import(
   input = "",
   separator = "\t",
-  encoding = "UTF-8",
+  encoding = "Latin-1",
   quote = "",
   showOverview = TRUE
 )
@@ -313,7 +313,7 @@ rtry_import(
 | -------------- | ------------------------------------------------------------ |
 | `input`        | Path to the text file downloaded from TRY                    |
 | `separator`    | Data separator. Default `"\t"` for the TRY data output       |
-| `encoding`     | File encoding. Default `"UTF-8"`                             |
+| `encoding`     | File encoding. Default `"Latin-1"`                             |
 | `quote`        | Default `""` reads the fields as is. If the fields start with a double quote, use `"\""` instead |
 | `showOverview` | Default `TRUE` displays the input path, dimension and column names of the input data |
 
@@ -354,7 +354,7 @@ Since the `showOverview` in this use case is set to `FALSE`, the overview of the
 To import previously saved file from `rtry` for further analysis:
 
 ```R
-TraitsAuxNames <- rtry_import("output/Traits_auxilliary_Data_incl_Names.csv", separator = ",", quote = "\"")
+TraitsAuxNames <- rtry_import("output/Traits_auxilliary_Data_incl_Names.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
 ```R
@@ -533,8 +533,17 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 ### `rtry_select_row`
 
-This function selects specified rows from the imported data for further processing.
+This function selects specified rows based on the specified criteria and `ObservationID` from the imported data for further processing.
 
+```R
+rtry_select_row(
+  input = "",
+  ...,
+  getAuxiliary = FALSE,
+  rmDuplicates = FALSE,
+  showOverview = TRUE
+)
+```
 ```R
 rtry_select_row(
   input = "",

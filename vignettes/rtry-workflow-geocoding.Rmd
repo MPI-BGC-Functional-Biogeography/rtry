@@ -64,7 +64,7 @@ rtry_geocoding(address = NULL, email = NULL)
 To load the `.csv` file with location information, use `rtry_import()`:
 
 ```R
-input_locations <- rtry_import("input/TRY_Sample_Locations.csv", separator = ",", quote = "\"")
+input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
 ```R
@@ -141,7 +141,7 @@ input_locations$Longitude <- output_coordinates$lon
 input_locations <- rtry_select_col(input_locations, "Country code", Country, Location, Latitude, Longitude, showOverview = FALSE)
 
 # Export into .csv
-rtry_export(input_locations, "output/TRY_Sample_Locations_Coordinates.csv")
+rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
 ![workflow_geocoding_input_coordinates](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_locations_coordinates.png)
@@ -168,7 +168,7 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 To load the `.csv` file with coordinates information, use `rtry_import()`:
 
 ```R
-input_coordinates <- rtry_import("input/TRY_Sample_Coordinates.csv", separator = ",", quote = "\"")
+input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
 ```R
@@ -236,7 +236,7 @@ input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locat
 input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Country code", Country, Location, showOverview = FALSE)
 
 # Export into .csv
-rtry_export(input_coordinates, "output/TRY_Sample_Coordinates_Locations.csv")
+rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
 ```
 
 ![workflow_revgeocoding_coordinates_locations](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_coordinates_locations.png)
