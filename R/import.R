@@ -1,7 +1,8 @@
 #' Import TRY data
 #'
-#' This function imports the text file downloaded from the TRY database (\url{https://www.try-db.org})
-#' as a data.table for further processing.
+#' This function, by default, imports the text file exported from the TRY database
+#' as a data.table for further processing. It can also be used to import other data file,
+#' such as .csv file with comma as separator.
 #'
 #' @param input Path to the text file downloaded from TRY
 #' @param separator Data separator. Default \code{"\t"} for the TRY data output
@@ -12,7 +13,7 @@
 #' @examples
 #' \dontrun{
 #' rtry_import("./data/7956.txt")
-#' rtry_import("./data/8200.txt", showOverview = FALSE)
+#' rtry_import("./data/coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 #' }
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = "Latin-1", quote = "", showOverview = TRUE){
