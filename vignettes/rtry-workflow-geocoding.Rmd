@@ -189,7 +189,7 @@ input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordi
 
 
 
-In order to apply the function `rtry_revgeocoding()` to the `input_lat_lon`, use `lapply()`, and please remember to change the email address into your own email address.
+In order to apply the function `rtry_revgeocoding()` to the `input_lat_lon`, use `apply()`, and please remember to change the email address into your own email address.
 
 Since OSM is an absolute maximum of 1 request per second, in the following example, a 2 second delay has been set between each search.
 
