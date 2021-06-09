@@ -198,7 +198,7 @@ Since OSM is an absolute maximum of 1 request per second, in the following examp
 counter <- 1
 output_locations <- NULL # somethings received error messages 'no object found'
 
-# Use apply to apply function to the list of coordinates
+# Use apply to apply function to the data.frame that contains the coordinates
 # Please change the email address to your own email address
 output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   # Calling the Nominatim OpenStreetMap API
