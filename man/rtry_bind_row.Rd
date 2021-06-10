@@ -15,7 +15,9 @@ rtry_bind_row(..., showOverview = TRUE)
 A data table of the input data
 }
 \description{
-This function takes a sequence of data imported by \code{rtry_import()} and combined them by rows.
+This function takes a sequence of data imported by \code{rtry_import()}
+and combined them by rows. The data should share the same number of columns
+and column names.
 }
 \examples{
 \dontrun{

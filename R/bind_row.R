@@ -1,6 +1,8 @@
 #' Bind TRY data by rows
 #'
-#' This function takes a sequence of data imported by \code{rtry_import()} and combined them by rows.
+#' This function takes a sequence of data imported by \code{rtry_import()}
+#' and combined them by rows. The data should share the same number of columns
+#' and column names.
 #'
 #' @param ... A sequence of data frame to be combined by rows
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
