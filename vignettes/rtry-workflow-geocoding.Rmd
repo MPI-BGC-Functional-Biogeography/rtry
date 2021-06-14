@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 ***
 
+
 This vignette is intended to demonstrate how to use the `rtry_geocoding()` and `rtry_revgeocoding()` within the `rtry` package to perform geocoding and reverse geocoding for a list of locations or coordinates.
 
 Geocoding is the process of converting an address into geographic coordinates (latitude and longitude), while reverse geocoding is the process of converting geographic coordinates (latitude and longitude) into an address.
@@ -33,7 +34,19 @@ Note that the geo-reference system used is WGS84 projection.
 
 ## Prepare environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. Note that an example workflow is provided in the `examples` directory.
+Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. It is also advised to download the `examples` directory in which both the example workflow script and sample data are provided. Details are also provided within the "Installation Guide".
+
+
+
+To start with, set the work directory to the location where the `examples` directory is located:
+
+```R
+setwd("<path_to_rtry_examples_dir>")
+```
+
+Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
+
+
 
 Load the required packages using the commands:
 
@@ -68,7 +81,7 @@ input_locations <- rtry_import("input/locations.csv", separator = ",", encoding 
 ```
 
 ```R
-## input: input/TRY_Sample_Locations.csv
+## input: input/locations.csv
 ## dim:   29 3
 ## ls:    Country Country code Location
 ```
@@ -172,7 +185,7 @@ input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encod
 ```
 
 ```R
-## input: C:/Users/hlam/ownCloud/TRY_R/rtry_share_obg/examples/input/TRY_Sample_Coordinates.csv
+## input: input/coordinates.csv
 ## dim:   29 2 
 ## ls:    Latitude Longitude 
 ```
