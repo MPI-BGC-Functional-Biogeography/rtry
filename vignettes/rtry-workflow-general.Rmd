@@ -1,0 +1,207 @@
+---
+title: "Using rtry for general data pre-processing"
+output:
+  rmarkdown::html_vignette:
+    # toc: true
+    # number_sections: true
+    # toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Using rtry for general data pre-processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+***
+
+
+This vignette is intended to demonstrate how to use the`rtry` package to perform pre-process of the data exported from the TRY database, from importing and exploring the data to binding multiple data, as well as selecting, filtering specific data using user-defined criteria and removing duplicates, and finally exporting the pre-process data.
+
+
+
+## Prepare environment
+
+Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. It is also advised to download the `examples` directory in which both the example workflow script and sample data are provided. Details are also provided within the "Installation Guide".
+
+
+
+To start with, set the work directory to the location where the `examples` directory is located:
+
+```R
+setwd("<path_to_rtry_examples_dir>")
+```
+
+Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
+
+
+
+Load the required packages using the commands:
+
+```R
+library(rtry)	# load the rtry package
+packageVersion("rtry")	# check the version of rtry
+```
+
+
+
+
+
+## Import TRY data
+
+The `rtry_import()` takes five arguments `input`, `separator`, `encoding`, `quote` and `showOverview`, and returns a data table that contains the entire dataset. Since the function by default imports the text file exported from the TRY database for further processing, to import the TRY data (e.g. `TRYdata_15160.txt`), simply type the following:
+
+```R
+TRYdata1 <- rtry_import("input/TRYdata_15160.txt")
+```
+
+```R
+## input: input/TRYdata_15160.txt
+## dim:   1782 28 
+## ls:    AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName V28 ValueKindName
+```
+
+Once the data has been imported, there are two ways to view the imported data (in this case `TRYdata1`).
+
+**Method 1: ** Print the first 5 rows of the `TRYdata1` using the command:
+
+```R
+head(TRYdata1)
+```
+
+**Method 2: ** View the entire `TRYdata1`, use the following command and the data viewer will be prompted:
+
+```R
+View(TRYdata1)
+```
+
+
+
+To import another TRY data:
+
+```R
+TRYdata2 <- rtry_import("input/TRYdata_15161.txt")
+```
+
+```R
+## input: input/TRYdata_15161.txt
+## dim:   4627 28 
+## ls:    AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName V28 ValueKindName 
+```
+
+Again to view the imported data, use either of the following commands:
+
+```R
+head(TRYdata2)
+```
+
+```R
+View(TRYdata2)
+```
+
+
+
+## Explore the imported data
+
+The `rtry_explore()` takes four arguments `input`, `...`, `sortBy` and `showOverview`, and converts the input into a grouped data table based on the specified column names. To provide a first understanding of the data, an additional column is added to show the total count within each group. By default (if `sortBy` is not specified), the output data is grouped by the first attribute.
+
+To explore the data `TRYdata1` based on the `TraitID` and `TraitName`, use the following:
+
+```R
+TRYdata1_explore_trait <- rtry_explore(TRYdata1, TraitID, TraitName)
+```
+
+```R
+## dim:   3 3 
+```
+
+View the output data using the command:
+
+```R
+View(TRYdata1_explore_trait)
+```
+
+With this, it is clear that the `TRYdata1` only includes data with two `TraitID` (3115 and 3116). And that within this dataset, there are 1632 auxiliary data, i.e. the entries where `TraitID` is `NA`.
+
+![workflow_general_explore_traits_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_traits_01.png){width=80%}
+
+
+
+Next, further exploration of `TRYdata1` can be done based on the `AccSpeciesID`, `AccSpeciesName`, `TraitID` and `TraitName`.
+
+```R
+TRYdata1_explore_species <- rtry_explore(TRYdata1, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+```
+
+```R
+## dim:   9 5 
+```
+
+```R
+View(TRYdata1_explore_species)
+```
+
+Since the output is, by default, sorted by `AccSpeciesID`, it can be seen that the `TRYdata1` only contains three consolidated species (with `AccSpeciesID` equals 10773, 35846 and 45737). Each consolidated species has records where the `TraitID` equals 3115 and 3116, as well as the corresponding auxiliary data.
+
+![workflow_general_explore_species_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_species_01.png){width=100%}
+
+
+
+A similar procedure can be performed on the other TRY data (`TRYdata2`).
+
+```R
+TRYdata2_explore_trait <- rtry_explore(TRYdata2, TraitID, TraitName)
+TRYdata2_explore_species <- rtry_explore(TRYdata2, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+```
+
+```R
+## dim:   2 3 
+## dim:   6 5 
+```
+
+Then use either `head()` or `View()` function to view the data.
+
+
+
+## Bind imported data by rows
+
+The `rtry_bind_row()` function takes two arguments `...` and `showOverview`. It takes a sequence of data and combined them by rows. Note: The data should share the same number of columns and column names.
+
+With the two TRY data `TRYdata1` and `TRYdata2` already imported, it is possible to combine the two data into one (`TRYdata`):
+
+```R
+TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
+```
+
+```R
+## dim:   6409 28 
+## ls:    AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName V28 ValueKindName 
+```
+
+From the dimension, it can be seen that now the two imported data has been combined together by rows, with `TRYdata1` on top then followed by `TRYdata2`, and a new data `TRYdata` has been created.
+
+
+
+Now this combined data `TRYdata` can be explored using once again the `rtry_explore()`.
+
+```R
+# Group the input data based on TraitID and TraitName
+TRYdata_explore_trait <- rtry_explore(TRYdata, TraitID, TraitName)
+
+# Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
+# Note: For TraitID == "NA", meaning that entry is an auxiliary data
+TRYdata_explore_species <- rtry_explore(TRYdata, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+```
+
+```R
+## dim:   4 3 
+## dim:   12 5 
+```
+
+To view the data, use either `head()` or `View()`.
