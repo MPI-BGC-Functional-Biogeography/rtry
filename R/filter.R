@@ -1,6 +1,7 @@
 #' Filter TRY data
 #'
-#' This function filters data from the input data based on the specified criteria and the corresponding \code{ObservationID}.
+#' This function filters data from the input data based on the specified criteria
+#' and the corresponding \code{ObservationID}.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for filtering

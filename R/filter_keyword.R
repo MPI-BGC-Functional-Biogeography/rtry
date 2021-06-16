@@ -1,6 +1,7 @@
 #' Filter TRY data using keywords
 #'
-#' This function filters data from the input data based on the specified keyword(s) and the corresponding \code{ObservationID}.
+#' This function filters data from the input data based on the specified keyword(s)
+#' and the corresponding \code{ObservationID}.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param attribute Attribute (column name) for filtering

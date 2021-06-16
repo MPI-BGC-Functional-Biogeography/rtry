@@ -30,7 +30,8 @@ rtry_filter_keyword(
 A data table of the input data after filtering
 }
 \description{
-This function filters data from the input data based on the specified keyword(s) and the corresponding \code{ObservationID}.
+This function filters data from the input data based on the specified keyword(s)
+and the corresponding \code{ObservationID}.
 }
 \examples{
 \dontrun{

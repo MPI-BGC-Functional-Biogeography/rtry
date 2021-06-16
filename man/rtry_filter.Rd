@@ -19,7 +19,8 @@ rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 A data table of the input data after filtering
 }
 \description{
-This function filters data from the input data based on the specified criteria and the corresponding \code{ObservationID}.
+This function filters data from the input data based on the specified criteria
+and the corresponding \code{ObservationID}.
 }
 \examples{
 \dontrun{
