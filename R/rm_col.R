@@ -23,6 +23,7 @@ rtry_rm_col <- function(input, ..., showOverview = TRUE){
 
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(remainingColumns), sep = " "))
+      message("ls:    ", paste0(ls(remainingColumns), sep = " "))
     }
 
     return(remainingColumns)

@@ -23,6 +23,7 @@ rtry_select_col <- function(input = "", ..., showOverview = TRUE){
 
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(selectedColumns), sep = " "))
+      message("ls:    ", paste0(ls(selectedColumns), sep = " "))
     }
 
     return(selectedColumns)
