@@ -15,8 +15,10 @@ rtry_rm_dup(input = "", showOverview = TRUE)
 A data table of the input data after removing the duplicates
 }
 \description{
-This function identifies and removed the duplicates from the input data.
-Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
+This function identifies and removed the duplicates from the input data using the
+duplicate identifier \code{OrigObsDataID} provided within the TRY data.
+Once the function is called and executed, the number of duplicates removed
+will be displayed on the console as reference.
 }
 \note{
 This function depends on the duplicate identifier \code{OrigObsDataID} listed in the TRYdata,

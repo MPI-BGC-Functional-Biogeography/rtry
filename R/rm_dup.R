@@ -1,7 +1,9 @@
 #' Remove duplicates in TRY data
 #'
-#' This function identifies and removed the duplicates from the input data.
-#' Once the function is called and executed, the number of duplicates removed will be displayed on the console as reference.
+#' This function identifies and removed the duplicates from the input data using the
+#' duplicate identifier \code{OrigObsDataID} provided within the TRY data.
+#' Once the function is called and executed, the number of duplicates removed
+#' will be displayed on the console as reference.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param showOverview Default \code{TRUE} displays the the dimension of data table after removal
