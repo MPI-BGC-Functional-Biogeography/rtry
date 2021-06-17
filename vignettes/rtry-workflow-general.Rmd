@@ -205,3 +205,148 @@ TRYdata_explore_species <- rtry_explore(TRYdata, AccSpeciesID, AccSpeciesName, T
 ```
 
 To view the data, use either `head()` or `View()`.
+
+
+
+After reassuring the combined data contains the necessary traits and species, for the purpose of pre-processing, it is also necessary to understand what auxiliary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
+
+```R
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+TRYdata_explore_aux <- rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   331 5 
+```
+
+With this exploration and the way it is sorted, it is clear that in the `TRYdata`: (1) there are three traits, with the `TraitID` equals to 3115, 3116 and 3117; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within each trait, whether or not similar data exists.
+
+For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further pre-processing is performed.
+
+Same goes for `TraitID` 3117, where `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further pre-processing.
+
+![workflow_general_explore_aux](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux.png){width=100%}
+
+
+
+## Select relevant columns
+
+Within the `rtry` package, there are two ways to reduce the data's column size, i.e. `rtry_select_col()` and `rtry_rm_col()`.
+
+The `rtry_select_col()` takes three arguments `input`, `...` and `showOverview` in order to select specified columns from the imported data.
+
+While the `rtry_rm_col()` takes also three arguments  `input`, `...` and `showOverview` to remove the specified columns from the input data instead.
+
+It is completely up to the users to decide which function they prefer in retrieving the relevant columns of the data.
+
+
+
+> Note: which columns have to be kept for the other functions
+>
+> `ObservationID` 
+>
+> `OrigObsDataID`
+
+
+
+
+
+In general, it would be easier to use the `rtry_rm_col()` when user would like to keep most of the columns and remove only a small fraction of the data column, such as `V28`.
+
+```R
+workdata <- rtry_rm_col(TRYdata, V28)
+```
+
+```R
+## dim:   6409 27 
+## ls:    AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName ValueKindName 
+```
+
+From the feedback, it can be seen that only the column `V28` has been removed, therefore, the output `workdata` contains only 27 columns, instead of the original 28. And users can continue removing columns if necessary.
+
+
+
+On the other hand, if users are clear which columns they would like to keep, a more direct approach is, of course, with the `rtry_select_col()`:
+
+```R
+workdata <- rtry_select_col(workdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
+```
+
+```R
+## dim:   6409 17 
+## ls:    AccSpeciesID AccSpeciesName Comment DataID DataName ErrorRisk ObsDataID ObservationID OriglName OrigObsDataID OrigUnitStr OrigValueStr StdValue TraitID TraitName UnitName ValueKindName 
+```
+
+Here from the feedback, users can confirmed the remaining columns within the data (in this case the `workdata`), and continue selecting relevant columns when necessary.
+
+
+
+## Select relevant rows
+
+The `rtry_select_row()` takes five arguments `input`, `...`, `getAuxiliary`, `rmDuplicates` and `showOverview` to select specified rows based on the specified criteria from the imported data. This function make use of the `ObservationID` provided within the TRY data during the row extraction process.
+
+To select the relevant rows, i.e. all traits and only the auxiliary data of interested:
+
+```R
+# Select the following auxiliary data
+# 59 Latitude
+# 60 Longitude
+# 61 Altitude
+# 6601 Sampling date
+# 327 Exposition
+# 413 Plant developmental status / plant age / maturity / plant life stage
+# 1961 Health status of plants (vitality)
+workdata <- rtry_select_row(workdata, TraitID > 0 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961))
+```
+
+```R
+## dim:   822 17 
+```
+
+
+
+To check if the required data are selected, the `rtry_explore()` can be used:
+
+```R
+workdata_explore_aux <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   13 5 
+```
+
+Then use the command `View(workdata_explore_aux)` to view the output in the data viewer.
+
+![workflow_general_explore_aux_workdata](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_workdata.png){width=100%}
+
+
+
+## Save and load backup data
+
+Before continuing with the filtering process, it is recommended to backup the data first.
+
+```R
+# save workdata_unfiltered as backup
+workdata_unfiltered <- workdata
+```
+
+
+
+If necessary, load the backup data using the following:
+
+```R
+# load workdata_unfiltered
+workdata <- workdata_unfiltered
+```
+
+
+
+## Filter irrelevant data
+
+The `rtry` package provides two functions `rtry_filter()` and `rtry_filter_keyword()` for users to filter irrelevant rows of data.
+
+The `rtry_filter()` function takes four arguments `input`, `...`, `baseOn` and `showOverview` to filter data from the input data based on the specified criteria and the corresponding `ObservationID`.
+
+While the `rtry_filter_keyword()` takes six arguments `input`, `attribute`, `...`, `caseSensitive`, `exactMatch`, `showOverview` to filter data from the input data based on the specified keywords and the corresponding `ObservationID`.
+
