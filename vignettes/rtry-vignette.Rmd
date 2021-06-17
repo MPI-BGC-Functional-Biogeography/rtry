@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 ***
 
 
-# Introduction of TRY
+# The TRY database
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
@@ -69,6 +69,24 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (`.t
 | 27.  | Comment               | Explanation for the `OriginalName` in the contributed dataset |
 
 Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
+
+
+
+## Request data from the TRY database
+
+
+
+### Self registration
+
+
+
+### Data request
+
+
+
+### Data retrieve
+
+
 
 
 
@@ -536,11 +554,12 @@ TRYdata_selectColumns <- rtry_select_col(TRYdata, ObsDataID, ObservationID, AccS
 
 ```R
 ## dim:    435764 17 
+## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName ErrorRisk ObsDataID ObservationID OriglName OrigObsDataID OrigUnitStr OrigValueStr StdValue TraitID TraitName UnitName ValueKindName 
 ```
 
 Note that the resulting data table would be the same as in the example provided in `rtry_rm_col()` in this case.
 
-Since the default value of `showOverview` is set to be `TRUE`, the dimension of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectColumns`.
+Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectColumns`.
 
 
 
@@ -558,7 +577,7 @@ TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
 
 ![rtry_select_col_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_col_usecase_2.png){width=100%}
 
-Since the default value of `showOverview` is set to be `TRUE`, the dimension of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
+Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
 
 
 
@@ -639,7 +658,7 @@ Outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60
 
 ## `rtry_filter`
 
-This function filters data from the input data based on the specified criteria and the corresponding `ObservationID`.
+This function filters data from the input data based on the specified criteria and by default this filtering is performed based on the corresponding `ObservationID`. Therefore, if the column `ObservationID` has been removed, this function might not work (unless another attribute is defined when calling the function).
 
 ```R
 rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
@@ -726,7 +745,7 @@ Since the `showOverview` in this use case is set to `FALSE`, the overview of the
 
 ## `rtry_filter_keyword`
 
-This function filters data from the input data based on the specified keywords and the corresponding `ObservationID`.
+This function filters data from the input data based on the specified keywords and the corresponding `ObservationID`. Therefore, if the column ObservationID has been removed, this function will not work.
 
 ```R
 rtry_filter_keyword(
@@ -844,11 +863,12 @@ TRYdata_rmColumns <- rtry_rm_col(TRYdata, LastName, FirstName, DatasetID, Datase
 
 ```R
 ## dim:    435764 17 
+## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName ErrorRisk ObsDataID ObservationID OriglName OrigObsDataID OrigUnitStr OrigValueStr StdValue TraitID TraitName UnitName ValueKindName 
 ```
 
 Note that the resulting data table would be the same as in the example provided in `rtry_select_col()` in this case.
 
-Since the default value of `showOverview` is set to be `TRUE`, the dimension of data table after removal would be displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the variable `TRYdata_rmColumns`.
+Since the default value of `showOverview` is set to be `TRUE`, the overview of the data after removal would be displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the variable `TRYdata_rmColumns`.
 
 
 
