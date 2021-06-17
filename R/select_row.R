@@ -1,7 +1,7 @@
 #' Select TRY rows
 #'
-#' This function selects specified rows based on the specified criteria  and the corresponding \code{ObservationID}
-#' from the imported data for further processing.
+#' This function selects specified rows based on the specified criteria
+#' and the corresponding \code{ObservationID} from the imported data for further processing.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Criteria for row selection
@@ -16,6 +16,9 @@
 #' rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
 #' }
 #' @seealso \code{\link{rtry_rm_dup}}
+#' @note This function by default filters data based on the unique identifier \code{ObservationID}
+#' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
+#' will not work.
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   ObservationID <- NULL  # bind the variable ObservationID locally to the function

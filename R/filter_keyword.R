@@ -10,6 +10,9 @@
 #' @param exactMatch Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after filtering
+#' @note This function filters data based on the unique identifier \code{ObservationID}
+#' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
+#' will not work.
 #' @examples
 #' \dontrun{
 #' rtry_filter_keyword(TRYdata, OrigValueStr, c("juvenile"), caseSensitive = FALSE, exactMatch = FALSE)

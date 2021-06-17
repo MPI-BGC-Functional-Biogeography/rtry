@@ -27,8 +27,13 @@ rtry_select_row(
 A data table of the selected rows of the input data
 }
 \description{
-This function selects specified rows based on the specified criteria  and the corresponding \code{ObservationID}
-from the imported data for further processing.
+This function selects specified rows based on the specified criteria
+and the corresponding \code{ObservationID} from the imported data for further processing.
+}
+\note{
+This function by default filters data based on the unique identifier \code{ObservationID}
+listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
+will not work.
 }
 \examples{
 \dontrun{

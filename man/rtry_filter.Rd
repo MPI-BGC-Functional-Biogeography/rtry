@@ -20,7 +20,12 @@ A data table of the input data after filtering
 }
 \description{
 This function filters data from the input data based on the specified criteria
-and the corresponding \code{ObservationID}.
+and by default this filtering is performed based on the corresponding \code{ObservationID}.
+}
+\note{
+This function by default filters data based on the unique identifier \code{ObservationID}
+listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
+might not work (unless another attribute is defined when calling the function).
 }
 \examples{
 \dontrun{
