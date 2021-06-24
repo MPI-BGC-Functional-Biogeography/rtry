@@ -702,7 +702,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 Once the filtering criteria are identified, perform the filtering using `rtry_filter()`. It is also possible to simply this step by using `rtry_filter_keyword()` in which only the keywords such as `juvenile` needs to be specified to perform the filtering.
 
 ```R
-tmp2 <- rtry_filter(tmp, OrigValueStr %in% c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks"))
+tmp2 <- rtry_filter(tmp, (DataID %in% 413) & (OrigValueStr %in% c("2.5", "juvenile", "Juvenile", "juvenile, 6 weeks")))
 ```
 
 ```R
