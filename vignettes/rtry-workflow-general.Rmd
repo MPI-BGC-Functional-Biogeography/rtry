@@ -129,7 +129,7 @@ View(TRYdata1_explore_trait)
 
 With this, it is clear that the `TRYdata1` only includes data with two `TraitID` (3115 and 3116). And that within this dataset, there are 1632 auxiliary data, i.e. the entries where `TraitID` is `NA`.
 
-![workflow_general_explore_traits_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_traits_01.png){width=80%}
+![workflow_general_explore_traits_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_traits_TRYdata1.png){width=80%}
 
 
 
@@ -149,23 +149,64 @@ View(TRYdata1_explore_species)
 
 Since the output is, by default, sorted by `AccSpeciesID`, it can be seen that the `TRYdata1` only contains three consolidated species (with `AccSpeciesID` equals 10773, 35846 and 45737). Each consolidated species has records where the `TraitID` equals 3115 and 3116, as well as the corresponding auxiliary data.
 
-![workflow_general_explore_species_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_species_01.png){width=100%}
+![workflow_general_explore_species_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_species_TRYdata1.png){width=100%}
+
+
+
+After reassuring the data contains the necessary traits and species, for the purpose of pre-processing, it is also necessary to understand what auxiliary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
+
+```R
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+TRYdata1_explore_aux <- rtry_explore(TRYdata1, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   156 5 
+```
+
+```R
+View(TRYdata1_explore_aux)
+```
+
+With this exploration and the way it is sorted, it is clear that in the `TRYdata1`: (1) there are two traits, with the `TraitID` equals to 3115 and 3116; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within each trait, whether or not similar data exists.
+
+For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further pre-processing is performed.
+
+![workflow_general_explore_aux_TRYdata1](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_TRYdata1.png){width=100%}
 
 
 
 A similar procedure can be performed on the other TRY data (`TRYdata2`).
 
 ```R
+# Group the input data based on TraitID and TraitName
 TRYdata2_explore_trait <- rtry_explore(TRYdata2, TraitID, TraitName)
+
+# Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
+# Note: For TraitID == "NA", meaning that entry is an auxiliary data
 TRYdata2_explore_species <- rtry_explore(TRYdata2, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+TRYdata2_explore_aux <- rtry_explore(TRYdata2, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
 ```R
 ## dim:   2 3 
 ## dim:   6 5 
+## dim:   236 5 
 ```
 
 Then use either `head()` or `View()` function to view the data.
+
+
+
+If used the `View(TRYdata2_explore_aux)` function, it can be seen that in the `TRYdata2`:  (1) there is only one trait, with the `TraitID` equals to 3116; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within this trait, whether or not similar data exists.
+
+Here, it is clear that `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further pre-processing.
+
+![workflow_general_explore_aux](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_TRYdata2.png){width=100%}
 
 
 
@@ -197,58 +238,31 @@ TRYdata_explore_trait <- rtry_explore(TRYdata, TraitID, TraitName)
 # Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
 # Note: For TraitID == "NA", meaning that entry is an auxiliary data
 TRYdata_explore_species <- rtry_explore(TRYdata, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
-```
 
-```R
-## dim:   4 3 
-## dim:   12 5 
-```
-
-To view the data, use either `head()` or `View()`.
-
-
-
-After reassuring the combined data contains the necessary traits and species, for the purpose of pre-processing, it is also necessary to understand what auxiliary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
-
-```R
 # Group the input data based on DataID, DataName, TraitID and TraitName
 # Then sort the output by TraitID using the sortBy argument
 TRYdata_explore_aux <- rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
 ```R
+## dim:   4 3 
+## dim:   12 5 
 ## dim:   331 5 
 ```
 
-With this exploration and the way it is sorted, it is clear that in the `TRYdata`: (1) there are three traits, with the `TraitID` equals to 3115, 3116 and 3117; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within each trait, whether or not similar data exists.
-
-For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further pre-processing is performed.
-
-Same goes for `TraitID` 3117, where `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further pre-processing.
-
-![workflow_general_explore_aux](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux.png){width=100%}
+To view the data, use either `head()` or `View()`.
 
 
 
 ## Select relevant columns
 
-Within the `rtry` package, there are two ways to reduce the data's column size, i.e. `rtry_select_col()` and `rtry_rm_col()`.
+Within the `rtry` package, there are two ways to reduce the data's column size, i.e. `rtry_select_col()` and `rtry_rm_col()`. Note: To ensure the later pre-processing steps (such as data selection and duplicates removal) work properly, do not remove the column `ObservationID` and `OrigObsDataID`.
 
 The `rtry_select_col()` takes three arguments `input`, `...` and `showOverview` in order to select specified columns from the imported data.
 
 While the `rtry_rm_col()` takes also three arguments  `input`, `...` and `showOverview` to remove the specified columns from the input data instead.
 
 It is completely up to the users to decide which function they prefer in retrieving the relevant columns of the data.
-
-
-
-> Note: which columns have to be kept for the other functions
->
-> `ObservationID` 
->
-> `OrigObsDataID`
-
-
 
 
 
@@ -304,6 +318,17 @@ workdata <- rtry_select_row(workdata, TraitID > 0 | DataID %in% c(59, 60, 61, 66
 ## dim:   822 17 
 ```
 
+To view the data, use either `head()` or `View()`.
+
+In order to better understand the data, inside the data viewer, click on the column `ObservationID` to sort the dataset. This way, it can be seen that for example:
+
+1. For `ObservationID` 94068, there are two `ObsDataID` 1021243 and 1021245 with the first one belonging to the `TraitID` 3115 and the latter an auxiliary data. Looking deeper into the `DataID` and `DataName`, we can see that this data "SLA: petiole excluded" is measured within "growth chambers", and could be eliminated later on depending on the research question.
+2. For `ObservationID` 158137, immediately we can see there are four auxiliary data with the `DataID` 59, 60, 61 and 413. Looking further into the `ErrorRisk` of the data "SLA: petiole excluded", which is roughly 2.5, meaning the observation is 2.5 standard deviation away from the mean and it is a "good" value that we would want to keep later. On top of this, it can be seen that the `OrigObsDataID` is `NA`, meaning that it is not a duplicate. Also, from the species name, it is known that it is a tree species therefore the "Plant developmental status" (`DataID` 413) would be an important information for further processing.
+
+![workflow_general_select_row_workdata](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_select_row_workdata_01.png){width=100%}
+
+![workflow_general_select_row_workdata](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_select_row_workdata_02.png){width=100%}
+
 
 
 To check if the required data are selected, the `rtry_explore()` can be used:
@@ -348,5 +373,459 @@ The `rtry` package provides two functions `rtry_filter()` and `rtry_filter_keywo
 
 The `rtry_filter()` function takes four arguments `input`, `...`, `baseOn` and `showOverview` to filter data from the input data based on the specified criteria and the corresponding `ObservationID`.
 
-While the `rtry_filter_keyword()` takes six arguments `input`, `attribute`, `...`, `caseSensitive`, `exactMatch`, `showOverview` to filter data from the input data based on the specified keywords and the corresponding `ObservationID`.
+While the `rtry_filter_keyword()` takes six arguments `input`, `attribute`, `...`, `caseSensitive`, `exactMatch`, `showOverview` to filter data from the input data based on the specified keywords and the corresponding `ObservationID`. Note: the `rtry_filter_keyword()` can only filter data based on the specified values within a specific columns, so please ensure the keywords used are unique and are not used across the data fields.
 
+Again, it is completely up to the users to decide which function they prefer in filtering the irrelevant data. Though it is always advised to use the more precise `rtry_filter()` function.
+
+
+
+### Filter mature plants
+
+For demonstration purpose, the first step would be to remove the data where the observed plant is mature or unknown.
+
+
+
+To start with, check the `DataID` that contains information about plant development status, i.e. `413`, then check the different states of the `OrigValueStr` using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data is saved as `tmp_unfiltered`.
+
+```R
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+```
+
+```R
+## dim:   104 17 
+## dim:   7 6 
+```
+
+By sorting the exploration by `OrigValueStr`, it is clear that mature plants would have the value `adult`, `mature` and `mature, healthy`, whereas unknown status only comes in with the value `unknown`. This way it is possible to set the criteria and start the filtering process using either `rtry_filter()` or `rtry_filter_keyword()` which are both demonstrated below.
+
+![workflow_general_filter_mature_explore_before](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_filter_mature_explore_before.png){width=80%}
+
+
+
+**Method 1:** Filter mature (and unknown) plants using `rtry_filter()`.
+
+```R
+# Criteria
+# 1. DataID equals to 413
+# 2. OrigValueStr equals to "adult", "mature", "mature, healthy" or "unknown"
+workdata <- rtry_filter(workdata, (DataID %in% 413) & (OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown")))
+```
+
+```R
+## dim:   531 17 
+```
+
+**Method 2:** Filter mature (and unknown) plants using `rtry_filter_keyword()`. If method 1 has been performed, it is possible to try out method 2 by loading the backup data first.
+
+```R
+# Keywords: "adult", "mature", "unknown"
+# By default, the rtry_filter_keyword() function performs case sensitive and exact match filtering
+# Therefore, it needs to be set to FALSE in order to also filter "mature, healthy"
+workdata <- rtry_filter_keyword(workdata, OrigValueStr, c("adult", "mature", "unknown"), caseSensitive = FALSE, exactMatch = FALSE)
+```
+
+```R
+## dim:   531 17 
+```
+
+
+
+Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`. This time the temporary data is saved as `tmp_filtered`.
+
+```R
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_filtered <- rtry_explore(tmp_filtered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+```
+
+```R
+## dim:   13 17 
+## dim:   2 6 
+```
+
+It is clear that all the mature plants and plants with unknown status were filtered away as expected.
+
+![workflow_general_filter_mature_explore_after](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_filter_mature_explore_after.png){width=80%}
+
+
+
+To further confirmed if the trait and/or auxiliary data were also removed accordingly, use again the `rtry_explore()` function.
+
+```R
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+workdata_explore_aux_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   12 5 
+```
+
+Compare with the `workdata_explore_aux`, it can be seen that the number of traits and auxiliary data also decreased as expected.
+
+![workflow_general_explore_aux_filtered_mature](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_filtered_mature.png){width=100%}
+
+
+
+### Filter extreme observations
+
+It might also be of interested to remove extreme observations, such information can usually be found in the column `DataName`. In order to identify these data, explore the `workdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. Then sort the exploration by `TraitID`, this way it is possible to see if there are similar data in each trait. Note: This step has already been performed in the previous step, but for demonstration purpose and completeness of this example, the same function is called again.
+
+```R
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   12 5 
+```
+
+From this exploration, it can be seen that `DataID` 7222 and 7223 contains the minimum and maximum value of the "Leaf specific area (SLA: petiole excluded)" for trait 3115. Depending on the research question, user might want to remove these observations. The same goes for `DataID` 6598 for trait 3117, where two values of "SLA: undefined if petiole in- or excluded" had been provided.
+
+![workflow_general_explore_aux_filtered_mature](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_filtered_mature.png){width=100%}
+
+
+
+Now that the filtering criteria has been identified, use the `rtry_filter()` function to perform the filtering:
+
+```R
+# Criteria
+# 1. DataID equals to 7222, 7223 and 6598
+workdata <- rtry_filter(workdata, DataID %in% c(7222, 7223, 6598))
+```
+
+```R
+## dim:   464 17 
+```
+
+
+
+Double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
+
+```R
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+```
+
+```R
+## dim:   9 5 
+```
+
+It is clear that all the defined `DataID`s have been removed, as well as the corresponding traits and auxiliary data.
+
+![workflow_general_explore_aux_filtered_extremes](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_filtered_extremes.png)
+
+
+
+### Filter negative values
+
+When dealing with data related to the leaf specific area (SLA), it is important to make sure there is no negative values in the dataset, since it is not possible to have negative area. Therefore, it is also possible to use the filtering function provided in the `rtry` package to remove the negative values.
+
+
+
+Knowing that the SLA values can be found in `DataID` 6582, 6583 and 6584, user can first check if negative values exist in the dataset using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data is saved as `tmp_unfiltered`. Note: To filter numeric values, it is recommended to use the column `StdValue`.
+
+```R
+# Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
+# Then explore the unique values of the StdValue within the selected data
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   143 17 
+## dim:   120 6 
+```
+
+Here, it can be seen that the dataset does not contains negative SLA.
+
+![workflow_general_filter_sla_explore_before](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_filter_sla_explore_before.png){width=100%}
+
+
+
+However, for demonstration purpose, in case negative values are discovered, the following command can be used:
+
+```R
+# Criteria
+# 1. DataID equals to 6582, 6583 or 6584
+# 2. StdValue smaller than 0
+workdata <- rtry_filter(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 0))
+```
+
+```R
+## dim:   464 17 
+```
+
+
+
+Once the filtering is completed, it is always recommended to double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
+
+```R
+# Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
+# Then explore the unique values of the StdValue within the selected data
+tmp_filtered <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
+tmp_filtered <- rtry_explore(tmp_filtered, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   143 17 
+## dim:   120 6 
+```
+
+Note: Since there are no negative SLA values in this case, no data has been removed.
+
+
+
+### Filter irrelevant area
+
+It could be that only certain area of data is of interested for further processing, to filter away the irrelevant locations/areas, filter the data using the "Latitude" (`DataID` 59) and "Longitude" (`DataID` 60). To ensure the filtering works as expected, it is best to perform the filtering process one after one. In this case, filter according to latitude, then longitude.
+
+
+
+**Filter based on latitude**
+
+First, check the `DataID` that contains the latitude information, i.e. `59`, then check the different states of the `StdValue` using the functions `rtry_select_row()` and `rtry_explore()`.
+
+```R
+# Select the rows where DataID is 59, i.e. the data containing the latitude information
+# Then explore the unique values of the StdValue within the selected data
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 59)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   104 17 
+## dim:   37 6 
+```
+
+
+
+For demonstration purpose, the following command filters the latitude smaller than 50.00000 or when such information is missing, i.e. NA.
+
+```R
+# Criteria
+# 1. DataID equals to 59
+# 2. StdValue smaller than 50 or NA
+workdata <- rtry_filter(workdata, (DataID %in% 59) & (StdValue < 50 | is.na(StdValue)))
+```
+
+```R
+## dim:   207 17 
+```
+
+
+
+Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
+
+```R
+# Select the rows where DataID is 59, i.e. the data containing the latitude information
+# Then explore the unique values of the StdValue within the selected data
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 59)
+tmp_filtered <- rtry_explore(tmp_filtered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   40 17 
+## dim:   19 6 
+```
+
+From the exploration result, it is clear that only the latitude values larger than or equal to 50.00000 remains.
+
+![workflow_general_explore_aux_filtered_latitude](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_filter_lat_explore_after.png){width=90%}
+
+
+
+**Filter based on longitude**
+
+Next, a similar procedure will be performed on the longitude, where the `DataID` is 60. The column `StdValue` will again be used for the filtering process. To identify which values to be filtered, use the `rtry_select_row()` and `rtry_explore()` functions to explore the dataset.
+
+```R
+# Select the rows where DataID is 60, i.e. the data containing the longitude information
+# Then explore the unique values of the StdValue within the selected data
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 60)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   39 17 
+## dim:   18 6 
+```
+
+
+
+For demonstration purpose, the following command filters the longitude smaller than 10.00000 or larger than 50.00000.
+
+```R
+# Criteria
+# 1. DataID equals to 60
+# 2. StdValue smaller than 10 or larger than 50
+workdata <- rtry_filter(workdata, (DataID %in% 60) & (StdValue < 10 | StdValue > 50))
+```
+
+```R
+## dim:   153 17 
+```
+
+
+
+Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
+
+```R
+# Select the rows where DataID is 60, i.e. the data containing the longitude information
+# Then explore the unique values of the StdValue within the selected data
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 60)
+tmp_filtered <- rtry_explore(tmp_filtered, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+```
+
+```R
+## dim:   25 17 
+## dim:   9 6 
+```
+
+From the exploration result, it is clear that only the latitude values in between 10.00000 and 50.00000 remains.
+
+![workflow_general_explore_lon_explore_after](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_filter_lon_explore_after.png){width=60%}
+
+
+
+### Filter outliers
+
+The final example for the filtering process would be to remove the outliers. To do so, filter the data with `ErrorRisk` larger than or equal to 4.0. With this in mind, the `rtry_explore()` function is used to explore the data as reference.
+
+```R
+# Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
+# Then sort the output by ErrorRisk using the sortBy argument
+tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
+```
+
+```R
+## dim:   50 6 
+```
+
+From the exploration result, it can be seen that there are a few outliers (with `ErrorRisk` larger than 4.0 in this case). It can also be observed that for those `ErrorRisk` equals NA, are data that contains the georeference information and exposition of the observation. These are the value where `ErrorRisk` does not apply and should be kept.
+
+![workflow_general_explore_aux_unfiltered_outliers](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_unfiltered_outliers.png){width=100%}
+
+
+
+After understanding what data to be filtered, use the `rtry_filter()` function to perform the data removal:
+
+```R
+# Criteria
+# 1. ErrorRisk larger than or equal to 4
+workdata <- rtry_filter(workdata, ErrorRisk >= 4)
+```
+
+```R
+## dim:   139 17 
+```
+
+
+
+Always double-check the filtered data before continuing the pre-processing.
+
+```R
+# Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
+# Then sort the output by ErrorRisk using the sortBy argument
+tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
+```
+
+```R
+## dim:   48 6 
+```
+
+From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` larger than or equal to 4.0) were removed. 
+
+![workflow_general_explore_aux_filtered_outliers](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_explore_aux_filtered_outliers.png){width=100%}
+
+
+
+## Remove duplicates
+
+As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2019](https://onlinelibrary.wiley.com/doi/full/10.1111/gcb.14904) GCB). To keep track of potential duplicate entries, an unique identifier known as `OrigObsDataID` is assigned when certain observation data has previously been contributed. With the help of this `OrigObsDataID`, the `rtry` package provides a function `rtry_rm_dup()` for users to easily remove the duplicates from the data for further processing.
+
+The `rtry_rm_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also,  if the imported TRY data contains restricted dataset that belongs to another dataset (i.e. having an `OrigObsDataID`), these restricted data will also be removed resulting in data loss.
+
+To remove the duplicates from `workdata`, simply use the call the function:
+
+```R
+# Remove duplicates
+workdata <- rtry_rm_dup(workdata)
+```
+
+```R
+## 21 duplicates removed.
+## dim:   118 17 
+```
+
+Once the function is called and executed, by default the number of duplicates removed and the resulting dimension of the data will be displayed on the console as reference.
+
+
+
+## Transform to wide table
+
+For data management purposes, the TRY data is structured as a long table and this is what have been used so far. However, for human operators, it is more common to read and understand a dataset in a wide table format. Therefore, the `rtry` package offers the function `rtry_trans_wider()` for users to transform the long table into a wide table (i.e. increasing the number of columns and decreasing the number of rows) when needed.
+
+The `rtry_trans_wider()` takes five arguments `input`, `names_from`, `values_from`, `values_fn` and `showOverview` to transform the original long table format of the TRY data into a wide table format. Note: This function is based on the function `tidyr::pivot_wider()`.
+
+
+
+In general, the transformation will be performed on the `TraitID`, `TraitName` and `UnitName`, meaning to get the name of these two columns as part of the name of the output column (`names_from`), and then use the `StdValue` and `ErrorRisk` as the cell values (`values_from`). Also, the mean function is to be applied to each cell in the output (`values_fn`). To do so, use the following command:
+
+```R
+# Perform wide table transformation on TraitID, TraitName and UnitName
+# With cell values to be the mean values calculated for StdValue and ErrorRisk
+workdata_wider_traits <- rtry_trans_wider(workdata, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue, ErrorRisk), values_fn = list(StdValue = mean, ErrorRisk = mean))
+```
+
+```R
+## dim:   118 22 
+```
+
+Immediately, it can be seen that the number of columns is increased from 17 to 22, with new columns named for example "StdValue_3115_Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole excluded_mm2 mg-1".
+
+![workflow_general_trans_wider_traits](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_trans_wider_traits.png){width=100%}
+
+
+
+Despite the above function works as expected, it is important to note that transforming the data using `TraitID` or `TraitName` can sometimes cause duplicate entries on `ObservationID`. In such cases, the mean is calculate for `StdValue` and `ErrorRisk`. In order to avoid this, run the `rtry_trans_wider()` on the `DataID` and `DataName` instead:
+
+```R
+# Perform wide table transformation on DataID and DataName
+# With cell values to be the mean values calculated for StdValue and ErrorRisk
+workdata_wider_data <- rtry_trans_wider(workdata, names_from = c(DataID, DataName), values_from = c(StdValue, ErrorRisk), values_fn = list(StdValue = mean, ErrorRisk = mean))
+```
+
+```R
+## dim:   118 27 
+```
+
+This time, the column numbers is increased from 17 to 27, with new columns named for example "StdValue_6582_SLA: petiole excluded".
+
+![workflow_general_trans_wider_data](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_general_trans_wider_data.png){width=100%}
+
+
+
+## Export pre-processed TRY data
+
+The `rtry_export()` takes four arguments `data`, `output`, `quote` and `encoding` for users to export the pre-processed data as a CSV file. Note: If the specified output directory does not exist, it will be created automatically.
+
+To save the two pre-processed wide tables `workdata_wider_traits` and `workdata_wider_data`, simply:
+
+```R
+# Export the data into a CSV file
+rtry_export(workdata_wider_traits, "output/workdata_wider_traits.csv")
+rtry_export(workdata_wider_data, "output/workdata_wider_data.csv")
+```
+
+```R
+## New directory created at: output 
+## File saved at: output/workdata_wider_traits.csv
+## File saved at: output/workdata_wider_data.csv
+```
