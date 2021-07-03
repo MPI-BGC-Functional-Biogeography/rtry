@@ -1,13 +1,5 @@
 # The TRY R Project (rtry): An R Package to Preprocess Plant Trait Data in the TRY Database
 
->**[Introduction](#introduction)**
->
->**[Installation guide](#installation)**
->
->**[Functions](#functions)**
-
-<br>
-
 # <a name="introduction">Introduction
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
@@ -63,7 +55,7 @@ The released version of RStudio, an integrated development environment (IDE) des
 
 ### Download the `rtry` package
 
-The source package and documentation of the `rtry` package can be downloaded from the Nextcloud operated by MPI-BGC. 
+The source package and documentation of the `rtry` package can be downloaded from the Nextcloud operated by MPI-BGC.
 
 - Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 - Password: `mpi-bgc-rtry`
