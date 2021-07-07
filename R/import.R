@@ -17,18 +17,28 @@
 #' }
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = "Latin-1", quote = "", showOverview = TRUE){
+  # If the arguments input is missing, show the message
   if(missing(input)){
     message("Please specify the input file.")
   }
   else{
-    TRYdata <- data.table::fread(input, header = TRUE, sep = separator, dec = ".", encoding = encoding, quote = quote, data.table = TRUE)
+    # Read the input data and have it as data.table format
+    TRYdata <- data.table::fread(input,
+                                 header = TRUE,
+                                 sep = separator,
+                                 dec = ".",
+                                 encoding = encoding,
+                                 quote = quote,
+                                 data.table = TRUE)
 
+    # If the argument showOverview is set to be TRUE, print the input file path, dimension and column names of the input data
     if(showOverview == TRUE){
       message("input: ", input)
       message("dim:   ", paste0(dim(TRYdata), sep = " "))
-      message("ls:    ", paste0(ls(TRYdata), sep = " "))
+      message("col:   ", paste0(colnames(TRYdata), sep = " "))
     }
 
+    # Return the data table of the input data
     return(TRYdata)
   }
 }

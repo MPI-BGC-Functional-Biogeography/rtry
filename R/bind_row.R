@@ -13,17 +13,22 @@
 #' }
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){
+  # If ... is missing, show the message
   if(missing(...)){
     message("Please specify at least two data frames to be combined by rows")
   }
   else{
+    # Perform row binding
     TRYdata <- rbind(...)
 
+    # If the combined data is not NULL and if the argument showOverview is set to be TRUE
+    # Print the dimension and column names of the combined data
     if(!is.null(TRYdata) && showOverview == TRUE){
       message("dim:   ", paste0(dim(TRYdata), sep = " "))
       message("ls:    ", paste0(ls(TRYdata), sep = " "))
     }
 
+    # Return the combined data
     return(TRYdata)
   }
 }

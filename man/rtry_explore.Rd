@@ -11,7 +11,7 @@ rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 
 \item{...}{Attribute names to group together}
 
-\item{sortBy}{(Optional) Specify the attribute name used to reorder the rows}
+\item{sortBy}{(Optional) Specify the attribute name used to re-order the rows}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the result data table}
 }

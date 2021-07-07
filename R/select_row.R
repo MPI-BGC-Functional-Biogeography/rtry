@@ -21,28 +21,36 @@
 #' will not work.
 #' @export
 rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
-  ObservationID <- NULL  # bind the variable ObservationID locally to the function
+  # Bind the variable ObservationID locally to the function
+  ObservationID <- NULL
 
+  # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or criteria for row selection.")
   }
   else{
+    # Select all the rows that fit the criteria within the input data
     selectedRows <- subset(input, ...)
 
+    # If the argument getAuxiliary is set to be TRUE, obtain a list of unique ObservationID from the selected rows
+    # Select all the rows that have the listed ObservationID
     if(getAuxiliary == TRUE){
       auxiliary <- unique(selectedRows$ObservationID)
-
       selectedRows <- subset(input, ObservationID %in% auxiliary)
     }
 
+    # If the argument rmDuplicates is set to be TRUE
+    # Call the rtry_rm_dup functions to remove duplicates within the selected data
     if(rmDuplicates == TRUE){
       selectedRows <- rtry_rm_dup(selectedRows, showOverview = FALSE)
     }
 
+    # If the argument showOverview is set to be TRUE, print the dimension of the selected data
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(selectedRows), sep = " "))
     }
 
+    # Return the selected rows
     return(selectedRows)
   }
 }

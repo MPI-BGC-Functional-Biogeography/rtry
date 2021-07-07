@@ -7,7 +7,7 @@
 #'
 #' @param input Input data, imported by \code{rtry_import()} function or in data table format
 #' @param ... Attribute names to group together
-#' @param sortBy (Optional) Specify the attribute name used to reorder the rows
+#' @param sortBy (Optional) Specify the attribute name used to re-order the rows
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return A data table of the unique values grouped by the desired attribute(s)
 #' @examples
@@ -18,21 +18,28 @@
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
 rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
+  # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or attribute names you would like to group together.")
   }
   else{
+    # Group the input data based on the specified columns
+    # Compute a summary for each group
     input <- dplyr::group_by(input, ...)
     input <- dplyr::summarise(input, Count = dplyr::n(), .groups = 'drop')
 
+    # If the sortBy argument is specified, re-order the rows accordingly
     input <- dplyr::arrange(input, {{sortBy}})
 
+    # Copy the processed data into a new variable
     uniqueData <- input
 
+    # If the argument showOverview is set to be TRUE, print the dimension of the data exploration
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(uniqueData), sep = " "))
     }
 
+    # Return the data exploration result
     return(uniqueData)
   }
 }

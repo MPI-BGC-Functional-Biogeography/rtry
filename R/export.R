@@ -13,15 +13,18 @@
 #' }
 #' @export
 rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"){
+  # If either of the input or output is missing, show the message
   if(missing(data) || missing(output)){
     message("Please make sure you have specified the data to be saved or the output path.")
   }
   else{
+    # If the output directory does not exist, create one
     if (!dir.exists(dirname(output))){
       dir.create(dirname(output))
       message("New directory created at: ", paste0(dirname(output), sep = " "))
     }
 
+    # Write the data into a CSV file at the specified location
     utils::write.csv(x = data, file = output, quote = quote, fileEncoding = encoding)
     message("File saved at: ", output)
   }

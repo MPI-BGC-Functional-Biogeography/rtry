@@ -18,25 +18,40 @@
 #' might not work (unless another attribute is defined when calling the function).
 #' @export
 rtry_filter <- function(input = "", ..., baseOn = ObservationID, showOverview = TRUE){
-  ObservationID <- NULL  # bind the variable ObservationID locally to the function
+  # Bind the variable ObservationID locally to the function
+  ObservationID <- NULL
 
+  # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or criteria for filtering.")
   }
   else{
+    # Add quotations around the value in the baseOn argument
     baseOn <- deparse(substitute(baseOn))
 
+    # Select all the rows that fit the criteria within the input data
     exclude <- subset(input, ...)
+
+    # Obtain a list of unique specified baseOn (by default: ObservationID)
     exclude <- unique(exclude[[baseOn]])
 
+    # Add a new column exclude in the input data
+    # Check which rows of input data is on the list to be excluded, marked TRUE
     input$exclude <- input[[baseOn]] %in% exclude
 
-    filteredData <- subset(input, input$exclude == FALSE, select = -(exclude))
+    # Select all the rows where the exclude column equals FALSE
+    # Then, remove the exclude column
+    input <- subset(input, input$exclude == FALSE, select = -(exclude))
 
+    # Copy the processed input into a new variable
+    filteredData <- input
+
+    # If the argument showOverview is set to be TRUE, print the dimension of the filtered data
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(filteredData), sep = " "))
     }
 
+    # Return the filtered data
     return(filteredData)
   }
 }

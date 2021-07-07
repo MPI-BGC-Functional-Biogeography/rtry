@@ -45,7 +45,7 @@ rtry_select_aux <- function(input = "", name = "", showOverview = TRUE){
     selectedAux <- input
 
 
-    # If the argument showOverview is set to be TRUE, print the selected auxiliary data dimension and column names
+    # If the argument showOverview is set to be TRUE, print the dimension and column names of the selected auxiliary data
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(selectedAux), sep = " "))
       message("col:   ", paste0(colnames(selectedAux), sep = " "))

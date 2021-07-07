@@ -14,14 +14,20 @@
 #' @seealso \code{\link{rtry_geocoding}}
 #' @export
 rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
+  # If the argument lat_lon is missing, show the message
   if(missing(lat_lon)){
     message("Please make sure you have entered a data frame with latitude and longitude.")
   }
   else{
+    # If the argument email is missing, show the message
     if(missing(email)){
       message("Please make sure you have provided a valid email address.")
     }
+    # Check if a valid email address is provided (can only check the syntax)
+    # Proceed if the provided email address has a correct syntax
     else if(grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(email), ignore.case=TRUE)){
+      # Perform reverse geocoding using the OpenStreetMap Nominatim API
+      # Return NA when the provided coordinates are NULL or NA or when the API failed to search for an address
       lat = lat_lon[[1]]
       lon = lat_lon[[2]]
 
@@ -35,8 +41,10 @@ rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
         ), error = function(c) return(data.frame("NA"))
       )
 
+      # Create an "empty" variable
       extracted_address <- data.frame(full_address = NA, town = NA, city = NA, country = NA, country_code = NA)
 
+      # If an address exists, extract the relevant information from the result
       if(length(rev_geocode) != 0){
         full_address <- rev_geocode$display_name
         town = rev_geocode$address$town
@@ -44,6 +52,7 @@ rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
         country = rev_geocode$address$country
         country_code = rev_geocode$address$country_code
 
+        # Obtain a list that contains the full address, town, city, country and country code information
         tmp_data <- list(full_address, town, city, country, country_code)
 
         for(i in 1:length(tmp_data)){
@@ -52,14 +61,17 @@ rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
           }
         }
 
+        # Copy the obtained data into the variable
         extracted_address[1,] <- tmp_data
 
       } else{
         return(data.frame("NA"))
       }
 
+      # Return a data frame that contains a list of addresses
       return(data.frame(extracted_address))
     }
+    # If the syntax of the provided email address is not valid, show the message
     else{
       message("Please provide a valid email address.")
     }

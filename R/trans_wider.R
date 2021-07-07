@@ -22,21 +22,26 @@ rtry_trans_wider <- function(input = "",
                              values_from = NULL,
                              values_fn = NULL,
                              showOverview = TRUE){
+  # If =the argument input is missing, show the message
   if(missing(input)){
     message("Please specify the input data for transforming from long table to wide table.")
   }
   else{
+    # Copy the input data into a new variable
     longTable <- input
 
+    # Perform long table to wide table transformation using the pivot_wider function
     wideTable <- tidyr::pivot_wider(longTable,
                                     names_from = {{names_from}},
                                     values_from = {{values_from}},
                                     values_fn = {{values_fn}})
 
+    # If the argument showOverview is set to be TRUE, print the dimension of the wide table
     if(showOverview == TRUE){
       message("dim:   ", paste0(dim(wideTable), sep = " "))
     }
 
+    # Return the wide table
     return(wideTable)
   }
 }
