@@ -20,7 +20,7 @@ rtry_select_aux <- function(input = "", name = "", showOverview = TRUE){
 
   # If either of the arguments input or name is missing, show the message
   if(missing(input) || missing(name)){
-    message("Please specify the input data and/or the name of auxiliary data (DataName) you would like to select.")
+    message("Please specify the input data and/or the name of auxiliary data you would like to select.")
   }
   else{
     # Add quotations around the auxiliary name (DataName)
