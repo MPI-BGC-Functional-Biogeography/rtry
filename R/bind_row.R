@@ -25,7 +25,7 @@ rtry_bind_row <- function(..., showOverview = TRUE){
     # Print the dimension and column names of the combined data
     if(!is.null(TRYdata) && showOverview == TRUE){
       message("dim:   ", paste0(dim(TRYdata), sep = " "))
-      message("ls:    ", paste0(ls(TRYdata), sep = " "))
+      message("col:   ", paste0(colnames(TRYdata), sep = " "))
     }
 
     # Return the combined data
