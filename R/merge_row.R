@@ -41,7 +41,7 @@ rtry_merge_row <- function(x = "", y = "", baseOn = ObservationID, showOverview 
     }
     # If the baseOn column does not exist in the input data, show the message
     else{
-      message("Please make sure the column specified in 'baseOn' (by default: `ObservationID`) exists in both data frames.")
+      message("Please make sure the column specified in 'baseOn', by default: `ObservationID`, exists in both data frames.")
     }
   }
 }
