@@ -7,7 +7,7 @@ test_that("basic test", {
 
   expect_equal(input_address, "Hajdúdorog, Hungary")
 
-  output <- rtry_geocoding(input_address, "hlam@bgc-jena.mpg.de")
+  output <- rtry_geocoding(input_address, "jens.kattge@bgc-jena.mpg.de")
 
   expect_equal(class(output), "data.frame")
   expect_equal(length(output), 2)

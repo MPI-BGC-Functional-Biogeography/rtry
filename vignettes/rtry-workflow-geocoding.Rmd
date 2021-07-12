@@ -126,7 +126,7 @@ output_coordinates <- NULL # somethings received error messages 'no object found
 output_coordinates <- lapply(input_addresses, function(address) {
   # Calling the Nominatim OpenStreetMap API
   # Please change the email address into your own email address
-  geocode_output <- rtry_geocoding(address, email = "hlam@bgc-jena.mpg.de")
+  geocode_output <- rtry_geocoding(address, email = "jens.kattge@bgc-jena.mpg.de")
   
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
@@ -232,7 +232,7 @@ output_locations <- NULL # somethings received error messages 'no object found'
 # Please change the email address to your own email address
 output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   # Calling the Nominatim OpenStreetMap API
-  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "hlam@bgc-jena.mpg.de")
+  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "jens.kattge@bgc-jena.mpg.de")
   
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
