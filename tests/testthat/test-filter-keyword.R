@@ -2,11 +2,11 @@ context("Filter data by keywords (rtry_filter_keyword)")
 
 
 test_that("basic test", {
-  filter1 <- rtry_filter_keyword(TRYdata_14833, OrigValueStr, c("adult", "mature", "unknown"),
+  filter1 <- rtry_filter_keyword(TRYdata_15160, OrigValueStr, c("adult", "mature", "unknown"),
                                  caseSensitive = FALSE, exactMatch = FALSE)
 
   expect_equal(class(filter1), c("data.table", "data.frame"))
-  expect_equal(dim(filter1), c(5157, 28))
+  expect_equal(dim(filter1), c(863, 28))
 })
 
 

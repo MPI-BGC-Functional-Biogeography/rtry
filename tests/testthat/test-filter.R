@@ -2,10 +2,10 @@ context("Filter data (rtry_filter)")
 
 
 test_that("basic test", {
-  filter1 <- rtry_filter(TRYdata_14833, OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown"))
+  filter1 <- rtry_filter(TRYdata_15160, OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown"))
 
   expect_equal(class(filter1), c("data.table", "data.frame"))
-  expect_equal(dim(filter1), c(5443, 28))
+  expect_equal(dim(filter1), c(863, 28))
 })
 
 

@@ -2,20 +2,20 @@ context("Select TRY auxiliary data in wide table format (rtry_select_aux)")
 
 
 test_that("basic test", {
-  df_sel_aux1 <- rtry_select_aux(TRYdata_14833, Latitude)
+  df_sel_aux1 <- rtry_select_aux(TRYdata_15160, Latitude)
 
   expect_equal(class(df_sel_aux1), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_aux1), c(162, 2))
+  expect_equal(dim(df_sel_aux1), c(98, 2))
 
-  df_sel_aux2 <- rtry_select_aux(TRYdata_14833, Longitude)
+  df_sel_aux2 <- rtry_select_aux(TRYdata_15160, Longitude)
 
   expect_equal(class(df_sel_aux2), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_aux2), c(161, 2))
+  expect_equal(dim(df_sel_aux2), c(97, 2))
 
-  df_sel_aux3 <- rtry_select_aux(TRYdata_14833, Altitude)
+  df_sel_aux3 <- rtry_select_aux(TRYdata_15160, Altitude)
 
   expect_equal(class(df_sel_aux3), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_aux3), c(83, 2))
+  expect_equal(dim(df_sel_aux3), c(23, 2))
 })
 
 

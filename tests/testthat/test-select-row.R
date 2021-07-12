@@ -2,28 +2,28 @@ context("Select data by rows (rtry_select_row)")
 
 
 test_that("basic test", {
-  df_sel_row1 <- rtry_select_row(TRYdata_14833, DataID %in% c(59, 60))
+  df_sel_row1 <- rtry_select_row(TRYdata_15160, DataID %in% c(59, 60))
 
   expect_equal(class(df_sel_row1), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_row1), c(323, 28))
+  expect_equal(dim(df_sel_row1), c(195, 28))
 
 
-  df_sel_row2 <- df_sel_row <- rtry_select_row(TRYdata_14833, DataID %in% c(59))
+  df_sel_row2 <- df_sel_row <- rtry_select_row(TRYdata_15160, DataID %in% c(59))
 
   expect_equal(class(df_sel_row2), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_row2), c(162, 28))
+  expect_equal(dim(df_sel_row2), c(98, 28))
 
 
-  df_sel_row3 <- rtry_select_row(TRYdata_14833, DataID %in% c(59), getAuxiliary = TRUE)
+  df_sel_row3 <- rtry_select_row(TRYdata_15160, DataID %in% c(59), getAuxiliary = TRUE)
 
   expect_equal(class(df_sel_row3), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_row3), c(5708, 28))
+  expect_equal(dim(df_sel_row3), c(1354, 28))
 
 
-  df_sel_row4 <- rtry_select_row(TRYdata_14833, DataID %in% c(59), getAuxiliary = TRUE, rmDuplicates = TRUE)
+  df_sel_row4 <- rtry_select_row(TRYdata_15160, DataID %in% c(59), getAuxiliary = TRUE, rmDuplicates = TRUE)
 
   expect_equal(class(df_sel_row4), c("data.table", "data.frame"))
-  expect_equal(dim(df_sel_row4), c(5669, 28))
+  expect_equal(dim(df_sel_row4), c(1329, 28))
 })
 
 
