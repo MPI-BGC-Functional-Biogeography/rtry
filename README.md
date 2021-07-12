@@ -144,8 +144,11 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - `rtry_explore`
 - `rtry_bind_col`
 - `rtry_bind_row`
+- `rtry_merge_col`
+- `rtry_merge_row`
 - `rtry_select_col`
 - `rtry_select_row`
+- `rtry_select_aux`
 - `rtry_filter`
 - `rtry_filter_keyword`
 - `rtry_rm_col`
