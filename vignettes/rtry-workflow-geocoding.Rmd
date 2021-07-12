@@ -30,9 +30,9 @@ The functions `rtry_geocoding()` and `rtry_revgeocoding` are based on Nominatim,
 
 Note that the geo-reference system used is WGS84 projection.
 
+<br>
 
-
-## Prepare environment
+# Prepare environment
 
 Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. It is also advised to download the `examples` directory in which both the example workflow script and sample data are provided. Details are also provided within the "Installation Guide".
 
@@ -57,9 +57,9 @@ library(dplyr)	# load the dplyr pacakge, needed for piping (%>%)
 
 
 
+<br>
 
-
-## Use `rtry` for geocoding
+# Use `rtry` for geocoding
 
 The `rtry_geocoding()` takes two parameters `address` and `email`, and returns a data frame that contains latitude (`lat`) and longitude (`lon`) in WGS84 projection.
 
@@ -77,22 +77,27 @@ rtry_geocoding(address = NULL, email = NULL)
 To load the `.csv` file with location information, use `rtry_import()`:
 
 ```R
+# Load the locations from a .csv file
 input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+
+# View the location data in the data viewer
+View(input_locations)
 ```
 
 ```R
 ## input: input/locations.csv
-## dim:   29 3
-## ls:    Country Country code Location
+## dim:   20 3 
+## col:   Country code Country Location 
 ```
 
-![workflow_geocoding_input](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_locations.png)
+![workflow_geocoding_input](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_locations.png){width=40%}
 
 
 
 Then, the location data should be converted into the required format for `address`, i.e. `<location>, <country>`:
 
 ```R
+# Extract and combine the location and country names
 input_addresses <- paste(input_locations$Location, input_locations$Country, sep = ", ")
 
 # Display the first six rows
@@ -100,8 +105,8 @@ head(input_addresses)
 ```
 
 ```R
-## [1] "Hajdudorog, Hungary" "Diosd, Hungary"      "Fot, Hungary"       
-## [4] "Bőcs, Hungary" "Regec, Hungary"      "Eger, Hungary"
+## [1] "Hajdúdorog, Hungary" "Diósd, Hungary"      "Fót, Hungary"        "Bőcs, Hungary"      
+## [5] "Regéc, Hungary"      "Sáska, Hungary"   
 ```
 
 Note that file encoding `UTF-8` is used, and it is normal for the RStudio console to display character in Unicode character (`<U+0000>` semantic) depending on the system language setting. For example, "Bőcs" might be displayed as "B<U+0151>cs".
@@ -138,15 +143,26 @@ output_coordinates <- lapply(input_addresses, function(address) {
   bind_rows() %>% data.frame()
 ```
 
+```R
+## Geocoding 1/20 completed.
+## Geocoding 2/20 completed.
+## Geocoding 3/20 completed.
+## ...
+## Geocoding 20/20 completed.
+```
+
+The progress of the geocoding can be seen in the console. Once the geocoding is completed, view the `output_coordinates` using the `View()` function.
+
 The `output_coordinates` would look like the following. Note that the location which is unknown to OSM, the resulting latitude and longitude will remain or marked as NA.
 
-![workflow_geocoding_output](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_coordinates.png)
+![workflow_geocoding_output](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_coordinates.png){width=40%}
 
 
 
 Substitute the coordinates into the corresponding columns of the input data.
 
 ```R
+# Add the output coordinates to the corresponding columns in the input data
 input_locations$Latitude <- output_coordinates$lat
 input_locations$Longitude <- output_coordinates$lon
 
@@ -157,13 +173,13 @@ input_locations <- rtry_select_col(input_locations, "Country code", Country, Loc
 rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
-![workflow_geocoding_input_coordinates](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_locations_coordinates.png)
+![workflow_geocoding_input_coordinates](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_geocoding_locations_coordinates.png){width=60%}
 
 
 
+<br>
 
-
-## Use `rtry` for reverse geocoding
+# Use `rtry` for reverse geocoding
 
 The `rtry_revgeocoding()` takes two parameters `lat_lon` and `email`, and returns a data frame that contains the corresponding location.
 
@@ -186,17 +202,18 @@ input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encod
 
 ```R
 ## input: input/coordinates.csv
-## dim:   29 2 
-## ls:    Latitude Longitude 
+## dim:   20 2 
+## col:   Latitude Longitude 
 ```
 
-![workflow_revgeocoding_coordinates](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_coordinates.png)
+![workflow_revgeocoding_coordinates](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_coordinates.png){width=30%}
 
 
 
 Then, the coordinates data should be converted into a `data.frame`:
 
 ```R
+# Extract and converted the coordinates into a data frame
 input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
 ```
 
@@ -232,6 +249,16 @@ output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   bind_rows() %>% data.frame()
 ```
 
+```R
+## Reverse Geocoding 1/20 completed.
+## Reverse Geocoding 2/20 completed.
+## Reverse Geocoding 3/20 completed.
+## ...
+## Reverse Geocoding 20/20 completed.
+```
+
+The progress of the reverse geocoding can be seen in the console. Once the reverse geocoding is completed, view the `output_locations` using the `View()` function.
+
 The output location information would look like the following. Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, those columns will be marked as `NA`.
 
 ![workflow_revgeocoding_locations](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_locations.png){width=100%}
@@ -241,6 +268,7 @@ The output location information would look like the following. Note that for som
 Substitute the `country_code` and `country` into the corresponding columns of the input list, while the location information is extracted from either `town` or `city`.
 
 ```R
+# Add the output location information to the corresponding columns in the input data
 input_coordinates$'Country code' <- output_locations$country_code
 input_coordinates$Country <- output_locations$country
 input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locations$town, output_locations$city)
@@ -252,4 +280,4 @@ input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Co
 rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
 ```
 
-![workflow_revgeocoding_coordinates_locations](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_coordinates_locations.png)
+![workflow_revgeocoding_coordinates_locations](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\workflow_revgeocoding_coordinates_locations.png){width=60%}
