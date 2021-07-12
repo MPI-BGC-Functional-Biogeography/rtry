@@ -19,7 +19,7 @@
 rtry_merge_row <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
   # If any of the data frame is missing, show the message
   if(missing(x) || missing(y)){
-    message("Please specify the two data frames you would like to merge")
+    message("Please specify the two data frames you would like to merge.")
   }
   else{
     # Add quotations around the value in the baseOn argument when baseOn is not a character class

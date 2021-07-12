@@ -21,7 +21,7 @@ rtry_merge_col <- function(x = "", y = "", baseOn = ObservationID, showOverview 
 
   # If any of the data frame is missing, show the message
   if(missing(x) || missing(y)){
-    message("Please specify the two data frames you would like to merge")
+    message("Please specify the two data frames you would like to merge.")
   }
   else{
     # Add quotations around the value in the baseOn argument
@@ -43,7 +43,7 @@ rtry_merge_col <- function(x = "", y = "", baseOn = ObservationID, showOverview 
     }
     # If the baseOn column does not exist in the input data, show the message
     else{
-      message("Please make sure the column specified in 'baseOn' (by default: `ObservationID`) exists in both data frames.")
+      message("Please make sure the column specified in 'baseOn', by default: `ObservationID`, exists in both data frames.")
     }
   }
 }
