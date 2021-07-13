@@ -68,9 +68,6 @@ Once the download is completed, extract the folder to a desired location.
 
 ```markdown
 .
-├── archive				# Archived files for the rtry package
-│   ├── build				# Previous versions of source package
-│   ├── docs				# Previous documentation files
 ├── build				# Source files for the rtry package
 │   ├── YYYYMMDD_rtry_x.x.x.xxxx	# Source package
 ├── docs				# Documentation files
@@ -79,7 +76,7 @@ Once the download is completed, extract the folder to a desired location.
 └── README.md
 ```
 
-Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory (optional: `archive` directory) and maintain the file structure.
+Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory and maintain the file structure.
 
 <br>
 
