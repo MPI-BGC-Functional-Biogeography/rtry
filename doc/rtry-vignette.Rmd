@@ -26,11 +26,11 @@ knitr::opts_chunk$set(
 
 The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
-In 2014, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php). This Portal organizes data uploads, searches and requests, and enables interaction between data contributors, management and users. At the same time, it provides a link to the TRY File Archive (https://www.try-db.org/TryWeb/Data.php), which offers climate and soil data for TRY measurement sites, standardized categorical traits relevant to attribute species to plant functional types (PFTs), and provides the opportunity to publish plant trait data sets and receive a DOI.
+In 2014, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php). This Portal organizes data uploads, searches and requests, and enables interaction between data contributors, management and users. At the same time, it provides a link to the TRY File Archive (https://www.try-db.org/TryWeb/Data.php), which offers climate and soil data for TRY measurement sites, standardized categorical traits relevant to attribute species to plant functional types (PFTs), and provides the opportunity to publish plant trait data sets and receive a DOI. (For details related data request, please refer to the 'Request data from the TRY database' section below.)
 
 The TRY database version 5 released on 26 March 2019, contained 387 data sets providing 11.8 million trait records, accompanied by 35 million ancillary data, for 2091 traits and 280000 plant taxa, mostly at the species level. Our team at the Max Planck Institute for Biogeochemistry (MPI-BGC) is currently working towards the release of version 6.
 
-
+<br>
 
 ## Column headers
 
@@ -70,25 +70,112 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (`.t
 
 Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
-
+<br>
 
 ## Request data from the TRY database
 
+As said, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php) in 2014. Anyone can register online and granted access rights for requesting data from the database. The data available from the TRY database is licensed under a CC BY license (Creative Commons Attribution), i.e. the data are publicly available without restriction and the user is free to share and adapt the data, under the only conditions to give appropriate credit, provide a link to the license, and indicate if changes were made. Whereas for unpublished data, the opportunity of a 2(+2) years embargo period with restricted access is provided.
 
+To give users a general overview of the TRY database, the Data Explorer provides information about the content of the TRY database with respect to traits, species, original datasets and regions.
+
+![request_data_explorer](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_explorer.png){width=100%}
+
+<br>
 
 ### Self registration
 
+#### Sign Up
 
+In order to request data from the TRY Data Portal, first-time users have to create a user account. This self-registration for the TRY database can be performed by the user following a few simple steps:
+
+1. Click on the 'Registration' on the header menu of the [TRY Data Portal](https://www.try-db.org/TryWeb/dp.php), which would then lead to the 
+
+   ![request_data_registration_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_01.png){width=100%}
+
+   
+
+2. Fill in the registration form as instructed and click on 'Submit'. Note that the plant on the right side of the header will change randomly when the page is refreshed.
+
+   ![request_data_registration_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_02.png){width=100%}
+
+   
+
+3. If everything goes well, the user will be re-directed to the 'Registration was successful!' page. In the meantime, a system generated email that contains the login password will be sent to the registered email address.
+
+   Using the provided password, user can login to the TRY Data Portal with the full email address (used during registration) as username.
+
+   Note that it is advised to change the password when user first receive the password. To do so, simply click the 'Change password' on the header menu and follow the instructions.
+
+
+
+#### Login
+
+Once registered, users can access restricted content and request data from the data portal by entering the full email address as username and the password.
+
+
+
+#### Reset password
+
+In case the password has been forgotten, users can reset the password by clicking the 'Reset Password' on the header menu. Follow the instructions and a new password will be created automatically by the system and sent to the email address provided (which should be the same as the registered email address, i.e. username).
+
+![request_data_registration_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_03.png){width=100%}
+
+The user can then login to the data portal using the new password. Again, it is advised to change the password when the user receive the new password using the 'Change password' option.
+
+<br>
 
 ### Data request
 
+On the TRY Data Portal, there are two data request options: (1) TRY Database and (2) TRY File Archive.
 
+In the context of the TRY Database (https://www.try-db.org/TryWeb/Prop0.php), the trait values were standardized, quality checked and made available upon request. The data format that the users will receive would be in `.txt` format.
+
+On the other hand, the TRY File Archive (https://www.try-db.org/TryWeb/Data.php) hosts on the TRY website is a repository for the plant traits datasets complementary to the TRY database, and the datasets are stored and released as contributed (mostly in `.xlsx` format).
+
+Since the `rtry` package focuses on the standardized TRY data (`.txt`), this section will only describe how to request data from the TRY Database.
+
+
+
+1. To request the standardize and quality checked data from the TRY Database, click on the "TRY Database" button.
+   ![request_data_gui](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_gui.png){width=100%}
+
+   
+
+2. Users are then re-directed to the page as shown below and are recommended to read the "Intellectual Property Guidelines" and the document that describes the format of the released data first before continuing. These two documents will also be provided alongside with the requested data when released.
+
+   There are two ways to request data from the TRY database, by traits/species or by database. It is recommended to use the "Request by traits/species" option.
+
+   ![request_data_database_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_01.png){width=100%}
+
+   
+
+3. Once the "Request by traits/species" button is clicked, the login dialog is prompted if the users have not login. Enter the registered email address as username and the password as credentials.
+
+   
+
+4. Next, users are re-directed to the "Intellectual Property Guidelines for the TRY Plant Trait Database" page. Read the guidelines carefully and then click "accept" to continue.
+   ![request_data_database_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_02.png){width=100%}
+
+   
+
+5. Users are then asked to select the traits they would like to select.
+   ![request_data_database_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_03.png){width=100%}
+
+
+
+
+
+<br>
 
 ### Data retrieve
 
 
 
 
+
+
+
+<br>
 
 ---
 
@@ -98,10 +185,11 @@ Note that sometimes R may show a column 28, which should be empty. This column i
 >
 > 1. Some usage data for the TRY database?
 > 2. Before data can be analyzed, it must be pre-processed in a way such that it is easy to handle and understand.
+> 3. R language is used as it is common in the field
 
 The `rtry` package for `R` provides a set of functions to facilitate the pre-process the TRY data, that allows users who are not familiar with the `R` programming language or the TRY dataset structure to easily prepare the data for further analysis.
 
-
+<br>
 
 ## Installation guide for the `rtry` package
 
@@ -113,7 +201,7 @@ The latest version of R can be downloaded from CRAN, a network of ftp and web se
 
 The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
-
+<br>
 
 ### Download the `rtry` package
 
@@ -124,7 +212,7 @@ The source package and documentation of the `rtry` package can be downloaded fro
 
 Once the download is completed, extract the folder to a desired location.
 
-
+<br>
 
 #### Overview of the file structure
 
@@ -143,7 +231,7 @@ Once the download is completed, extract the folder to a desired location.
 
 Note: If user wishes to try out the package with the provided example scripts, it is advised to download the entire directory (optional: `archive` directory) and maintain the file structure.
 
-
+<br>
 
 ### Install `rtry` package
 
@@ -215,7 +303,7 @@ Once installation is completed, the `rtry` package can be loaded with the comman
 library(rtry)
 ```
 
-
+<br>
 
 ### Try out example workflow
 
@@ -248,7 +336,7 @@ Also, the output or feedback of the executed code will be displayed directly bel
 
 Note: The expected results could be viewed in the corresponding `.html` file.
 
-
+<br>
 
 ### Update `rtry` package
 
@@ -261,7 +349,7 @@ install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 
 You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
 
-
+<br>
 
 ### Other useful commands
 
@@ -273,7 +361,7 @@ To check the version of the loaded `rtry` package:
 packageVersion("rtry")
 ```
 
-
+<br>
 
 #### Obtain documentations of the entire `rtry` package
 
@@ -283,7 +371,7 @@ To get an overview of the `rtry` package and the corresponding documentations:
 ??rtry
 ```
 
-
+<br>
 
 #### Obtain documentation for a specific function or data
 
@@ -301,7 +389,7 @@ Several sample data has been provided within the `rtry` package, to obtain the d
 ?locations
 ```
 
-
+<br>
 
 #### Obtain vignettes of the package
 
@@ -319,7 +407,7 @@ To directly view a vignette (e.g. `rtry-vignette`) of the `rtry` package from th
 vignette("rtry-vignette")
 ```
 
-
+<br>
 
 ---
 
@@ -331,8 +419,11 @@ Inside the `rtry` package, function naming convention where each function begins
 - `rtry_explore`
 - `rtry_bind_col`
 - `rtry_bind_row`
+- `rtry_merge_col`
+- `rtry_merge_row`
 - `rtry_select_col`
 - `rtry_select_row`
+- `rtry_select_aux`
 - `rtry_filter`
 - `rtry_filter_keyword`
 - `rtry_rm_col`
@@ -342,7 +433,7 @@ Inside the `rtry` package, function naming convention where each function begins
 - `rtry_geocoding`
 - `rtry_revgeocoding`
 
-
+<br>
 
 ## `rtry_import`
 
@@ -368,7 +459,7 @@ rtry_import(
 
 
 
-**Use case 1**
+**Example 1**
 
 To import the file `"input/7956.txt"` for preprocessing:
 
@@ -379,28 +470,16 @@ TRYdata1 <- rtry_import("input/7956.txt")
 ```R
 ## input:  input/7956.txt 
 ## dim:    306234 28 
-## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName V28 ValueKindName 
+## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28 
 ```
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata1`.
 
 
 
-**Use case 2**
+**Example 2**
 
-To import the file `"input/8200.txt"` for preprocessing:
-
-```R
-TRYdata2 <- rtry_import("input/8200.txt", showOverview = FALSE)
-```
-
-Since the `showOverview` in this use case is set to `FALSE`, the overview of the data would not be displayed in the console.
-
-
-
-**Use case 3**
-
-To import previously saved file from `rtry` for further analysis:
+To import previously saved CSV file from `rtry` for further analysis:
 
 ```R
 input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
@@ -409,12 +488,12 @@ input_locations <- rtry_import("input/locations.csv", separator = ",", encoding 
 ```R
 ## input: input/locations.csv
 ## dim:   29 3
-## ls:    Country Country code Location
+## col:   Country code Country Location 
 ```
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `input_locations`.
 
-
+<br>
 
 ## `rtry_explore`
 
@@ -433,7 +512,7 @@ rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To explore the unique values in `TRYdata1` based on the attributes `DataID`, `DataName`, `ObsDataID`, `OrigObsDataID`, and grouped by the first attribute, i.e. `DataID`:
 
@@ -449,23 +528,7 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 
 
-**Use case 2**
-
-To explore the unique values in `TRYdata2` based on the attributes `TraitID`, `TraitName`, `DataID`, `DataName`, and grouped by the first attribute, i.e. `TraitID`:
-
-```R
-TRYdata2_explore <- rtry_explore(TRYdata2, TraitID, TraitName, DataID, DataName, showOverview = FALSE)
-```
-
-Since the `showOverview` in this use case is set to `FALSE`, the dimension of the output data would not be displayed in the console.
-
-The output `TRYdata2_explore` would look like the following:
-
-![rtry_explore_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_2.png){width=100%}
-
-
-
-**Use case 3**
+**Example 2**
 
 To explore the unique values in `TRYdata2` based on the attributes `AccSpeciesID`, `DataID`, `DataName`, `TraitID` and `TraitName`, and sorted by `DataName`:
 
@@ -473,13 +536,13 @@ To explore the unique values in `TRYdata2` based on the attributes `AccSpeciesID
 TRYdata2_explore_accSpecies <- rtry_explore(TRYdata2, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName, showOverview = FALSE)
 ```
 
-Since the `showOverview` in this use case is set to `FALSE`, the dimension of the output data would not be displayed in the console.
+Since the `showOverview` in this example is set to `FALSE`, the dimension of the output data would not be displayed in the console.
 
 The output `TRYdata2_explore_accSpecies` would look like the following:
 
 ![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png){width=70%}
 
-
+<br>
 
 ## `rtry_bind_col`
 
@@ -494,7 +557,7 @@ rtry_bind_col(..., showOverview = TRUE)
 | `...`          | A sequence of data frame to be combined by columns           |
 | `showOverview` | Default `TRUE` displays the dimension and column names of the combined data |
 
-
+<br>
 
 ## `rtry_bind_row`
 
@@ -511,7 +574,7 @@ rtry_bind_row(..., showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To combine the data `TRYdata1` and `TRYdata2` together by rows:
 
@@ -521,12 +584,46 @@ TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
 
 ```R
 ## dim:    435764 28 
-## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName Dataset DatasetID ErrorRisk FirstName LastName ObsDataID ObservationID OriglName OrigObsDataID OrigUncertaintyStr OrigUnitStr OrigValueStr Reference RelUncertaintyPercent Replicates SpeciesName StdValue TraitID TraitName UncertaintyName UnitName V28 ValueKindName 
+## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28 
 ```
 
 Since the default value of `showOverview` is set to be `TRUE`, the dimension and the column names of the combined data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return combined data was assigned to the variable `TRYdata`.
 
+<br>
 
+## `rtry_merge_col`
+
+This function merges two data frames based on a specified common column (by default: `ObservationID`) and returns all records from the left data frame (`x`) together with the matched records from the right data frame (`y`) for further processing. In order words, this functions performs a left join on the two provided data frames.
+
+```R
+rtry_merge_col(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
+```
+
+| Argument       | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `x`            | The left data frame, imported by `rtry_import()` or in data table format |
+| `y`            | The right data frame, imported by `rtry_import()` or in data table format |
+| `baseOn`       | Default `ObservationID`, the common column used for merging  |
+| `showOverview` | Default `TRUE` displays the dimension and column names of the data after merging |
+
+<br>
+
+## `rtry_merge_row`
+
+This function merges two data frames based on the row names of the specified common column (by default: `ObservationID`) and returns all rows from both tables, join records from the left (`x`) which have matching keys in the right data frame (`y`) for further processing. In order words, this functions performs a outer join on the two provided data frames, i.e. the join table will contain all records from both the tables.
+
+```R
+rtry_merge_row(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
+```
+
+| Argument       | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `x`            | The left data frame, imported by `rtry_import()` or in data table format |
+| `y`            | The right data frame, imported by `rtry_import()` or in data table format |
+| `baseOn`       | Default `ObservationID`, the common column used for merging  |
+| `showOverview` | Default `TRUE` displays the dimension and column names of the data after merging |
+
+<br>
 
 ## `rtry_select_col`
 
@@ -544,7 +641,7 @@ rtry_select_col(input = "", ..., showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To select (or say extract) the columns `ObsDataID`, `ObservationID`, `AccSpeciesID`, `AccSpeciesName`, `ValueKindName`, `TraitID`, `TraitName`, `DataID`, `DataName`, `OriglName`, `OrigValueStr`, `OrigUnitStr`, `StdValue`, `UnitName`, `OrigObsDataID`, `ErrorRisk`, `Comment` within the `TRYdata`:
 
@@ -554,7 +651,7 @@ TRYdata_selectColumns <- rtry_select_col(TRYdata, ObsDataID, ObservationID, AccS
 
 ```R
 ## dim:    435764 17 
-## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName ErrorRisk ObsDataID ObservationID OriglName OrigObsDataID OrigUnitStr OrigValueStr StdValue TraitID TraitName UnitName ValueKindName 
+## col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr StdValue UnitName OrigObsDataID ErrorRisk Comment 
 ```
 
 Note that the resulting data table would be the same as in the example provided in `rtry_rm_col()` in this case.
@@ -563,7 +660,7 @@ Since the default value of `showOverview` is set to be `TRUE`, the overview of t
 
 
 
-**Use case 2**
+**Example 2**
 
 To select (or extract) neighboring columns, e.g. `TraitID` to `ValueKindName`:
 
@@ -579,7 +676,7 @@ TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
 
-
+<br>
 
 ## `rtry_select_row`
 
@@ -605,7 +702,7 @@ rtry_select_row(
 
 
 
-**Use case 1**
+**Example 1**
 
 To select (or say filter) the rows where `TraitID` is larger than 0 (`TraitID > 0`) or where `DataID` is 59, 60, 61, 6601, 327, 413, 1961, 210 or 308 (`DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)`) within the data `TRYdata_select_col`:
 
@@ -621,12 +718,12 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 
 
 
-**Use case 2**
+**Example 2**
 
 To select all `TraitID` that is `6` together with all the corresponding auxiliary data without any duplicates within the data `TRYdata`: 
 
 ```R
-TraitID6_Auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
+traitID6_auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
 ```
 
 ```R
@@ -640,12 +737,12 @@ Since the default value of  `showOverview` is set to be `TRUE`, the dimension of
 
 
 
-**Use case 3**
+**Example 3**
 
-To remove outliers, or say to select all interested auxiliary data and only the trait data with ErrorRisk smaller than 4:
+To remove outliers, or say to select all interested auxiliary data and only the trait data with `ErrorRisk` smaller than 4:
 
 ```R
-Outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
+outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
 ```
 
 ```R
@@ -654,7 +751,42 @@ Outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60
 
 ![rtry_select_row_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_3.png){width=100%}
 
+<br>
 
+## `rtry_select_aux`
+
+This function selects a list of unique `ObservationID` and the corresponding (specified) auxiliary data from the import data, and transform it into a wide table format for further processing.
+
+```R
+rtry_select_aux(input = "", name = "", showOverview = TRUE)
+```
+
+| Argument       | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `input`        | Input data, imported by `rtry_import()` or in data table format |
+| `name`         | The name of auxiliary data (`DataName` in the TRY data) to be selected |
+| `showOverview` | Default `TRUE` displays the dimension and the column names of the data after selection |
+
+
+
+**Example 1**
+
+To select (or say extract) a list of unique `ObservationID` and the corresponding auxiliary data of interested, such as "Latitude", from the data `TRYdata`:
+
+```R
+Latitude <- rtry_select_aux(TRYdata, Latitude)
+```
+
+```R
+## dim:   11870 2 
+## col:   ObservationID Latitude 
+```
+
+![rtry_select_aux_usecase_1](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_aux_usecase_1.png){width=20%}
+
+Since the default value of `showOverview` is by default set to be `TRUE`, the dimension and the column names of the extracted data table is displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the specified variable, which is `Latitude` in this case. It can also be seen that this data is in a wide table, and can be used easily for further processing such as merging the auxiliary data to the pre-processed data based on the `ObservationID`.
+
+<br>
 
 ## `rtry_filter`
 
@@ -673,7 +805,7 @@ rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To filter juveniles while excluding the whole Observation.
 
@@ -727,7 +859,7 @@ Since the default value of `showOverview` are set to be `TRUE`, the dimension of
 
 
 
-**Use case 2**
+**Example 2**
 
 To exclude the data with incorrect units, the parameter `ObsDataID` needs to be specified:
 
@@ -739,13 +871,13 @@ tmp <- rtry_filter(TRYdata, (TraitID == 3116  & UnitName != "mm2 mg-1") |
                                (TraitID == 4  & UnitName != "g/cm3"), baseOn = ObsDataID, showOverview = FALSE)
 ```
 
-Since the `showOverview` in this use case is set to `FALSE`, the overview of the data would not be displayed in the console.
+Since the `showOverview` in this example is set to `FALSE`, the overview of the data would not be displayed in the console.
 
-
+<br>
 
 ## `rtry_filter_keyword`
 
-This function filters data from the input data based on the specified keywords and the corresponding `ObservationID`. Therefore, if the column ObservationID has been removed, this function will not work.
+This function filters data from the input data based on the specified keywords and the corresponding `ObservationID`. Therefore, if the column `ObservationID` has been removed, this function will not work.
 
 ```R
 rtry_filter_keyword(
@@ -769,7 +901,7 @@ rtry_filter_keyword(
 
 
 
-**Use case 1**
+**Example 1**
 
 To filter juveniles while excluding the whole Observation.
 
@@ -835,7 +967,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 
 Since the default value of `showOverview` are set to be `TRUE`, the dimension of data table after each step would be displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the specified variables.
 
-
+<br>
 
 ## `rtry_rm_col`
 
@@ -853,7 +985,7 @@ rtry_rm_col(input = "", ..., showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To remove the columns `LastName`, `FirstName`, `DatasetID`, `Dataset`, `SpeciesName`, `OrigUncertaintyStr`, `UncertaintyName`, `Replicates`, `RelUncertaintyPercent`, `Reference`, `V28` from `TRYdata`:
 
@@ -863,14 +995,14 @@ TRYdata_rmColumns <- rtry_rm_col(TRYdata, LastName, FirstName, DatasetID, Datase
 
 ```R
 ## dim:    435764 17 
-## ls:     AccSpeciesID AccSpeciesName Comment DataID DataName ErrorRisk ObsDataID ObservationID OriglName OrigObsDataID OrigUnitStr OrigValueStr StdValue TraitID TraitName UnitName ValueKindName 
+## col:   AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName StdValue UnitName OrigObsDataID ErrorRisk Comment 
 ```
 
 Note that the resulting data table would be the same as in the example provided in `rtry_select_col()` in this case.
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the data after removal would be displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the variable `TRYdata_rmColumns`.
 
-
+<br>
 
 ## `rtry_rm_dup`
 
@@ -889,7 +1021,7 @@ rtry_rm_dup(input = "", showOverview = TRUE)
 
 
 
-**Use case 1**
+**Example 1**
 
 To remove the duplicates within `TRYdata_selectRow`:
 
@@ -904,7 +1036,7 @@ tmp_rmDuplicates <- rtry_rm_dup(TRYdata_selectRow)
 
 Since the default value of `showOverview` is set to be `TRUE`, the dimension of data table after removal would be displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the variable `tmp_rmDuplicates`.
 
-
+<br>
 
 ## `rtry_trans_wider`
 
@@ -928,7 +1060,7 @@ rtry_trans_wider(
 | `values_fn`    | (Optional) Function to be applied to the output values       |
 | `showOverview` | Default `TRUE` displays the dimension of the result data table |
 
-
+<br>
 
 ## `rtry_export`
 
@@ -947,7 +1079,7 @@ rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 
 
 
-**Use case 1**
+**Example 1**
 
 To save the data `TRYdata1_explore` as `"output/Traits_auxilliary_Data_rtry.csv"`:
 
@@ -962,7 +1094,7 @@ rtry_export(TRYdata1_explore, "output/Traits_auxilliary_Data_rtry.csv")
 
 Since the specified output directory does not exist in this case, it was created before saving the data into the CSV file.
 
-
+<br>
 
 ## `rtry_geocoding`
 
@@ -979,12 +1111,12 @@ rtry_geocoding(address = NULL, email = NULL)
 
 
 
-**Use case 1**
+**Example 1**
 
 To convert the address of MPI-BGC (`"Hans-Knoell-Strasse 10, 07745 Jena, Germany"`) into coordinates in latitudes and longitudes:
 
 ```R
-rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = "hlam@bgc-jena.mpg.de")
+rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = "jens.kattge@bgc-jena.mpg.de")
 ```
 
 ```R
@@ -1000,9 +1132,7 @@ An example workflow of how to use `rtry_geocoding()` for a list of locations or 
 vignette("rtry-workflow-geocoding")
 ```
 
-
-
-
+<br>
 
 ## `rtry_revgeocoding`
 
@@ -1019,12 +1149,12 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 
 
 
-**Use case 1**
+**Example 1**
 
 To convert the coordinates (`data.frame(50.91012, 11.56674)`) into an address:
 
 ```R
-rtry_revgeocoding(data.frame(50.91012, 11.56674), email = "hlam@bgc-jena.mpg.de")
+rtry_revgeocoding(data.frame(50.91012, 11.56674), email = "jens.kattge@bgc-jena.mpg.de")
 ```
 
 ```R
@@ -1042,7 +1172,7 @@ vignette("rtry-workflow-geocoding")
 
 
 
-
+<br>
 
 ***
 
@@ -1054,7 +1184,7 @@ The TRY database is open source under a Creative Commons Attribution license (CC
 
 > Same goes for the rtry package, but should once again confirmed the licensing of OSM for the geocoding.
 
-
+<br>
 
 ***
 
