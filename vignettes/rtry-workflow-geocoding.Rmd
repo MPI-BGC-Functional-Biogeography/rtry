@@ -26,7 +26,7 @@ This vignette is intended to demonstrate how to use the `rtry_geocoding()` and `
 
 Geocoding is the process of converting an address into geographic coordinates (latitude and longitude), while reverse geocoding is the process of converting geographic coordinates (latitude and longitude) into an address.
 
-The functions `rtry_geocoding()` and `rtry_revgeocoding` are based on Nominatim, a search engine for OpenStreetMap (OSM) data. For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
+The functions `rtry_geocoding()` and `rtry_revgeocoding` are based on Nominatim, a search engine for OpenStreetMap (OSM) data.  the data provided are free to use for any purpose, including commercial use, note that they are governed by the ODbL (https://wiki.osmfoundation.org/wiki/Licence). For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
 
 Note that the geo-reference system used is WGS84 projection.
 
