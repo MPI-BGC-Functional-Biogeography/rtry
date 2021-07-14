@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 ***
 
 
-This vignette is intended to demonstrate how to use the`rtry` package to perform pre-process of the data exported from the TRY database, from importing and exploring the data to binding multiple data, as well as selecting, filtering specific data using user-defined criteria and removing duplicates, and finally exporting the pre-process data.
+This vignette is intended to demonstrate how to use the `rtry` package to perform pre-process of the data exported from the TRY database, from importing and exploring the data to binding multiple data, as well as selecting, filtering specific data using user-defined criteria and removing duplicates, and finally exporting the pre-process data.
 
 <br>
 

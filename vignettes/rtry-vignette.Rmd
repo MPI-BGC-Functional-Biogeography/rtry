@@ -66,7 +66,7 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (`.t
 | 24.  | OrigObsDataID         | Unique identifier for duplicate entries                      |
 | 25.  | ErrorRisk             | Indication for outliers: distance to mean in standard deviations |
 | 26.  | Reference             | Reference to be cited if trait record is used in analysis    |
-| 27.  | Comment               | Explanation for the `OriginalName` in the contributed dataset |
+| 27.  | Comment               | Explanation for the `OriglName` in the contributed dataset |
 
 Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
