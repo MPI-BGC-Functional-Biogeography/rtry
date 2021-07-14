@@ -22,7 +22,7 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (.tx
 | 11.  | TraitName             | Name of trait (only if the record is a trait)                |
 | 12.  | DataID                | Unique identifier for each sub-trait or context information  |
 | 13.  | DataName              | Name of sub-trait or context information                     |
-| 14.  | OriginalName          | Original name of sub-trait or context information            |
+| 14.  | OriglName             | Original name of sub-trait or context information            |
 | 15.  | OrigValueStr          | Original value as text string                                |
 | 16.  | OrigUnitStr           | Original unit as text string                                 |
 | 17.  | ValueKindName         | Value kind (single measurement, mean, median, etc.)          |
@@ -30,12 +30,12 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (.tx
 | 19.  | UncertaintyName       | Kind of uncertainty (standard deviation, standard error, etc.) |
 | 20.  | Replicates            | Count of replicates                                          |
 | 21.  | StdValue              | Standardized value: available for standardized traits        |
-| 22.  | StdUnit               | Standard unit: available for standardized traits             |
+| 22.  | UnitName              | Standard unit: available for standardized traits             |
 | 23.  | RelUncertaintyPercent | Relative uncertainty in %                                    |
 | 24.  | OrigObsDataID         | Unique identifier for duplicate entries                      |
 | 25.  | ErrorRisk             | Indication for outliers: distance to mean in standard deviations |
 | 26.  | Reference             | Reference to be cited if trait record is used in analysis    |
-| 27.  | Comment               | Explanation for the OriginalName in the contributed dataset  |
+| 27.  | Comment               | Explanation for the OriglName in the contributed dataset     |
 
 Note: sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
