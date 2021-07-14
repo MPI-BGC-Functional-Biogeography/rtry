@@ -1,6 +1,6 @@
 Package: rtry
 Title: The TRY R Project: An R Package to Preprocess Plant Trait Data in the TRY Database
-Version: 0.0.0.9420
+Version: 0.0.0.9500
 Authors@R: c(
     person("Jens", "Kattge", email = "jkattge@bgc-jena.mpg.de", role = c("aut")),
     person("Gerhard", "Boenisch", email = "boenisch@bgc-jena.mpg.de", role = c("aut")),
@@ -10,8 +10,7 @@ Authors@R: c(
 Description: An R package to preprocess plant trait data in the TRY database.
 Depends: R (>= 4.0.0)
 Imports: utils, data.table, dplyr, tidyr, jsonlite, curl
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
