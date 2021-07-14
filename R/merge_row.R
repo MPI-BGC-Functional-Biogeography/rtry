@@ -17,6 +17,9 @@
 #' }
 #' @export
 rtry_merge_row <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
+  # Bind the variable OrigObsDataID locally to the function
+  ObservationID <- NULL
+
   # If any of the data frame is missing, show the message
   if(missing(x) || missing(y)){
     message("Please specify the two data frames you would like to merge.")
