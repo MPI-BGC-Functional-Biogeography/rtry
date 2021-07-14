@@ -15,9 +15,10 @@ rtry_geocoding(address = NULL, email = NULL)
 A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection
 }
 \description{
-This function uses Nominatim, a search engine for OpenStreetMap data, to
+This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim}, a search engine for OpenStreetMap (OSM) data, to
 perform Geocoding, i.e. converting an address into coordinates (latitudes, longitudes).
-For details, please refer to: \url{https://wiki.openstreetmap.org/wiki/Nominatim}.
+The data provided by OSM is free to use for any purpose, including commercial use,
+and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 }
 \examples{
 \dontrun{
