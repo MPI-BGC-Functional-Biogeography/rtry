@@ -68,11 +68,11 @@ Once the download is completed, extract the folder to a desired location.
 
 ```markdown
 .
-├── build					# Source files for the rtry package
+├── build			# Source files for the rtry package
 │   ├── rtry_x.x.x.xxxx		# Source package
-├── docs					# Documentation files
-├── examples				# Scripts of example workflow
-│   ├── input				# Input files needed for testing
+├── docs			# Documentation files
+├── examples			# Scripts of example workflow
+│   ├── input			# Input files needed for testing
 └── README.md
 ```
 
