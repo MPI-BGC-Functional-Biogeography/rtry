@@ -20,7 +20,7 @@ A data frame with 4627 rows and 28 variables:
 \item{TraitName}{Name of trait (only if the record is a trait)}
 \item{DataID}{Unique identifier for each sub-trait or context information}
 \item{DataName}{Name of sub-trait or context information}
-\item{OriginalName}{Original name of sub-trait or context information}
+\item{OriglName}{Original name of sub-trait or context information}
 \item{OrigValueStr}{Original value as text string}
 \item{OrigUnitStr}{Original unit as text string}
 \item{ValueKindName}{Value kind (single measurement, mean, median, etc.)}
@@ -28,12 +28,12 @@ A data frame with 4627 rows and 28 variables:
 \item{UncertaintyName}{Kind of uncertainty (standard deviation, standard error, etc.)}
 \item{Replicates}{Count of replicates}
 \item{StdValue}{Standardized value: available for standardized traits}
-\item{StdUnit}{Standard unit: available for standardized traits}
+\item{UnitName}{Standard unit: available for standardized traits}
 \item{RelUncertaintyPercent}{Relative uncertainty in \%}
 \item{OrigObsDataID}{Unique identifier for duplicate entries}
 \item{ErrorRisk}{Indication for outliers: distance to mean in standard deviations}
 \item{Reference}{Reference to be cited if trait record is used in analysis}
-\item{Comment}{Explanation for the \code{OriginalName} in the contributed dataset}
+\item{Comment}{Explanation for the \code{OriglName} in the contributed dataset}
 \item{V28}{Empty, an artefact due to the different software (MySQL >> R)}
 ...
 }
