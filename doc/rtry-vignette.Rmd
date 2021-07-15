@@ -66,7 +66,7 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (`.t
 | 24.  | OrigObsDataID         | Unique identifier for duplicate entries                      |
 | 25.  | ErrorRisk             | Indication for outliers: distance to mean in standard deviations |
 | 26.  | Reference             | Reference to be cited if trait record is used in analysis    |
-| 27.  | Comment               | Explanation for the `OriginalName` in the contributed dataset |
+| 27.  | Comment               | Explanation for the `OriglName` in the contributed dataset |
 
 Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
 
@@ -90,7 +90,7 @@ To give users a general overview of the TRY database, the Data Explorer provides
 
 In order to request data from the TRY Data Portal, first-time users have to create a user account. This self-registration for the TRY database can be performed by the user following a few simple steps:
 
-1. Click on the 'Registration' on the header menu of the [TRY Data Portal](https://www.try-db.org/TryWeb/dp.php), which would then lead to the 
+1. Click on the 'Registration' on the header menu of the [TRY Data Portal](https://www.try-db.org/TryWeb/dp.php), which would then lead to the registration page.
 
    ![request_data_registration_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_01.png){width=100%}
 
@@ -655,7 +655,7 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension and
 
 ## `rtry_merge_col`
 
-This function merges two data frames based on a specified common column (by default: `ObservationID`) and returns all records from the left data frame (`x`) together with the matched records from the right data frame (`y`) for further processing. In order words, this functions performs a left join on the two provided data frames.
+This function merges two data frames based on a specified common column (by default: `ObservationID`) and returns all records from the left data frame (`x`) together with the matched records from the right data frame (`y`) for further processing. In order words, this function performs a left join on the two provided data frames.
 
 ```R
 rtry_merge_col(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
@@ -672,7 +672,7 @@ rtry_merge_col(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
 
 ## `rtry_merge_row`
 
-This function merges two data frames based on the row names of the specified common column (by default: `ObservationID`) and returns all rows from both tables, join records from the left (`x`) which have matching keys in the right data frame (`y`) for further processing. In order words, this functions performs a outer join on the two provided data frames, i.e. the join table will contain all records from both the tables.
+This function merges two data frames based on the row names of the specified common column (by default: `ObservationID`) and returns all rows from both tables, join records from the left (`x`) which have matching keys in the right data frame (`y`) for further processing. In order words, this function performs a outer join on the two provided data frames, i.e. the join table will contain all records from both the tables.
 
 ```R
 rtry_merge_row(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
