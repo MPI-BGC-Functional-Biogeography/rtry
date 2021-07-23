@@ -80,7 +80,7 @@ The data available from the TRY database is licensed under a CC BY license (Crea
 
 To give users a general overview of the TRY database, the Data Explorer provides information about the content of the TRY database with respect to traits, species, original datasets and regions.
 
-![request_data_explorer](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_explorer.png){width=100%}
+![request_data_explorer](..\doc\image\request_data_explorer.png){width=100%}
 
 <br>
 
@@ -92,13 +92,13 @@ In order to request data from the TRY Data Portal, first-time users have to crea
 
 1. Click on the 'Registration' on the header menu of the [TRY Data Portal](https://www.try-db.org/TryWeb/dp.php), which would then lead to the registration page.
 
-   ![request_data_registration_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_01.png){width=100%}
+   ![request_data_registration_01](..\doc\image\request_data_registration_01.png){width=100%}
 
    
 
 2. Fill in the registration form as instructed and click on 'Submit'. Note that the plant on the right side of the header will change randomly when the page is refreshed.
 
-   ![request_data_registration_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_02.png){width=100%}
+   ![request_data_registration_02](..\doc\image\request_data_registration_02.png){width=100%}
 
    
 
@@ -120,7 +120,7 @@ Once registered, users can access restricted content and request data from the d
 
 In case the password has been forgotten, users can reset the password by clicking the 'Reset Password' on the header menu. Follow the instructions and a new password will be created automatically by the system and sent to the email address provided (which should be the same as the registered email address, i.e. username).
 
-![request_data_registration_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_registration_03.png){width=100%}
+![request_data_registration_03](..\doc\image\request_data_registration_03.png){width=100%}
 
 The user can then login to the data portal using the new password. Again, it is advised to change the password when the user receive the new password using the 'Change password' option.
 
@@ -139,7 +139,7 @@ Since the `rtry` package focuses on the standardized TRY data (`.txt`), this sec
 
 
 1. To request the standardize and quality checked data from the TRY Database, click on the "TRY Database" button.
-   ![request_data_gui](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_gui.png){width=100%}
+   ![request_data_gui](..\doc\image\request_data_gui.png){width=100%}
 
    
 
@@ -147,7 +147,7 @@ Since the `rtry` package focuses on the standardized TRY data (`.txt`), this sec
 
    There are two ways to request data from the TRY database, by traits/species or by database. It is recommended to use the "Request by traits/species" option.
 
-   ![request_data_database_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_01.png){width=100%}
+   ![request_data_database_01](..\doc\image\request_data_database_01.png){width=100%}
 
    
 
@@ -156,7 +156,7 @@ Since the `rtry` package focuses on the standardized TRY data (`.txt`), this sec
    
 
 4. Next, users are re-directed to the "Intellectual Property Guidelines for the TRY Plant Trait Database" page. Read the guidelines carefully and then click "accept" to continue.
-   ![request_data_database_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_02.png){width=100%}
+   ![request_data_database_02](..\doc\image\request_data_database_02.png){width=100%}
 
    
 
@@ -166,54 +166,54 @@ Since the `rtry` package focuses on the standardized TRY data (`.txt`), this sec
 
    As stated on the instructions, users can request multiple traits data by entering the respective `TraitID`s (separated by commas) in the box provided then click "Continue".
 
-   ![request_data_database_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_03.png){width=100%}
+   ![request_data_database_03](..\doc\image\request_data_database_03.png){width=100%}
 
    
 
 6. Users are then re-directed to the page where they could double-check if they have selected all the necessary traits. Next, they could continue the selection process by clicking on the "Continue to species list" button, or complete the process without selecting any species.
-   ![request_data_database_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_04.png){width=100%}
+   ![request_data_database_04](..\doc\image\request_data_database_04.png){width=100%}
 
    
 
 7. On this next page, users can right click on the link and save the up-to-date species list to have an overview of the available species. Then, they can request multiple species data by entering the respective `AccSpeciesID`s (separated by commas) in the box provided.
-   ![request_data_database_05](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_05.png){width=100%}
+   ![request_data_database_05](..\doc\image\request_data_database_05.png){width=100%}
 
    
 
 8. Again, users are re-directed to the page where they could double-check if they have selected all the necessary species before continuing.
-   ![request_data_database_06](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_06.png){width=100%}
+   ![request_data_database_06](..\doc\image\request_data_database_06.png){width=100%}
 
    
 
 9. If all the requested traits and species are public, information of the requested data will be displayed on this next page, showing how many traits and species the users had selected, as well as how many trait measurements will be included in the request data. The users will also have one last chance to update the selected traits and species underneath before continuing the data request process.
-   ![request_data_database_07](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_07.png){width=100%}
+   ![request_data_database_07](..\doc\image\request_data_database_07.png){width=100%}
 
    
 
    If the requested traits or species included restricted data, the option to choose whether to request "restricted and public" or "public only" will be provided. Note that it could take up to 14 days to release the restricted data to users as stated on the page.
-   ![request_data_database_08](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_08.png){width=100%}
+   ![request_data_database_08](..\doc\image\request_data_database_08.png){width=100%}
 
    
 
 10. The users are then given the opportunity to provide some information of the project for which they are requesting the data for. Such information will also be used to convince contributors of datasets temporarily under embargo to make their data available for the request in case restricted data are included.
-    ![request_data_database_09](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_09.png){width=100%}
+    ![request_data_database_09](..\doc\image\request_data_database_09.png){width=100%}
 
     
 
 11. The data request ID will be provided on the next page, with the information where to access the requested data once it is released. Note that the data request is not finished so it is important to continue the steps.
-    ![request_data_database_10](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_10.png){width=100%}
+    ![request_data_database_10](..\doc\image\request_data_database_10.png){width=100%}
 
     
 
 12. Users can add coauthors of the project by providing their email addresses and following the instructions. Once the users have finished entering the coauthors, they can submit the request to the TRY Database by clicking the "Finish" button.
-    ![request_data_database_11](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_11.png){width=100%}
+    ![request_data_database_11](..\doc\image\request_data_database_11.png){width=100%}
 
     
 
 13. As stated on the last page of the data request process, an automatic system email is then sent to the registered email address that the data request is completed. Inside this email, the information such as data request ID, title of the project, a list of coauthors, and the selected traits and species are provided as reference.
 
     Users will have to wait for the data to be released, by then they will be informed by another email notification automatically generated by the TRY Data Portal.
-    ![request_data_database_12](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\request_data_database_12.png){width=100%}
+    ![request_data_database_12](..\doc\image\request_data_database_12.png){width=100%}
 
 <br>
 
@@ -224,27 +224,27 @@ Once the requested data has been released, the users requesting the data (known 
 
 
 1. To retrieve released data, click on the "Request PI Center" button.
-   ![retrieve_data_gui](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\retrieve_data_gui.png){width=100%}
+   ![retrieve_data_gui](..\doc\image\retrieve_data_gui.png){width=100%}
 
    
 
 2. For any data requested via the TRY database, once released can be downloaded under the area "Requests - Download Data". The users can simply select the data request ID they wish to download and click "Go". Note that users are required to cite the TRY reference when using the requested data.
-   ![retrieve_data_database_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\retrieve_data_database_01.png){width=100%}
+   ![retrieve_data_database_01](..\doc\image\retrieve_data_database_01.png){width=100%}
 
    
 
 3. Users will then redirected to the page where they could click the "download" and save the `.zip` file locally on their machine. Inside, users can find three files: (1) a `.txt` with the request data ID as file name, which contains all the trait measurements as requested, (2) the "Intellectual Property Guidelines for the TRY Plant Trait Database" in `.pdf` format, and (3) the "Data Release Notes" for the TRY data in `.pdf` format which describes the format of the released data.
-   ![retrieve_data_database_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\retrieve_data_database_02.png){width=100%}
+   ![retrieve_data_database_02](..\doc\image\retrieve_data_database_02.png){width=100%}
 
    
 
 4. The "Request PI Center" also provides a summary for users to keep track of the requested data. To check the summary, click the "Show Request Summaries".
-   ![retrieve_data_database_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\retrieve_data_database_03.png){width=100%}
+   ![retrieve_data_database_03](..\doc\image\retrieve_data_database_03.png){width=100%}
 
    
 
 5. The users will then re-directed to another page where all the requested data (either released or not released) can be seen. One important remarks is that the version of the TRY data is also provided in this summary.
-   ![retrieve_data_database_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\retrieve_data_database_04.png){width=100%}
+   ![retrieve_data_database_04](..\doc\image\retrieve_data_database_04.png){width=100%}
 
 <br>
 
@@ -376,7 +376,7 @@ To assist first-time user, several example workflows have been developed and pro
 
 The required sample data is also provided within the package and inside the `examples/input` directory. In order to run the code smoothly, make sure the script is place inside a folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory.
 
-![example_workflow_file_structure](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\example_workflow_file_structure.png){width=70%}
+![example_workflow_file_structure](..\doc\image\example_workflow_file_structure.png){width=70%}
 
 
 
@@ -394,7 +394,7 @@ To execute the code in a particular chunk, simply press the corresponding green 
 
 Also, the output or feedback of the executed code will be displayed directly below the chunk, allowing easy trace back.
 
-![example_workflow_run_block](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\example_workflow_run_block.png){width=90%}
+![example_workflow_run_block](..\doc\image\example_workflow_run_block.png){width=90%}
 
 Note: The expected results could be viewed in the corresponding `.html` file.
 
@@ -602,7 +602,7 @@ Since the `showOverview` in this example is set to `FALSE`, the dimension of the
 
 The output `TRYdata2_explore_accSpecies` would look like the following:
 
-![rtry_explore_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_explore_usecase_3.png){width=70%}
+![rtry_explore_usecase_3](..\doc\image\rtry_explore_usecase_3.png){width=70%}
 
 <br>
 
@@ -734,7 +734,7 @@ TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
 ## dim:   435764 8 
 ```
 
-![rtry_select_col_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_col_usecase_2.png){width=100%}
+![rtry_select_col_usecase_2](..\doc\image\rtry_select_col_usecase_2.png){width=100%}
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
 
@@ -793,7 +793,7 @@ traitID6_auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary =
 ## dim:    110725 28 
 ```
 
-![rtry_select_row_usecase_2](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_2.png){width=100%}
+![rtry_select_row_usecase_2](..\doc\image\rtry_select_row_usecase_2.png){width=100%}
 
 Since the default value of  `showOverview` is set to be `TRUE`, the dimension of the filtered data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TraitID6_Auxiliary`.
 
@@ -811,7 +811,7 @@ outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60
 ## dim:   77183 28 
 ```
 
-![rtry_select_row_usecase_3](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_row_usecase_3.png){width=100%}
+![rtry_select_row_usecase_3](..\doc\image\rtry_select_row_usecase_3.png){width=100%}
 
 <br>
 
@@ -844,7 +844,7 @@ Latitude <- rtry_select_aux(TRYdata, Latitude)
 ## col:   ObservationID Latitude 
 ```
 
-![rtry_select_aux_usecase_1](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_select_aux_usecase_1.png){width=20%}
+![rtry_select_aux_usecase_1](..\doc\image\rtry_select_aux_usecase_1.png){width=20%}
 
 Since the default value of `showOverview` is by default set to be `TRUE`, the dimension and the column names of the extracted data table is displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the specified variable, which is `Latitude` in this case. It can also be seen that this data is in a wide table, and can be used easily for further processing such as merging the auxiliary data to the pre-processed data based on the `ObservationID`.
 
@@ -881,7 +881,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 ## dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png){width=100%}
+![rtry_filter_usercase_1_01](..\doc\image\rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -891,7 +891,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 ## dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=70%}
+![rtry_filter_usercase_1_02](..\doc\image\rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter()`. It is also possible to simply this step by using `rtry_filter_keyword()` in which only the keywords such as `juvenile` needs to be specified to perform the filtering.
 
@@ -903,7 +903,7 @@ tmp2 <- rtry_filter(tmp, (DataID %in% 413) & (OrigValueStr %in% c("2.5", "juveni
 ## dim:    52 28 
 ```
 
-![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png){width=100%}
+![rtry_filter_usercase_1_03](..\doc\image\rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -913,7 +913,7 @@ tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 ## dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=70%}
+![rtry_filter_usercase_1_04](..\doc\image\rtry_filter_usercase_1_04.png){width=70%}
 
 
 
@@ -977,7 +977,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 ## dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_01.png){width=100%}
+![rtry_filter_usercase_1_01](..\doc\image\rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -987,7 +987,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 ## dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_02.png){width=70%}
+![rtry_filter_usercase_1_02](..\doc\image\rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter_keyword()`.
 
@@ -1013,7 +1013,7 @@ tmp3 <- rtry_filter_keyword(tmp, OrigValueStr, c("2.5", "juvenile"), caseSensiti
 
 Note that both (a) and (b) output the same results in this case, with only the data where `OrigValueStr` equals to `mature` or `Mature` remaining.
 
-![rtry_filter_usercase_1_03](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_03.png){width=100%}
+![rtry_filter_usercase_1_03](..\doc\image\rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -1023,7 +1023,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 ## dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](C:\Users\hlam\ownCloud\TRY_R\rtry\doc\image\rtry_filter_usercase_1_04.png){width=70%}
+![rtry_filter_usercase_1_04](..\doc\image\rtry_filter_usercase_1_04.png){width=70%}
 
 
 
