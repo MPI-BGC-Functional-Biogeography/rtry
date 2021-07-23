@@ -108,7 +108,7 @@ You may ignore the warning message `Rtools is required to build R packages but i
 Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
 
 
-To try out the example scripts, open the `.Rmd` (e.g. `TRYdata_7571_2020_01_20_rtry.Rmd`) inside the `examples` directory. Then, set the work directory to the location where the directory is located:
+To try out the example scripts, open the `.Rmd` (e.g. `general_workflow_using_rtry.Rmd`) inside the `examples` directory. Then, set the work directory to the location where the directory is located:
 
 ```R
 setwd("<path_to_rtry_examples_dir>")
