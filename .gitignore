@@ -35,4 +35,6 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 Meta
+doc
 /Meta/
+/doc/
