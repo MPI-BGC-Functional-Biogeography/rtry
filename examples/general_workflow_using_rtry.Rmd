@@ -1,0 +1,519 @@
+---
+title: "Example workflow using `rtry`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+# Prepare the environment
+## Reset R's brain
+```{r}
+#----------------------------------------------------------
+# Reset R's brain
+#----------------------------------------------------------
+rm(list=ls())
+```
+
+
+## Load rtry package
+```{r}
+#-------------------------------------------------
+# Make sure the rtry package is installed before loading
+#-------------------------------------------------
+library(rtry)
+packageVersion("rtry")
+```
+
+## Set working directory
+```{r}
+#-------------------------------------------------
+# Make sure the working directory is set to the "examples" folder
+# Inside which there should be the "input" folder containing the sample dataset
+# Sample dataset used: TRYdata_15160.txt, TRYdata_15161.txt
+#-------------------------------------------------
+getwd()
+
+#-------------------------------------------------
+# If the working directory is incorrect
+# Uncomment the following command and change the directory path before execution
+#-------------------------------------------------
+# setwd("<path_to_rtry_examples_dir>")
+```
+
+
+# Data pre-processing
+## Import the TRY data text file
+```{r}
+#-------------------------------------------------
+# Import TRY data requests into data frames
+# Then, two ways to view the imported data
+#   Method 1: Print the first 5 rows of the data using the head() function
+#   Method 2: Open the imported data in using data viewer using the View() function
+#-------------------------------------------------
+TRYdata1 <- rtry_import("input/TRYdata_15160.txt")
+head(TRYdata1)
+View(TRYdata1)
+```
+
+
+```{r}
+TRYdata2 <- rtry_import("input/TRYdata_15161.txt")
+head(TRYdata2)
+View(TRYdata2)
+```
+
+
+## Explore the imported data
+```{r}
+#-------------------------------------------------
+# Explore the imported data using rtry_explore()
+#   1. Group the input data based on TraitID and TraitName
+#   2. Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
+#   3. Group the input data based on DataID, DataName, TraitID and TraitName, and sort by TraitID
+# Note: For TraitID == "NA", meaning that entry is an auxiliary data
+#-------------------------------------------------
+# Explore TRYdata1
+TRYdata1_explore_trait <- rtry_explore(TRYdata1, TraitID, TraitName)
+TRYdata1_explore_trait # Print the entire data frame
+View(TRYdata1_explore_trait)
+
+TRYdata1_explore_species <- rtry_explore(TRYdata1, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+TRYdata1_explore_species
+View(TRYdata1_explore_species)
+
+TRYdata1_explore_aux <- rtry_explore(TRYdata1, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+TRYdata1_explore_aux
+View(TRYdata1_explore_aux)
+```
+
+
+```{r}
+# Explore TRYdata2
+# Group the input data based on TraitID and TraitName
+TRYdata2_explore_trait <- rtry_explore(TRYdata2, TraitID, TraitName)
+TRYdata2_explore_trait
+View(TRYdata2_explore_trait)
+
+# Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
+# Note: For TraitID == "NA", meaning that entry is an auxiliary data
+TRYdata2_explore_species <- rtry_explore(TRYdata2, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+TRYdata2_explore_species
+View(TRYdata2_explore_species)
+
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+TRYdata2_explore_aux <- rtry_explore(TRYdata2, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+TRYdata2_explore_aux
+View(TRYdata2_explore_aux)
+```
+
+
+## Bind imported data by rows
+```{r}
+# Combine TRYdata1 and TRYdata2 by rows
+TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
+
+# View the combined data TRYdata
+head(TRYdata)
+View(TRYdata)
+```
+
+## Explore the combined data
+```{r}
+# Group the input data based on TraitID and TraitName
+TRYdata_explore_trait <- rtry_explore(TRYdata, TraitID, TraitName)
+TRYdata_explore_trait
+View(TRYdata_explore_trait)
+
+# Group the input data based on AccSpeciesID, AccSpeciesName, TraitID and TraitName
+# Note: For TraitID == "NA", meaning that entry is an auxiliary data
+TRYdata_explore_species <- rtry_explore(TRYdata, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
+TRYdata_explore_species
+View(TRYdata_explore_species)
+
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+TRYdata_explore_aux <- rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+TRYdata_explore_aux
+View(TRYdata_explore_aux)
+```
+
+
+## Select relevant columns
+```{r}
+# Remove a small fraction of the data column
+workdata <- rtry_rm_col(TRYdata, V28)
+
+# Select relevant columns directly
+workdata <- rtry_select_col(workdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
+```
+
+
+## Select relevant rows
+```{r}
+# Select the following auxiliary data
+# 59 Latitude
+# 60 Longitude
+# 61 Altitude
+# 6601 Sampling date
+# 327 Exposition
+# 413 Plant developmental status / plant age / maturity / plant life stage
+# 1961 Health status of plants (vitality)
+workdata <- rtry_select_row(workdata, TraitID > 0 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961))
+workdata
+View(workdata)
+
+# Double check if all the traits and necessary auxiliary data are selected
+workdata_explore_aux <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+workdata_explore_aux
+View(workdata_explore_aux)
+```
+
+
+## Save and load backup data
+```{r}
+# save workdata_unfiltered as backup
+workdata_unfiltered <- workdata
+```
+
+
+```{r}
+# load workdata_unfiltered
+workdata <- workdata_unfiltered
+```
+
+
+## Filter irrelevant data
+### Filter mature plants (Method 1 - rtry_filter)
+```{r}
+#-------------------------------------------------
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+#-------------------------------------------------
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. DataID equals to 413
+# 2. OrigValueStr equals to "adult", "mature", "mature, healthy" or "unknown"
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, (DataID %in% 413) & (OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown")))
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+#-------------------------------------------------
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+### Filter mature plants (Method 2 - rtry_filter_keyword)
+```{r}
+#-------------------------------------------------
+# Assuming the above Method 1 is already performed
+# Load the backup data first
+#-------------------------------------------------
+workdata <- workdata_unfiltered
+
+#-------------------------------------------------
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+#-------------------------------------------------
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Keywords: "adult", "mature", "unknown"
+# By default, the rtry_filter_keyword() function performs case sensitive and exact match filtering
+# Therefore, it needs to be set to FALSE in order to also filter "mature, healthy"
+#-------------------------------------------------
+workdata <- rtry_filter_keyword(workdata, OrigValueStr, c("adult", "mature", "unknown"), caseSensitive = FALSE, exactMatch = FALSE)
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Select the rows where DataID is 413, i.e. the data containing the plant development status
+# Then explore the unique values of the OrigValueStr within the selected data
+#-------------------------------------------------
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 413)
+tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+```{r}
+#-------------------------------------------------
+# To further confirmed if the trait and/or auxiliary data were also removed, explore the data
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+#-------------------------------------------------
+workdata_explore_aux_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+workdata_explore_aux_filtered
+View(workdata_explore_aux_filtered)
+```
+
+
+### Filter non-representative traits
+```{r}
+#-------------------------------------------------
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+#-------------------------------------------------
+tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. DataID equals to 7222, 7223 or 6598
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, DataID %in% c(7222, 7223, 6598))
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Group the input data based on DataID, DataName, TraitID and TraitName
+# Then sort the output by TraitID using the sortBy argument
+#-------------------------------------------------
+tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+### Filter data based on standard values
+```{r}
+#-------------------------------------------------
+# Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, Comment, sortBy = StdValue)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. DataID equals to 6582, 6583 or 6584
+# 2. StdValue smaller than 0
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 1))
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_filtered <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
+tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, Comment, sortBy = StdValue)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+### Filter irrelevant area
+```{r}
+#-------------------------------------------------
+# Filter based on latitude
+# Select the rows where DataID is 59, i.e. the data containing the latitude information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 59)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. DataID equals to 59
+# 2. StdValue smaller than 50 or NA
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, (DataID %in% 59) & (StdValue < 50 | is.na(StdValue)))
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Select the rows where DataID is 59, i.e. the data containing the latitude information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 59)
+tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+```{r}
+#-------------------------------------------------
+# Filter based on longitude
+# Select the rows where DataID is 60, i.e. the data containing the longitude information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_unfiltered <- rtry_select_row(workdata, DataID %in% 60)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. DataID equals to 60
+# 2. StdValue smaller than 10 or larger than 50 or NA
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, (DataID %in% 60) & (StdValue < 10 | StdValue > 50 | is.na(StdValue)))
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Select the rows where DataID is 60, i.e. the data containing the longitude information
+# Then explore the unique values of the StdValue within the selected data
+#-------------------------------------------------
+tmp_filtered <- rtry_select_row(workdata, DataID %in% 60)
+tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+### Filter outliers based on error risk
+```{r}
+#-------------------------------------------------
+# Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
+# Then sort the output by ErrorRisk using the sortBy argument
+#-------------------------------------------------
+tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
+tmp_unfiltered
+View(tmp_unfiltered)
+
+#-------------------------------------------------
+# Criteria
+# 1. ErrorRisk larger than or equal to 4
+#-------------------------------------------------
+workdata <- rtry_filter(workdata, ErrorRisk >= 4)
+workdata
+View(workdata)
+
+#-------------------------------------------------
+# Double check the workdata to ensure the filtering worked as expected
+# Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
+# Then sort the output by ErrorRisk using the sortBy argument
+#-------------------------------------------------
+tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
+tmp_filtered
+View(tmp_filtered)
+```
+
+
+## Remove duplicates based on duplicate identifier
+```{r}
+#-------------------------------------------------
+# The TRY database provided a duplicate identifier OrigObsDataID to duplicate entries
+# This unique identifier is used within the rtry_rm_dup() for duplicates removal
+# Note: if the column OrigObsDataID has been removed, the function will not work
+#-------------------------------------------------
+workdata <- rtry_rm_dup(workdata)
+```
+
+
+## Transform from long table to wide table
+### Select only the traits with numerical values
+```{r}
+#-------------------------------------------------
+# Exclude
+# 1. All entries with "" in TraitID
+# 2. Potential categorical traits that don't have a StdValue
+# 3. Traits that have not yet been standardized in TRY
+#-------------------------------------------------
+num_traits <- rtry_select_row(workdata, complete.cases(TraitID) & complete.cases(StdValue))
+num_traits
+View(num_traits)
+```
+
+
+### Select only the relevant columns
+```{r}
+# Select the columns for transformation
+num_traits <- rtry_select_col(num_traits, ObservationID, AccSpeciesID, AccSpeciesName, TraitID, TraitName, StdValue, UnitName)
+num_traits
+View(num_traits)
+```
+
+
+### Retrieve the necessary auxiliary data
+```{r}
+#-------------------------------------------------
+# To transform long table into wide table on traits while keeping the auxiliary data, 
+# the auxiliary data needs to be added manually as additional columns before proceeding.
+# Take latitude and longitude as example, extract these information from the input data
+# using the function rtry_select_aux()
+#-------------------------------------------------
+# Extract the unique value of latitude data and the corresponding ObservationID
+workdata_lat <- rtry_select_aux(workdata, Latitude)
+
+# Extract the unique value of longitude data and the corresponding ObservationID
+workdata_lon <- rtry_select_aux(workdata, Longitude)
+```
+
+
+```{r}
+#-------------------------------------------------
+# To merge the extracted auxiliary data with the numerical traits
+# Merge the relevant data frames based on the ObservationID using rtry_merge_col (left join)
+#-------------------------------------------------
+num_traits_georef <- rtry_merge_col(num_traits, workdata_lat)
+num_traits_georef <- rtry_merge_col(num_traits_georef, workdata_lon)
+num_traits_georef
+View(num_traits_georef)
+```
+
+
+### Perform wider transformation
+```{r}
+#-------------------------------------------------
+# Perform wide table transformation on TraitID, TraitName and UnitName
+# With cell values to be the mean values calculated for StdValue
+#-------------------------------------------------
+num_traits_georef_wider <- rtry_trans_wider(num_traits_georef, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue), values_fn = list(StdValue = mean))
+num_traits_georef_wider
+View(num_traits_georef_wider)
+```
+
+
+## Export pre-processed TRY data
+```{r}
+#-------------------------------------------------
+# Export the data into a CSV file
+# Note: If the specified output directory does not exist, it will be created automatically.
+#-------------------------------------------------
+rtry_export(num_traits_georef_wider, "output/workdata_wider_traits.csv")
+```
+
+
+
+
+
+
+
+
+
+
