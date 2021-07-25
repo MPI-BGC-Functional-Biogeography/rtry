@@ -1,6 +1,8 @@
 ^rtry\.Rproj$
 ^\.Rproj\.user$
+^cran-comments\.md$
 ^doc$
 ^Meta$
 ^examples$
 ^LICENSE.md$
+^\.github$
