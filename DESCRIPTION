@@ -1,5 +1,6 @@
 Package: rtry
 Title: The TRY R Project: An R Package to Preprocess Plant Trait Data from the TRY Database
+Version: 1.0.0
 Authors@R: c(
     person(given = "Olee Hoi Ying", 
         family = "Lam", 
