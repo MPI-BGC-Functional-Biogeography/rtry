@@ -129,7 +129,7 @@ View(TRYdata1_explore_trait)
 
 With this, it is clear that the `TRYdata1` only includes data with two `TraitID` (3115 and 3116). And that within this dataset, there are 1632 auxiliary data, i.e. the entries where `TraitID` is `NA`.
 
-![workflow_general_explore_traits_01](image\workflow_general_explore_traits_TRYdata1.png){width=80%}
+![workflow_general_explore_traits_01](workflow_general_explore_traits_TRYdata1.png){width=80%}
 
 
 
@@ -149,7 +149,7 @@ View(TRYdata1_explore_species)
 
 Since the output is, by default, sorted by `AccSpeciesID`, it can be seen that the `TRYdata1` only contains three consolidated species (with `AccSpeciesID` equals 10773, 35846 and 45737). Each consolidated species has records where the `TraitID` equals 3115 and 3116, as well as the corresponding auxiliary data.
 
-![workflow_general_explore_species_01](image\workflow_general_explore_species_TRYdata1.png){width=100%}
+![workflow_general_explore_species_01](workflow_general_explore_species_TRYdata1.png){width=100%}
 
 
 
@@ -173,7 +173,7 @@ With this exploration and the way it is sorted, it is clear that in the `TRYdata
 
 For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further pre-processing is performed.
 
-![workflow_general_explore_aux_TRYdata1](image\workflow_general_explore_aux_TRYdata1.png){width=100%}
+![workflow_general_explore_aux_TRYdata1](workflow_general_explore_aux_TRYdata1.png){width=100%}
 
 
 
@@ -206,7 +206,7 @@ If used the `View(TRYdata2_explore_aux)` function, it can be seen that in the `T
 
 Here, it is clear that `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further pre-processing.
 
-![workflow_general_explore_aux](image\workflow_general_explore_aux_TRYdata2.png){width=100%}
+![workflow_general_explore_aux](workflow_general_explore_aux_TRYdata2.png){width=100%}
 
 <br>
 
@@ -325,9 +325,9 @@ In order to better understand the data, inside the data viewer, click on the col
 1. For `ObservationID` 94068, there are two `ObsDataID` 1021243 and 1021245 with the first one belonging to the `TraitID` 3115 and the latter an auxiliary data. Looking deeper into the `DataID` and `DataName`, we can see that this data "SLA: petiole excluded" is measured within "growth chambers", and could be eliminated later on depending on the research question.
 2. For `ObservationID` 158137, immediately we can see there are four auxiliary data with the `DataID` 59, 60, 61 and 413. Looking further into the `ErrorRisk` of the data "SLA: petiole excluded", which is roughly 2.5, meaning the observation is 2.5 standard deviation away from the mean and it is a "good" value that we would want to keep later. On top of this, it can be seen that the `OrigObsDataID` is `NA`, meaning that it is not a duplicate. Also, from the species name, it is known that it is a tree species therefore the "Plant developmental status" (`DataID` 413) would be an important information for further processing.
 
-![workflow_general_select_row_workdata](image\workflow_general_select_row_workdata_01.png){width=100%}
+![workflow_general_select_row_workdata](workflow_general_select_row_workdata_01.png){width=100%}
 
-![workflow_general_select_row_workdata](image\workflow_general_select_row_workdata_02.png){width=100%}
+![workflow_general_select_row_workdata](workflow_general_select_row_workdata_02.png){width=100%}
 
 
 
@@ -343,7 +343,7 @@ workdata_explore_aux <- rtry_explore(workdata, DataID, DataName, TraitID, TraitN
 
 Then use the command `View(workdata_explore_aux)` to view the output in the data viewer.
 
-![workflow_general_explore_aux_workdata](image\workflow_general_explore_aux_workdata.png){width=100%}
+![workflow_general_explore_aux_workdata](workflow_general_explore_aux_workdata.png){width=100%}
 
 <br>
 
@@ -401,7 +401,7 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 
 By sorting the exploration by `OrigValueStr`, it is clear that mature plants would have the value `adult`, `mature` and `mature, healthy`, whereas unknown status only comes in with the value `unknown`. This way it is possible to set the criteria and start the filtering process using either `rtry_filter()` or `rtry_filter_keyword()` which are both demonstrated below.
 
-![workflow_general_filter_mature_explore_before](image\workflow_general_filter_mature_explore_before.png){width=100%}
+![workflow_general_filter_mature_explore_before](workflow_general_filter_mature_explore_before.png){width=100%}
 
 
 
@@ -449,7 +449,7 @@ tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValu
 
 It is clear that all the mature plants and plants with unknown status were filtered away as expected.
 
-![workflow_general_filter_mature_explore_after](image\workflow_general_filter_mature_explore_after.png){width=100%}
+![workflow_general_filter_mature_explore_after](workflow_general_filter_mature_explore_after.png){width=100%}
 
 
 
@@ -467,7 +467,7 @@ workdata_explore_aux_filtered <- rtry_explore(workdata, DataID, DataName, TraitI
 
 Compare with the `workdata_explore_aux`, it can be seen that the number of traits and auxiliary data also decreased as expected.
 
-![workflow_general_explore_aux_filtered_mature](image\workflow_general_explore_aux_filtered_mature.png){width=100%}
+![workflow_general_explore_aux_filtered_mature](workflow_general_explore_aux_filtered_mature.png){width=100%}
 
 <br>
 
@@ -487,7 +487,7 @@ tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, s
 
 From this exploration, it can be seen that `DataID` 7222 and 7223 contains the minimum and maximum value of the "Leaf specific area (SLA: petiole excluded)" for trait 3115. Depending on the research question, user might want to remove these observations. The same goes for `DataID` 6598 for trait 3117, where two values of "SLA: undefined if petiole in- or excluded" had been provided.
 
-![workflow_general_explore_aux_filtered_mature](image\workflow_general_explore_aux_filtered_mature.png){width=100%}
+![workflow_general_explore_aux_filtered_mature](workflow_general_explore_aux_filtered_mature.png){width=100%}
 
 
 
@@ -519,7 +519,7 @@ tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sor
 
 It is clear that all the defined `DataID`s have been removed, as well as the corresponding traits and auxiliary data.
 
-![workflow_general_explore_aux_filtered_extremes](image\workflow_general_explore_aux_filtered_extremes.png){width=100%}
+![workflow_general_explore_aux_filtered_extremes](workflow_general_explore_aux_filtered_extremes.png){width=100%}
 
 <br>
 
@@ -545,7 +545,7 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 
 Here, it can be seen that the dataset does not contains negative SLA.
 
-![workflow_general_filter_sla_explore_before](image\workflow_general_filter_sla_explore_before.png){width=100%}
+![workflow_general_filter_sla_explore_before](workflow_general_filter_sla_explore_before.png){width=100%}
 
 
 
@@ -635,7 +635,7 @@ tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName OriglName, OrigValue
 
 From the exploration result, it is clear that only the latitude values larger than or equal to 50.00000 remains.
 
-![workflow_general_explore_aux_filtered_latitude](image\workflow_general_filter_lat_explore_after.png){width=90%}
+![workflow_general_explore_aux_filtered_latitude](workflow_general_filter_lat_explore_after.png){width=90%}
 
 
 
@@ -688,7 +688,7 @@ tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValu
 
 From the exploration result, it is clear that only the latitude values in between 10.00000 and 50.00000 remains.
 
-![workflow_general_explore_lon_explore_after](image\workflow_general_filter_lon_explore_after.png){width=60%}
+![workflow_general_explore_lon_explore_after](workflow_general_filter_lon_explore_after.png){width=60%}
 
 <br>
 
@@ -708,7 +708,7 @@ tmp_unfiltered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, E
 
 From the exploration result, it can be seen that there are a few outliers (with `ErrorRisk` larger than 4.0 in this case). It can also be observed that for those `ErrorRisk` equals NA, are data that contains the georeference information and exposition of the observation. These are the value where `ErrorRisk` does not apply and should be kept.
 
-![workflow_general_explore_aux_unfiltered_outliers](image\workflow_general_explore_aux_unfiltered_outliers.png){width=100%}
+![workflow_general_explore_aux_unfiltered_outliers](workflow_general_explore_aux_unfiltered_outliers.png){width=100%}
 
 
 
@@ -740,7 +740,7 @@ tmp_filtered <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, Err
 
 From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` larger than or equal to 4.0) were removed. 
 
-![workflow_general_explore_aux_filtered_outliers](image\workflow_general_explore_aux_filtered_outliers.png){width=100%}
+![workflow_general_explore_aux_filtered_outliers](workflow_general_explore_aux_filtered_outliers.png){width=100%}
 
 <br>
 
@@ -795,7 +795,7 @@ num_traits <- rtry_select_col(num_traits, ObservationID, AccSpeciesID, AccSpecie
 ## col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName StdValue UnitName 
 ```
 
-![workflow_general_trans_wider_num_traits](image\workflow_general_trans_wider_num_traits.png){width=100%}
+![workflow_general_trans_wider_num_traits](workflow_general_trans_wider_num_traits.png){width=100%}
 
 
 
@@ -838,7 +838,7 @@ num_traits_georef <- rtry_merge_col(num_traits_georef, workdata_lon)
 
 Use either `head()` or `View()` function to view the merge data. It can be seen that the extracted latitude and longitude information were added to the right of the numerical traits.
 
-![workflow_general_trans_wider_num_traits_georef](image\workflow_general_trans_wider_num_traits_georef.png){width=100%}
+![workflow_general_trans_wider_num_traits_georef](workflow_general_trans_wider_num_traits_georef.png){width=100%}
 
 
 
@@ -856,7 +856,7 @@ num_traits_georef_wider <- rtry_trans_wider(num_traits_georef, names_from = c(Tr
 
 Immediately, it can be seen that the columns new columns `TraitID`, `TraitName` and `UnitName` were "transformed" into new columns, which were named for example "3115_Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole excluded_mm2 mg-1".
 
-![workflow_general_trans_wider_traits](image\workflow_general_trans_wider_traits.png){width=100%}
+![workflow_general_trans_wider_traits](workflow_general_trans_wider_traits.png){width=100%}
 
 <br>
 

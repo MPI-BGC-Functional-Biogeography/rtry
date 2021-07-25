@@ -226,7 +226,7 @@ Since the `showOverview` in this example is set to `FALSE`, the dimension of the
 
 The output `TRYdata2_explore_accSpecies` would look like the following:
 
-![rtry_explore_usecase_3](image\rtry_explore_usecase_3.png){width=70%}
+![rtry_explore_usecase_3](rtry_explore_usecase_3.png){width=70%}
 
 <br>
 
@@ -358,7 +358,7 @@ TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
 ## dim:   435764 8 
 ```
 
-![rtry_select_col_usecase_2](image\rtry_select_col_usecase_2.png){width=100%}
+![rtry_select_col_usecase_2](rtry_select_col_usecase_2.png){width=100%}
 
 Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
 
@@ -417,7 +417,7 @@ traitID6_auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary =
 ## dim:    110725 28 
 ```
 
-![rtry_select_row_usecase_2](image\rtry_select_row_usecase_2.png){width=100%}
+![rtry_select_row_usecase_2](rtry_select_row_usecase_2.png){width=100%}
 
 Since the default value of  `showOverview` is set to be `TRUE`, the dimension of the filtered data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TraitID6_Auxiliary`.
 
@@ -435,7 +435,7 @@ outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60
 ## dim:   77183 28 
 ```
 
-![rtry_select_row_usecase_3](image\rtry_select_row_usecase_3.png){width=100%}
+![rtry_select_row_usecase_3](rtry_select_row_usecase_3.png){width=100%}
 
 <br>
 
@@ -468,7 +468,7 @@ Latitude <- rtry_select_aux(TRYdata, Latitude)
 ## col:   ObservationID Latitude 
 ```
 
-![rtry_select_aux_usecase_1](image\rtry_select_aux_usecase_1.png){width=20%}
+![rtry_select_aux_usecase_1](rtry_select_aux_usecase_1.png){width=20%}
 
 Since the default value of `showOverview` is by default set to be `TRUE`, the dimension and the column names of the extracted data table is displayed in the console despite the argument `showOverview = TRUE` is not specified, and that the return data was assigned to the specified variable, which is `Latitude` in this case. It can also be seen that this data is in a wide table, and can be used easily for further processing such as merging the auxiliary data to the pre-processed data based on the `ObservationID`.
 
@@ -505,7 +505,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 ## dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](image\rtry_filter_usercase_1_01.png){width=100%}
+![rtry_filter_usercase_1_01](rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -515,7 +515,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 ## dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](image\rtry_filter_usercase_1_02.png){width=70%}
+![rtry_filter_usercase_1_02](rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter()`. It is also possible to simply this step by using `rtry_filter_keyword()` in which only the keywords such as `juvenile` needs to be specified to perform the filtering.
 
@@ -527,7 +527,7 @@ tmp2 <- rtry_filter(tmp, (DataID %in% 413) & (OrigValueStr %in% c("2.5", "juveni
 ## dim:    52 28 
 ```
 
-![rtry_filter_usercase_1_03](image\rtry_filter_usercase_1_03.png){width=100%}
+![rtry_filter_usercase_1_03](rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -537,7 +537,7 @@ tmp3 <- rtry_explore(tmp2, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 ## dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](image\rtry_filter_usercase_1_04.png){width=70%}
+![rtry_filter_usercase_1_04](rtry_filter_usercase_1_04.png){width=70%}
 
 
 
@@ -601,7 +601,7 @@ tmp <- rtry_select_row(TRYdata, DataID %in% 413)
 ## dim:    907 28
 ```
 
-![rtry_filter_usercase_1_01](image\rtry_filter_usercase_1_01.png){width=100%}
+![rtry_filter_usercase_1_01](rtry_filter_usercase_1_01.png){width=100%}
 
 ```R
 tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -611,7 +611,7 @@ tmp1 <- rtry_explore(tmp, OrigValueStr, OriglName, OrigUnitStr, StdValue, Commen
 ## dim:    7 6
 ```
 
-![rtry_filter_usercase_1_02](image\rtry_filter_usercase_1_02.png){width=70%}
+![rtry_filter_usercase_1_02](rtry_filter_usercase_1_02.png){width=70%}
 
 Once the filtering criteria are identified, perform the filtering using `rtry_filter_keyword()`.
 
@@ -637,7 +637,7 @@ tmp3 <- rtry_filter_keyword(tmp, OrigValueStr, c("2.5", "juvenile"), caseSensiti
 
 Note that both (a) and (b) output the same results in this case, with only the data where `OrigValueStr` equals to `mature` or `Mature` remaining.
 
-![rtry_filter_usercase_1_03](image\rtry_filter_usercase_1_03.png){width=100%}
+![rtry_filter_usercase_1_03](rtry_filter_usercase_1_03.png){width=100%}
 
 ```R
 tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comment)
@@ -647,7 +647,7 @@ tmp4 <- rtry_explore(tmp3, OrigValueStr, OriglName, OrigUnitStr, StdValue, Comme
 ## dim:    2 6
 ```
 
-![rtry_filter_usercase_1_04](image\rtry_filter_usercase_1_04.png){width=70%}
+![rtry_filter_usercase_1_04](rtry_filter_usercase_1_04.png){width=70%}
 
 
 

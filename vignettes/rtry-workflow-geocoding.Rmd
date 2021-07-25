@@ -90,7 +90,7 @@ View(input_locations)
 ## col:   Country code Country Location 
 ```
 
-![workflow_geocoding_input](image\workflow_geocoding_locations.png){width=40%}
+![workflow_geocoding_input](workflow_geocoding_locations.png){width=40%}
 
 
 
@@ -155,7 +155,7 @@ The progress of the geocoding can be seen in the console. Once the geocoding is 
 
 The `output_coordinates` would look like the following. Note that the location which is unknown to OSM, the resulting latitude and longitude will remain or marked as NA.
 
-![workflow_geocoding_output](image\workflow_geocoding_coordinates.png){width=40%}
+![workflow_geocoding_output](workflow_geocoding_coordinates.png){width=40%}
 
 
 
@@ -173,7 +173,7 @@ input_locations <- rtry_select_col(input_locations, "Country code", Country, Loc
 rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
-![workflow_geocoding_input_coordinates](image\workflow_geocoding_locations_coordinates.png){width=60%}
+![workflow_geocoding_input_coordinates](workflow_geocoding_locations_coordinates.png){width=60%}
 
 
 
@@ -206,7 +206,7 @@ input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encod
 ## col:   Latitude Longitude 
 ```
 
-![workflow_revgeocoding_coordinates](image\workflow_revgeocoding_coordinates.png){width=30%}
+![workflow_revgeocoding_coordinates](workflow_revgeocoding_coordinates.png){width=30%}
 
 
 
@@ -261,7 +261,7 @@ The progress of the reverse geocoding can be seen in the console. Once the rever
 
 The output location information would look like the following. Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, those columns will be marked as `NA`.
 
-![workflow_revgeocoding_locations](image\workflow_revgeocoding_locations.png){width=100%}
+![workflow_revgeocoding_locations](workflow_revgeocoding_locations.png){width=100%}
 
 
 
@@ -280,4 +280,4 @@ input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Co
 rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
 ```
 
-![workflow_revgeocoding_coordinates_locations](image\workflow_revgeocoding_coordinates_locations.png){width=60%}
+![workflow_revgeocoding_coordinates_locations](workflow_revgeocoding_coordinates_locations.png){width=60%}
