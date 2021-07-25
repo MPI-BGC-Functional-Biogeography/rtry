@@ -38,5 +38,5 @@ rtry_trans_wider(TRYdata,
 }
 }
 \references{
-\href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
+\href{https://rdrr.io/github/tidyverse/tidyr/man/pivot_wider.html}{tidyr::pivot_wider()}
 }

@@ -15,7 +15,7 @@
 #'                  values_from = c(StdValue, ErrorRisk),
 #'                  values_fn = list(StdValue = mean, ErrorRisk = mean))
 #' }
-#' @references \href{https://www.rdocumentation.org/packages/tidytable/versions/0.5.7/topics/pivot_wider}{tidyr::pivot_wider()}
+#' @references \href{https://rdrr.io/github/tidyverse/tidyr/man/pivot_wider.html}{tidyr::pivot_wider()}
 #' @export
 rtry_trans_wider <- function(input = "",
                              names_from = NULL,
