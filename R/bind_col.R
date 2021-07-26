@@ -8,7 +8,7 @@
 #' @return A data table of the input data
 #' @examples
 #' \dontrun{
-#' rtry_bind_col(TRYdata1, TRYdata2)
+#' rtry_bind_col(data1, data2)
 #' }
 #' @export
 rtry_bind_col <- function(..., showOverview = TRUE){
