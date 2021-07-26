@@ -1,12 +1,12 @@
 ---
-title: "rtry vignettes"
+title: "Introduction to rtry"
 output:
   rmarkdown::html_vignette:
     toc: true
     number_sections: true
     toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{rtry vignettes}
+  %\VignetteIndexEntry{Introduction to rtry}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
