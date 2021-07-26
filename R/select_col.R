@@ -1,14 +1,14 @@
 #' Select TRY columns
 #'
-#' This function selects specified columns from the imported data for further processing.
+#' This function selects specified columns from the imported data and saves them in a new data table.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param ... Column names to be selected
-#' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
+#' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected columns
 #' @return A data table of the selected columns of the input data
 #' @examples
 #' \dontrun{
-#' rtry_select_col(TRYdata, DataID, DataName)
+#' rtry_select_col(data, DataID, DataName)
 #' }
 #' @seealso \code{\link{rtry_rm_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}

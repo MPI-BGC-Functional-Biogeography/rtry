@@ -11,17 +11,17 @@ rtry_select_col(input = "", ..., showOverview = TRUE)
 
 \item{...}{Column names to be selected}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension of the selected columns}
+\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected columns}
 }
 \value{
 A data table of the selected columns of the input data
 }
 \description{
-This function selects specified columns from the imported data for further processing.
+This function selects specified columns from the imported data and saves them in a new data table.
 }
 \examples{
 \dontrun{
-rtry_select_col(TRYdata, DataID, DataName)
+rtry_select_col(data, DataID, DataName)
 }
 }
 \references{
