@@ -2,7 +2,7 @@
 % Please edit documentation in R/import.R
 \name{rtry_import}
 \alias{rtry_import}
-\title{Import TRY data}
+\title{Import data}
 \usage{
 rtry_import(
   input = "",
@@ -13,23 +13,23 @@ rtry_import(
 )
 }
 \arguments{
-\item{input}{Path to the text file downloaded from TRY}
+\item{input}{Path to the data file}
 
 \item{separator}{Data separator. Default \code{"\t"} for the TRY data output}
 
 \item{encoding}{File encoding. Default \code{"Latin-1"}}
 
-\item{quote}{Default \code{""} reads the fields as is. If the fields start with a double quote, use \code{"\""} instead}
+\item{quote}{Default \code{""} reads the fields as is. If the fields in the data file are by a double quote, use \code{"\""} instead}
 
-\item{showOverview}{Default \code{TRUE} displays the input path, dimension and column names of the input data}
+\item{showOverview}{Default \code{TRUE} displays the input path, the dimension and the column names of the imported data}
 }
 \value{
 A data table of the input data
 }
 \description{
-This function, by default, imports the text file exported from the TRY database
-as a data.table for further processing. It can also be used to import other data file,
-such as .csv file with comma as separator.
+This function, by default, imports the data file (.txt) exported from the TRY database
+as a data.table for further processing. It can also be used to import other file formats,
+such as .csv files with comma as separator.
 }
 \examples{
 \dontrun{

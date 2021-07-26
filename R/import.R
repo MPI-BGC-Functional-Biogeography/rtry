@@ -1,14 +1,14 @@
-#' Import TRY data
+#' Import data
 #'
-#' This function, by default, imports the text file exported from the TRY database
-#' as a data.table for further processing. It can also be used to import other data file,
-#' such as .csv file with comma as separator.
+#' This function, by default, imports the data file (.txt) exported from the TRY database
+#' as a data.table for further processing. It can also be used to import other file formats,
+#' such as .csv files with comma as separator.
 #'
-#' @param input Path to the text file downloaded from TRY
+#' @param input Path to the data file
 #' @param separator Data separator. Default \code{"\t"} for the TRY data output
 #' @param encoding File encoding. Default \code{"Latin-1"}
-#' @param quote Default \code{""} reads the fields as is. If the fields start with a double quote, use \code{"\""} instead
-#' @param showOverview Default \code{TRUE} displays the input path, dimension and column names of the input data
+#' @param quote Default \code{""} reads the fields as is. If the fields in the data file are by a double quote, use \code{"\""} instead
+#' @param showOverview Default \code{TRUE} displays the input path, the dimension and the column names of the imported data
 #' @return A data table of the input data
 #' @examples
 #' \dontrun{
