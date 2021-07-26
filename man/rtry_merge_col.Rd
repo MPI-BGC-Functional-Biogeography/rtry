@@ -26,6 +26,6 @@ a left join on the two provided data frames.
 }
 \examples{
 \dontrun{
-rtry_merge_col(TRYdata1, TRYdata2)
+rtry_merge_col(data1, data2)
 }
 }

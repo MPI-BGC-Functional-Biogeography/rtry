@@ -2,7 +2,7 @@
 % Please edit documentation in R/explore.R
 \name{rtry_explore}
 \alias{rtry_explore}
-\title{Explore TRY data}
+\title{Explore data}
 \usage{
 rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 }

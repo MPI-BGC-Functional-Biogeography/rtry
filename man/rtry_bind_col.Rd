@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_col.R
 \name{rtry_bind_col}
 \alias{rtry_bind_col}
-\title{Bind TRY data by columns}
+\title{Bind data by columns}
 \usage{
 rtry_bind_col(..., showOverview = TRUE)
 }

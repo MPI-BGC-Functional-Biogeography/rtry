@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_col.R
 \name{rtry_select_col}
 \alias{rtry_select_col}
-\title{Select TRY columns}
+\title{Select columns}
 \usage{
 rtry_select_col(input = "", ..., showOverview = TRUE)
 }

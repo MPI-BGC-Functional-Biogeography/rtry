@@ -1,4 +1,4 @@
-#' Select TRY columns
+#' Select columns
 #'
 #' This function selects specified columns from the imported data and saves them in a new data table.
 #'

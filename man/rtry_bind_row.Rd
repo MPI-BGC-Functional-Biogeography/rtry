@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_row.R
 \name{rtry_bind_row}
 \alias{rtry_bind_row}
-\title{Bind TRY data by rows}
+\title{Bind data by rows}
 \usage{
 rtry_bind_row(..., showOverview = TRUE)
 }

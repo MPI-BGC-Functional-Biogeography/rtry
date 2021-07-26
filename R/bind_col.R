@@ -1,4 +1,4 @@
-#' Bind TRY data by columns
+#' Bind data by columns
 #'
 #' This function takes a sequence of data imported by \code{rtry_import()}
 #' and combines them by columns. The data should share the same number of rows.

@@ -1,4 +1,4 @@
-#' Explore TRY data
+#' Explore data
 #'
 #' This function takes the data table imported by \code{rtry_import()} and converts it into
 #' a grouped data table based on the specified column names.

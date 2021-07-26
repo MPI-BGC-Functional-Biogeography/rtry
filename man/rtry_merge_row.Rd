@@ -27,6 +27,6 @@ all records from both the tables.
 }
 \examples{
 \dontrun{
-rtry_merge_row(TRYdata1, TRYdata2)
+rtry_merge_row(data1, data2)
 }
 }

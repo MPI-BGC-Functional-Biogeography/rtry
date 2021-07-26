@@ -12,7 +12,7 @@
 #' @return A data table of the merged data
 #' @examples
 #' \dontrun{
-#' rtry_merge_col(TRYdata1, TRYdata2)
+#' rtry_merge_col(data1, data2)
 #' }
 #' @export
 rtry_merge_col <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
