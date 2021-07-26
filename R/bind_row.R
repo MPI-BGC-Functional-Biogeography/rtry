@@ -1,7 +1,7 @@
 #' Bind TRY data by rows
 #'
 #' This function takes a sequence of data imported by \code{rtry_import()}
-#' and combined them by rows. The data should share the same number of columns
+#' and combines them by rows. The data should share the same number of columns
 #' and column names.
 #'
 #' @param ... A sequence of data frame to be combined by rows
@@ -9,7 +9,7 @@
 #' @return A data table of the input data
 #' @examples
 #' \dontrun{
-#' rtry_bind_row(TRYdata1, TRYdata2)
+#' rtry_bind_row(data1, data2)
 #' }
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){

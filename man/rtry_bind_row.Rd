@@ -16,11 +16,11 @@ A data table of the input data
 }
 \description{
 This function takes a sequence of data imported by \code{rtry_import()}
-and combined them by rows. The data should share the same number of columns
+and combines them by rows. The data should share the same number of columns
 and column names.
 }
 \examples{
 \dontrun{
-rtry_bind_row(TRYdata1, TRYdata2)
+rtry_bind_row(data1, data2)
 }
 }
