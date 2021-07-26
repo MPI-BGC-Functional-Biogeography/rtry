@@ -3,7 +3,7 @@
 #' This function merges two data frames based on the row names of the  specified common column
 #' (by default: \code{ObservationID}) and returns all rows from both tables, join records from the left (\code{x})
 #' which have matching keys in the right data frame (\code{y}) for further processing.
-#' In order words, this functions performs a outer join on the two provided data frames, i.e. the join table will contain
+#' In order words, this functions performs an outer join on the two provided data frames, i.e. the join table will contain
 #' all records from both the tables.
 #'
 #' @param x The left data frame, imported by \code{rtry_import()} or in data table format
