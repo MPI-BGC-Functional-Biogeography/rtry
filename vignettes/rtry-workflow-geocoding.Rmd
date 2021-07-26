@@ -1,12 +1,12 @@
 ---
-title: "Using rtry for (reverse) geocoding"
+title: "Workflow for geocoding using rtry"
 output:
   rmarkdown::html_vignette:
     # toc: true
     # number_sections: true
     # toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{Using rtry for (reverse) geocoding}
+  %\VignetteIndexEntry{Workflow for geocoding using rtry}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,12 +1,12 @@
 ---
-title: "Using rtry for general data pre-processing"
+title: "Workflow for general data preprocessing using rtry"
 output:
   rmarkdown::html_vignette:
     # toc: true
     # number_sections: true
     # toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{Using rtry for general data pre-processing}
+  %\VignetteIndexEntry{Workflow for general data preprocessing using rtry}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
