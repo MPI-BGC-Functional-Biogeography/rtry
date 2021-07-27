@@ -1,7 +1,8 @@
-#' Perform Reverse Geocoding
+#' Perform reverse geocoding
 #'
-#' This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim}, a search engine for OpenStreetMap data, to
-#' perform reverse Geocoding, i.e. converting coordinates (latitudes, longitudes) into an address.
+#' This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim},
+#' a search engine for OpenStreetMap data, to perform reverse Geocoding,
+#' i.e. converting coordinates (latitudes, longitudes) into an address.
 #' The data provided by OSM is free to use for any purpose, including commercial use,
 #' and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 #'
@@ -9,9 +10,14 @@
 #' @param email String of an email address
 #' @return A data frame that contains address
 #' @examples
-#' \dontrun{
-#' rtry_revgeocoding(data.frame(50.91012, 11.56674), email = email)
-#' }
+#' # Convert the coordinates of MPI-BGC (50.91012, 11.56674) into an address
+#' # Note: please change to your own email address when executing this function
+#' rtry_revgeocoding(data.frame(50.91012, 11.56674),
+#'   email = "jkattge@bgc-jena.mpg.de")
+#'
+#' # Expected output:
+#' #               full_address town city country country_code
+#' # 1 Jena, Thuringia, Germany   NA Jena Germany           de
 #' @seealso \code{\link{rtry_geocoding}}
 #' @export
 rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){

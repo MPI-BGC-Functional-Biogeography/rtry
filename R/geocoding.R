@@ -1,7 +1,8 @@
-#' Perform Geocoding
+#' Perform geocoding
 #'
-#' This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim}, a search engine for OpenStreetMap (OSM) data, to
-#' perform Geocoding, i.e. converting an address into coordinates (latitudes, longitudes).
+#' This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim},
+#' a search engine for OpenStreetMap (OSM) data, to perform Geocoding,
+#' i.e. converting an address into coordinates (latitudes, longitudes).
 #' The data provided by OSM is free to use for any purpose, including commercial use,
 #' and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 #'
@@ -9,9 +10,15 @@
 #' @param email String of an email address
 #' @return A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection
 #' @examples
-#' \dontrun{
-#' rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany", email = email)
-#' }
+#' # Convert the address of MPI-BGC ("Hans-Knoell-Strasse 10, 07745 Jena, Germany")
+#' # into coordinates in latitudes and longitudes
+#' # Note: please change to your own email address when executing this function
+#' rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany",
+#'    email = "jkattge@bgc-jena.mpg.de")
+#'
+#' # Expected output:
+#' #        lat      lon
+#' # 1 50.91011 11.56682
 #' @seealso \code{\link{rtry_revgeocoding}}
 #' @export
 rtry_geocoding <- function(address = NULL, email = NULL){
