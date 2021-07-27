@@ -16,8 +16,8 @@
 #' # Expected output:
 #' # dim:   1782 17
 #' # col:   AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName
-#'          DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
-#'          StdValue UnitName OrigObsDataID ErrorRisk Comment
+#' #        DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
+#' #        StdValue UnitName OrigObsDataID ErrorRisk Comment
 #' @seealso \code{\link{rtry_select_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export

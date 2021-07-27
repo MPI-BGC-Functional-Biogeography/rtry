@@ -30,8 +30,8 @@ data_selected <- rtry_select_col(TRYdata_15160,
 # Expected output:
 # dim:   1782 17
 # col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName
-         TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
-         StdValue UnitName OrigObsDataID ErrorRisk Comment
+#        TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
+#        StdValue UnitName OrigObsDataID ErrorRisk Comment
 }
 \references{
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
