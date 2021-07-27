@@ -8,9 +8,17 @@
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data
 #' @return A data table of the input data
 #' @examples
-#' \dontrun{
-#' rtry_bind_row(data1, data2)
-#' }
+#' # Combine the two provided sample data (TRYdata_15160 and TRYdata_15160)
+#' data <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
+#'
+#' # Expected output:
+#' # dim:   6409 28
+#' # col:   LastName FirstName DatasetID Dataset SpeciesName
+#' #        AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID
+#' #        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
+#' #        ValueKindName OrigUncertaintyStr UncertaintyName Replicates
+#' #        StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
+#' #        Reference Comment V28
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){
   # If ... is missing, show the message
