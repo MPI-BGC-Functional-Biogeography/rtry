@@ -11,10 +11,23 @@
 #' @param showOverview Default \code{TRUE} displays the input path, the dimension and the column names of the imported data
 #' @return A data table of the input data
 #' @examples
-#' \dontrun{
-#' rtry_import("./data/7956.txt")
-#' rtry_import("./data/coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
-#' }
+#' # Specify file path to the raw data provided within the rtry package
+#' # For Windows users and own data, the input path might rather look like this:
+#' # input_path <- "C:/Users/User/Desktop/TRYdata_15160.txt"
+#' input_path <- system.file("testdata", "TRYdata_15160.txt", package = "rtry")
+#'
+#' # Import data file using rtry_import
+#' input <- rtry_import(input_path)
+#'
+#' # Expected output:
+#' # input: ~/R/R-4.0.3/library/rtry/testdata/TRYdata_15160.txt
+#' # dim:   1782 28
+#' # col:   LastName FirstName DatasetID Dataset SpeciesName
+#' #        AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID
+#' #        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
+#' #        ValueKindName OrigUncertaintyStr UncertaintyName Replicates
+#' #        StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
+#' #        Reference Comment V28
 #' @export
 rtry_import <- function(input = "", separator = "\t", encoding = "Latin-1", quote = "", showOverview = TRUE){
   # If the arguments input is missing, show the message
