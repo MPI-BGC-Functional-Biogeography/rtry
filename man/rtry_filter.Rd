@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter.R
 \name{rtry_filter}
 \alias{rtry_filter}
-\title{Filter TRY data}
+\title{Filter data}
 \usage{
 rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 }
@@ -28,9 +28,17 @@ listed in the TRY data, therefore, if the column \code{ObservationID} has been r
 might not work (unless another attribute is defined when calling the function).
 }
 \examples{
-\dontrun{
-rtry_filter(TRYdata, OrigValueStr \%in\% c("juvenile", "Juvenile", "juvenile, 6 weeks"))
-}
+# Filter observations where the plant developmental status (DataID 413)
+# is "juvenile" or "unknown" while excluding the whole observation
+data_filter <- rtry_filter(TRYdata_15160,
+                 (DataID \%in\% 413) & (OrigValueStr \%in\% c("juvenile", "unknown")),
+                 baseOn = ObservationID)
+
+# Expected output:
+# dim:   1618 28
+
+# Learn more in the general workflow vignette via the command:
+# vignette("rtry-workflow-general")
 }
 \seealso{
 \code{\link{rtry_filter_keyword}}

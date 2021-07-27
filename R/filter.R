@@ -1,4 +1,4 @@
-#' Filter TRY data
+#' Filter data
 #'
 #' This function filters data from the input data based on the specified criteria
 #' and by default this filtering is performed based on the corresponding \code{ObservationID}.
@@ -9,9 +9,17 @@
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after filtering
 #' @examples
-#' \dontrun{
-#' rtry_filter(TRYdata, OrigValueStr %in% c("juvenile", "Juvenile", "juvenile, 6 weeks"))
-#' }
+#' # Filter observations where the plant developmental status (DataID 413)
+#' # is "juvenile" or "unknown" while excluding the whole observation
+#' data_filter <- rtry_filter(TRYdata_15160,
+#'                  (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "unknown")),
+#'                  baseOn = ObservationID)
+#'
+#' # Expected output:
+#' # dim:   1618 28
+#'
+#' # Learn more in the general workflow vignette via the command:
+#' # vignette("rtry-workflow-general")
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
 #' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
