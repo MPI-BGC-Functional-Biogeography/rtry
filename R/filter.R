@@ -18,7 +18,7 @@
 #' # Expected output:
 #' # dim:   1618 28
 #'
-#' # Learn more in the general workflow vignette via the command:
+#' # Learn more applications of the filtering function via the command:
 #' # vignette("rtry-workflow-general")
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
