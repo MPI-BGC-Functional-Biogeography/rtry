@@ -7,9 +7,18 @@
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected columns
 #' @return A data table of the selected columns of the input data
 #' @examples
-#' \dontrun{
-#' rtry_select_col(data, DataID, DataName)
-#' }
+#' # Select certain columns from the provided sample data (TRYdata_15160)
+#' data_selected <- rtry_select_col(TRYdata_15160,
+#'                    ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
+#'                    ValueKindName, TraitID, TraitName, DataID, DataName,
+#'                    OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName,
+#'                    OrigObsDataID, ErrorRisk, Comment)
+#'
+#' # Expected output:
+#' # dim:   1782 17
+#' # col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName
+#'          TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
+#'          StdValue UnitName OrigObsDataID ErrorRisk Comment
 #' @seealso \code{\link{rtry_rm_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export

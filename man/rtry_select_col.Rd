@@ -20,9 +20,18 @@ A data table of the selected columns of the input data
 This function selects specified columns from the imported data and saves them in a new data table.
 }
 \examples{
-\dontrun{
-rtry_select_col(data, DataID, DataName)
-}
+# Select certain columns from the provided sample data (TRYdata_15160)
+data_selected <- rtry_select_col(TRYdata_15160,
+                   ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
+                   ValueKindName, TraitID, TraitName, DataID, DataName,
+                   OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName,
+                   OrigObsDataID, ErrorRisk, Comment)
+
+# Expected output:
+# dim:   1782 17
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName
+         TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
+         StdValue UnitName OrigObsDataID ErrorRisk Comment
 }
 \references{
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
