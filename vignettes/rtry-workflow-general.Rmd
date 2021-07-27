@@ -2,9 +2,9 @@
 title: "Workflow for general data preprocessing using rtry"
 output:
   rmarkdown::html_vignette:
-    # toc: true
-    # number_sections: true
-    # toc_depth: 3
+    toc: true
+    number_sections: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Workflow for general data preprocessing using rtry}
   %\VignetteEngine{knitr::rmarkdown}
@@ -22,15 +22,15 @@ knitr::opts_chunk$set(
 ***
 
 
-This vignette is intended to demonstrate how to use the `rtry` package to perform pre-process of the data exported from the TRY database, from importing and exploring the data to binding multiple data, as well as selecting, filtering specific data using user-defined criteria and removing duplicates, and finally exporting the pre-process data.
+This vignette is intended to demonstrate how to use the `rtry` package to perform preprocess of the data exported from the TRY database, from importing and exploring the data to binding multiple data, as well as selecting, filtering specific data using user-defined criteria and removing duplicates, and finally exporting the preprocess data.
 
 <br>
 
-# Prepare environment
+# Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. It is also advised to download the `examples` directory in which both the example workflow script and sample data are provided. Details are also provided within the "Installation Guide".
+Make sure you have the `rtry` package installed. If not, you may refer to the "The TRY R Project" section within the vignette ["Introduction to rtry" (rtry-introduction-new)](rtry-introduction-new.html).
 
-
+It is also advised to download the `examples` directory from the MPI-BGC Nextcloud in which both the example workflow script and sample data are provided.
 
 To start with, set the work directory to the location where the `examples` directory is located:
 
@@ -40,16 +40,12 @@ setwd("<path_to_rtry_examples_dir>")
 
 Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
 
-
-
 Load the required packages using the commands:
 
 ```R
 library(rtry)	# load the rtry package
 packageVersion("rtry")	# check the version of rtry
 ```
-
-
 
 <br>
 
@@ -80,8 +76,6 @@ head(TRYdata1)
 ```R
 View(TRYdata1)
 ```
-
-
 
 To import another TRY data:
 
@@ -131,8 +125,6 @@ With this, it is clear that the `TRYdata1` only includes data with two `TraitID`
 
 ![workflow_general_explore_traits_01](workflow_general_explore_traits_TRYdata1.png){width=80%}
 
-
-
 Next, further exploration of `TRYdata1` can be done based on the `AccSpeciesID`, `AccSpeciesName`, `TraitID` and `TraitName`.
 
 ```R
@@ -151,9 +143,7 @@ Since the output is, by default, sorted by `AccSpeciesID`, it can be seen that t
 
 ![workflow_general_explore_species_01](workflow_general_explore_species_TRYdata1.png){width=100%}
 
-
-
-After reassuring the data contains the necessary traits and species, for the purpose of pre-processing, it is also necessary to understand what auxiliary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
+After reassuring the data contains the necessary traits and species, for the purpose of preprocessing, it is also necessary to understand what auxiliary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
 
 ```R
 # Group the input data based on DataID, DataName, TraitID and TraitName
@@ -171,11 +161,9 @@ View(TRYdata1_explore_aux)
 
 With this exploration and the way it is sorted, it is clear that in the `TRYdata1`: (1) there are two traits, with the `TraitID` equals to 3115 and 3116; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within each trait, whether or not similar data exists.
 
-For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further pre-processing is performed.
+For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7223 and 7223 contains the extreme values (min and max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further preprocessing is performed.
 
 ![workflow_general_explore_aux_TRYdata1](workflow_general_explore_aux_TRYdata1.png){width=100%}
-
-
 
 A similar procedure can be performed on the other TRY data (`TRYdata2`).
 
@@ -200,11 +188,9 @@ TRYdata2_explore_aux <- rtry_explore(TRYdata2, DataID, DataName, TraitID, TraitN
 
 Then use either `head()` or `View()` function to view the data.
 
-
-
 If used the `View(TRYdata2_explore_aux)` function, it can be seen that in the `TRYdata2`:  (1) there is only one trait, with the `TraitID` equals to 3116; (2) what types of auxiliary data could be found with the list of `DataID` and `DataName`; and (3) within this trait, whether or not similar data exists.
 
-Here, it is clear that `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further pre-processing.
+Here, it is clear that `DataID` 6584 and 6598 share similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and user might want to have this information in mind before further preprocessing.
 
 ![workflow_general_explore_aux](workflow_general_explore_aux_TRYdata2.png){width=100%}
 
@@ -226,8 +212,6 @@ TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
 ```
 
 From the dimension, it can be seen that now the two imported data has been combined together by rows, with `TRYdata1` on top then followed by `TRYdata2`, and a new data `TRYdata` has been created.
-
-
 
 Now this combined data `TRYdata` can be explored using once again the `rtry_explore()`.
 
@@ -256,15 +240,13 @@ To view the data, use either `head()` or `View()`.
 
 # Select relevant columns
 
-Within the `rtry` package, there are two ways to reduce the data's column size, i.e. `rtry_select_col()` and `rtry_rm_col()`. Note: To ensure the later pre-processing steps (such as data selection and duplicates removal) work properly, do not remove the column `ObservationID` and `OrigObsDataID`.
+Within the `rtry` package, there are two ways to reduce the data's column size, i.e. `rtry_select_col()` and `rtry_rm_col()`. Note: To ensure the later preprocessing steps (such as data selection and duplicates removal) work properly, do not remove the column `ObservationID` and `OrigObsDataID`.
 
 The `rtry_select_col()` takes three arguments `input`, `...` and `showOverview` in order to select specified columns from the imported data.
 
 While the `rtry_rm_col()` takes also three arguments  `input`, `...` and `showOverview` to remove the specified columns from the input data instead.
 
 It is completely up to the users to decide which function they prefer in retrieving the relevant columns of the data.
-
-
 
 In general, it would be easier to use the `rtry_rm_col()` when user would like to keep most of the columns and remove only a small fraction of the data column, such as `V28`.
 
@@ -278,8 +260,6 @@ workdata <- rtry_rm_col(TRYdata, V28)
 ```
 
 From the feedback, it can be seen that only the column `V28` has been removed, therefore, the output `workdata` contains only 27 columns, instead of the original 28. And users can continue removing columns if necessary.
-
-
 
 On the other hand, if users are clear which columns they would like to keep, a more direct approach is, of course, with the `rtry_select_col()`:
 
@@ -329,8 +309,6 @@ In order to better understand the data, inside the data viewer, click on the col
 
 ![workflow_general_select_row_workdata](workflow_general_select_row_workdata_02.png){width=100%}
 
-
-
 To check if the required data are selected, the `rtry_explore()` can be used:
 
 ```R
@@ -355,8 +333,6 @@ Before continuing with the filtering process, it is recommended to backup the da
 # save workdata_unfiltered as backup
 workdata_unfiltered <- workdata
 ```
-
-
 
 If necessary, load the backup data using the following:
 
@@ -383,8 +359,6 @@ Again, it is completely up to the users to decide which function they prefer in 
 
 For demonstration purpose, the first step would be to remove the data where the observed plant is mature or unknown.
 
-
-
 To start with, check the `DataID` that contains information about plant development status, i.e. `413`, then check the different states of the `OrigValueStr` using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data is saved as `tmp_unfiltered`.
 
 ```R
@@ -402,8 +376,6 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 By sorting the exploration by `OrigValueStr`, it is clear that mature plants would have the value `adult`, `mature` and `mature, healthy`, whereas unknown status only comes in with the value `unknown`. This way it is possible to set the criteria and start the filtering process using either `rtry_filter()` or `rtry_filter_keyword()` which are both demonstrated below.
 
 ![workflow_general_filter_mature_explore_before](workflow_general_filter_mature_explore_before.png){width=100%}
-
-
 
 **Method 1:** Filter mature (and unknown) plants using `rtry_filter()`.
 
@@ -431,8 +403,6 @@ workdata <- rtry_filter_keyword(workdata, OrigValueStr, c("adult", "mature", "un
 ## dim:   531 17 
 ```
 
-
-
 Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`. This time the temporary data is saved as `tmp_filtered`.
 
 ```R
@@ -450,8 +420,6 @@ tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValu
 It is clear that all the mature plants and plants with unknown status were filtered away as expected.
 
 ![workflow_general_filter_mature_explore_after](workflow_general_filter_mature_explore_after.png){width=100%}
-
-
 
 To further confirmed if the trait and/or auxiliary data were also removed accordingly, use again the `rtry_explore()` function.
 
@@ -489,8 +457,6 @@ From this exploration, it can be seen that `DataID` 7222 and 7223 contains the m
 
 ![workflow_general_explore_aux_filtered_mature](workflow_general_explore_aux_filtered_mature.png){width=100%}
 
-
-
 Now that the filtering criteria has been identified, use the `rtry_filter()` function to perform the filtering:
 
 ```R
@@ -502,8 +468,6 @@ workdata <- rtry_filter(workdata, DataID %in% c(7222, 7223, 6598))
 ```R
 ## dim:   464 17 
 ```
-
-
 
 Double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
 
@@ -527,8 +491,6 @@ It is clear that all the defined `DataID`s have been removed, as well as the cor
 
 When dealing with data related to the leaf specific area (SLA), it is important to make sure there is no negative values and data smaller than 1 in the dataset, since it is not possible to have negative area. Therefore, it is also possible to use the filtering function provided in the `rtry` package to remove the negative values.
 
-
-
 Knowing that the SLA values can be found in `DataID` 6582, 6583 and 6584, user can first check if negative values exist in the dataset using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data is saved as `tmp_unfiltered`. Note: To filter numeric values, it is recommended to use the column `StdValue`.
 
 ```R
@@ -547,8 +509,6 @@ Here, it can be seen that the dataset does not contains negative SLA.
 
 ![workflow_general_filter_sla_explore_before](workflow_general_filter_sla_explore_before.png){width=100%}
 
-
-
 However, for demonstration purpose, in case negative values are discovered, the following command can be used:
 
 ```R
@@ -561,8 +521,6 @@ workdata <- rtry_filter(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue 
 ```R
 ## dim:   460 17 
 ```
-
-
 
 Once the filtering is completed, it is always recommended to double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
 
@@ -584,8 +542,6 @@ tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValu
 
 It could be that only certain area of data is of interested for further processing, to filter away the irrelevant locations/areas, filter the data using the "Latitude" (`DataID` 59) and "Longitude" (`DataID` 60). To ensure the filtering works as expected, it is best to perform the filtering process one after one. In this case, filter according to latitude, then longitude.
 
-
-
 **Filter based on latitude**
 
 First, check the `DataID` that contains the latitude information, i.e. `59`, then check the different states of the `StdValue` using the functions `rtry_select_row()` and `rtry_explore()`.
@@ -602,8 +558,6 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 ## dim:   37 8 
 ```
 
-
-
 For demonstration purpose, the following command filters the latitude smaller than 50.00000 or when such information is missing, i.e. NA.
 
 ```R
@@ -616,8 +570,6 @@ workdata <- rtry_filter(workdata, (DataID %in% 59) & (StdValue < 50 | is.na(StdV
 ```R
 ## dim:   207 17 
 ```
-
-
 
 Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
 
@@ -637,8 +589,6 @@ From the exploration result, it is clear that only the latitude values larger th
 
 ![workflow_general_explore_aux_filtered_latitude](workflow_general_filter_lat_explore_after.png){width=90%}
 
-
-
 **Filter based on longitude**
 
 Next, a similar procedure will be performed on the longitude, where the `DataID` is 60. The column `StdValue` will again be used for the filtering process. To identify which values to be filtered, use the `rtry_select_row()` and `rtry_explore()` functions to explore the dataset.
@@ -655,8 +605,6 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 ## dim:   18 8 
 ```
 
-
-
 For demonstration purpose, the following command filters the longitude smaller than 10.00000 or larger than 50.00000 or when such information is missing, i.e. NA.
 
 ```R
@@ -669,8 +617,6 @@ workdata <- rtry_filter(workdata, (DataID %in% 60) & (StdValue < 10 | StdValue >
 ```R
 ## dim:   153 17 
 ```
-
-
 
 Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
 
@@ -710,8 +656,6 @@ From the exploration result, it can be seen that there are a few outliers (with 
 
 ![workflow_general_explore_aux_unfiltered_outliers](workflow_general_explore_aux_unfiltered_outliers.png){width=100%}
 
-
-
 After understanding what data to be filtered, use the `rtry_filter()` function to perform the data removal:
 
 ```R
@@ -724,9 +668,7 @@ workdata <- rtry_filter(workdata, ErrorRisk >= 4)
 ## dim:   139 17 
 ```
 
-
-
-Always double check the filtered data before continuing the pre-processing.
+Always double check the filtered data before continuing the preprocessing.
 
 ```R
 # Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
@@ -772,8 +714,6 @@ For data management purposes, the TRY data is structured as a long table and thi
 
 The `rtry_trans_wider()` takes five arguments `input`, `names_from`, `values_from`, `values_fn` and `showOverview` to transform the original long table format of the TRY data into a wide table format. Note: This function is based on the function `tidyr::pivot_wider()`.
 
-
-
 To ensure the long table to wide table transformation would not result in duplicate entries because of the potentially existence of multiple `ObservationID` for a single trait, the first step is to select only the traits with numerical values, and then to simply this example, only the most relevant columns will be selected.
 
 ```R
@@ -797,8 +737,6 @@ num_traits <- rtry_select_col(num_traits, ObservationID, AccSpeciesID, AccSpecie
 
 ![workflow_general_trans_wider_num_traits](workflow_general_trans_wider_num_traits.png){width=100%}
 
-
-
 Now that only the traits with numerical values were selected, in order to keep the auxiliary data while transforming the data from long table into wide table on traits, the auxiliary data needs to be added manually as additional columns before proceeding.
 
 For demonstration purpose, the latitude and longitude information will be added to the input data to create a georeferenced traits before proceeding. To extract the unique values of the auxiliary data and the corresponding `ObservationID`, use the `rtry_select_aux()` function.
@@ -817,8 +755,6 @@ workdata_lon <- rtry_select_aux(workdata, Longitude)
 ## dim:   22 2 
 ## col:   ObservationID Longitude 
 ```
-
-
 
 Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted auxiliary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_merge_col()` function provided in the `rtry` package.
 
@@ -840,8 +776,6 @@ Use either `head()` or `View()` function to view the merge data. It can be seen 
 
 ![workflow_general_trans_wider_num_traits_georef](workflow_general_trans_wider_num_traits_georef.png){width=100%}
 
-
-
 Once the trait records and the necessary auxiliary data were prepared, the transformation is performed on the `TraitID`, `TraitName` and `UnitName`, meaning to get the name of these three columns as part of the name of the output column (`names_from`), and then use the `StdValue` as the cell values (`values_from`). Also, the mean function is to be applied to each cell in the output (`values_fn`). To do so, use the following command:
 
 ```R
@@ -860,11 +794,11 @@ Immediately, it can be seen that the columns new columns `TraitID`, `TraitName` 
 
 <br>
 
-# Export pre-processed TRY data
+# Export preprocessed TRY data
 
-The `rtry_export()` takes four arguments `data`, `output`, `quote` and `encoding` for users to export the pre-processed data as a CSV file. Note: If the specified output directory does not exist, it will be created automatically.
+The `rtry_export()` takes four arguments `data`, `output`, `quote` and `encoding` for users to export the preprocessed data as a CSV file. Note: If the specified output directory does not exist, it will be created automatically.
 
-To save the two pre-processed wide tables `workdata_wider_traits` and `workdata_wider_data`, simply:
+To save the two preprocessed wide tables `workdata_wider_traits` and `workdata_wider_data`, simply:
 
 ```R
 # Export the data into a CSV file

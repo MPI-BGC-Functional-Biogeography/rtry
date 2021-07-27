@@ -2,9 +2,9 @@
 title: "Workflow for geocoding using rtry"
 output:
   rmarkdown::html_vignette:
-    # toc: true
-    # number_sections: true
-    # toc_depth: 3
+    toc: true
+    number_sections: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Workflow for geocoding using rtry}
   %\VignetteEngine{knitr::rmarkdown}
@@ -32,11 +32,11 @@ Note that the geo-reference system used is WGS84 projection.
 
 <br>
 
-# Prepare environment
+# Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the "Installation Guide" inside the `docs` directory. It is also advised to download the `examples` directory in which both the example workflow script and sample data are provided. Details are also provided within the "Installation Guide".
+Make sure you have the `rtry` package installed. If not, you may refer to the "The TRY R Project" section within the vignette ["Introduction to rtry" (rtry-introduction-new)](rtry-introduction-new.html).
 
-
+It is also advised to download the `examples` directory from the MPI-BGC Nextcloud in which both the example workflow script and sample data are provided.
 
 To start with, set the work directory to the location where the `examples` directory is located:
 
@@ -47,15 +47,12 @@ setwd("<path_to_rtry_examples_dir>")
 Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
 
 
-
 Load the required packages using the commands:
 
 ```R
 library(rtry)	# load the rtry package
 library(dplyr)	# load the dplyr pacakge, needed for piping (%>%)
 ```
-
-
 
 <br>
 
@@ -158,7 +155,6 @@ The `output_coordinates` would look like the following. Note that the location w
 ![workflow_geocoding_output](workflow_geocoding_coordinates.png){width=40%}
 
 
-
 Substitute the coordinates into the corresponding columns of the input data.
 
 ```R
@@ -174,8 +170,6 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
 ![workflow_geocoding_input_coordinates](workflow_geocoding_locations_coordinates.png){width=60%}
-
-
 
 <br>
 
@@ -209,14 +203,12 @@ input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encod
 ![workflow_revgeocoding_coordinates](workflow_revgeocoding_coordinates.png){width=30%}
 
 
-
 Then, the coordinates data should be converted into a `data.frame`:
 
 ```R
 # Extract and converted the coordinates into a data frame
 input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
 ```
-
 
 
 In order to apply the function `rtry_revgeocoding()` to the `input_lat_lon`, use `apply()`, and please remember to change the email address into your own email address.
@@ -262,7 +254,6 @@ The progress of the reverse geocoding can be seen in the console. Once the rever
 The output location information would look like the following. Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, those columns will be marked as `NA`.
 
 ![workflow_revgeocoding_locations](workflow_revgeocoding_locations.png){width=100%}
-
 
 
 Substitute the `country_code` and `country` into the corresponding columns of the input list, while the location information is extracted from either `town` or `city`.

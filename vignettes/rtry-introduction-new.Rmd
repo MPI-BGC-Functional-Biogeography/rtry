@@ -24,11 +24,21 @@ knitr::opts_chunk$set(
 
 # The TRY database
 
-The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the incentive to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
+The TRY database (https://www.try-db.org) is a Plant Trait Database operated since 2007 with the aim to improve the availability and accessibility of plant trait data for ecology and earth system sciences. Since then, the TRY database has grown continuously and is now providing unprecedented data coverage under an open access data policy for research community worldwide.
 
-In 2014, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php). This Portal organizes data uploads, searches and requests, and enables interaction between data contributors, management and users. At the same time, it provides a link to the TRY File Archive (https://www.try-db.org/TryWeb/Data.php), which offers climate and soil data for TRY measurement sites, standardized categorical traits relevant to attribute species to plant functional types (PFTs), and provides the opportunity to publish plant trait data sets and receive a DOI. (For details related data request, please refer to the 'Request data from the TRY database' section below.)
+In 2014, the TRY database was made publicly available through the implementation of the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php; Kattge et al. 2020). This Portal organizes data uploads, searches and requests, and enables interaction between data contributors, management and users. (For details related data request, please refer to the 'Request data from the TRY database' section below.)
 
-The TRY database version 5 released on 26 March 2019, contained 387 data sets providing 11.8 million trait records, accompanied by 35 million ancillary data, for 2091 traits and 280000 plant taxa, mostly at the species level. Our team at the Max Planck Institute for Biogeochemistry (MPI-BGC) is currently working towards the release of version 6.
+The TRY database version 5 released on 26 March 2019, contained 387 data sets providing 11.8 million trait records, for 2091 traits and 280000 plant taxa, mostly at the species level.  The trait data are accompanied by 35 million ancillary data of about 3000 different types to provide information about plant growth conditions, plant state at the time of sampling, and measurement protocols (context information) (Kattge et al. 2011, 2020). 
+
+
+The TRY database is:
+
+- an integrated database for all kinds of plant traits,
+- trait data and all additional attributes relevant to understand and interpret a given trait value (Kattge 2011a),
+- frequently used (about 5000 data requests per year),
+- key features (Kattge 2011b, 2020),
+- generic data structure (Kattge 2011a),
+- data processing at import
 
 <br>
 
@@ -50,41 +60,44 @@ Through the TRY Data Portal, the trait data is provided as zipped text file (`.t
 | 8.   | ObservationID  | Unique identifier for each observation                       |
 | 9.   | ObsDataID      | Unique identifier for each record                            |
 | 10.  | TraitID        | Unique identifier for traits (only if the record is a trait) |
-| 11.  | TraitName             | Name of trait (only if the record is a trait)                |
-| 12.  | DataID                | Unique identifier for each sub-trait or context information  |
-| 13.  | DataName              | Name of sub-trait or context information                     |
-| 14.  | OriglName             | Original name of sub-trait or context information            |
-| 15.  | OrigValueStr          | Original value as text string                                |
-| 16.  | OrigUnitStr           | Original unit as text string                                 |
-| 17.  | ValueKindName         | Value kind (single measurement, mean, median, etc.)          |
-| 18.  | OrigUncertaintyStr    | Original uncertainty as text string                          |
-| 19.  | UncertaintyName       | Kind of uncertainty (standard deviation, standard error, etc.) |
-| 20.  | Replicates            | Count of replicates                                          |
-| 21.  | StdValue              | Standardized value: available for standardized traits        |
-| 22.  | UnitName              | Standard unit: available for standardized traits             |
-| 23.  | RelUncertaintyPercent | Relative uncertainty in %                                    |
-| 24.  | OrigObsDataID         | Unique identifier for duplicate entries                      |
-| 25.  | ErrorRisk             | Indication for outliers: distance to mean in standard deviations |
-| 26.  | Reference             | Reference to be cited if trait record is used in analysis    |
-| 27.  | Comment               | Explanation for the `OriglName` in the contributed dataset |
+| 11.  | TraitName      | Name of trait (only if the record is a trait)                |
+| 12.  | DataID         | Unique identifier for each sub-trait or context information  |
+| 13.  | DataName       | Name of sub-trait or context information                     |
+| 14.  | OriglName      | Original name of sub-trait or context information            |
+| 15.  | OrigValueStr   | Original value as text string                                |
+| 16.  | OrigUnitStr    | Original unit as text string                                 |
+| 17.  | ValueKindName  | Value kind (single measurement, mean, median, etc.)          |
+| 18.  | OrigUncertaintyStr | Original uncertainty as text string                      |
+| 19.  | UncertaintyName | Kind of uncertainty (standard deviation, standard error, etc.) |
+| 20.  | Replicates      | Count of replicates                                          |
+| 21.  | StdValue        | Standardized value: available for standardized traits        |
+| 22.  | UnitName        | Standard unit: available for standardized traits             |
+| 23.  | RelUncertaintyPercent | Relative uncertainty in %                              |
+| 24.  | OrigObsDataID   | Unique identifier for duplicate entries                      |
+| 25.  | ErrorRisk       | Indication for outliers: distance to mean in standard deviations |
+| 26.  | Reference       | Reference to be cited if trait record is used in analysis    |
+| 27.  | Comment         | Explanation for the `OriglName` in the contributed dataset |
 
-Note that sometimes R may show a column 28, which should be empty. This column is an artefact due to the different software (MySQL >> R).
+Note that sometimes R may show a column 28, which should be empty. This column is an artifact due to software incompatibility (MySQL >> R).
 
 <br>
 
-## The TRY R Project
+***
 
-Due to the unique long table structure, the TRY data must be pre-processed in a way such that it is easy to handle and understand before analysis. The `rtry` package for `R` provides a set of functions to facilitate the pre-process the TRY data, that allows users who are not familiar with the `R` programming language or the TRY dataset structure to easily prepare the data for further analysis.
+# The TRY R Project
+
+Due to the unique long table structure, the TRY data must be preprocessed in a way such that it is easy to handle and understand before analysis. The `rtry` package for `R` provides a set of functions to facilitate the preprocessing of the TRY data, that allows users who are not familiar with the `R` programming language or the TRY dataset structure to easily prepare the data for further analysis.
 
 This project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry
 
-Users can also choose to obtain the source package and relative documentation from the Nextcloud operated by MPI-BGC. 
+Users can also choose to obtain the source package and relative documentation, as well as the sample data and example workflows from the Nextcloud operated by MPI-BGC.
 
 - Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 - Password: `mpi-bgc-rtry`
 
+<br>
 
-### R environment
+## R environment
 
 R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package. It is also recommended to use the latest version of RStudio when using the package.
 
@@ -92,34 +105,35 @@ The latest version of R can be downloaded from CRAN, a network of ftp and web se
 
 The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
+<br>
 
-### Try out example workflow
+## Installation guide
 
-To assist first-time user, several example workflows have been developed and are provided in different formats:
+The installation of the `rtry` package can be performed through the RStudio console.
 
-- vignettes, that comes along with the `rtry` package without additional download, acts as a guideline for users to follow
-- R Markdown scripts (`.Rmd`) and HTML files (`.html`), located inside the `examples` directory can be downloaded from the link provided at the beginning of this Section, allows users to run the example scripts directly and compare the expected results in the browser
-
-The required sample data is also provided within the package and inside the `examples/input` directory. In order to run the code smoothly, make sure the script is place inside a folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory.
-
-![example_workflow_file_structure](example_workflow_file_structure.png){width=70%}
-
-
-To try out the example workflow, open the `.Rmd` (e.g. `general_workflow_using_rtry.Rmd`) by double clicking the file, this will prompt the RStudio to open. Then, make sure the work directory is set to the location where the directory is located:
+First, install all the dependencies with the command.
 
 ```R
-setwd("<path_to_rtry_examples_dir>")
+install.packages(c("data.table", "dplyr", "tidyr", "jsonlite", "curl"))
 ```
 
-Once the script (`.Rmd`) is opened, you will be able to see that the source code had been divided into different chunks (i.e. the grey blocks) with descriptions and comments explaining each step.
+Once installation is completed, the message `The downloaded source packages are in <path>` should be seen.
 
-To execute the code in a particular chunk, simply press the corresponding green arrow on the top right of that chunk, or place your cursor within that chunk then press `Ctrl+Shift+Enter`. This way only the code included within the chunk is executed, and users can easily modify and re-execute different steps.
+Next, install the `rtry` package with the command:
 
-Also, the output or feedback of the executed code will be displayed directly below the chunk, allowing easy trace back.
+```R
+install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
+```
 
-![example_workflow_run_block](example_workflow_run_block.png){width=90%}
+Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
 
-Note: The expected results could be viewed in the corresponding `.html` file.
+You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
+
+Once the installation is completed, the `rtry` package can be loaded with the command:
+
+```R
+library(rtry)
+```
 
 <br>
 
@@ -127,7 +141,11 @@ Note: The expected results could be viewed in the corresponding `.html` file.
 
 # The `rtry` package
 
-Inside the `rtry` package, we use a function naming convention where each function begins with the prefix `rtry_` followed by what the specific function does. **[Refer to reference manual or ??rtry]**
+`rtry` is an R package to support the application of plant trait data received via the TRY database. For this purpose, `rtry` provides easy applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, filtering trait data according to different attributes, geocoding, long- to wide-table transformation, and data export. `rtry` was initially developed as part of the TRY R project to preprocess trait data received via the TRY database.
+
+Key for data analyses: filtering – however, depending on filtering aspects, relevant information for filtering is at different places: trait, species, trait data name, values of auxiliary data, units, identifiers for duplicates and outliers
+
+The `rtry` package is supposed to be applicable without advanced knowledge of the TRY database or the R software. Inside the package, we use a function naming convention where each function begins with the prefix `rtry_` followed by what the specific function does.
 
 - `rtry_import`
 - `rtry_explore`
@@ -147,21 +165,41 @@ Inside the `rtry` package, we use a function naming convention where each functi
 - `rtry_geocoding`
 - `rtry_revgeocoding`
 
+Detailed description of each function can be found in the reference manual (`.pdf`) generated by CRAN, or via the command:
 
+```R
+# Obtain a list of documentation for the package
+# including both the vignettes and function documentation
+?? rtry
+
+# For the documentation of a specific function (e.g. `rtry_import())
+# type a `?` in front of the function name
+?rtry_import
+```
 
 <br>
 
 ## Example workflows using `rtry`
 
+To assist first-time user, several example workflows have been developed and are provided in different formats:
+
+- vignettes, that comes along with the `rtry` package without additional download, acts as a guideline for users to follow
+- R Markdown scripts (`.Rmd`) and HTML files (`.html`), located inside the `examples` directory can be downloaded from the MPI-BGC Nextcloud, allows users to run the example scripts (`.Rmd`) directly and compare the expected results (`.html`) in the browser
+
+The sample data required to try out the example workflow are not only provided withinthe `rtry` package, but also inside the `examples/input` directory on the MPI-BGC Nextcloud mentioned in the beginning of the previous section. In order to follow the workflow smoothly, make sure the script is place inside a folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory from the Nextcloud.
+
+<br>
+
+The list of example workflows:
+
 - [The general workflow](rtry-workflow-general.html)
-  - An example workflow setup to demonstrate how to use the `rtry` package to pre-process of the data exported from the TRY database
-  - Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, filtering specific data and removing duplicates, and finally exporting the pre-process data
+  - An example workflow setup to demonstrate how to use the `rtry` package to preprocess of the data exported from the TRY database
+  - Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, filtering specific data and removing duplicates, and finally exporting the preprocess data
 
 
 - [Perform (reverse) geocoding](rtry-workflow-geocoding.html)
   - An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on the TRY data
   - Covers mainly the `rtry_geocoding()` and `rtry_revgeocoding()` functions
-
 
 <br>
 
