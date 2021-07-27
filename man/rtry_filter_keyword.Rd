@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_keyword.R
 \name{rtry_filter_keyword}
 \alias{rtry_filter_keyword}
-\title{Filter TRY data using keywords}
+\title{Filter data using keywords}
 \usage{
 rtry_filter_keyword(
   input = "",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/trans_wider.R
 \name{rtry_trans_wider}
 \alias{rtry_trans_wider}
-\title{Transform TRY data from long to wide table}
+\title{Transform data from long to wide table}
 \usage{
 rtry_trans_wider(
   input = "",
@@ -27,7 +27,7 @@ rtry_trans_wider(
 The transformed wide table
 }
 \description{
-This function transforms the original long table format of the TRY data into a wide table format.
+This function transforms the original long table format of the data into a wide table format.
 }
 \examples{
 \dontrun{

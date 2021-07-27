@@ -1,6 +1,6 @@
-#' Transform TRY data from long to wide table
+#' Transform data from long to wide table
 #'
-#' This function transforms the original long table format of the TRY data into a wide table format.
+#' This function transforms the original long table format of the data into a wide table format.
 #'
 #' @param input Input data, imported by \code{rtry_import()} function or in data table format
 #' @param names_from The column(s) from which the output column names to be obtained

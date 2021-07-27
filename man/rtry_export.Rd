@@ -2,7 +2,7 @@
 % Please edit documentation in R/export.R
 \name{rtry_export}
 \alias{rtry_export}
-\title{Export pre-processed data}
+\title{Export preprocessed data}
 \usage{
 rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 }
@@ -16,12 +16,12 @@ rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 \item{encoding}{File encoding. Default \code{"UTF-8"}}
 }
 \description{
-This function exports the pre-processed data as a .csv file.
+This function exports the preprocessed data as a .csv file.
 If the specified output directory does not exist, it will be created.
 }
 \examples{
 \dontrun{
-# Export the pre-processed data to a specific location
+# Export the preprocessed data to a specific location
 rtry_export(data, "./output/TRYdata_processed.csv")
 }
 }

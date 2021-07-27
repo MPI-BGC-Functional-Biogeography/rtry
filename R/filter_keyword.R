@@ -1,4 +1,4 @@
-#' Filter TRY data using keywords
+#' Filter data using keywords
 #'
 #' This function filters data from the input data based on the specified keyword(s)
 #' and the corresponding \code{ObservationID}.
