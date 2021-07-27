@@ -2,7 +2,7 @@
 % Please edit documentation in R/rm_dup.R
 \name{rtry_rm_dup}
 \alias{rtry_rm_dup}
-\title{Remove duplicates in TRY data}
+\title{Remove duplicates in data}
 \usage{
 rtry_rm_dup(input = "", showOverview = TRUE)
 }
@@ -27,7 +27,10 @@ if the imported TRYdata contains restricted dataset that belongs to another data
 \code{OrigObsDataID}), these restricted data will also be removed resulting in data loss.
 }
 \examples{
-\dontrun{
-rtry_rm_dup(TRYdata)
-}
+# Remove the duplicates within the provided sample data (TRYdata_15160)
+data_rm_dup <- rtry_rm_dup(TRYdata_15160)
+
+# Expected output:
+# 45 duplicates removed.
+# dim:   1737 28
 }
