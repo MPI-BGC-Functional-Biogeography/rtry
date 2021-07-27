@@ -11,10 +11,15 @@
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return A data table of the unique values grouped by the desired attribute(s)
 #' @examples
-#' \dontrun{
-#' rtry_explore(TRYdata, TraitID, TraitName)
-#' rtry_explore(TRYdata, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName)
-#' }
+#' # Explore the unique values in the provided sample data (TRYdata_15160)
+#' # based on the attributes AccSpeciesID, DataID, DataName, TraitID and TraitName,
+#' # and sorted by DataName
+#' data_explore <- rtry_explore(TRYdata_15160,
+#'                   AccSpeciesID, DataID, DataName, TraitID, TraitName,
+#'                   sortBy = DataName)
+#'
+#' # Expected output:
+#' # dim:   235 6
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
 #' @export
 rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
