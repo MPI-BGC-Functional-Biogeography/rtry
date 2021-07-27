@@ -1,6 +1,6 @@
-#' Export pre-processed TRY data
+#' Export pre-processed data
 #'
-#' This function exports the pre-processed data as a CSV file.
+#' This function exports the pre-processed data as a .csv file.
 #' If the specified output directory does not exist, it will be created.
 #'
 #' @param data The data to be saved
@@ -9,7 +9,8 @@
 #' @param encoding File encoding. Default \code{"UTF-8"}
 #' @examples
 #' \dontrun{
-#' rtry_export(TRYdata, "./output/TRYdata_processed.csv")
+#' # Export the pre-processed data to a specific location
+#' rtry_export(data, "./output/TRYdata_processed.csv")
 #' }
 #' @export
 rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"){
