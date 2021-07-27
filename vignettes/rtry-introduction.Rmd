@@ -99,7 +99,7 @@ The released version of RStudio, an integrated development environment (IDE) des
 
 # The `rtry` package
 
-Inside the `rtry` package, function naming convention where each function begins with the prefix `rtry_` followed by the description of what the specific function does.
+Inside the `rtry` package, we use a function naming convention where each function begins with the prefix `rtry_` followed by what the specific function does.
 
 - `rtry_import`
 - `rtry_explore`
@@ -119,11 +119,13 @@ Inside the `rtry` package, function naming convention where each function begins
 - `rtry_geocoding`
 - `rtry_revgeocoding`
 
+
+
 <br>
 
 ## `rtry_import`
 
-This function, by default, imports the text file exported from the TRY database as a data.table for further processing. It can also be used to import other data file, such as .csv file with comma as separator.
+This function, by default, imports the data file (.txt) exported from the TRY database as a data.table for further processing. It can also be used to import other file formats, such as .csv files with comma as separator.
 
 ```R
 rtry_import(
@@ -137,35 +139,42 @@ rtry_import(
 
 | Argument       | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
-| `input`        | Path to the text file downloaded from TRY                    |
+| `input`        | Path to the data file                                        |
 | `separator`    | Data separator. Default `"\t"` for the TRY data output       |
 | `encoding`     | File encoding. Default `"Latin-1"`                           |
-| `quote`        | Default `""` reads the fields as is. If the fields start with a double quote, use `"\""` instead |
-| `showOverview` | Default `TRUE` displays the input path, dimension and column names of the input data |
+| `quote`        | Default `""` reads the fields as is. If the fields in the data file are by a double quote, use `"\""` instead |
+| `showOverview` | Default `TRUE` displays the input path, the dimension and the column names of the imported data |
 
 
 
 **Example 1**
 
-To import the file `"input/7956.txt"` for preprocessing:
+To import the file `input/TRYdata_15160.txt` and `input/TRYdata_15161.txt` for preprocessing:
 
 ```R
-TRYdata1 <- rtry_import("input/7956.txt")
+data1 <- rtry_import("input/TRYdata_15160.txt")
 ```
 
 ```R
-## input:  input/7956.txt 
-## dim:    306234 28 
+## input: input/TRYdata_15160.txt
+## dim:   1782 28 
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28 
 ```
 
-Since the default value of `showOverview` is set to be `TRUE`, the overview of the data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata1`.
+```R
+data2 <- rtry_import("input/TRYdata_15161.txt")
+```
 
+```R
+## input: input/TRYdata_15161.txt
+## dim:   4627 28 
+## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28 
+```
 
 
 **Example 2**
 
-To import previously saved CSV file from `rtry` for further analysis:
+To import a CSV file (comma separated values), specify the separator to ",":
 
 ```R
 input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
@@ -173,17 +182,15 @@ input_locations <- rtry_import("input/locations.csv", separator = ",", encoding 
 
 ```R
 ## input: input/locations.csv
-## dim:   29 3
+## dim:   20 3
 ## col:   Country code Country Location 
 ```
-
-Since the default value of `showOverview` is set to be `TRUE`, the overview of the data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `input_locations`.
 
 <br>
 
 ## `rtry_explore`
 
-This function takes the data table imported by `rtry_import()` and converts it into a grouped data table based on the specified column names. Note the the output data is grouped by the first attribute if not specified using the parameter `sortBy`. To provide a first understanding of the data, an additional column is added to show the total count within each group.
+This function takes the data table imported by `rtry_import()` and converts it into a grouped data table based on the specified column names. Note that the output data are grouped by the first attribute if not specified using the parameter `sortBy`. To provide a first understanding of the data, an additional column is added to show the total count within each group.
 
 ```R
 rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
@@ -200,39 +207,30 @@ rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 
 **Example 1**
 
-To explore the unique values in `TRYdata1` based on the attributes `DataID`, `DataName`, `ObsDataID`, `OrigObsDataID`, and grouped by the first attribute, i.e. `DataID`:
+To explore the unique values in `data1` based on the attributes `TraitID`, `TraitName`, and grouped by the first attribute, i.e. `TraitID`:
 
 ```R
-TRYdata1_explore <- rtry_explore(TRYdata1, DataID, DataName, ObsDataID, OrigObsDataID)
+data1_explore <- rtry_explore(data1, TraitID, TraitName)
 ```
 
 ```R
-## dim:    306234 5 
+## dim:   3 3 
 ```
-
-Since the default value of `showOverview` is set to be `TRUE`, the dimension of the output data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata1_explore`.
-
 
 
 **Example 2**
 
-To explore the unique values in `TRYdata2` based on the attributes `AccSpeciesID`, `DataID`, `DataName`, `TraitID` and `TraitName`, and sorted by `DataName`:
+To explore the unique values in `data1` based on the attributes `AccSpeciesID`, `DataID`, `DataName`, `TraitID` and `TraitName`, and sorted by `DataName`:
 
 ```R
-TRYdata2_explore_accSpecies <- rtry_explore(TRYdata2, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName, showOverview = FALSE)
+data1_explore_accSpecies <- rtry_explore(data1, AccSpeciesID, DataID, DataName, TraitID, TraitName, sortBy = DataName, showOverview = FALSE)
 ```
-
-Since the `showOverview` in this example is set to `FALSE`, the dimension of the output data would not be displayed in the console.
-
-The output `TRYdata2_explore_accSpecies` would look like the following:
-
-![rtry_explore_usecase_3](rtry_explore_usecase_3.png){width=70%}
 
 <br>
 
 ## `rtry_bind_col`
 
-This function takes a sequence of data imported by `rtry_import()` and combined them by columns. The data should share the same number of rows.
+This function takes a sequence of data imported by `rtry_import()` and combines them by columns. The data should share the same number of rows.
 
 ```R
 rtry_bind_col(..., showOverview = TRUE)
@@ -247,7 +245,7 @@ rtry_bind_col(..., showOverview = TRUE)
 
 ## `rtry_bind_row`
 
-This function takes a sequence of data imported by `rtry_import()` and combined them by rows. The data should share the same number of columns and column names.
+This function takes a sequence of data imported by `rtry_import()` and combines them by rows. The data should share the same number of columns and column names.
 
 ```R
 rtry_bind_row(..., showOverview = TRUE)
@@ -262,18 +260,16 @@ rtry_bind_row(..., showOverview = TRUE)
 
 **Example 1**
 
-To combine the data `TRYdata1` and `TRYdata2` together by rows:
+To combine the data `data1` and `data2` together by rows:
 
 ```R
-TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
+data <- rtry_bind_row(T, data2)
 ```
 
 ```R
-## dim:    435764 28 
+## dim:   6409 28 
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28 
 ```
-
-Since the default value of `showOverview` is set to be `TRUE`, the dimension and the column names of the combined data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return combined data was assigned to the variable `TRYdata`.
 
 <br>
 
@@ -296,7 +292,7 @@ rtry_merge_col(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
 
 ## `rtry_merge_row`
 
-This function merges two data frames based on the row names of the specified common column (by default: `ObservationID`) and returns all rows from both tables, join records from the left (`x`) which have matching keys in the right data frame (`y`) for further processing. In order words, this function performs a outer join on the two provided data frames, i.e. the join table will contain all records from both the tables.
+This function merges two data frames based on the row names of the specified common column (by default: `ObservationID`) and returns all rows from both tables, join records from the left (`x`) which have matching keys in the right data frame (`y`) for further processing. In order words, this function performs an outer join on the two provided data frames, i.e. the join table will contain all records from both the tables.
 
 ```R
 rtry_merge_row(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
@@ -313,7 +309,7 @@ rtry_merge_row(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
 
 ## `rtry_select_col`
 
-This function selects specified columns from the imported data for further processing. Another alternative to achieve this purpose would be `rtry_rm_col()` where the columns to be removed are specified instead.
+This function selects specified columns from the imported data and saves them in a new data table. An alternative to achieve this purpose would be `rtry_rm_col()` where the columns to be removed are specified instead.
 
 ```R
 rtry_select_col(input = "", ..., showOverview = TRUE)
@@ -323,50 +319,42 @@ rtry_select_col(input = "", ..., showOverview = TRUE)
 | -------------- | ------------------------------------------------------------ |
 | `input`        | Input data, imported by `rtry_import()` or in data table format |
 | `...`          | Column names to be selected                                  |
-| `showOverview` | Default `TRUE` displays the dimension of the selected columns |
+| `showOverview` | Default `TRUE` displays the dimension and column namesof the selected columns |
 
 
 
 **Example 1**
 
-To select (or say extract) the columns `ObsDataID`, `ObservationID`, `AccSpeciesID`, `AccSpeciesName`, `ValueKindName`, `TraitID`, `TraitName`, `DataID`, `DataName`, `OriglName`, `OrigValueStr`, `OrigUnitStr`, `StdValue`, `UnitName`, `OrigObsDataID`, `ErrorRisk`, `Comment` within the `TRYdata`:
+To select (or say extract) the columns `ObsDataID`, `ObservationID`, `AccSpeciesID`, `AccSpeciesName`, `ValueKindName`, `TraitID`, `TraitName`, `DataID`, `DataName`, `OriglName`, `OrigValueStr`, `OrigUnitStr`, `StdValue`, `UnitName`, `OrigObsDataID`, `ErrorRisk`, `Comment` within the `data`:
 
 ```R
-TRYdata_selectColumns <- rtry_select_col(TRYdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
+data_selectColumns <- rtry_select_col(data, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
 ```
 
 ```R
-## dim:    435764 17 
+## dim:   6409 17 
 ## col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr StdValue UnitName OrigObsDataID ErrorRisk Comment 
 ```
-
-Note that the resulting data table would be the same as in the example provided in `rtry_rm_col()` in this case.
-
-Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectColumns`.
-
 
 
 **Example 2**
 
-To select (or extract) neighboring columns, e.g. `TraitID` to `ValueKindName`:
+To select several neighboring columns, e.g. `TraitID` to `ValueKindName`:
 
 ```R
-TRYdata_selectNeighborColumns <- rtry_select_col(TRYdata, TraitID:ValueKindName)
+data_selectNeighborColumns <- rtry_select_col(data, TraitID:ValueKindName)
 ```
 
 ```R
-## dim:   435764 8 
+## dim:   6409 8 
+## col:   TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName 
 ```
-
-![rtry_select_col_usecase_2](rtry_select_col_usecase_2.png){width=100%}
-
-Since the default value of `showOverview` is set to be `TRUE`, the overview of the extracted data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectNeighborColumns`.
 
 <br>
 
 ## `rtry_select_row`
 
-This function selects specified rows based on the specified criteria and `ObservationID` from the imported data for further processing.
+This function selects rows based on specified criteria and `ObservationID` from the imported data for further processing.
 
 ```R
 rtry_select_row(
@@ -390,18 +378,15 @@ rtry_select_row(
 
 **Example 1**
 
-To select (or say filter) the rows where `TraitID` is larger than 0 (`TraitID > 0`) or where `DataID` is 59, 60, 61, 6601, 327, 413, 1961, 210 or 308 (`DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)`) within the data `TRYdata_select_col`:
+To select (or say filter) the rows where `TraitID` is larger than 0 (`TraitID > 0`) or where `DataID` is 59, 60, 61, 6601, 327, 413 or 1961 (`DataID %in% c(59, 60, 61, 6601, 327, 413, 1961)`) within the data `TRYdata_select_col`:
 
 ```R
-TRYdata_selectRow <- rtry_select_row(TRYdata_selectColumns, (TraitID > 0) | (DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308)))
+data_selectRow <- rtry_select_row(data_selectColumns, (TraitID > 0) | (DataID %in% c(59, 60, 61, 6601, 327, 413, 1961)))
 ```
 
 ```R
-## dim:    79918 17 
+## dim:   822 17 
 ```
-
-Since the default value of `showOverview` is set to be `TRUE`, the dimension of the filtered data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TRYdata_selectRow`.
-
 
 
 **Example 2**
@@ -409,18 +394,13 @@ Since the default value of `showOverview` is set to be `TRUE`, the dimension of 
 To select all `TraitID` that is `6` together with all the corresponding auxiliary data without any duplicates within the data `TRYdata`: 
 
 ```R
-traitID6_auxiliary <- rtry_select_row(TRYdata, TraitID %in% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
+traitID6_auxiliary <- rtry_select_row(data, TraitID %in% c(3115), getAuxiliary = TRUE, rmDuplicates = TRUE)
 ```
 
 ```R
-## 2243 duplicates removed.
-## dim:    110725 28 
+## 25 duplicates removed.
+## dim:   877 28 
 ```
-
-![rtry_select_row_usecase_2](rtry_select_row_usecase_2.png){width=100%}
-
-Since the default value of  `showOverview` is set to be `TRUE`, the dimension of the filtered data would be displayed in the console despite the argument `showOverview = TRUE` is not specified. The return data was assigned to the variable `TraitID6_Auxiliary`.
-
 
 
 **Example 3**
@@ -428,14 +408,12 @@ Since the default value of  `showOverview` is set to be `TRUE`, the dimension of
 To remove outliers, or say to select all interested auxiliary data and only the trait data with `ErrorRisk` smaller than 4:
 
 ```R
-outlier_removal <- rtry_select_row(TRYdata, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
+outlier_removal <- rtry_select_row(data, ErrorRisk < 4 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961))
 ```
 
 ```R
-## dim:   77183 28 
+## dim:   809 28 
 ```
-
-![rtry_select_row_usecase_3](rtry_select_row_usecase_3.png){width=100%}
 
 <br>
 
