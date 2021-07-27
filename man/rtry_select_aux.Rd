@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_aux.R
 \name{rtry_select_aux}
 \alias{rtry_select_aux}
-\title{Select TRY auxiliary data in wide table format}
+\title{Select auxiliary data in wide table format}
 \usage{
 rtry_select_aux(input = "", name = "", showOverview = TRUE)
 }
@@ -21,7 +21,11 @@ This function selects specified auxiliary data together with the \code{Observati
 from the imported data and transform it into a wide table format for further processing.
 }
 \examples{
-\dontrun{
-rtry_select_aux(TRYdata, Latitude)
-}
+# Obtain a list of unique ObservationID and the corresponding axiliary data
+# of interested (e.g. "Latitude") from the provided sample data (TRYdata_15160)
+# Latitude <- rtry_select_aux(TRYdata_15160, Latitude)
+
+# Expected output:
+# dim:   98 2
+# col:   ObservationID Latitude
 }
