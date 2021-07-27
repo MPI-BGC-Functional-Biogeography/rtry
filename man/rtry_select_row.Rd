@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_row.R
 \name{rtry_select_row}
 \alias{rtry_select_row}
-\title{Select TRY rows}
+\title{Select rows}
 \usage{
 rtry_select_row(
   input = "",
@@ -27,7 +27,7 @@ rtry_select_row(
 A data table of the selected rows of the input data
 }
 \description{
-This function selects specified rows based on the specified criteria
+This function selects rows based on specified criteria
 and the corresponding \code{ObservationID} from the imported data for further processing.
 }
 \note{
@@ -36,11 +36,17 @@ listed in the TRY data, therefore, if the column \code{ObservationID} has been r
 will not work.
 }
 \examples{
-\dontrun{
-rtry_select_row(TRYdata, (TraitID > 0) | (DataID \%in\% c(59, 60)))
-rtry_select_row(TRYdata, TraitID \%in\% c(6), getAuxiliary = TRUE, rmDuplicates = TRUE)
-rtry_select_row(TRYdata, ErrorRisk < 4 | DataID \%in\% c(59, 60, 61, 6601, 327, 413, 1961, 210, 308))
-}
+# Select all traits records where DataID equals to 59 or 60
+# together with all the corresponding auxiliary data without any duplicates
+# within the provided sample data (TRYdata_15160)
+data_selected <- rtry_select_row(TRYdata_15160,
+                   (TraitID > 0) | (DataID \%in\% c(59, 60)),
+                   getAuxiliary = TRUE,
+                   rmDuplicates = TRUE)
+
+# Expected output:
+# 45 duplicates removed.
+# dim:   1737 28
 }
 \seealso{
 \code{\link{rtry_rm_dup}}
