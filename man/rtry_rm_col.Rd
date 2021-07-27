@@ -2,7 +2,7 @@
 % Please edit documentation in R/rm_col.R
 \name{rtry_rm_col}
 \alias{rtry_rm_col}
-\title{Remove TRY columns}
+\title{Remove columns}
 \usage{
 rtry_rm_col(input, ..., showOverview = TRUE)
 }
@@ -20,9 +20,17 @@ A data table of the remaining columns of the input data
 This function removes specified columns from the imported data for further processing.
 }
 \examples{
-\dontrun{
-rtry_rm_col(TRYdata, Reference, Comment)
-}
+# Remove certain columns from the provided sample data (TRYdata_15160)
+data_rm_col <- rtry_rm_col(TRYdata_15160,
+                 LastName, FirstName, DatasetID, Dataset, SpeciesName,
+                 OrigUncertaintyStr, UncertaintyName, Replicates,
+                 RelUncertaintyPercent, Reference, V28)
+
+# Expected output:
+# dim:   1782 17
+# col:   AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName
+         DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
+         StdValue UnitName OrigObsDataID ErrorRisk Comment
 }
 \references{
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}

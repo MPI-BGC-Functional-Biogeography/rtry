@@ -1,4 +1,4 @@
-#' Remove TRY columns
+#' Remove columns
 #'
 #' This function removes specified columns from the imported data for further processing.
 #'
@@ -7,9 +7,17 @@
 #' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
 #' @return A data table of the remaining columns of the input data
 #' @examples
-#' \dontrun{
-#' rtry_rm_col(TRYdata, Reference, Comment)
-#' }
+#' # Remove certain columns from the provided sample data (TRYdata_15160)
+#' data_rm_col <- rtry_rm_col(TRYdata_15160,
+#'                  LastName, FirstName, DatasetID, Dataset, SpeciesName,
+#'                  OrigUncertaintyStr, UncertaintyName, Replicates,
+#'                  RelUncertaintyPercent, Reference, V28)
+#'
+#' # Expected output:
+#' # dim:   1782 17
+#' # col:   AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName
+#'          DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
+#'          StdValue UnitName OrigObsDataID ErrorRisk Comment
 #' @seealso \code{\link{rtry_select_col}}
 #' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
