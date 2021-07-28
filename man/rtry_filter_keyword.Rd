@@ -39,9 +39,20 @@ listed in the TRY data, therefore, if the column \code{ObservationID} has been r
 will not work.
 }
 \examples{
-\dontrun{
-rtry_filter_keyword(TRYdata, OrigValueStr, c("juvenile"), caseSensitive = FALSE, exactMatch = FALSE)
-}
+# Filter observations which has the keywords "juvenile" or "unknown"
+# within the column OrigValueStr, while excluding the whole observation
+# Set the argument caseSensitive to FALSE to ignore case sensitivity
+data_filtered <- rtry_filter_keyword(TRYdata_15160,
+                   OrigValueStr,
+                   c("juvenile", "unknown"),
+                   caseSensitive = FALSE,
+                   exactMatch = FALSE)
+
+# Expected output:
+# dim:   1605 28
+
+# Learn more applications of the filtering function via the vignette (Workflow for general
+# data preprocessing using rtry): vignette("rtry-workflow-general")
 }
 \seealso{
 \code{\link{rtry_filter}}
