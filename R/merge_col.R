@@ -14,11 +14,11 @@
 #' @examples
 #' # Assume user has obtained a unique list of auxiliary data (e.g. Longitude and Latitude)
 #' # using rtry_select_aux() and would like to merge the georeferenced data into one data
-#' # table according to the identifier ObservationID
-#' long <- rtry_select_aux(TRYdata_15160, Longitude)
+#' # table according to the identifier ObservationID and while the Longitude data exists
+#' lon <- rtry_select_aux(TRYdata_15160, Longitude)
 #' lat <- rtry_select_aux(TRYdata_15160, Latitude)
 #'
-#' georef <- rtry_merge_col(long, lat)
+#' georef <- rtry_merge_col(lon, lat)
 #'
 #' # Expected output:
 #' # dim:   97 2

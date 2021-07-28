@@ -20,13 +20,31 @@ A data table of the merged data
 }
 \description{
 This function merges two data frames based on the row names of the  specified common column
-(by default: \code{ObservationID}) and returns all rows from both tables, join records from the left (\code{x})
-which have matching keys in the right data frame (\code{y}) for further processing.
-In order words, this functions performs an outer join on the two provided data frames, i.e. the join table will contain
-all records from both the tables.
+(by default: \code{ObservationID}) and returns all rows from both tables, join records from
+the left (\code{x}) which have matching keys in the right data frame (\code{y}).
+In order words, this functions performs an outer join on the two provided data frames,
+i.e. the join table will contain all records from both the tables.
 }
 \examples{
-\dontrun{
-rtry_merge_row(data1, data2)
+# Assume user has obtained a unique list of auxiliary data (e.g. Longitude and Latitude)
+# using rtry_select_aux() and would like to merge all the georeferenced data into one data
+# table according to the identifier ObservationID, does not matter if either Longitude or
+# Latitude data is not recorded
+lon <- rtry_select_aux(TRYdata_15160, Longitude)
+lat <- rtry_select_aux(TRYdata_15160, Latitude)
+
+georef <- rtry_merge_row(lon, lat)
+
+# Expected output:
+# dim:   97 2
+# col:   ObservationID Longitude
+#
+# dim:   98 2
+# col:   ObservationID Latitude
+#
+# dim:   98 3
+# col:   ObservationID Longitude Latitude
 }
+\seealso{
+\code{\link{rtry_merge_col}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 }
