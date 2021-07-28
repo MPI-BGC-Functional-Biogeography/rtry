@@ -34,7 +34,7 @@ Note that the geo-reference system used is WGS84 projection.
 
 # Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the "The TRY R Project" section within the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
+Make sure you have the `rtry` package installed. If not, you may refer to the  vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
 It is also advised to download the `examples` directory from the MPI-BGC Nextcloud in which both the example workflow script and sample data are provided.
 
