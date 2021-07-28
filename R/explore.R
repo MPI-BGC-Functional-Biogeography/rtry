@@ -6,7 +6,7 @@
 #' To provide a first understanding of the data, an additional column is added to show the total count within each group.
 #'
 #' @param input Input data, imported by \code{rtry_import()} function or in data table format
-#' @param ... Attribute names to group together
+#' @param \dots Attribute names to group together
 #' @param sortBy (Optional) Specify the attribute name used to re-order the rows
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table
 #' @return A data table of the unique values grouped by the desired attribute(s)

@@ -9,7 +9,7 @@ rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} function or in data table format}
 
-\item{...}{Attribute names to group together}
+\item{\dots}{Attribute names to group together}
 
 \item{sortBy}{(Optional) Specify the attribute name used to re-order the rows}
 

@@ -9,7 +9,7 @@ rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{...}{Criteria for filtering}
+\item{\dots}{Criteria for filtering}
 
 \item{baseOn}{Default \code{ObservationID}, the parameter used for filtering}
 

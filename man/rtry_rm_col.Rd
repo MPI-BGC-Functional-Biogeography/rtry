@@ -9,7 +9,7 @@ rtry_rm_col(input, ..., showOverview = TRUE)
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{...}{Column names to be removed}
+\item{\dots}{Column names to be removed}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the selected columns}
 }

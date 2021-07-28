@@ -15,7 +15,7 @@ rtry_select_row(
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{...}{Criteria for row selection}
+\item{\dots}{Criteria for row selection}
 
 \item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria}
 

@@ -4,7 +4,7 @@
 #' and the corresponding \code{ObservationID} from the imported data for further processing.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Criteria for row selection
+#' @param \dots Criteria for row selection
 #' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria
 #' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rm_dup()} function
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection

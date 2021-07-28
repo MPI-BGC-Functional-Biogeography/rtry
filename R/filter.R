@@ -4,7 +4,7 @@
 #' and by default this filtering is performed based on the corresponding \code{ObservationID}.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Criteria for filtering
+#' @param \dots Criteria for filtering
 #' @param baseOn Default \code{ObservationID}, the parameter used for filtering
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering
 #' @return A data table of the input data after filtering

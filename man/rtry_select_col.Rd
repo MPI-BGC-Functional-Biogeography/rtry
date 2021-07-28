@@ -9,7 +9,7 @@ rtry_select_col(input = "", ..., showOverview = TRUE)
 \arguments{
 \item{input}{Input data, imported by \code{rtry_import()} or in data table format}
 
-\item{...}{Column names to be selected}
+\item{\dots}{Column names to be selected}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected columns}
 }

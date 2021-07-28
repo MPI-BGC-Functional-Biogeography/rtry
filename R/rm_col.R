@@ -3,7 +3,7 @@
 #' This function removes specified columns from the imported data for further processing.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Column names to be removed
+#' @param \dots Column names to be removed
 #' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
 #' @return A data table of the remaining columns of the input data
 #' @examples

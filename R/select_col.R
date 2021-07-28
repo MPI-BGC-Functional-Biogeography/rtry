@@ -3,7 +3,7 @@
 #' This function selects specified columns from the imported data and saves them in a new data table.
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param ... Column names to be selected
+#' @param \dots Column names to be selected
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected columns
 #' @return A data table of the selected columns of the input data
 #' @examples

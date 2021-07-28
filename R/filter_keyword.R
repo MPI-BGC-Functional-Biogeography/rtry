@@ -5,7 +5,7 @@
 #'
 #' @param input Input data, imported by \code{rtry_import()} or in data table format
 #' @param attribute Attribute (column name) for filtering
-#' @param ... Values (keywords) for filtering
+#' @param \dots Values (keywords) for filtering
 #' @param caseSensitive Default \code{TRUE} performs case-sensitive filtering
 #' @param exactMatch Default \code{TRUE} performs exact match filtering, overrides all conflicting arguments
 #' @param showOverview Default \code{TRUE} displays the dimension of data table after filtering

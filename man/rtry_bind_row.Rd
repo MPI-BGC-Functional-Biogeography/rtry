@@ -7,7 +7,7 @@
 rtry_bind_row(..., showOverview = TRUE)
 }
 \arguments{
-\item{...}{A sequence of data frame to be combined by rows}
+\item{\dots}{A sequence of data frame to be combined by rows}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the combined data}
 }

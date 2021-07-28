@@ -18,7 +18,7 @@ rtry_filter_keyword(
 
 \item{attribute}{Attribute (column name) for filtering}
 
-\item{...}{Values (keywords) for filtering}
+\item{\dots}{Values (keywords) for filtering}
 
 \item{caseSensitive}{Default \code{TRUE} performs case-sensitive filtering}
 
