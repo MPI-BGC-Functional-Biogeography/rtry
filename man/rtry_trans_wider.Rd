@@ -75,7 +75,7 @@ num_traits_georef_wider <- rtry_trans_wider(num_traits_georef,
 #        StdValue UnitName Latitude Longitude
 #
 # dim:   146 7
-#
+
 # Learn more via the vignette (Workflow for general data preprocessing using rtry):
 # vignette("rtry-workflow-general")
 }

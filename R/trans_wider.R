@@ -54,7 +54,7 @@
 #' #        StdValue UnitName Latitude Longitude
 #' #
 #' # dim:   146 7
-#' #
+#'
 #' # Learn more via the vignette (Workflow for general data preprocessing using rtry):
 #' # vignette("rtry-workflow-general")
 #' @references \href{https://rdrr.io/github/tidyverse/tidyr/man/pivot_wider.html}{tidyr::pivot_wider()}
