@@ -1,4 +1,4 @@
-# The TRY R Project (`rtry`): An R Package to Preprocess Plant Trait Data from the TRY Database
+# `rtry`: Preprocessing Plant Trait Data
 
 # <a name="introduction">Introduction
 
