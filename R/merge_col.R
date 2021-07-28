@@ -11,9 +11,24 @@
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the data after merging
 #' @return A data table of the merged data
 #' @examples
-#' \dontrun{
-#' rtry_merge_col(data1, data2)
-#' }
+#' # Assume user has obtained a unique list of auxiliary data (e.g. Latitude and Longitude)
+#' # using rtry_select_aux() and would like to merge the georeferenced data into one data
+#' # table according to the identifier ObservationID
+#' lat <- rtry_select_aux(TRYdata_15160, Latitude)
+#' long <- rtry_select_aux(TRYdata_15160, Longitude)
+#'
+#' georef <- rtry_merge_col(lat, long)
+#'
+#' # Expected output:
+#' # dim:   98 2
+#' # col:   ObservationID Latitude
+#' #
+#' # dim:   97 2
+#' # col:   ObservationID Longitude
+#' #
+#' # dim:   98 3
+#' # col:   ObservationID Latitude Longitude
+#' @seealso \code{\link{rtry_bind_col}}
 #' @export
 rtry_merge_col <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
   # Bind the variable OrigObsDataID locally to the function
