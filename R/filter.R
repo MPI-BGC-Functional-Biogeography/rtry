@@ -18,8 +18,8 @@
 #' # Expected output:
 #' # dim:   1618 28
 #'
-#' # Learn more applications of the filtering function via the command:
-#' # vignette("rtry-workflow-general")
+#' # Learn more applications of the filtering function via the vignette (Workflow for general
+#' # data preprocessing using rtry): vignette("rtry-workflow-general")
 #' @seealso \code{\link{rtry_filter_keyword}}
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
 #' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function

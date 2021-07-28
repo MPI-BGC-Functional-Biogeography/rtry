@@ -37,8 +37,8 @@ data_filter <- rtry_filter(TRYdata_15160,
 # Expected output:
 # dim:   1618 28
 
-# Learn more applications of the filtering function via the command:
-# vignette("rtry-workflow-general")
+# Learn more applications of the filtering function via the vignette (Workflow for general
+# data preprocessing using rtry): vignette("rtry-workflow-general")
 }
 \seealso{
 \code{\link{rtry_filter_keyword}}
