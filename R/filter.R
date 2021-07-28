@@ -11,9 +11,9 @@
 #' @examples
 #' # Filter observations where the plant developmental status (DataID 413)
 #' # is "juvenile" or "unknown" while excluding the whole observation
-#' data_filter <- rtry_filter(TRYdata_15160,
-#'                  (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "unknown")),
-#'                  baseOn = ObservationID)
+#' data_filtered <- rtry_filter(TRYdata_15160,
+#'                    (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "unknown")),
+#'                    baseOn = ObservationID)
 #'
 #' # Expected output:
 #' # dim:   1618 28
