@@ -32,18 +32,21 @@ data2 <- rtry_select_col(TRYdata_15160,
 
 data <- rtry_bind_col(data1, data2)
 
-Expected output:
-dim:   1782 12
-col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
-       ValueKindName TraitID TraitName DataID DataName
-       OrigObsDataID ErrorRisk Comment
-
-dim:   1782 5
-col:   OriglName OrigValueStr OrigUnitStr StdValue UnitName
-
-dim:   1782 17
-col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
-       ValueKindName TraitID TraitName DataID DataName
-       OrigObsDataID ErrorRisk Comment OriglName OrigValueStr
-       OrigUnitStr StdValue UnitName
+# Expected output:
+# dim:   1782 12
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
+#        ValueKindName TraitID TraitName DataID DataName
+#        OrigObsDataID ErrorRisk Comment
+#
+# dim:   1782 5
+# col:   OriglName OrigValueStr OrigUnitStr StdValue UnitName
+#
+# dim:   1782 17
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
+#        ValueKindName TraitID TraitName DataID DataName
+#        OrigObsDataID ErrorRisk Comment OriglName OrigValueStr
+#        OrigUnitStr StdValue UnitName
+}
+\seealso{
+\code{\link{rtry_merge_col}}
 }
