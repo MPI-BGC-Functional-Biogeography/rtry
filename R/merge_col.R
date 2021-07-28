@@ -2,8 +2,9 @@
 #'
 #' This function merges two data frames based on a specified common column (by default: \code{ObservationID})
 #' and returns all records from the left data frame (\code{x}) together with the matched records
-#' from the right data frame (\code{y}) for further processing. In order words, this functions performs
-#' a left join on the two provided data frames.
+#' from the right data frame (\code{y}), while discards all the records in the right data frame that
+#' does not exist in the left data frame. In order words, this functions performs a left join on
+#' the two provided data frames.
 #'
 #' @param x The left data frame, imported by \code{rtry_import()} or in data table format
 #' @param y The right data frame, imported by \code{rtry_import()} or in data table format
@@ -11,24 +12,24 @@
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the data after merging
 #' @return A data table of the merged data
 #' @examples
-#' # Assume user has obtained a unique list of auxiliary data (e.g. Latitude and Longitude)
+#' # Assume user has obtained a unique list of auxiliary data (e.g. Longitude and Latitude)
 #' # using rtry_select_aux() and would like to merge the georeferenced data into one data
 #' # table according to the identifier ObservationID
-#' lat <- rtry_select_aux(TRYdata_15160, Latitude)
 #' long <- rtry_select_aux(TRYdata_15160, Longitude)
+#' lat <- rtry_select_aux(TRYdata_15160, Latitude)
 #'
-#' georef <- rtry_merge_col(lat, long)
+#' georef <- rtry_merge_col(long, lat)
 #'
 #' # Expected output:
-#' # dim:   98 2
-#' # col:   ObservationID Latitude
-#' #
 #' # dim:   97 2
 #' # col:   ObservationID Longitude
 #' #
-#' # dim:   98 3
-#' # col:   ObservationID Latitude Longitude
-#' @seealso \code{\link{rtry_bind_col}}
+#' # dim:   98 2
+#' # col:   ObservationID Latitude
+#' #
+#' # dim:   97 3
+#' # col:   ObservationID Longitude Latitude
+#' @seealso \code{\link{rtry_merge_row}}, \code{\link{rtry_bind_col}}
 #' @export
 rtry_merge_col <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
   # Bind the variable OrigObsDataID locally to the function
