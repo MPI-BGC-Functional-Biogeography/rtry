@@ -722,7 +722,6 @@ To ensure the long table to wide table transformation would not result in duplic
 # 1. All entries with "" in TraitID
 # 2. Potential categorical traits that don't have a StdValue
 # 3. Traits that have not yet been standardized in TRY
-# Select the columns for transformation
 # Then select the relevant columns for transformation
 #-------------------------------------------------
 num_traits <- rtry_select_row(workdata, complete.cases(TraitID) & complete.cases(StdValue))
