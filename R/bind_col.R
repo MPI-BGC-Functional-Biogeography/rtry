@@ -34,7 +34,7 @@
 #' #        ValueKindName TraitID TraitName DataID DataName
 #' #        OrigObsDataID ErrorRisk Comment OriglName OrigValueStr
 #' #        OrigUnitStr StdValue UnitName
-#' @seealso \code{\link{rtry_merge_col}}
+#' @seealso \code{\link{rtry_join_left}}
 #' @export
 rtry_bind_col <- function(..., showOverview = TRUE){
   # If ... is missing, show the message

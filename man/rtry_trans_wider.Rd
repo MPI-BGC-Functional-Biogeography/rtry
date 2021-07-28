@@ -43,9 +43,9 @@ num_traits <- rtry_select_col(num_traits,
 lat <- rtry_select_aux(TRYdata_15160, Latitude)
 lon <- rtry_select_aux(TRYdata_15160, Longitude)
 
-# Merge the relevant data frames based on the ObservationID using rtry_merge_col (left join)
-num_traits_georef <- rtry_merge_col(num_traits, lat)
-num_traits_georef <- rtry_merge_col(num_traits_georef, lon)
+# Merge the relevant data frames based on the ObservationID using rtry_join_left (left join)
+num_traits_georef <- rtry_join_left(num_traits, lat)
+num_traits_georef <- rtry_join_left(num_traits_georef, lon)
 
 # Perform wide table transformation on TraitID, TraitName and UnitName
 # With cell values to be the mean values calculated for StdValue

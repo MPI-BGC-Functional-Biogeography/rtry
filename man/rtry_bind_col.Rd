@@ -48,5 +48,5 @@ data <- rtry_bind_col(data1, data2)
 #        OrigUnitStr StdValue UnitName
 }
 \seealso{
-\code{\link{rtry_merge_col}}
+\code{\link{rtry_join_left}}
 }
