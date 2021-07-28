@@ -28,7 +28,7 @@ This vignette is intended to demonstrate how to use the `rtry` package to perfor
 
 # Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the "The TRY R Project" section within the vignette ["Introduction to rtry" (rtry-introduction-new)](rtry-introduction-new.html).
+Make sure you have the `rtry` package installed. If not, you may refer to the "The TRY R Project" section within the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
 It is also advised to download the `examples` directory from the MPI-BGC Nextcloud in which both the example workflow script and sample data are provided.
 
@@ -755,13 +755,13 @@ workdata_lon <- rtry_select_aux(workdata, Longitude)
 ## col:   ObservationID Longitude 
 ```
 
-Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted auxiliary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_merge_col()` function provided in the `rtry` package.
+Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted auxiliary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_join_left()` function provided in the `rtry` package.
 
 ```R
 # To merge the extracted auxiliary data with the numerical traits
-# Merge the relevant data frames based on the ObservationID using rtry_merge_col (left join)
-num_traits_georef <- rtry_merge_col(num_traits, workdata_lat)
-num_traits_georef <- rtry_merge_col(num_traits_georef, workdata_lon)
+# Merge the relevant data frames based on the ObservationID using rtry_join_left (left join)
+num_traits_georef <- rtry_join_left(num_traits, workdata_lat)
+num_traits_georef <- rtry_join_left(num_traits_georef, workdata_lon)
 ```
 
 ```R
