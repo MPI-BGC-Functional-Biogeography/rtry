@@ -345,13 +345,7 @@ workdata <- workdata_unfiltered
 
 # Filter irrelevant data
 
-The `rtry` package provides two functions `rtry_filter()` and `rtry_filter_keyword()` for users to filter irrelevant rows of data.
-
-The `rtry_filter()` function takes four arguments `input`, `...`, `baseOn` and `showOverview` to filter data from the input data based on the specified criteria and the corresponding `ObservationID`.
-
-While the `rtry_filter_keyword()` takes six arguments `input`, `attribute`, `...`, `caseSensitive`, `exactMatch`, `showOverview` to filter data from the input data based on the specified keywords and the corresponding `ObservationID`. Note: the `rtry_filter_keyword()` can only filter data based on the specified values within a specific columns, so please ensure the keywords used are unique and are not used across the data fields.
-
-Again, it is completely up to the users to decide which function they prefer in filtering the irrelevant data. Though it is always advised to use the more precise `rtry_filter()` function.
+The `rtry` package provides a function `rtry_filter()` for users to filter irrelevant rows of data. The `rtry_filter()` function takes four arguments `input`, `...`, `baseOn` and `showOverview` to filter data from the input data based on the specified criteria and the corresponding `ObservationID`.
 
 <br>
 
@@ -373,11 +367,10 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 ## dim:   7 8 
 ```
 
-By sorting the exploration by `OrigValueStr`, it is clear that mature plants would have the value `adult`, `mature` and `mature, healthy`, whereas unknown status only comes in with the value `unknown`. This way it is possible to set the criteria and start the filtering process using either `rtry_filter()` or `rtry_filter_keyword()` which are both demonstrated below.
+By sorting the exploration by `OrigValueStr`, it is clear that mature plants would have the value `adult`, `mature` and `mature, healthy`, whereas unknown status only comes in with the value `unknown`. This way it is possible to set the criteria and start the filtering process using `rtry_filter()` which is demonstrated below.
 
 ![workflow_general_filter_mature_explore_before](workflow_general_filter_mature_explore_before.png){width=100%}
 
-**Method 1:** Filter mature (and unknown) plants using `rtry_filter()`.
 
 ```R
 # Criteria
@@ -388,19 +381,6 @@ workdata <- rtry_filter(workdata, (DataID %in% 413) & (OrigValueStr %in% c("adul
 
 ```R
 ## dim:   531 17 
-```
-
-**Method 2:** Filter mature (and unknown) plants using `rtry_filter_keyword()`. If method 1 has been performed, it is possible to try out method 2 by loading the backup data first.
-
-```R
-# Keywords: "adult", "mature", "unknown"
-# By default, the rtry_filter_keyword() function performs case sensitive and exact match filtering
-# Therefore, it needs to be set to FALSE in order to also filter "mature, healthy"
-workdata <- rtry_filter_keyword(workdata, OrigValueStr, c("adult", "mature", "unknown"), caseSensitive = FALSE, exactMatch = FALSE)
-```
-
-```R
-## dim:   531 17 
 ```
 
 Once the filtering is completed, double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`. This time the temporary data is saved as `tmp_filtered`.

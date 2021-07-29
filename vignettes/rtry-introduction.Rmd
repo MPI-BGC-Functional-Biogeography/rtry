@@ -157,7 +157,6 @@ The `rtry` package is supposed to be applicable without advanced knowledge of th
 - `rtry_select_row`: Select rows
 - `rtry_select_aux`: Select auxiliary data in wide table format
 - `rtry_filter`: Filter data
-- `rtry_filter_keyword`: Filter data using keywords
 - `rtry_rm_col`: Remove columns
 - `rtry_rm_dup`: Remove duplicates in data
 - `rtry_trans_wider`: Transform data from long to wide table
