@@ -2,22 +2,18 @@ context("Combine data by rows (rtry_bind_row)")
 
 
 test_that("basic test", {
-  df1 <- data.frame(
-    id = 1:10,
-    value = rnorm(10)
-  )
+  df <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
 
-  df2 <- data.frame(
-    id = 11:20,
-    value = rnorm(10)
-  )
-
-  df <- rtry_bind_row(df1, df2)
-
-  expect_equal(class(df), "data.frame")
-  expect_equal(ncol(df), 2)
-  expect_equal(nrow(df), 20)
-  expect_equal(colnames(df), c("id", "value"))
+  expect_equal(class(df), c("data.table", "data.frame"))
+  expect_equal(ncol(df), 28)
+  expect_equal(nrow(df), 6409)
+  expect_equal(colnames(df), c("LastName", "FirstName", "DatasetID", "Dataset",
+                               "SpeciesName", "AccSpeciesID", "AccSpeciesName", "ObservationID",
+                               "ObsDataID", "TraitID", "TraitName", "DataID", "DataName",
+                               "OriglName", "OrigValueStr", "OrigUnitStr", "ValueKindName",
+                               "OrigUncertaintyStr", "UncertaintyName", "Replicates", "StdValue",
+                               "UnitName", "RelUncertaintyPercent", "OrigObsDataID", "ErrorRisk",
+                               "Reference", "Comment", "V28"))
 })
 
 
@@ -29,5 +25,5 @@ test_that("rtry_bind_row handles empty argument", {
 
 
 test_that("rtry_bind_row handles NULL values", {
-  expect_equal(rtry_bind_row(NULL), NULL)
+  expect_equal(dim(rtry_bind_row(NULL)), c(0, 0))
 })
