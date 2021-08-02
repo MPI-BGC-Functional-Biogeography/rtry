@@ -80,5 +80,5 @@ num_traits_georef_wider <- rtry_trans_wider(num_traits_georef,
 # vignette("rtry-workflow-general")
 }
 \references{
-\href{https://rdrr.io/github/tidyverse/tidyr/man/pivot_wider.html}{tidyr::pivot_wider()}
+\code{\link[tidyr]{pivot_wider}}
 }

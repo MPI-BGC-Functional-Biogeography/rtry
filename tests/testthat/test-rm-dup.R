@@ -2,14 +2,18 @@ context("Remove duplicates (rtry_rm_dup)")
 
 
 test_that("basic test", {
-  df <- data.frame(OrigObsDataID = c(0, 2, 0, 1, 4, 0, 1), value = 1:7)
+  df_rm <- rtry_rm_dup(TRYdata_15160)
 
-  df_rm <- rtry_rm_dup(df)
-
-  expect_equal(class(df_rm), "data.frame")
-  expect_equal(ncol(df_rm), 2)
-  expect_equal(nrow(df_rm), 3)
-  expect_equal(colnames(df_rm), c("OrigObsDataID", "value"))
+  expect_equal(class(df_rm), c("data.table", "data.frame"))
+  expect_equal(ncol(df_rm), 28)
+  expect_equal(nrow(df_rm), 1737)
+  expect_equal(colnames(df_rm), c("LastName", "FirstName", "DatasetID", "Dataset", "SpeciesName",
+                                  "AccSpeciesID", "AccSpeciesName", "ObservationID", "ObsDataID",
+                                  "TraitID", "TraitName", "DataID", "DataName", "OriglName",
+                                  "OrigValueStr", "OrigUnitStr", "ValueKindName", "OrigUncertaintyStr",
+                                  "UncertaintyName", "Replicates", "StdValue", "UnitName",
+                                  "RelUncertaintyPercent", "OrigObsDataID", "ErrorRisk", "Reference",
+                                  "Comment", "V28"))
 })
 
 

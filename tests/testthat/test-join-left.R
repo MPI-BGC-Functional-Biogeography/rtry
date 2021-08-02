@@ -2,23 +2,25 @@ context("Merge two data frames - left join (rtry_join_left)")
 
 
 test_that("basic test", {
-  df1 <- data.frame(ObservationID = c(1:6), x = c("DE","US","UK","CN","NL","RU"))
-  df2 <- data.frame(ObservationID = c(2, 4, 6, 7, 8), y = c("1.0","5.5","2.3","1.2","0.4"))
+  lon <- rtry_select_aux(TRYdata_15160, Longitude)
+  lat <- rtry_select_aux(TRYdata_15160, Latitude)
 
-  df <- rtry_join_left(df1, df2)
+  georef <- rtry_join_left(lon, lat)
 
-  expect_equal(class(df), c("data.frame"))
-  expect_equal(dim(df), c(6, 3))
+  expect_equal(class(georef), c("data.table", "data.frame"))
+  expect_equal(dim(georef), c(97, 3))
 })
 
 
 test_that("rtry_join_left handles missing specified common column", {
   message = "Please make sure the column specified in 'baseOn', by default: `ObservationID`, exists in both data frames."
 
-  df1 <- data.frame(ObservationID = c(1:6), x = c("DE","US","UK","CN","NL","RU"))
-  df2 <- data.frame(ID = c(2, 4, 6, 7, 8), y = c("1.0","5.5","2.3","1.2","0.4"))
+  lon <- rtry_select_aux(TRYdata_15160, Longitude)
+  lat <- rtry_select_aux(TRYdata_15160, Latitude)
 
-  expect_message(rtry_join_left(df1, df2), message)
+  lat <- rtry_rm_col(lat, ObservationID)
+
+  expect_message(rtry_join_left(lon, lat), message)
 })
 
 
