@@ -5,7 +5,11 @@
 #'
 #' @param \dots A list of data frames or data tables to be combined by columns.
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the combined data.
-#' @return An object of the same type as the first input, either a data frame, \code{tbl_df}, or \code{grouped_df}.
+#' @return An object of the same type as the first input.
+#' @note A common attribute is not necessary (difference to the function \code{\link{rtry_join_left}} and \code{\link{rtry_join_outer}}):
+#'       the binding process simply puts the data side-by-side.
+#' @references This function makes use of the \code{\link[dplyr]{bind_cols}} function within the \code{dplyr} package.
+#' @seealso \code{\link{rtry_bind_row}}, \code{\link{rtry_join_left}}, \code{\link{rtry_join_outer}}
 #' @examples
 #' # Assuming a user has selected different columns as separated data tables
 #' # and later on would like to combine them as one for further processing.
@@ -33,10 +37,6 @@
 #' #        ValueKindName TraitID TraitName DataID DataName
 #' #        OrigObsDataID ErrorRisk Comment OriglName OrigValueStr
 #' #        OrigUnitStr StdValue UnitName
-#' @note A common attribute is not necessary (difference to the function \code{\link{rtry_join_left}} and \code{\link{rtry_join_outer}}):
-#'       the binding process simply puts the data side-by-side.
-#' @seealso \code{\link{rtry_bind_row}}, \code{\link{rtry_join_left}}, \code{\link{rtry_join_outer}}
-#' @references This function makes use of the \code{\link[dplyr]{bind_cols}} function within the \code{dplyr} package.
 #' @export
 rtry_bind_col <- function(..., showOverview = TRUE){
   # If ... is missing, show the message

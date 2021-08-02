@@ -12,7 +12,7 @@ rtry_bind_col(..., showOverview = TRUE)
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the combined data.}
 }
 \value{
-An object of the same type as the first input, either a data frame, \code{tbl_df}, or \code{grouped_df}.
+An object of the same type as the first input.
 }
 \description{
 This function takes a list of data frames or data tables and combines them by columns.
@@ -54,5 +54,5 @@ data <- rtry_bind_col(data1, data2)
 This function makes use of the \code{\link[dplyr]{bind_cols}} function within the \code{dplyr} package.
 }
 \seealso{
-\code{\link{rtry_join_left}} and \code{\link{rtry_join_outer}}
+\code{\link{rtry_bind_row}}, \code{\link{rtry_join_left}}, \code{\link{rtry_join_outer}}
 }
