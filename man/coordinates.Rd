@@ -7,9 +7,8 @@
 \format{
 A data frame with 20 rows and 2 variables:
 \describe{
-\item{Latitude}{latitude, in wgs84 projection}
-\item{Longitude}{longitude, in wgs84 projection}
-...
+\item{Latitude}{Latitude, in wgs84 projection.}
+\item{Longitude}{Longitude, in wgs84 projection.}
 }
 }
 \usage{
