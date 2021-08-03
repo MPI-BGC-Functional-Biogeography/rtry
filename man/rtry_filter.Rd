@@ -4,42 +4,51 @@
 \alias{rtry_filter}
 \title{Filter data}
 \usage{
-rtry_filter(input = "", ..., baseOn = ObservationID, showOverview = TRUE)
+rtry_filter(input, ..., baseOn, showOverview = TRUE)
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{\dots}{Criteria for filtering}
+\item{\dots}{Criteria for filtering.}
 
-\item{baseOn}{Default \code{ObservationID}, the parameter used for filtering}
+\item{baseOn}{The attribute on which filtering is based on. If it is set to \code{ObservationID},
+the function filters all records with the respective \code{ObservationID} if the
+specified criteria for filtering is fulfilled for one record. Alternatively, use
+\code{ObsDataID} to filter only the record (row) for which the specified criterion
+is fulfilled. Other reasonable parameter values are \code{TraitID}, \code{DataID}
+or \code{AccSpeciesID}.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension of data table after filtering}
+\item{showOverview}{Default \code{TRUE} displays the dimension of the data after filtering.}
 }
 \value{
-A data table of the input data after filtering
+An object of the same type as the input data after filtering.
 }
 \description{
-This function filters data from the input data based on the specified criteria
-and by default this filtering is performed based on the corresponding \code{ObservationID}.
-}
-\note{
-This function by default filters data based on the unique identifier \code{ObservationID}
-listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
-might not work (unless another attribute is defined when calling the function).
+This function takes the input data frame or data table and filters (excludes) all records (rows)
+with the same value in the attribute specified in the argument \code{baseOn} if the criteria
+specified in the arguments for filtering (\code{\dots}) are fulfilled for one of those records.
 }
 \examples{
-# Filter observations where the plant developmental status (DataID 413)
-# is "juvenile" or "unknown" while excluding the whole observation
+# Example 1: Exclude observations on juvenile plants or unknown state:
+# Identify observations where the plant developmental status (DataID 413) is either
+# "juvenile" or "unknown", and exclude the whole observation
 data_filtered <- rtry_filter(TRYdata_15160,
                    (DataID \%in\% 413) & (OrigValueStr \%in\% c("juvenile", "unknown")),
                    baseOn = ObservationID)
 
-# Expected output:
+# Expected message:
 # dim:   1618 28
 
-# Learn more applications of the filtering function via the vignette (Workflow for general
-# data preprocessing using rtry): vignette("rtry-workflow-general")
-}
-\seealso{
-\code{\link{rtry_filter_keyword}}
+# Example 2: Exclude outliers:
+# Identify the outliers, i.e. trait records where the ErrorRisk is larger than 4
+# and exclude these records (not the whole observation)
+data_filtered <- rtry_filter(TRYdata_15160,
+                   ErrorRisk > 4,
+                   baseOn = ObsDataID)
+
+# Expected message:
+# dim:   1778 28
+
+# Learn more applications of the filtering function via the vignette (Workflow for
+# general data preprocessing using rtry): vignette("rtry-workflow-general").
 }
