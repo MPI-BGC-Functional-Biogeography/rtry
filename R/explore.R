@@ -1,26 +1,29 @@
 #' Explore data
 #'
-#' This function takes the data table imported by \code{rtry_import()} and converts it into
-#' a grouped data table based on the specified column names.
-#' Note that the output data are grouped by the first attribute if not specified using the parameter \code{sortBy}.
-#' To provide a first understanding of the data, an additional column is added to show the total count within each group.
+#' This function takes a data frame or data table and converts it into a grouped data frame of unique values
+#' based on the specified column names. A column (\code{Count}) is added, which shows the number of records
+#' within each group. The data are grouped by the first attribute if not specified with the argument \code{sortBy}.
 #'
-#' @param input Input data, imported by \code{rtry_import()} function or in data table format
-#' @param \dots Attribute names to group together
-#' @param sortBy (Optional) Specify the attribute name used to re-order the rows
-#' @param showOverview Default \code{TRUE} displays the dimension of the result data table
-#' @return A data table of the unique values grouped by the desired attribute(s)
+#' @param input Data frame or data table, e.g. from \code{rtry_import()}.
+#' @param \dots Attribute names to group together.
+#' @param sortBy (Optional) Specify the attribute name used to re-order the rows.
+#' @param showOverview Default \code{TRUE} displays the dimension of the result data table.
+#' @return A data frame of unique values grouped and sorted by the specified attribute(s).
+#' @references This function makes use of the \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{summarise}}
+#'             and \code{\link[dplyr]{arrange}} functions within the \code{dplyr} package.
 #' @examples
 #' # Explore the unique values in the provided sample data (TRYdata_15160)
-#' # based on the attributes AccSpeciesID, DataID, DataName, TraitID and TraitName,
-#' # and sorted by DataName
+#' # based on the attributes AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID
+#' # and DataName, sorted by TraitID
 #' data_explore <- rtry_explore(TRYdata_15160,
-#'                   AccSpeciesID, DataID, DataName, TraitID, TraitName,
-#'                   sortBy = DataName)
+#'                   AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID, DataName,
+#'                   sortBy = TraitID)
 #'
-#' # Expected output:
-#' # dim:   235 6
-#' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.1/topics/group_by}{dplyr::group_by()}
+#' # Expected message:
+#' # dim:   235 7
+#'
+#' # Learn more applications of the explore function via the vignette (Workflow for
+#' # general data preprocessing using rtry): vignette("rtry-workflow-general").
 #' @export
 rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
   # If either of the arguments input or ... is missing, show the message
