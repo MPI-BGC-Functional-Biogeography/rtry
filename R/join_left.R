@@ -4,7 +4,7 @@
 #' returns all records from the left data frame (\code{x}) together with the matched records
 #' from the right data frame (\code{y}), while discards all the records in the right data frame
 #' that does not exist in the left data frame. In other words, this function performs a left join
-#' on the two provided data frames.
+#' on the two provided data frames or data tables.
 #'
 #' @param x A data frame or data table to be coerced and will be considered as the data on the left.
 #' @param y A data frame or data table to be coerced and will be considered as the data on the right.

@@ -25,7 +25,7 @@ This function merges two data frames or data tables based on a specified common 
 returns all records from the left data frame (\code{x}) together with the matched records
 from the right data frame (\code{y}), while discards all the records in the right data frame
 that does not exist in the left data frame. In other words, this function performs a left join
-on the two provided data frames.
+on the two provided data frames or data tables.
 }
 \examples{
 # Assume a user has obtained two unique data tables, one with the auxiliary data
