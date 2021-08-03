@@ -5,7 +5,7 @@
 \title{Import data}
 \usage{
 rtry_import(
-  input = "",
+  input,
   separator = "\\t",
   encoding = "Latin-1",
   quote = "",
@@ -13,40 +13,61 @@ rtry_import(
 )
 }
 \arguments{
-\item{input}{Path to the data file}
+\item{input}{Path to the data file.}
 
-\item{separator}{Data separator. Default \code{"\t"} for the TRY data output}
+\item{separator}{Default \code{"\t"} for the TRY data output. Data separator.}
 
-\item{encoding}{File encoding. Default \code{"Latin-1"}}
+\item{encoding}{Default \code{"Latin-1"}. File encoding.}
 
-\item{quote}{Default \code{""} reads the fields as is. If the fields in the data file are by a double quote, use \code{"\""} instead}
+\item{quote}{Default \code{""} reads the fields as is.
+If the fields in the data file are by a double quote, use \code{"\""} instead.}
 
-\item{showOverview}{Default \code{TRUE} displays the input path, the dimension and the column names of the imported data}
+\item{showOverview}{Default \code{TRUE} displays the input path, the dimension and
+the column names of the imported data.}
 }
 \value{
-A data table of the input data
+A \code{data.table}.
 }
 \description{
-This function, by default, imports the data file (.txt) exported from the TRY database
-as a data.table for further processing. It can also be used to import other file formats,
-such as .csv files with comma as separator.
+This function imports a data file as a \code{data.table} for further processing.
+The default arguments are set to import tabulartor delimited data files in text
+format (\code{.txt}) exported from the TRY database. It can also be used to
+import other file formats, such as \code{.csv} files with comma separated values.
 }
 \examples{
+# Example 1: Import data exported from the TRY database
 # Specify file path to the raw data provided within the rtry package
-# For Windows users and own data, the input path might rather look like this:
-# input_path <- "C:/Users/User/Desktop/TRYdata_15160.txt"
 input_path <- system.file("testdata", "TRYdata_15160.txt", package = "rtry")
+
+# For own data and Windows users the path might rather look similar to this:
+# input_path <- "C:/Users/User/Desktop/TRYdata_15160.txt"
 
 # Import data file using rtry_import
 input <- rtry_import(input_path)
 
-# Expected output:
+# Explicit notation:
+# input <- rtry_import(input_path, separator = "\t", encoding = "Latin-1",
+#            quote = "", showOverview = TRUE)
+
+# Expected message:
 # input: ~/R/R-4.0.3/library/rtry/testdata/TRYdata_15160.txt
 # dim:   1782 28
-# col:   LastName FirstName DatasetID Dataset SpeciesName
-#        AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID
-#        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
-#        ValueKindName OrigUncertaintyStr UncertaintyName Replicates
-#        StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
+# col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName
+#        ObservationID ObsDataID TraitID TraitName DataID DataName OriglName
+#        OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName
+#        Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
 #        Reference Comment V28
+
+# Example 2: Import CSV file
+# Specify file path to the raw data provided within the rtry package
+input_path <- system.file("testdata", "locations.csv", package = "rtry")
+
+# Import data file using rtry_import
+input <- rtry_import(input_path, separator = ",", encoding = "UTF-8",
+           quote = "\"", showOverview = TRUE)
+
+# Expected message:
+# input: ~/R/R-4.0.3/library/rtry/testdata/locations.csv
+# dim:   20 3
+# col:   Country code Country Location
 }
