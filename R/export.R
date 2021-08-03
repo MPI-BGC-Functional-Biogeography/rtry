@@ -15,7 +15,7 @@
 #' rtry_export(data, "./output/TRYdata_processed.csv")
 #' }
 #' @export
-rtry_export <- function(data = "", output = "", quote = TRUE, encoding = "UTF-8"){
+rtry_export <- function(data, output, quote = TRUE, encoding = "UTF-8"){
   # If either of the input or output is missing, show the message
   if(missing(data) || missing(output)){
     message("Please make sure you have specified the data to be saved or the output path.")

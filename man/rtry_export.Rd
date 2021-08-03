@@ -4,7 +4,7 @@
 \alias{rtry_export}
 \title{Export preprocessed data}
 \usage{
-rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
+rtry_export(data, output, quote = TRUE, encoding = "UTF-8")
 }
 \arguments{
 \item{data}{The data to be saved.}
