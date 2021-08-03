@@ -52,3 +52,7 @@ data_filtered <- rtry_filter(TRYdata_15160,
 # Learn more applications of the filtering function via the vignette (Workflow for
 # general data preprocessing using rtry): vignette("rtry-workflow-general").
 }
+\references{
+This function makes use of the \code{\link[base]{subset}} function
+within the \code{base} package.
+}

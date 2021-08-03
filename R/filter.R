@@ -13,6 +13,8 @@
 #'               is fulfilled. Other reasonable parameter values are \code{TraitID}, \code{DataID}
 #'               or \code{AccSpeciesID}.
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after filtering.
+#' @references This function makes use of the \code{\link[base]{subset}} function
+#'             within the \code{base} package.
 #' @return An object of the same type as the input data after filtering.
 #' @examples
 #' # Example 1: Exclude observations on juvenile plants or unknown state:

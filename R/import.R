@@ -12,6 +12,8 @@
 #'              If the fields in the data file are by a double quote, use \code{"\""} instead.
 #' @param showOverview Default \code{TRUE} displays the input path, the dimension and
 #'                     the column names of the imported data.
+#' @references This function makes use of the \code{\link[data.table]{fread}} function
+#'             within the \code{data.table} package.
 #' @return A \code{data.table}.
 #' @examples
 #' # Example 1: Import data exported from the TRY database

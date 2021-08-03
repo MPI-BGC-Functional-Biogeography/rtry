@@ -71,3 +71,7 @@ input <- rtry_import(input_path, separator = ",", encoding = "UTF-8",
 # dim:   20 3
 # col:   Country code Country Location
 }
+\references{
+This function makes use of the \code{\link[data.table]{fread}} function
+within the \code{data.table} package.
+}
