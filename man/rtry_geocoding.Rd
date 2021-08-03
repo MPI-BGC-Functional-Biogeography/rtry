@@ -4,19 +4,19 @@
 \alias{rtry_geocoding}
 \title{Perform geocoding}
 \usage{
-rtry_geocoding(address = NULL, email = NULL)
+rtry_geocoding(address, email)
 }
 \arguments{
-\item{address}{String of an address}
+\item{address}{String of an address.}
 
-\item{email}{String of an email address}
+\item{email}{String of an email address.}
 }
 \value{
-A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection
+A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection.
 }
 \description{
 This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim},
-a search engine for OpenStreetMap (OSM) data, to perform Geocoding,
+a search engine for OpenStreetMap (OSM) data, to perform geocoding,
 i.e. converting an address into coordinates (latitudes, longitudes).
 The data provided by OSM is free to use for any purpose, including commercial use,
 and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
@@ -24,13 +24,16 @@ and is governed by the distribution license \href{https://wiki.osmfoundation.org
 \examples{
 # Convert the address of MPI-BGC ("Hans-Knoell-Strasse 10, 07745 Jena, Germany")
 # into coordinates in latitudes and longitudes
-# Note: please change to your own email address when executing this function
+# Note: Please change to your own email address when executing this function
 rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany",
    email = "jkattge@bgc-jena.mpg.de")
 
-# Expected output:
+# Expected message:
 #        lat      lon
 # 1 50.91011 11.56682
+
+# Learn to perform geocoding to a list of locations via the vignette (Workflow for
+# geocoding using rtry): vignette("rtry-workflow-geocoding").
 }
 \seealso{
 \code{\link{rtry_revgeocoding}}
