@@ -4,14 +4,15 @@
 \alias{rtry_explore}
 \title{Explore data}
 \usage{
-rtry_explore(input = "", ..., sortBy = "", showOverview = TRUE)
+rtry_explore(input, ..., sortBy = "", showOverview = TRUE)
 }
 \arguments{
 \item{input}{Data frame or data table, e.g. from \code{rtry_import()}.}
 
 \item{\dots}{Attribute names to group together.}
 
-\item{sortBy}{(Optional) Specify the attribute name used to re-order the rows.}
+\item{sortBy}{(Optional) Default \code{""} indicates no sorting is applied to the grouped data.
+Specify the attribute name used to re-order the rows in ascending order.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the result data table.}
 }

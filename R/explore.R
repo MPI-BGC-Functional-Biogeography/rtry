@@ -6,7 +6,8 @@
 #'
 #' @param input Data frame or data table, e.g. from \code{rtry_import()}.
 #' @param \dots Attribute names to group together.
-#' @param sortBy (Optional) Specify the attribute name used to re-order the rows.
+#' @param sortBy (Optional) Default \code{""} indicates no sorting is applied to the grouped data.
+#'               Specify the attribute name used to re-order the rows in ascending order.
 #' @param showOverview Default \code{TRUE} displays the dimension of the result data table.
 #' @return A data frame of unique values grouped and sorted by the specified attribute(s).
 #' @references This function makes use of the \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{summarise}}
@@ -25,7 +26,7 @@
 #' # Learn more applications of the explore function via the vignette (Workflow for
 #' # general data preprocessing using rtry): vignette("rtry-workflow-general").
 #' @export
-rtry_explore <- function(input = "", ..., sortBy = "", showOverview = TRUE){
+rtry_explore <- function(input, ..., sortBy = "", showOverview = TRUE){
   # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or attribute names you would like to group together.")
