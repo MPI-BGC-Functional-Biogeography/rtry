@@ -28,7 +28,7 @@ filled with \code{NA}.
 # Combine the two provided sample data (TRYdata_15160 and TRYdata_15160)
 data <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
 
-# Expected output:
+# Expected message:
 # dim:   6409 28
 # col:   LastName FirstName DatasetID Dataset SpeciesName
 #        AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID
