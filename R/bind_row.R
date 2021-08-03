@@ -18,11 +18,10 @@
 #'
 #' # Expected message:
 #' # dim:   6409 28
-#' # col:   LastName FirstName DatasetID Dataset SpeciesName
-#' #        AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID
-#' #        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
-#' #        ValueKindName OrigUncertaintyStr UncertaintyName Replicates
-#' #        StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
+#' # col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName
+#' #        ObservationID ObsDataID TraitID TraitName DataID DataName OriglName
+#' #        OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName
+#' #        Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk
 #' #        Reference Comment V28
 #' @export
 rtry_bind_row <- function(..., showOverview = TRUE){

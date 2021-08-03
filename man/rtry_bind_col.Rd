@@ -26,9 +26,8 @@ the binding process simply puts the data side-by-side.
 # Assuming a user has selected different columns as separated data tables
 # and later on would like to combine them as one for further processing.
 data1 <- rtry_select_col(TRYdata_15160,
-           ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
-           ValueKindName, TraitID, TraitName, DataID, DataName,
-           OrigObsDataID, ErrorRisk, Comment)
+           ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName,
+           TraitID, TraitName, DataID, DataName, OrigObsDataID, ErrorRisk, Comment)
 
 data2 <- rtry_select_col(TRYdata_15160,
            OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName)
@@ -37,18 +36,16 @@ data <- rtry_bind_col(data1, data2)
 
 # Expected message:
 # dim:   1782 12
-# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
-#        ValueKindName TraitID TraitName DataID DataName
-#        OrigObsDataID ErrorRisk Comment
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID
+#        TraitName DataID DataName OrigObsDataID ErrorRisk Comment
 #
 # dim:   1782 5
 # col:   OriglName OrigValueStr OrigUnitStr StdValue UnitName
 #
 # dim:   1782 17
-# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName
-#        ValueKindName TraitID TraitName DataID DataName
-#        OrigObsDataID ErrorRisk Comment OriglName OrigValueStr
-#        OrigUnitStr StdValue UnitName
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID
+#        TraitName DataID DataName OrigObsDataID ErrorRisk Comment OriglName
+#        OrigValueStr OrigUnitStr StdValue UnitName
 }
 \references{
 This function makes use of the \code{\link[dplyr]{bind_cols}} function within the \code{dplyr} package.
