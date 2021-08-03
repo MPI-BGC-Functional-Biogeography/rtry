@@ -7,16 +7,16 @@
 rtry_export(data = "", output = "", quote = TRUE, encoding = "UTF-8")
 }
 \arguments{
-\item{data}{The data to be saved}
+\item{data}{The data to be saved.}
 
-\item{output}{Output path}
+\item{output}{Output path.}
 
-\item{quote}{Default \code{TRUE} inserts double quotes around any character or factor columns}
+\item{quote}{Default \code{TRUE} inserts double quotes around any character or factor columns.}
 
-\item{encoding}{File encoding. Default \code{"UTF-8"}}
+\item{encoding}{Default \code{"UTF-8"}. File encoding.}
 }
 \description{
-This function exports the preprocessed data as a .csv file.
+This function exports the preprocessed data as comma separated values to a \code{.csv} file.
 If the specified output directory does not exist, it will be created.
 }
 \examples{
@@ -24,4 +24,8 @@ If the specified output directory does not exist, it will be created.
 # Export the preprocessed data to a specific location
 rtry_export(data, "./output/TRYdata_processed.csv")
 }
+}
+\references{
+This function makes use of the \code{\link[utils]{write.csv}} function
+within the \code{utils} package.
 }

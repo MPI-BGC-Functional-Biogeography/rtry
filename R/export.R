@@ -1,12 +1,14 @@
 #' Export preprocessed data
 #'
-#' This function exports the preprocessed data as a .csv file.
+#' This function exports the preprocessed data as comma separated values to a \code{.csv} file.
 #' If the specified output directory does not exist, it will be created.
 #'
-#' @param data The data to be saved
-#' @param output Output path
-#' @param quote Default \code{TRUE} inserts double quotes around any character or factor columns
-#' @param encoding File encoding. Default \code{"UTF-8"}
+#' @param data The data to be saved.
+#' @param output Output path.
+#' @param quote Default \code{TRUE} inserts double quotes around any character or factor columns.
+#' @param encoding Default \code{"UTF-8"}. File encoding.
+#' @references This function makes use of the \code{\link[utils]{write.csv}} function
+#'             within the \code{utils} package.
 #' @examples
 #' \dontrun{
 #' # Export the preprocessed data to a specific location
