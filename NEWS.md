@@ -4,13 +4,16 @@ This is the first public released of the package `rtry`.
 
 ## Major changes
 
-- Resized and moved images to the source directory of the vignettes (`vignettes\`)
-- Fixed image paths for the vignettes
+- Updated function documentation and the corresponding examples
+- Removed unnecessary default values of the function arguments
+- Deleted `rtry_filter_keyword()`
+- Renamed `rtry_merge_col()` into `rtry_join_left()`
+- Renamed `rtry_merge_row()` into `rtry_join_outer()`
+
 
 ## Minor changes
-
-- Updated url for `tidyr::pivot_wider()`
-
+- Resized and moved images to the source directory of the vignettes (`vignettes\`)
+- Fixed image paths for the vignettes
 
 
 # rtry 0.0.0.9500 
