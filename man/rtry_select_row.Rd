@@ -5,7 +5,7 @@
 \title{Select rows}
 \usage{
 rtry_select_row(
-  input = "",
+  input,
   ...,
   getAuxiliary = FALSE,
   rmDuplicates = FALSE,
@@ -13,18 +13,18 @@ rtry_select_row(
 )
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{\dots}{Criteria for row selection}
+\item{\dots}{Criteria for row selection.}
 
-\item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria}
+\item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.}
 
-\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rm_dup()} function}
+\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_rm_dup}}.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension of the data after row selection}
+\item{showOverview}{Default \code{TRUE} displays the dimension of the data after row selection.}
 }
 \value{
-A data table of the selected rows of the input data
+An object of the same type as the input data.
 }
 \description{
 This function selects rows based on specified criteria
@@ -36,18 +36,19 @@ listed in the TRY data, therefore, if the column \code{ObservationID} has been r
 will not work.
 }
 \examples{
-# Select all traits records where DataID equals to 59 or 60
-# together with all the corresponding auxiliary data without any duplicates
-# within the provided sample data (TRYdata_15160)
+# Within the provided sample data (TRYdata_15160) select the georeferenced traits
+# records together with records for Latitude and Longitude (DataID 59 and 60) and
+# exclude duplicate trait records
 data_selected <- rtry_select_row(TRYdata_15160,
                    (TraitID > 0) | (DataID \%in\% c(59, 60)),
                    getAuxiliary = TRUE,
                    rmDuplicates = TRUE)
 
-# Expected output:
+# Expected message:
 # 45 duplicates removed.
 # dim:   1737 28
 }
-\seealso{
-\code{\link{rtry_rm_dup}}
+\references{
+This function makes use of the \code{\link[base]{unique}} and \code{\link{base}{subset}} functions
+within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
 }

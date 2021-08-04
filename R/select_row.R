@@ -3,30 +3,31 @@
 #' This function selects rows based on specified criteria
 #' and the corresponding \code{ObservationID} from the imported data for further processing.
 #'
-#' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param \dots Criteria for row selection
-#' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria
-#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the \code{rtry_rm_dup()} function
-#' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection
-#' @return A data table of the selected rows of the input data
+#' @param input Input data frame or data table.
+#' @param \dots Criteria for row selection.
+#' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.
+#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_rm_dup}}.
+#' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection.
+#' @return An object of the same type as the input data.
+#' @references This function makes use of the \code{\link[base]{unique}} and \code{\link{base}{subset}} functions
+#'             within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
+#' @note This function by default filters data based on the unique identifier \code{ObservationID}
+#' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
+#' will not work.
 #' @examples
-#' # Select all traits records where DataID equals to 59 or 60
-#' # together with all the corresponding auxiliary data without any duplicates
-#' # within the provided sample data (TRYdata_15160)
+#' # Within the provided sample data (TRYdata_15160) select the georeferenced traits
+#' # records together with records for Latitude and Longitude (DataID 59 and 60) and
+#' # exclude duplicate trait records
 #' data_selected <- rtry_select_row(TRYdata_15160,
 #'                    (TraitID > 0) | (DataID %in% c(59, 60)),
 #'                    getAuxiliary = TRUE,
 #'                    rmDuplicates = TRUE)
 #'
-#' # Expected output:
+#' # Expected message:
 #' # 45 duplicates removed.
 #' # dim:   1737 28
-#' @seealso \code{\link{rtry_rm_dup}}
-#' @note This function by default filters data based on the unique identifier \code{ObservationID}
-#' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
-#' will not work.
 #' @export
-rtry_select_row <- function(input = "", ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
+rtry_select_row <- function(input, ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   # Bind the variable ObservationID locally to the function
   ObservationID <- NULL
 
