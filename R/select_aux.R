@@ -8,7 +8,7 @@
 #' @param name The name of auxiliary data (\code{DataName} in the TRY data) to be selected.
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected data.
 #' @return An object of the same type as the input data.
-#' @references This function makes use of the \code{\link[base]{subset}} and \code{\link{dplyr}{distinct}} functions
+#' @references This function makes use of the \code{\link[base]{subset}} and \code{\link[dplyr]{distinct}} functions
 #'             within the \code{base} and \code{dplyr} packages respectively. It also uses the functions
 #'             \code{\link{rtry_select_col}} and \code{\link{rtry_rm_col}}.
 #' @examples

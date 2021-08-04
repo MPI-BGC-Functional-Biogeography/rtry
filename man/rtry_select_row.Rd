@@ -49,6 +49,6 @@ data_selected <- rtry_select_row(TRYdata_15160,
 # dim:   1737 28
 }
 \references{
-This function makes use of the \code{\link[base]{unique}} and \code{\link{base}{subset}} functions
+This function makes use of the \code{\link[base]{unique}} and \code{\link[base]{subset}} functions
 within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
 }

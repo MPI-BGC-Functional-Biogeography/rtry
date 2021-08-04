@@ -31,7 +31,7 @@ Latitude <- rtry_select_aux(TRYdata_15160, Latitude)
 # col:   ObservationID Latitude
 }
 \references{
-This function makes use of the \code{\link[base]{subset}} and \code{\link{dplyr}{distinct}} functions
+This function makes use of the \code{\link[base]{subset}} and \code{\link[dplyr]{distinct}} functions
 within the \code{base} and \code{dplyr} packages respectively. It also uses the functions
 \code{\link{rtry_select_col}} and \code{\link{rtry_rm_col}}.
 }

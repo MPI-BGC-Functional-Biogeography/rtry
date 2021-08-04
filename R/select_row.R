@@ -9,7 +9,7 @@
 #' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_rm_dup}}.
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection.
 #' @return An object of the same type as the input data.
-#' @references This function makes use of the \code{\link[base]{unique}} and \code{\link{base}{subset}} functions
+#' @references This function makes use of the \code{\link[base]{unique}} and \code{\link[base]{subset}} functions
 #'             within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
 #'       listed in the TRY data, therefore, if the column \code{ObservationID} has been removed,
