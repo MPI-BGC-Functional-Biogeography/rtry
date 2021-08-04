@@ -2,10 +2,14 @@
 #'
 #' This function removes specified columns from the imported data for further processing.
 #'
-#' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param \dots Column names to be removed
-#' @param showOverview Default \code{TRUE} displays the dimension of the selected columns
-#' @return A data table of the remaining columns of the input data
+#' @param input Input data frame or data table.
+#' @param \dots Names of columns to be removed separated by commas. \code{:} can be used
+#'              for selecting a range of consecutive variables.
+#' @param showOverview Default \code{TRUE} displays the dimension of the remaining data.
+#' @return An object of the same type as the input data.
+#' @references This function makes use of the \code{\link[dplyr]{select}} function
+#'             within the \code{dplyr} package.
+#' @seealso \code{\link{rtry_select_col}}
 #' @examples
 #' # Remove certain columns from the provided sample data (TRYdata_15160)
 #' data_rm_col <- rtry_rm_col(TRYdata_15160,
@@ -13,13 +17,11 @@
 #'                  OrigUncertaintyStr, UncertaintyName, Replicates,
 #'                  RelUncertaintyPercent, Reference, V28)
 #'
-#' # Expected output:
+#' # Expected message:
 #' # dim:   1782 17
 #' # col:   AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName
 #' #        DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
 #' #        StdValue UnitName OrigObsDataID ErrorRisk Comment
-#' @seealso \code{\link{rtry_select_col}}
-#' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
 #' @export
 rtry_rm_col <- function(input, ..., showOverview = TRUE){
   # If either of the arguments input or ... is missing, show the message
