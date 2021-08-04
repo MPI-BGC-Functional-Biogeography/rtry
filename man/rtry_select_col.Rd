@@ -4,37 +4,38 @@
 \alias{rtry_select_col}
 \title{Select columns}
 \usage{
-rtry_select_col(input = "", ..., showOverview = TRUE)
+rtry_select_col(input, ..., showOverview = TRUE)
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{\dots}{Column names to be selected}
+\item{\dots}{Column names to be selected.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected columns}
+\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected columns.}
 }
 \value{
-A data table of the selected columns of the input data
+An object of the same type as the input data.
 }
 \description{
-This function selects specified columns from the imported data and saves them in a new data table.
+This function selects the specified columns from the input data.
 }
 \examples{
 # Select certain columns from the provided sample data (TRYdata_15160)
 data_selected <- rtry_select_col(TRYdata_15160,
                    ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
-                   ValueKindName, TraitID, TraitName, DataID, DataName,
-                   OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName,
-                   OrigObsDataID, ErrorRisk, Comment)
+                   ValueKindName, TraitID, TraitName, DataID, DataName, OriglName,
+                   OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID,
+                   ErrorRisk, Comment)
 
-# Expected output:
+# Expected message:
 # dim:   1782 17
-# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName
-#        TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
-#        StdValue UnitName OrigObsDataID ErrorRisk Comment
+# col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID
+#        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr StdValue
+#        UnitName OrigObsDataID ErrorRisk Comment
 }
 \references{
-\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
+This function makes use of the \code{\link[dplyr]{select}} function
+within the \code{dplyr} package.
 }
 \seealso{
 \code{\link{rtry_rm_col}}

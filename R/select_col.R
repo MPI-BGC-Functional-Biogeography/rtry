@@ -1,28 +1,29 @@
 #' Select columns
 #'
-#' This function selects specified columns from the imported data and saves them in a new data table.
+#' This function selects the specified columns from the input data.
 #'
-#' @param input Input data, imported by \code{rtry_import()} or in data table format
-#' @param \dots Column names to be selected
-#' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected columns
-#' @return A data table of the selected columns of the input data
+#' @param input Input data frame or data table.
+#' @param \dots Column names to be selected.
+#' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected columns.
+#' @return An object of the same type as the input data.
+#' @references This function makes use of the \code{\link[dplyr]{select}} function
+#'             within the \code{dplyr} package.
+#' @seealso \code{\link{rtry_rm_col}}
 #' @examples
 #' # Select certain columns from the provided sample data (TRYdata_15160)
 #' data_selected <- rtry_select_col(TRYdata_15160,
 #'                    ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
-#'                    ValueKindName, TraitID, TraitName, DataID, DataName,
-#'                    OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName,
-#'                    OrigObsDataID, ErrorRisk, Comment)
+#'                    ValueKindName, TraitID, TraitName, DataID, DataName, OriglName,
+#'                    OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID,
+#'                    ErrorRisk, Comment)
 #'
-#' # Expected output:
+#' # Expected message:
 #' # dim:   1782 17
-#' # col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName
-#' #        TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr
-#' #        StdValue UnitName OrigObsDataID ErrorRisk Comment
-#' @seealso \code{\link{rtry_rm_col}}
-#' @references \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/select}{dplyr::select()}
+#' # col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID
+#' #        TraitName DataID DataName OriglName OrigValueStr OrigUnitStr StdValue
+#' #        UnitName OrigObsDataID ErrorRisk Comment
 #' @export
-rtry_select_col <- function(input = "", ..., showOverview = TRUE){
+rtry_select_col <- function(input, ..., showOverview = TRUE){
   # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or column names you would like to select.")
