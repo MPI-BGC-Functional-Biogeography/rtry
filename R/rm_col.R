@@ -3,8 +3,8 @@
 #' This function removes specified columns from the imported data for further processing.
 #'
 #' @param input Input data frame or data table.
-#' @param \dots Names of columns to be removed separated by commas. \code{:} can be used
-#'              for selecting a range of consecutive variables.
+#' @param \dots Names of columns to be removed separated by commas. The operator \code{:}
+#'              can be used for selecting a range of consecutive variables.
 #' @param showOverview Default \code{TRUE} displays the dimension of the remaining data.
 #' @return An object of the same type as the input data.
 #' @references This function makes use of the \code{\link[dplyr]{select}} function

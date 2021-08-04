@@ -9,7 +9,7 @@ rtry_revgeocoding(lat_lon, email)
 \arguments{
 \item{lat_lon}{A data frame consisting latitude and longitude in WGS84 projection.}
 
-\item{email}{String of an email address,}
+\item{email}{String of an email address.}
 }
 \value{
 A data frame that contains address.

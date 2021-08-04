@@ -9,8 +9,8 @@ rtry_rm_col(input, ..., showOverview = TRUE)
 \arguments{
 \item{input}{Input data frame or data table.}
 
-\item{\dots}{Names of columns to be removed separated by commas. \code{:} can be used
-for selecting a range of consecutive variables.}
+\item{\dots}{Names of columns to be removed separated by commas. The operator \code{:}
+can be used for selecting a range of consecutive variables.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the remaining data.}
 }

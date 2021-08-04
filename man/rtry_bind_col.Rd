@@ -34,7 +34,7 @@ data2 <- rtry_select_col(TRYdata_15160,
 
 data <- rtry_bind_col(data1, data2)
 
-# Expected message:
+# Expected messages:
 # dim:   1782 12
 # col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID
 #        TraitName DataID DataName OrigObsDataID ErrorRisk Comment
