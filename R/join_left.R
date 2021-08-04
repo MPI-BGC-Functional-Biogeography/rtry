@@ -15,6 +15,7 @@
 #'         \code{x} and then those in \code{y}.
 #' @references This function makes use of the \code{\link[base]{merge}} function
 #'             within the \code{base} package.
+#' @seealso \code{\link{rtry_join_outer}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 #' @examples
 #' # Assume a user has obtained two unique data tables, one with the auxiliary data
 #' # Longitude and one with Latitude (e.g. using rtry_select_aux()), and would like to
@@ -34,7 +35,6 @@
 #' #
 #' # dim:   97 3
 #' # col:   ObservationID Longitude Latitude
-#' @seealso \code{\link{rtry_join_outer}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 #' @export
 rtry_join_left <- function(x, y, baseOn, showOverview = TRUE){
   # If any of the data frame is missing, show the message
