@@ -5,7 +5,7 @@
 \title{Transform data from long to wide table}
 \usage{
 rtry_trans_wider(
-  input = "",
+  input,
   names_from = NULL,
   values_from = NULL,
   values_fn = NULL,
@@ -13,48 +13,56 @@ rtry_trans_wider(
 )
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} function or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{names_from}{The column(s) from which the output column names to be obtained}
+\item{names_from}{The column(s) from which the output column names to be obtained.}
 
-\item{values_from}{The column(s) from which the output values to be obtained}
+\item{values_from}{The column(s) from which the output values to be obtained.}
 
-\item{values_fn}{(Optional) Function to be applied to the output values}
+\item{values_fn}{(Optional) Function to be applied to the output values.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension of the result data table}
+\item{showOverview}{Default \code{TRUE} displays the dimension of the wide table.}
 }
 \value{
-The transformed wide table
+A data frame of the transformed wide table.
 }
 \description{
 This function transforms the original long table format of the data into a wide table format.
 }
 \examples{
-# Select only the trait records that has standardized numeric values
-# Then select the relevant columns for transformation
+# Provide the standardized trait values per observation, together with species names
+# and the georeferences of the sampling site (Latitude and Longtude), if availalbe,
+# in a wide table format. Several steps are necessary:
+
+# 1. Select only the trait records that have standardized numeric values.
+#    The complete.cases() is used to ensure the cases are complete, i.e. have no
+#    missing values.
 num_traits <- rtry_select_row(TRYdata_15160,
                 complete.cases(TraitID) & complete.cases(StdValue))
+
+# 2. Select the relevant columns for transformation.
 num_traits <- rtry_select_col(num_traits,
                 ObservationID, AccSpeciesID, AccSpeciesName, TraitID, TraitName,
                 StdValue, UnitName)
 
-# Extract the unique value of latitude and longitude data
-# and the corresponding ObservationID
+# 3. Extract the values of georeferences and the corresponding ObservationID.
 lat <- rtry_select_aux(TRYdata_15160, Latitude)
 lon <- rtry_select_aux(TRYdata_15160, Longitude)
 
-# Merge the relevant data frames based on the ObservationID using rtry_join_left (left join)
-num_traits_georef <- rtry_join_left(num_traits, lat)
-num_traits_georef <- rtry_join_left(num_traits_georef, lon)
+# 4. Merge the relevant data frames based on the ObservationID using rtry_join_left().
+num_traits_georef <- rtry_join_left(num_traits, lat, baseOn = ObservationID)
+num_traits_georef <- rtry_join_left(num_traits_georef, lon, baseOn = ObservationID)
 
-# Perform wide table transformation on TraitID, TraitName and UnitName
-# With cell values to be the mean values calculated for StdValue
+# 5. Perform wide table transformation of TraitID, TraitName and UnitName based on
+#    ObservationID, AccSpeciesID and AccSpeciesName with cell values from StdValue.
+#    If several records with StdValue were provided for one trait with the same
+#    ObservationID, AccSpeciesID and AccSpeciesName, calculate their mean.
 num_traits_georef_wider <- rtry_trans_wider(num_traits_georef,
                              names_from = c(TraitID, TraitName, UnitName),
                              values_from = c(StdValue),
                              values_fn = list(StdValue = mean))
 
-# Expected output:
+# Expected messages:
 # dim:   150 28
 # dim:   150 7
 # col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName
@@ -80,5 +88,10 @@ num_traits_georef_wider <- rtry_trans_wider(num_traits_georef,
 # vignette("rtry-workflow-general")
 }
 \references{
-\code{\link[tidyr]{pivot_wider}}
+This function makes use of the \code{\link[tidyr]{pivot_wider}} function
+within the \code{tidyr} package.
+}
+\seealso{
+\code{\link{rtry_select_row}}, \code{\link{rtry_select_col}}, \code{\link{rtry_select_aux}},
+\code{\link{rtry_join_left}}
 }
