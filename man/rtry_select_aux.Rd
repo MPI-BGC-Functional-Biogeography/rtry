@@ -4,28 +4,34 @@
 \alias{rtry_select_aux}
 \title{Select auxiliary data in wide table format}
 \usage{
-rtry_select_aux(input = "", name = "", showOverview = TRUE)
+rtry_select_aux(input, name, showOverview = TRUE)
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{name}{The name of auxiliary data (\code{DataName} in the TRY data) to be selected}
+\item{name}{The name of auxiliary data (\code{DataName} in the TRY data) to be selected.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the data after selection}
+\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected data.}
 }
 \value{
-A data table of the selected auxiliary data of the input data in a wide table format
+An object of the same type as the input data.
 }
 \description{
-This function selects specified auxiliary data together with the \code{ObservationID}
-from the imported data and transform it into a wide table format for further processing.
+This function selects one specified auxiliary data together with the \code{ObservationID}
+from the imported data and transforms it into a wide table format for further processing.
+It works for only one auxiliary data in \code{DataName} at a time.
 }
 \examples{
-# Obtain a list of unique ObservationID and the corresponding axiliary data
-# of interested (e.g. "Latitude") from the provided sample data (TRYdata_15160)
-# Latitude <- rtry_select_aux(TRYdata_15160, Latitude)
+# Obtain a list of ObservationID and the corresponding auxiliary data of interest
+# (e.g. "Latitude") from the provided sample data (TRYdata_15160)
+Latitude <- rtry_select_aux(TRYdata_15160, Latitude)
 
-# Expected output:
+# Expected message:
 # dim:   98 2
 # col:   ObservationID Latitude
+}
+\references{
+This function makes use of the \code{\link[base]{subset}} and \code{\link{dplyr}{distinct}} functions
+within the \code{base} and \code{dplyr} packages respectively. It also uses the functions
+\code{\link{rtry_select_col}} and \code{\link{rtry_rm_col}}.
 }
