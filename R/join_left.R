@@ -25,7 +25,7 @@
 #'
 #' georef <- rtry_join_left(lon, lat, baseOn = ObservationID)
 #'
-#' # Expected message:
+#' # Expected messages:
 #' # dim:   97 2
 #' # col:   ObservationID Longitude
 #' #
