@@ -4,38 +4,40 @@
 \alias{rtry_join_outer}
 \title{Outer join for two data frames}
 \usage{
-rtry_join_outer(x = "", y = "", baseOn = ObservationID, showOverview = TRUE)
+rtry_join_outer(x, y, baseOn, showOverview = TRUE)
 }
 \arguments{
-\item{x}{The left data frame, imported by \code{rtry_import()} or in data table format}
+\item{x}{A data frame or data table to be coerced and will be considered as the data on the left.}
 
-\item{y}{The right data frame, imported by \code{rtry_import()} or in data table format}
+\item{y}{A data frame or data table to be coerced and will be considered as the data on the right.}
 
-\item{baseOn}{Default \code{ObservationID}, the common column used for merging}
+\item{baseOn}{The common column used for merging.}
 
-\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the data after merging}
+\item{showOverview}{Default \code{TRUE} displays the dimension and column names of the merged data.}
 }
 \value{
-A data table of the merged data
+An object of the same type of the input data. The merged data is by default lexicographically sorted
+on the common column. The columns are the common column followed by the remaining columns in
+\code{x} and then those in \code{y}.
 }
 \description{
-This function merges two data frames based on the row names of the  specified common column
-(by default: \code{ObservationID}) and returns all rows from both tables, join records from
-the left (\code{x}) which have matching keys in the right data frame (\code{y}).
-In order words, this functions performs an outer join on the two provided data frames,
-i.e. the join table will contain all records from both the tables.
+This function merges two data frames or data tables based on a specified common column and
+returns all rows from both data, join records from the left (\code{x}) which have matching
+keys in the right data frame (\code{y}). In order words, this functions performs an outer
+join on the two provided data frames, i.e. the join table will contain all records from
+both data frames or data tables.
 }
 \examples{
-# Assume user has obtained a unique list of auxiliary data (e.g. Longitude and Latitude)
-# using rtry_select_aux() and would like to merge all the georeferenced data into one data
-# table according to the identifier ObservationID, does not matter if either Longitude or
-# Latitude data is not recorded
+# Assume a user has obtained two unique data tables, one with the auxiliary data
+# Longitude and one with Latitude (e.g. using rtry_select_aux()), and would like to
+# merge two data tables into one according to the common identifier ObservationID.
+# It does not matter if either Longitude or Latitude data has no record
 lon <- rtry_select_aux(TRYdata_15160, Longitude)
 lat <- rtry_select_aux(TRYdata_15160, Latitude)
 
-georef <- rtry_join_outer(lon, lat)
+georef <- rtry_join_outer(lon, lat, baseOn = ObservationID)
 
-# Expected output:
+# Expected messages:
 # dim:   97 2
 # col:   ObservationID Longitude
 #
@@ -44,6 +46,10 @@ georef <- rtry_join_outer(lon, lat)
 #
 # dim:   98 3
 # col:   ObservationID Longitude Latitude
+}
+\references{
+This function makes use of the \code{\link[base]{merge}} function
+within the \code{base} package.
 }
 \seealso{
 \code{\link{rtry_join_left}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}

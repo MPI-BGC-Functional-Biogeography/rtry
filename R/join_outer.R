@@ -1,27 +1,32 @@
 #' Outer join for two data frames
 #'
-#' This function merges two data frames based on the row names of the  specified common column
-#' (by default: \code{ObservationID}) and returns all rows from both tables, join records from
-#' the left (\code{x}) which have matching keys in the right data frame (\code{y}).
-#' In order words, this functions performs an outer join on the two provided data frames,
-#' i.e. the join table will contain all records from both the tables.
+#' This function merges two data frames or data tables based on a specified common column and
+#' returns all rows from both data, join records from the left (\code{x}) which have matching
+#' keys in the right data frame (\code{y}). In order words, this functions performs an outer
+#' join on the two provided data frames, i.e. the join table will contain all records from
+#' both data frames or data tables.
 #'
-#' @param x The left data frame, imported by \code{rtry_import()} or in data table format
-#' @param y The right data frame, imported by \code{rtry_import()} or in data table format
-#' @param baseOn Default \code{ObservationID}, the common column used for merging
-#' @param showOverview Default \code{TRUE} displays the dimension and column names of the data after merging
-#' @return A data table of the merged data
+#' @param x A data frame or data table to be coerced and will be considered as the data on the left.
+#' @param y A data frame or data table to be coerced and will be considered as the data on the right.
+#' @param baseOn The common column used for merging.
+#' @param showOverview Default \code{TRUE} displays the dimension and column names of the merged data.
+#' @return An object of the same type of the input data. The merged data is by default lexicographically sorted
+#'         on the common column. The columns are the common column followed by the remaining columns in
+#'         \code{x} and then those in \code{y}.
+#' @references This function makes use of the \code{\link[base]{merge}} function
+#'             within the \code{base} package.
+#' @seealso \code{\link{rtry_join_left}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 #' @examples
-#' # Assume user has obtained a unique list of auxiliary data (e.g. Longitude and Latitude)
-#' # using rtry_select_aux() and would like to merge all the georeferenced data into one data
-#' # table according to the identifier ObservationID, does not matter if either Longitude or
-#' # Latitude data is not recorded
+#' # Assume a user has obtained two unique data tables, one with the auxiliary data
+#' # Longitude and one with Latitude (e.g. using rtry_select_aux()), and would like to
+#' # merge two data tables into one according to the common identifier ObservationID.
+#' # It does not matter if either Longitude or Latitude data has no record
 #' lon <- rtry_select_aux(TRYdata_15160, Longitude)
 #' lat <- rtry_select_aux(TRYdata_15160, Latitude)
 #'
-#' georef <- rtry_join_outer(lon, lat)
+#' georef <- rtry_join_outer(lon, lat, baseOn = ObservationID)
 #'
-#' # Expected output:
+#' # Expected messages:
 #' # dim:   97 2
 #' # col:   ObservationID Longitude
 #' #
@@ -30,15 +35,11 @@
 #' #
 #' # dim:   98 3
 #' # col:   ObservationID Longitude Latitude
-#' @seealso \code{\link{rtry_join_left}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 #' @export
-rtry_join_outer <- function(x = "", y = "", baseOn = ObservationID, showOverview = TRUE){
-  # Bind the variable OrigObsDataID locally to the function
-  ObservationID <- NULL
-
+rtry_join_outer <- function(x, y, baseOn, showOverview = TRUE){
   # If any of the data frame is missing, show the message
-  if(missing(x) || missing(y)){
-    message("Please specify the two data frames you would like to merge.")
+  if(missing(x) || missing(y) || missing(baseOn)){
+    message("Please specify the two data frames and/or the common attribute `baseOn` that you would like to use for merging.")
   }
   else{
     # Add quotations around the value in the baseOn argument when baseOn is not a character class
@@ -60,7 +61,7 @@ rtry_join_outer <- function(x = "", y = "", baseOn = ObservationID, showOverview
     }
     # If the baseOn column does not exist in the input data, show the message
     else{
-      message("Please make sure the column specified in 'baseOn', by default: `ObservationID`, exists in both data frames.")
+      message("Please make sure the column specified in `baseOn` exists in both data frames.")
     }
   }
 }
