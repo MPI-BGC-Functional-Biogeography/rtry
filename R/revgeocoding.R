@@ -1,26 +1,29 @@
 #' Perform reverse geocoding
 #'
 #' This function uses \href{https://wiki.openstreetmap.org/wiki/Nominatim}{Nominatim},
-#' a search engine for OpenStreetMap data, to perform reverse Geocoding,
+#' a search engine for OpenStreetMap data, to perform reverse geocoding,
 #' i.e. converting coordinates (latitudes, longitudes) into an address.
 #' The data provided by OSM is free to use for any purpose, including commercial use,
 #' and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 #'
-#' @param lat_lon A data frame consisting latitude and longitude in WGS84 projection
-#' @param email String of an email address
-#' @return A data frame that contains address
+#' @param lat_lon A data frame consisting latitude and longitude in WGS84 projection.
+#' @param email String of an email address,
+#' @return A data frame that contains address.
+#' @seealso \code{\link{rtry_geocoding}}
 #' @examples
 #' # Convert the coordinates of MPI-BGC (50.91012, 11.56674) into an address
-#' # Note: please change to your own email address when executing this function
+#' # Note: Please change to your own email address when executing this function
 #' rtry_revgeocoding(data.frame(50.91012, 11.56674),
 #'   email = "jkattge@bgc-jena.mpg.de")
 #'
-#' # Expected output:
+#' # Expected message:
 #' #               full_address town city country country_code
 #' # 1 Jena, Thuringia, Germany   NA Jena Germany           de
-#' @seealso \code{\link{rtry_geocoding}}
+#'
+#' # Learn to perform reverse geocoding to a list of coordinates via the vignette
+#' # (Workflow for geocoding using rtry): vignette("rtry-workflow-geocoding").
 #' @export
-rtry_revgeocoding <- function(lat_lon = NULL, email = NULL){
+rtry_revgeocoding <- function(lat_lon, email){
   # If the argument lat_lon is missing, show the message
   if(missing(lat_lon)){
     message("Please make sure you have entered a data frame with latitude and longitude.")
