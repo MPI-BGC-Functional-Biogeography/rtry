@@ -32,8 +32,8 @@ and the corresponding \code{ObservationID} from the imported data for further pr
 }
 \note{
 This function by default filters data based on the unique identifier \code{ObservationID}
-listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
-will not work.
+listed in the TRY data, therefore, if the column \code{ObservationID} has been removed,
+this function will not work.
 }
 \examples{
 # Within the provided sample data (TRYdata_15160) select the georeferenced traits

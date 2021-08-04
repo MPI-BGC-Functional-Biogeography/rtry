@@ -12,8 +12,8 @@
 #' @references This function makes use of the \code{\link[base]{unique}} and \code{\link{base}{subset}} functions
 #'             within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
-#' listed in the TRY data, therefore, if the column \code{ObservationID} has been removed, this function
-#' will not work.
+#'       listed in the TRY data, therefore, if the column \code{ObservationID} has been removed,
+#'       this function will not work.
 #' @examples
 #' # Within the provided sample data (TRYdata_15160) select the georeferenced traits
 #' # records together with records for Latitude and Longitude (DataID 59 and 60) and
