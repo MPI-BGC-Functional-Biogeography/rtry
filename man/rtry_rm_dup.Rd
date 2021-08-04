@@ -4,33 +4,38 @@
 \alias{rtry_rm_dup}
 \title{Remove duplicates in data}
 \usage{
-rtry_rm_dup(input = "", showOverview = TRUE)
+rtry_rm_dup(input, showOverview = TRUE)
 }
 \arguments{
-\item{input}{Input data, imported by \code{rtry_import()} or in data table format}
+\item{input}{Input data frame or data table.}
 
-\item{showOverview}{Default \code{TRUE} displays the the dimension of data table after removal}
+\item{showOverview}{Default \code{TRUE} displays the the dimension of the data after removing the duplicates.}
 }
 \value{
-A data table of the input data after removing the duplicates
+An object of the same type as the input data after removing the duplicates.
 }
 \description{
-This function identifies and removed the duplicates from the input data using the
-duplicate identifier \code{OrigObsDataID} provided within the TRY data.
-Once the function is called and executed, the number of duplicates removed
-will be displayed on the console as reference.
+This function removes the duplicates from the input data using the duplicate identifier
+\code{OrigObsDataID} provided within the TRY data. Once the function is called and executed,
+the number of duplicates removed will be displayed on the console as reference.
 }
 \note{
-This function depends on the duplicate identifier \code{OrigObsDataID} listed in the TRYdata,
-therefore, if the column \code{OrigObsDataID} has been removed, this function will not work. Also,
-if the imported TRYdata contains restricted dataset that belongs to another dataset (i.e. having an
-\code{OrigObsDataID}), these restricted data will also be removed resulting in data loss.
+This function depends on the duplicate identifier \code{OrigObsDataID} listed
+in the data exported from the TRY database, therefore, if the column \code{OrigObsDataID}
+has been removed, this function will not work. Also, if the original value of an
+indicated duplicate is a restricted value, which has not been requested from
+the TRY database (if only public data were requested), the duplicate will be
+removed and this may result in data loss.
 }
 \examples{
 # Remove the duplicates within the provided sample data (TRYdata_15160)
 data_rm_dup <- rtry_rm_dup(TRYdata_15160)
 
-# Expected output:
+# Expected message:
 # 45 duplicates removed.
 # dim:   1737 28
+}
+\references{
+This function makes use of the \code{\link[base]{subset}} function
+within the \code{base} package.
 }
