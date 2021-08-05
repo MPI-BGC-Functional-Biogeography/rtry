@@ -12,7 +12,7 @@
 #' @seealso \code{\link{rtry_select_col}}
 #' @examples
 #' # Remove certain columns from the provided sample data (TRYdata_15160)
-#' data_rm_col <- rtry_rm_col(TRYdata_15160,
+#' data_rm_col <- rtry_remove_col(TRYdata_15160,
 #'                  LastName, FirstName, DatasetID, Dataset, SpeciesName,
 #'                  OrigUncertaintyStr, UncertaintyName, Replicates,
 #'                  RelUncertaintyPercent, Reference, V28)
@@ -23,7 +23,7 @@
 #' #        DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName
 #' #        StdValue UnitName OrigObsDataID ErrorRisk Comment
 #' @export
-rtry_rm_col <- function(input, ..., showOverview = TRUE){
+rtry_remove_col <- function(input, ..., showOverview = TRUE){
   # If either of the arguments input or ... is missing, show the message
   if(missing(input) || missing(...)){
     message("Please specify the input data and/or column names you would like to remove.")
