@@ -10,7 +10,7 @@
 #' @return An object of the same type as the input data.
 #' @references This function makes use of the \code{\link[base]{subset}} and \code{\link[dplyr]{distinct}} functions
 #'             within the \code{base} and \code{dplyr} packages respectively. It also uses the functions
-#'             \code{\link{rtry_select_col}} and \code{\link{rtry_rm_col}}.
+#'             \code{\link{rtry_select_col}} and \code{\link{rtry_remove_col}}.
 #' @examples
 #' # Obtain a list of ObservationID and the corresponding auxiliary data of interest
 #' # (e.g. "Latitude") from the provided sample data (TRYdata_15160)
@@ -44,7 +44,7 @@ rtry_select_aux <- function(input, name, showOverview = TRUE){
     colnames(input)[which(names(input) == "StdValue")] <- aux_name
 
     # Delete the column DataName now that it is redundant
-    input <- rtry_rm_col(input, DataName, showOverview = FALSE)
+    input <- rtry_remove_col(input, DataName, showOverview = FALSE)
 
     # Select only the unique rows from the input data frame
     input <- dplyr::distinct(input, ObservationID, .keep_all = TRUE)

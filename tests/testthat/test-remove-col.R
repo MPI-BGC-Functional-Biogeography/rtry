@@ -1,8 +1,8 @@
-context("Remove data columns (rtry_rm_col)")
+context("Remove data columns (rtry_remove_col)")
 
 
 test_that("basic test", {
-  df <- rtry_rm_col(TRYdata_15160,
+  df <- rtry_remove_col(TRYdata_15160,
           LastName, FirstName, DatasetID, Dataset, SpeciesName,
           OrigUncertaintyStr, UncertaintyName, Replicates,
           RelUncertaintyPercent, Reference, V28)
@@ -17,10 +17,10 @@ test_that("basic test", {
 })
 
 
-test_that("rtry_rm_col handles empty or missing argument", {
+test_that("rtry_remove_col handles empty or missing argument", {
   message = "Please specify the input data and/or column names you would like to remove."
 
-  expect_message(rtry_rm_col(), message)
-  expect_message(rtry_rm_col(input = input), message)
-  expect_message(rtry_rm_col(... = col_names), message)
+  expect_message(rtry_remove_col(), message)
+  expect_message(rtry_remove_col(input = input), message)
+  expect_message(rtry_remove_col(... = col_names), message)
 })

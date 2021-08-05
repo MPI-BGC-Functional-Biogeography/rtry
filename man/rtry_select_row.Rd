@@ -19,7 +19,7 @@ rtry_select_row(
 
 \item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.}
 
-\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_rm_dup}}.}
+\item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_remove_dup}}.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension of the data after row selection.}
 }
@@ -50,5 +50,5 @@ data_selected <- rtry_select_row(TRYdata_15160,
 }
 \references{
 This function makes use of the \code{\link[base]{unique}} and \code{\link[base]{subset}} functions
-within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
+within the \code{base} package. It also uses the function \code{\link{rtry_remove_dup}}.
 }

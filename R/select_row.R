@@ -6,11 +6,11 @@
 #' @param input Input data frame or data table.
 #' @param \dots Criteria for row selection.
 #' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.
-#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_rm_dup}}.
+#' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_remove_dup}}.
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection.
 #' @return An object of the same type as the input data.
 #' @references This function makes use of the \code{\link[base]{unique}} and \code{\link[base]{subset}} functions
-#'             within the \code{base} package. It also uses the function \code{\link{rtry_rm_dup}}.
+#'             within the \code{base} package. It also uses the function \code{\link{rtry_remove_dup}}.
 #' @note This function by default filters data based on the unique identifier \code{ObservationID}
 #'       listed in the TRY data, therefore, if the column \code{ObservationID} has been removed,
 #'       this function will not work.
@@ -47,9 +47,9 @@ rtry_select_row <- function(input, ..., getAuxiliary = FALSE, rmDuplicates = FAL
     }
 
     # If the argument rmDuplicates is set to be TRUE
-    # Call the rtry_rm_dup functions to remove duplicates within the selected data
+    # Call the rtry_remove_dup function to remove duplicates within the selected data
     if(rmDuplicates == TRUE){
-      selectedRows <- rtry_rm_dup(selectedRows, showOverview = FALSE)
+      selectedRows <- rtry_remove_dup(selectedRows, showOverview = FALSE)
     }
 
     # If the argument showOverview is set to be TRUE, print the dimension of the selected data

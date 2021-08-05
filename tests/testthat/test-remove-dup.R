@@ -1,8 +1,8 @@
-context("Remove duplicates (rtry_rm_dup)")
+context("Remove duplicates (rtry_remove_dup)")
 
 
 test_that("basic test", {
-  df_rm <- rtry_rm_dup(TRYdata_15160)
+  df_rm <- rtry_remove_dup(TRYdata_15160)
 
   expect_equal(class(df_rm), c("data.table", "data.frame"))
   expect_equal(ncol(df_rm), 28)
@@ -17,17 +17,17 @@ test_that("basic test", {
 })
 
 
-test_that("rtry_rm_dup handles data without the column 'OrigObsDataID'", {
+test_that("rtry_remove_dup handles data without the column 'OrigObsDataID'", {
   message = "Please make sure the column 'OrigObsDataID' exists in the input data."
 
   df <- data.frame(x = c(0, 2, 0, 1, 4, 0, 1), value = 1:7)
 
-  expect_message(rtry_rm_dup(df), message)
+  expect_message(rtry_remove_dup(df), message)
 })
 
 
-test_that("rtry_rm_dup handles empty argument", {
+test_that("rtry_remove_dup handles empty argument", {
   message = "Please specify the input data for removing duplicates."
 
-  expect_message(rtry_rm_dup(), message)
+  expect_message(rtry_remove_dup(), message)
 })

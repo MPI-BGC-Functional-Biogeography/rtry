@@ -38,5 +38,5 @@ This function makes use of the \code{\link[dplyr]{select}} function
 within the \code{dplyr} package.
 }
 \seealso{
-\code{\link{rtry_rm_col}}
+\code{\link{rtry_remove_col}}
 }

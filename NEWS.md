@@ -7,6 +7,8 @@ This is the first public released of the package `rtry`.
 - Updated function documentation and the corresponding examples
 - Removed unnecessary default values of the function arguments
 - Deleted `rtry_filter_keyword()`
+- Renamed `rtry_rm_col()` into `rtry_remove_col()`
+- Renamed `rtry_rm_dup()` into `rtry_remove_dup()`
 - Renamed `rtry_merge_col()` into `rtry_join_left()`
 - Renamed `rtry_merge_row()` into `rtry_join_outer()`
 

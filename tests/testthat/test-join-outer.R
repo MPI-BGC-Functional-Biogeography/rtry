@@ -18,7 +18,7 @@ test_that("rtry_join_outer handles missing specified common column", {
   lon <- rtry_select_aux(TRYdata_15160, Longitude)
   lat <- rtry_select_aux(TRYdata_15160, Latitude)
 
-  lat <- rtry_rm_col(lat, ObservationID)
+  lat <- rtry_remove_col(lat, ObservationID)
 
   expect_message(rtry_join_outer(lon, lat, baseOn = ObservationID), message)
 })
