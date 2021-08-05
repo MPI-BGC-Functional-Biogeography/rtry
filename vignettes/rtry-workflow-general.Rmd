@@ -1,6 +1,10 @@
 ---
 title: "Workflow for general data preprocessing using rtry"
 output:
+  # word_document:
+  #   toc: true
+  #   number_sections: true
+  #   toc_depth: 3
   rmarkdown::html_vignette:
     toc: true
     number_sections: true
