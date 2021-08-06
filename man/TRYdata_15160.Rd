@@ -34,7 +34,7 @@ A data frame with 1782 rows and 28 variables:
 \item{ErrorRisk}{Indication for outliers: distance to mean in standard deviations.}
 \item{Reference}{Reference to be cited if trait record is used in analysis.}
 \item{Comment}{Explanation for the \code{OriglName} in the contributed dataset.}
-\item{V28}{Empty, an artefact due to the different software (MySQL >> R).}
+\item{V28}{Empty, an artifact due to different interpretation of column separator by MySQL and R.}
 }
 }
 \usage{
