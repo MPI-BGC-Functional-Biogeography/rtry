@@ -443,7 +443,7 @@ Note: All `rtry` sample datasets in their raw data format are in the package fol
 
 # Data license
 
-The `rtry` package is distributed under the CC BY 4.0 license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Despite the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the ODbL (https://wiki.osmfoundation.org/wiki/Licence).
+The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Despite the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
 
 <br>
 
