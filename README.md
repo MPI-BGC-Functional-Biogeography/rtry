@@ -112,31 +112,44 @@ library(rtry)
 TRYdata1 <- rtry_import(system.file("testdata", "TRYdata_15160.txt", package = "rtry"))
 
 # Explore the imported data
-# Group the input data based on AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID and TraitName, and sort by TraitID
+# Group the input data based on AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID and TraitName, and
+# sort by TraitID
 # Note: For TraitID == "NA", meaning that entry is an auxiliary data
-TRYdata1_explore_aux <- rtry_explore(TRYdata1, AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
+TRYdata1_explore_aux <- rtry_explore(TRYdata1,
+                          AccSpeciesID, AccSpeciesName, DataID, DataName,
+                          TraitID, TraitName,
+                          sortBy = TraitID)
 View(TRYdata1_explore_aux)
 
-# In the sample dataset, different trait measurements on the same entity (plant) and the corresponding auxiliary data are combined to observation via the ObservationID
+# In the sample dataset, different trait measurements on the same entity (plant) and
+# the corresponding auxiliary data are combined to observation via the ObservationID
 # For details, see Kattge et al. 2011 GCB
 # Filter (remove) observations of juvenile plants or saplings
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
 tmp_unfiltered <- rtry_select_row(TRYdata1, DataID %in% 413)
-tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered,
+                    DataID, DataName, OriglName, OrigValueStr, OrigUnitStr,
+                    StdValue, Comment,
+                    sortBy = OrigValueStr)
 View(tmp_unfiltered)
 
 # Criteria
 # 1. DataID equals to 413
 # 2. OrigValueStr equals to "juvenile" or "saplings"
-TRYdata1 <- rtry_filter(TRYdata1, (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "saplings")), baseOn = ObservationID)
+TRYdata1 <- rtry_filter(TRYdata1,
+              (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "saplings")),
+              baseOn = ObservationID)
 View(TRYdata1)
 
 # Double check the workdata to ensure the filtering worked as expected
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
 tmp_filtered <- rtry_select_row(TRYdata1, DataID %in% 413)
-tmp_filtered <- rtry_explore(tmp_filtered, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
+tmp_filtered <- rtry_explore(tmp_filtered,
+                  DataID, DataName, OriglName, OrigValueStr, OrigUnitStr,
+                  StdValue, Comment,
+                  sortBy = OrigValueStr)
 View(tmp_filtered)
 ```
 
@@ -147,7 +160,7 @@ Additional vignettes provide a detailed introduction to `rtry` and examples work
 -   The general workflow (rtry-workflow-general)
 -   An example workflow setup to demonstrate how to use the `rtry` package to preprocess of the data exported from the TRY database
     -   Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, filtering specific data and removing duplicates, and finally exporting the preprocess data
-    
+
 -   Perform (reverse) geocoding (rtry-workflow-geocoding)
 
     -   An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on the TRY data
@@ -157,3 +170,10 @@ Additional vignettes provide a detailed introduction to `rtry` and examples work
 vignette("<name_of_vignette>")
 ```
 
+<br>
+
+# Data license
+
+The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Despite the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
+
+<br>
