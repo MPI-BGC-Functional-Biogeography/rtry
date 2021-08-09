@@ -103,7 +103,7 @@ The `rtry` package provides a set of easily applicable functions to facilitate t
 
 <br>
 
-## Source of `rtry`
+## Sources of `rtry`
 
 There are three sources where users can download the `rtry` package and the relevant documentation.
 
@@ -388,7 +388,7 @@ View(rtry_import)
 
 ## Handling of data within `rtry`
 
-Within `rtry`, data are stored and used as tables (frames) with features fulfilling the requirements of both classes in R: `data.table` and `data.frame`. The `rtry_import` function stores data in data format consistent with both classes `data.table` and `data.frame`. Functions used for pre-processing can use both formats as input format and they do not change the format for output. Only the output of the functions `rtry_explore`, `rtry_trans_wider`, `rtry_geocoding` and `rtry_revgeocoding` is of format `data.frame` only.
+Within `rtry`, data are stored and used as tables (frames) with features fulfilling the requirements of both classes in R: `data.table` and `data.frame`. The `rtry_import` function stores data in data format consistent with both classes `data.table` and `data.frame`. Functions used for preprocessing can use both formats as input format and they do not change the format for output. Only the output of the functions `rtry_explore`, `rtry_trans_wider`, `rtry_geocoding` and `rtry_revgeocoding` is of format `data.frame` only.
 
 <br>
 
