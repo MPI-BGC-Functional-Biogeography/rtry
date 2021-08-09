@@ -1,6 +1,7 @@
 #' Sample locations data
 #'
 #' A dataset containing 20 location information.
+#' The raw dataset (\code{locations.csv}) is also provided in the directory \code{testdata}.
 #'
 #' @format A data frame with 20 rows and 3 variables:
 #' \describe{

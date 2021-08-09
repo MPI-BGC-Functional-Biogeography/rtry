@@ -17,5 +17,6 @@ locations
 }
 \description{
 A dataset containing 20 location information.
+The raw dataset (\code{locations.csv}) is also provided in the directory \code{testdata}.
 }
 \keyword{datasets}

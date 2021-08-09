@@ -44,5 +44,6 @@ TRYdata_15161
 A dataset requested from the \href{https://www.try-db.org/TryWeb/Prop0.php}{TRY Database}.
 The request ID of this dataset is 15161, which contains \code{TraitID}: 3117
 and \code{AccSpeciesID}: 10773, 35846, 45737.
+The raw dataset (\code{TRYdata_15161.txt}) is also provided in the directory \code{testdata}.
 }
 \keyword{datasets}
