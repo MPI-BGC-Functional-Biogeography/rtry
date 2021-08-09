@@ -26,9 +26,9 @@ Authors@R: c(
         email = "jkattge@bgc-jena.mpg.de", 
         role = c("aut"), 
         comment = c(ORCID = "0000-0002-1022-8469")), 
-    person(given = "Max Planck Institute for Biogeochemistry", 
+    person(given = "Fellowship Group Functional Biogeography at MPI-BGC, Jena, Germany", 
         role = c("cph")))
-Description: A package to support the application of plant trait data providing easy applicable functions 
+Description: Designed to support the application of plant trait data providing easy applicable functions 
     for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns 
     and rows, filtering trait data according to different attributes, geocoding, long- to wide-table 
     transformation, and data export. rtry was initially developed as part of the TRY R project to 
