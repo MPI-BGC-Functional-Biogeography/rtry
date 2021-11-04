@@ -14,7 +14,7 @@
 #' # Convert the coordinates of MPI-BGC (50.91012, 11.56674) into an address
 #' # Note: Please change to your own email address when executing this function
 #' rtry_revgeocoding(data.frame(50.91012, 11.56674),
-#'   email = "jkattge@bgc-jena.mpg.de")
+#'   email = "john.doe@example.com")
 #'
 #' # Expected message:
 #' #               full_address town city country country_code

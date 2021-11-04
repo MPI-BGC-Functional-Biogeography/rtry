@@ -5,7 +5,7 @@ test_that("basic test", {
   input_coordinate <- head(coordinates, 1)
   input_lat_lon <- data.frame(lat = input_coordinate$Latitude, lon = input_coordinate$Longitude)
 
-  output <- rtry_revgeocoding(input_lat_lon, "jens.kattge@bgc-jena.mpg.de")
+  output <- rtry_revgeocoding(input_lat_lon, "john.doe@example.com")
   output_address <- paste(ifelse(!is.na(output$town), output$town, output$city), output$country, sep = ", ")
 
   expect_equal(class(output), "data.frame")

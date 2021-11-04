@@ -26,7 +26,7 @@ and is governed by the distribution license \href{https://wiki.osmfoundation.org
 # into coordinates in latitudes and longitudes
 # Note: Please change to your own email address when executing this function
 rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany",
-   email = "jkattge@bgc-jena.mpg.de")
+   email = "john.doe@example.com")
 
 # Expected message:
 #        lat      lon
