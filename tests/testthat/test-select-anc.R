@@ -20,7 +20,7 @@ test_that("basic test", {
 
 
 test_that("rtry_select_anc handles empty or missing argument", {
-  message = "Please specify the input data and/or the name of ancillary data you would like to select."
+  message = "Please specify the input data and/or the id of ancillary data you would like to select."
 
   expect_message(rtry_select_anc(), message)
   expect_message(rtry_select_anc(input = input), message)
