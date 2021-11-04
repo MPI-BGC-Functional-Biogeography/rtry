@@ -7,7 +7,7 @@
 rtry_select_row(
   input,
   ...,
-  getAuxiliary = FALSE,
+  getAncillary = FALSE,
   rmDuplicates = FALSE,
   showOverview = TRUE
 )
@@ -17,7 +17,7 @@ rtry_select_row(
 
 \item{\dots}{Criteria for row selection.}
 
-\item{getAuxiliary}{Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.}
+\item{getAncillary}{Default \code{FALSE}, set to \code{TRUE} selects all ancillary data based on the row selection criteria.}
 
 \item{rmDuplicates}{Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_remove_dup}}.}
 
@@ -41,7 +41,7 @@ this function will not work.
 # exclude duplicate trait records
 data_selected <- rtry_select_row(TRYdata_15160,
                    (TraitID > 0) | (DataID \%in\% c(59, 60)),
-                   getAuxiliary = TRUE,
+                   getAncillary = TRUE,
                    rmDuplicates = TRUE)
 
 # Expected message:

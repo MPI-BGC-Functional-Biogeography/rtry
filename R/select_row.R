@@ -5,7 +5,7 @@
 #'
 #' @param input Input data frame or data table.
 #' @param \dots Criteria for row selection.
-#' @param getAuxiliary Default \code{FALSE}, set to \code{TRUE} selects all auxiliary data based on the row selection criteria.
+#' @param getAncillary Default \code{FALSE}, set to \code{TRUE} selects all ancillary data based on the row selection criteria.
 #' @param rmDuplicates Default \code{FALSE}, set to \code{TRUE} calls the function \code{\link{rtry_remove_dup}}.
 #' @param showOverview Default \code{TRUE} displays the dimension of the data after row selection.
 #' @return An object of the same type as the input data.
@@ -20,14 +20,14 @@
 #' # exclude duplicate trait records
 #' data_selected <- rtry_select_row(TRYdata_15160,
 #'                    (TraitID > 0) | (DataID %in% c(59, 60)),
-#'                    getAuxiliary = TRUE,
+#'                    getAncillary = TRUE,
 #'                    rmDuplicates = TRUE)
 #'
 #' # Expected message:
 #' # 45 duplicates removed.
 #' # dim:   1737 28
 #' @export
-rtry_select_row <- function(input, ..., getAuxiliary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
+rtry_select_row <- function(input, ..., getAncillary = FALSE, rmDuplicates = FALSE, showOverview = TRUE){
   # Bind the variable ObservationID locally to the function
   ObservationID <- NULL
 
@@ -39,11 +39,11 @@ rtry_select_row <- function(input, ..., getAuxiliary = FALSE, rmDuplicates = FAL
     # Select all the rows that fit the criteria within the input data
     selectedRows <- subset(input, ...)
 
-    # If the argument getAuxiliary is set to be TRUE, obtain a list of unique ObservationID from the selected rows
+    # If the argument getAncillary is set to be TRUE, obtain a list of unique ObservationID from the selected rows
     # Select all the rows that have the listed ObservationID
-    if(getAuxiliary == TRUE){
-      auxiliary <- unique(selectedRows$ObservationID)
-      selectedRows <- subset(input, ObservationID %in% auxiliary)
+    if(getAncillary == TRUE){
+      ancillary <- unique(selectedRows$ObservationID)
+      selectedRows <- subset(input, ObservationID %in% ancillary)
     }
 
     # If the argument rmDuplicates is set to be TRUE

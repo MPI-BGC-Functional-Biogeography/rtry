@@ -2,8 +2,8 @@ context("Merge two data frames - left join (rtry_join_left)")
 
 
 test_that("basic test", {
-  lon <- rtry_select_aux(TRYdata_15160, Longitude)
-  lat <- rtry_select_aux(TRYdata_15160, Latitude)
+  lon <- rtry_select_anc(TRYdata_15160, Longitude)
+  lat <- rtry_select_anc(TRYdata_15160, Latitude)
 
   georef <- rtry_join_left(lon, lat, baseOn = ObservationID)
 
@@ -15,8 +15,8 @@ test_that("basic test", {
 test_that("rtry_join_left handles missing specified common column", {
   message = "Please make sure the column specified in `baseOn` exists in both data frames."
 
-  lon <- rtry_select_aux(TRYdata_15160, Longitude)
-  lat <- rtry_select_aux(TRYdata_15160, Latitude)
+  lon <- rtry_select_anc(TRYdata_15160, Longitude)
+  lat <- rtry_select_anc(TRYdata_15160, Latitude)
 
   lat <- rtry_remove_col(lat, ObservationID)
 
