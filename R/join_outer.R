@@ -17,12 +17,12 @@
 #'             within the \code{base} package.
 #' @seealso \code{\link{rtry_join_left}}, \code{\link{rtry_bind_col}}, \code{\link{rtry_bind_row}}
 #' @examples
-#' # Assume a user has obtained two unique data tables, one with the auxiliary data
-#' # Longitude and one with Latitude (e.g. using rtry_select_aux()), and would like to
+#' # Assume a user has obtained two unique data tables, one with the ancillary data
+#' # Longitude and one with Latitude (e.g. using rtry_select_anc()), and would like to
 #' # merge two data tables into one according to the common identifier ObservationID.
 #' # It does not matter if either Longitude or Latitude data has no record
-#' lon <- rtry_select_aux(TRYdata_15160, Longitude)
-#' lat <- rtry_select_aux(TRYdata_15160, Latitude)
+#' lon <- rtry_select_anc(TRYdata_15160, Longitude)
+#' lat <- rtry_select_anc(TRYdata_15160, Latitude)
 #'
 #' georef <- rtry_join_outer(lon, lat, baseOn = ObservationID)
 #'

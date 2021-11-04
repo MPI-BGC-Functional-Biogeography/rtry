@@ -28,12 +28,12 @@ that does not exist in the left data frame. In other words, this function perfor
 on the two provided data frames or data tables.
 }
 \examples{
-# Assume a user has obtained two unique data tables, one with the auxiliary data
-# Longitude and one with Latitude (e.g. using rtry_select_aux()), and would like to
+# Assume a user has obtained two unique data tables, one with the ancillary data
+# Longitude and one with Latitude (e.g. using rtry_select_anc()), and would like to
 # add a column Latitude to the data table with Longitude based on the common
 # identifier ObservationID
-lon <- rtry_select_aux(TRYdata_15160, Longitude)
-lat <- rtry_select_aux(TRYdata_15160, Latitude)
+lon <- rtry_select_anc(TRYdata_15160, Longitude)
+lat <- rtry_select_anc(TRYdata_15160, Latitude)
 
 georef <- rtry_join_left(lon, lat, baseOn = ObservationID)
 
