@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-***
+------------------------------------------------------------------------
 
 This vignette is intended to demonstrate how to use the `rtry` package to preprocess data exported from the TRY database, from importing and exploring the data to binding multiple datasets, to selecting, excluding specific data using user-defined criteria and removing duplicates, and finally exporting the preprocessed data.
 
@@ -36,12 +36,12 @@ Apart from this vignette that comes along with the `rtry` package without additi
 
 Similarly, the sample data required to try out this example workflow are not only provided within the `rtry` package, but also inside the `examples/input` directory on the MPI-BGC Nextcloud. In order to follow the workflow smoothly, make sure the R script is placed inside the folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory from the Nextcloud.
 
-- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
-- Password: `mpi-bgc-rtry`
+-   Link: <https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae>
+-   Password: `mpi-bgc-rtry`
 
 To start, set the working directory to the location where the `examples` directory is located:
 
-```R
+``` {.r}
 # Set the working directory
 setwd("<path_to_rtry_examples_dir>")
 
@@ -53,7 +53,7 @@ Note: The character `\` is used as escape character in R to give the following c
 
 Load the required packages using the commands:
 
-```R
+``` {.r}
 # Load the rtry package
 library(rtry)
 
@@ -67,11 +67,11 @@ packageVersion("rtry")
 
 The `rtry_import()` takes five arguments `input`, `separator`, `encoding`, `quote` and `showOverview`, and returns a data table that contains the entire dataset. Since the function by default imports the text file exported from the TRY database for further processing, to import the TRY data (e.g. `data_TRY_15160.txt`), simply type the following:
 
-```R
+``` {.r}
 TRYdata1 <- rtry_import("input/data_TRY_15160.txt")
 ```
 
-```R
+``` {.r}
 ## input: input/data_TRY_15160.txt
 ## dim:   1782 28
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28
@@ -79,25 +79,25 @@ TRYdata1 <- rtry_import("input/data_TRY_15160.txt")
 
 Once the data has been imported, there are two ways to view the imported data (in this case `TRYdata1`).
 
-**Method 1: ** Print the first 5 rows of the `TRYdata1` using the command:
+**Method 1:** Print the first 5 rows of the `TRYdata1` using the command:
 
-```R
+``` {.r}
 head(TRYdata1)
 ```
 
-**Method 2: ** View the entire `TRYdata1`, use the following command and the data viewer will be prompted:
+**Method 2:** View the entire `TRYdata1`, use the following command and the data viewer (only available in RStudio) will be prompted:
 
-```R
+``` {.r}
 View(TRYdata1)
 ```
 
 Import another TRY dataset:
 
-```R
+``` {.r}
 TRYdata2 <- rtry_import("input/data_TRY_15161.txt")
 ```
 
-```R
+``` {.r}
 ## input: input/data_TRY_15161.txt
 ## dim:   4627 28
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28
@@ -105,11 +105,11 @@ TRYdata2 <- rtry_import("input/data_TRY_15161.txt")
 
 Again to view the imported data, use either of the following commands:
 
-```R
+``` {.r}
 head(TRYdata2)
 ```
 
-```R
+``` {.r}
 View(TRYdata2)
 ```
 
@@ -121,55 +121,55 @@ The `rtry_explore()` takes four arguments `input`, `...`, `sortBy` and `showOver
 
 To explore the data `TRYdata1` based on the `TraitID` and `TraitName`, use the following:
 
-```R
+``` {.r}
 TRYdata1_explore_trait <- rtry_explore(TRYdata1, TraitID, TraitName)
 ```
 
-```R
+``` {.r}
 ## dim:   3 3
 ```
 
 View the output data using the command:
 
-```R
+``` {.r}
 View(TRYdata1_explore_trait)
 ```
 
 With this, it is clear that the `TRYdata1` only includes data with two `TraitID` (3115 and 3116). And that within this dataset, there are 1632 ancillary data, i.e. the entries where `TraitID` is `NA`.
 
-![workflow_general_explore_traits_01](workflow_general_explore_traits_TRYdata1.png){width=80%}
+![workflow_general_explore_traits_TRYdata1](workflow_general_explore_traits_TRYdata1.png){width="80%"}
 
 Next, further exploration of `TRYdata1` can be done based on the `AccSpeciesID`, `AccSpeciesName`, `TraitID` and `TraitName`.
 
-```R
+``` {.r}
 TRYdata1_explore_species <- rtry_explore(TRYdata1, AccSpeciesID, AccSpeciesName, TraitID, TraitName)
 ```
 
-```R
+``` {.r}
 ## dim:   9 5
 ```
 
-```R
+``` {.r}
 View(TRYdata1_explore_species)
 ```
 
 Since the output is, by default, sorted by `AccSpeciesID`, it can be seen that the `TRYdata1` only contains three consolidated species (with `AccSpeciesID` equals 10773, 35846 and 45737). Each consolidated species has records where the `TraitID` equals 3115 and 3116, as well as the corresponding ancillary data.
 
-![workflow_general_explore_species_01](workflow_general_explore_species_TRYdata1.png){width=100%}
+![workflow_general_explore_species_TRYdata1](workflow_general_explore_species_TRYdata1.png){width="100%"}
 
 After reassuring the data contains the necessary traits and species, for the purpose of preprocessing, it is also necessary to understand what ancillary data is provided within the dataset. To do so, explore the `TRYdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. This time, this exploration can be sorted by `TraitID`, this way it is possible to see if there are similar data in each trait.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID and TraitName
 # and sort the output by TraitID using the sortBy argument
 TRYdata1_explore_anc <- rtry_explore(TRYdata1, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   156 5
 ```
 
-```R
+``` {.r}
 View(TRYdata1_explore_anc)
 ```
 
@@ -177,11 +177,11 @@ With this exploration and the way it is sorted, it is clear that in the `TRYdata
 
 For example, in the case of `TraitID` 3115, it can be seen that `DataID` 7222 and 7223 contains the extreme values (min or max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further preprocessing is performed.
 
-![workflow_general_explore_anc_TRYdata1](workflow_general_explore_anc_TRYdata1.png){width=100%}
+![workflow_general_explore_anc_TRYdata1](workflow_general_explore_anc_TRYdata1.png){width="100%"}
 
 A similar procedure can be performed on the other TRY data (`TRYdata2`).
 
-```R
+``` {.r}
 # Group the input data based on TraitID and TraitName
 TRYdata2_explore_trait <- rtry_explore(TRYdata2, TraitID, TraitName)
 
@@ -194,7 +194,7 @@ TRYdata2_explore_species <- rtry_explore(TRYdata2, AccSpeciesID, AccSpeciesName,
 TRYdata2_explore_anc <- rtry_explore(TRYdata2, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   2 3
 ## dim:   6 5
 ## dim:   236 5
@@ -202,11 +202,11 @@ TRYdata2_explore_anc <- rtry_explore(TRYdata2, DataID, DataName, TraitID, TraitN
 
 Then use either `head()` or `View()` function to view the data.
 
-Via the `View(TRYdata2_explore_anc)` function, it can be seen that in the `TRYdata2`:  (1) there is only one trait, with the `TraitID` equals to 3117; (2) what types of ancillary data could be found with the list of `DataID` and `DataName`; and (3) within this trait, whether or not similar data exists.
+Via the `View(TRYdata2_explore_anc)` function, it can be seen that in the `TRYdata2`: (1) there is only one trait, with the `TraitID` equals to 3117; (2) what types of ancillary data could be found with the list of `DataID` and `DataName`; and (3) within this trait, whether or not similar data exists.
 
 Here, it is clear that `DataID` 6584 and 6598 share very similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and the user might want to have this information in mind before further preprocessing.
 
-![workflow_general_explore_anc](workflow_general_explore_anc_TRYdata2.png){width=100%}
+![workflow_general_explore_anc](workflow_general_explore_anc_TRYdata2.png){width="100%"}
 
 <br>
 
@@ -216,20 +216,20 @@ The `rtry_bind_row()` function takes two arguments `...` and `showOverview`. It 
 
 With the two TRY data `TRYdata1` and `TRYdata2` already imported, it is possible to combine the two data into one (`TRYdata`):
 
-```R
+``` {.r}
 TRYdata <- rtry_bind_row(TRYdata1, TRYdata2)
 ```
 
-```R
+``` {.r}
 ## dim:   6409 28
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28
 ```
 
 From the dimension, it can be seen that now the two imported data have been combined together by rows, with `TRYdata1` on top then followed by `TRYdata2`, and a new data `TRYdata` has been created.
 
-Now this combined data `TRYdata` can be explored using once again  `rtry_explore()`.
+Now this combined data `TRYdata` can be explored using once again `rtry_explore()`.
 
-```R
+``` {.r}
 # Group the input data based on TraitID and TraitName
 TRYdata_explore_trait <- rtry_explore(TRYdata, TraitID, TraitName)
 
@@ -242,7 +242,7 @@ TRYdata_explore_species <- rtry_explore(TRYdata, AccSpeciesID, AccSpeciesName, T
 TRYdata_explore_anc <- rtry_explore(TRYdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   4 3
 ## dim:   12 5
 ## dim:   331 5
@@ -260,17 +260,17 @@ Note: To ensure that the later preprocessing steps (such as data selection and d
 
 The `rtry_select_col()` takes three arguments `input`, `...` and `showOverview` in order to select specified columns from the imported data.
 
-The `rtry_remove_col()` takes also three arguments  `input`, `...` and `showOverview` to remove the specified columns from the input data instead.
+The `rtry_remove_col()` takes also three arguments `input`, `...` and `showOverview` to remove the specified columns from the input data instead.
 
 It is completely up to the users to decide which function they prefer in retrieving the relevant columns of the data.
 
 In general, it would be easier to use the `rtry_remove_col()` when user would like to keep most of the columns and remove only a small fraction of the data column, such as `V28`.
 
-```R
+``` {.r}
 workdata <- rtry_remove_col(TRYdata, V28)
 ```
 
-```R
+``` {.r}
 ## dim:   6409 27
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment
 ```
@@ -279,11 +279,11 @@ From the feedback, it can be seen that only the column `V28` has been removed, t
 
 On the other hand, if users are clear which columns they would like to keep, a more direct approach is, of course, the use of `rtry_select_col()`:
 
-```R
+``` {.r}
 workdata <- rtry_select_col(workdata, ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName, TraitID, TraitName, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID, ErrorRisk, Comment)
 ```
 
-```R
+``` {.r}
 ## dim:   6409 17
 ## col:   ObsDataID ObservationID AccSpeciesID AccSpeciesName ValueKindName TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr StdValue UnitName OrigObsDataID ErrorRisk Comment
 ```
@@ -300,11 +300,11 @@ For our example we will select all trait records, but only relevant ancillary da
 
 First identify relevant ancillary data using the `rtry_explore` function.
 
-```R
+``` {.r}
 workdata_explore_anc <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   331 5
 ```
 
@@ -312,22 +312,22 @@ To view the data, use either `head()` or `View()`.
 
 We retrieve six `DataID`s with trait records and 325 `DataID`s with ancillary information. For further data preprocessing we decide to select the following `DataID`s to contain relevant information:
 
-- 59 Latitude
-- 60 Longitude
-- 61 Altitude
-- 6601 Sampling date
-- 327 Exposition
-- 413 Plant developmental status / plant age / maturity / plant life stage
-- 1961 Health status of plants (vitality)
-- 113 Reference / source
+-   59 Latitude
+-   60 Longitude
+-   61 Altitude
+-   6601 Sampling date
+-   327 Exposition
+-   413 Plant developmental status / plant age / maturity / plant life stage
+-   1961 Health status of plants (vitality)
+-   113 Reference / source
 
 To select all trait records and only the ancillary data of interest:
 
-```R
+``` {.r}
 workdata <- rtry_select_row(workdata, TraitID > 0 | DataID %in% c(59, 60, 61, 6601, 327, 413, 1961, 113))
 ```
 
-```R
+``` {.r}
 ## dim:   1017 17
 ```
 
@@ -335,26 +335,26 @@ To view the data, use either `head()` or `View()`.
 
 In order to better understand the data, inside the data viewer (only available via RStudio), click on the column `ObservationID` to sort the dataset. This way, it can be seen that for example:
 
-1. For `ObservationID` 94068, there are two `ObsDataID` 1021243 and 1021245 with the first one belonging to the `TraitID` 3115 and the latter an ancillary data. Looking deeper into the `DataID` and `DataName`, we can see that this data "SLA: petiole excluded" is measured within "growth chambers", and could be eliminated later on depending on the research question.
-2. For `ObservationID` 158137, we can see there are four ancillary data with the `DataID` 59, 60, 61 and 413. Looking further into the `ErrorRisk` of the data "SLA: petiole excluded", which is roughly 2.5, meaning the observation is 2.5 standard deviation away from the mean. This is probably a "good" value that we would want to keep later. On top of this, it can be seen that the `OrigObsDataID` is `NA`, meaning that it is not a duplicate. Also, the "Plant developmental status" (`DataID` 413) could be an important information for further processing.
+1.  For `ObservationID` 94068, there are two `ObsDataID` 1021243 and 1021245 with the first one belonging to the `TraitID` 3115 and the latter an ancillary data. Looking deeper into the `DataID` and `DataName`, we can see that this data "SLA: petiole excluded" is measured within "growth chambers", and could be eliminated later on depending on the research question.
+2.  For `ObservationID` 158137, we can see there are four ancillary data with the `DataID` 59, 60, 61 and 413. Looking further into the `ErrorRisk` of the data "SLA: petiole excluded", which is roughly 2.5, meaning the observation is 2.5 standard deviation away from the mean. This is probably a "good" value that we would want to keep later. On top of this, it can be seen that the `OrigObsDataID` is `NA`, meaning that it is not a duplicate. Also, the "Plant developmental status" (`DataID` 413) could be an important information for further processing.
 
-![workflow_general_select_row_workdata](workflow_general_select_row_workdata_01.png){width=100%}
+![workflow_general_select_row_workdata](workflow_general_select_row_workdata_01.png){width="100%"}
 
-![workflow_general_select_row_workdata](workflow_general_select_row_workdata_02.png){width=100%}
+![workflow_general_select_row_workdata](workflow_general_select_row_workdata_02.png){width="100%"}
 
 To check if the required data are selected, the `rtry_explore()` can be used:
 
-```R
+``` {.r}
 workdata_explore_anc <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   14 5
 ```
 
 Then use the command `View(workdata_explore_anc)` to view the output in the data viewer.
 
-![workflow_general_explore_anc_workdata](workflow_general_explore_anc_workdata.png){width=100%}
+![workflow_general_explore_anc_workdata](workflow_general_explore_anc_workdata.png){width="100%"}
 
 <br>
 
@@ -362,14 +362,14 @@ Then use the command `View(workdata_explore_anc)` to view the output in the data
 
 It is recommended to backup the data at some stages of the preprocessing, best before excluding according to different attributes.
 
-```R
+``` {.r}
 # save workdata_unexcluded as backup
 workdata_unexcluded <- workdata
 ```
 
 If necessary, load the backup data using the following:
 
-```R
+``` {.r}
 # load workdata_unexcluded
 workdata <- workdata_unexcluded
 ```
@@ -392,68 +392,68 @@ For demonstration purpose, we remove the data where the observed plant is juveni
 
 First, check the `DataID` that contains information about plant development status, i.e. `413`, then check the different states of the `OrigValueStr` using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data is saved as `tmp_unexcluded`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
 tmp_unexcluded <- rtry_select_row(workdata, DataID %in% 413)
 tmp_unexcluded <- rtry_explore(tmp_unexcluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
 ```
 
-```R
+``` {.r}
 ## dim:   104 17
 ## dim:   7 8
 ```
 
 By sorting the exploration by `OrigValueStr`, it is clear what types of developmental state exist in the dataset. This way it is possible to set the criteria and start the excluding process using `rtry_exclude()`.
 
-![workflow_general_filter_juvenile_explore_before](workflow_general_filter_juvenile_explore_before.png){width=100%}
+![workflow_general_filter_juvenile_explore_before](workflow_general_filter_juvenile_explore_before.png){width="100%"}
 
 Filter juvenile plants and saplings using `rtry_exclude`.
 
-```R
+``` {.r}
 # Criteria
 # 1. DataID equals to 413
 # 2. OrigValueStr equals to "juvenile" or "saplings"
 workdata <- rtry_exclude(workdata, (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "saplings")), baseOn = ObservationID)
 ```
 
-```R
+``` {.r}
 dim:   957 17
 ```
 
 Once the excluding is completed, double check the `workdata` the functions `rtry_select_row` and `rtry_explore`. The temporary data are saved as `tmp_excluded`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
 tmp_excluded <- rtry_select_row(workdata, DataID %in% 413)
 tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = OrigValueStr)
 ```
 
-```R
+``` {.r}
 ## dim:   91 17
 ## dim:   5 8
 ```
 
 It is clear that all the juvenile and sapling plants were excluded away as expected.
 
-![workflow_general_filter_juvenile_explore_after](workflow_general_filter_juvenile_explore_after.png){width=100%}
+![workflow_general_filter_juvenile_explore_after](workflow_general_filter_juvenile_explore_after.png){width="100%"}
 
 To further confirm if the trait and/or other ancillary data were also removed accordingly, use again the `rtry_explore` function.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID and TraitName
 # Then sort the output by TraitID using the sortBy argument
 workdata_explore_anc_excluded <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   14 5
 ```
 
 Compared with the `workdata_explore_anc`, it can be seen that the number of traits and ancillary data also decreased as expected. We can see as well, that observations without a record for `DataID` 413 have not been removed by the exclude function, assuming no information would rather follow the recommended measurement protocol - here measuring traits on mature plants.
 
-![workflow_general_explore_anc_filtered_juvenile](workflow_general_explore_anc_filtered_juvenile.png){width=100%}
+![workflow_general_explore_anc_filtered_juvenile](workflow_general_explore_anc_filtered_juvenile.png){width="100%"}
 
 <br>
 
@@ -465,108 +465,108 @@ It could be that only certain area of data is of interested for further processi
 
 First, check the `DataID` that contains the latitude information, i.e. `59`, then check the different states of the `StdValue` using the functions `rtry_select_row` and `rtry_explore`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 59, i.e. the data containing the latitude information
 # Then explore the unique values of the StdValue within the selected data
 tmp_unexcluded <- rtry_select_row(workdata, DataID %in% 59)
 tmp_unexcluded <- rtry_explore(tmp_unexcluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   149 17
 ## dim:   55 8
 ```
 
 For demonstration purpose, the following command excludes the latitude smaller than 40 or when such information is missing, i.e. `NA`.
 
-```R
+``` {.r}
 # Criteria
 # 1. DataID equals to 59
 # 2. StdValue smaller than 40 or NA
 workdata <- rtry_exclude(workdata, (DataID %in% 59) & (StdValue < 40 | is.na(StdValue)), baseOn = ObservationID)
 ```
 
-```R
+``` {.r}
 ## dim:   858 17
 ```
 
 Once the excluding is completed, double check the `workdata` using the functions `rtry_select_row` and `rtry_explore`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 59, i.e. the data containing the latitude information
 # Then explore the unique values of the StdValue within the selected data
 tmp_excluded <- rtry_select_row(workdata, DataID %in% 59)
 tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   131 17
 ## dim:   42 8
 ```
 
 From the exploration result, it is clear that only the latitude values larger than or equal to 40 remains.
 
-![workflow_general_filter_lat_explore_after](workflow_general_filter_lat_explore_after.png){width=90%}
+![workflow_general_filter_lat_explore_after](workflow_general_filter_lat_explore_after.png){width="90%"}
 
 **Filter according to longitude**
 
 Next, a similar procedure will be performed on the longitude (`DataID` 60). For demonstration purposes, this time we show how to remove the region of outside a certain range according to the longitude. The column `StdValue` will again be used for the excluding process. To identify which values to be excluded, use the `rtry_select_row` and `rtry_explore` functions to explore the dataset.
 
-```R
+``` {.r}
 # Select the rows where DataID is 60, i.e. the data containing the longitude information
 # Then explore the unique values of the StdValue within the selected data
 tmp_unexcluded <- rtry_select_row(workdata, DataID %in% 60)
 tmp_unexcluded <- rtry_explore(tmp_unexcluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   130 17
 ## dim:   41 8
 ```
 
 For demonstration purpose, the following command excludes the longitude smaller than 10 or larger than 60 or when such information is missing, i.e. `NA`.
 
-```R
+``` {.r}
 # Criteria
 # 1. DataID equals to 60
 # 2. StdValue smaller than 10 or larger than 60 or NA
 workdata <- rtry_exclude(workdata, (DataID %in% 60) & (StdValue < 10 | StdValue > 60 | is.na(StdValue)), baseOn = ObservationID)
 ```
 
-```R
+``` {.r}
 ## dim:   465 17
 ```
 
 Once the excluding is completed, double check the `workdata` using the functions `rtry_select_row` and `rtry_explore`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 60, i.e. the data containing the longitude information
 # Then explore the unique values of the StdValue within the selected data
 tmp_excluded <- rtry_select_row(workdata, DataID %in% 60)
 tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   47 17
 ## dim:   18 8
 ```
 
 From the exploration result, it is clear that only the latitude values in between 10 and 60 remain.
 
-![workflow_general_filter_lon_explore_after](workflow_general_filter_lon_explore_after.png){width=90%}
+![workflow_general_filter_lon_explore_after](workflow_general_filter_lon_explore_after.png){width="90%"}
 
 <br>
 
 In the above examples the argument `baseOn` is set to `ObservationID`. This removes the whole observations. To select traits measured following standard measurement protocols and from specified environment we recommend to check at least the following `DataID`s:
 
-- 59 Latitude
-- 60 Longitude
-- 61 Altitude
-- 6601 Sampling date
-- 327 Exposition
-- 413 Plant developmental status / plant age / maturity / plant life stage
-- 1961 Health status of plants (vitality)
-- 113 Reference / source
+-   59 Latitude
+-   60 Longitude
+-   61 Altitude
+-   6601 Sampling date
+-   327 Exposition
+-   413 Plant developmental status / plant age / maturity / plant life stage
+-   1961 Health status of plants (vitality)
+-   113 Reference / source
 
 In the examples below the argument `baseOn` is set to `ObsDataID`. These examples are supposed to exclude non-representative trait records, while keeping the rest of the observation, because the observation might contain records for other traits with rather representative measurements.
 
@@ -576,47 +576,47 @@ In the examples below the argument `baseOn` is set to `ObsDataID`. These example
 
 It might also be of interest to remove non-representative sub-traits. This information can usually be found in the column `DataName`. In order to identify these data, explore the `workdata` based on `DataID`, `DataName`, `TraitID` and `TraitName`. Then sort the exploration by `TraitID`, this way it is possible to see if there are similar data in each trait. Note: This step has already been performed in the previous step, but for demonstration purpose and completeness of this example, the same function is called again.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID and TraitName
 # Then sort the output by TraitID using the sortBy argument
 tmp_unexcluded <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   14 5
 ```
 
 From this exploration, it can be seen that `DataID` 7222 and 7223 contains the minimum and maximum value of the "Leaf specific area (SLA: petiole excluded)" for trait 3115. Depending on the research question, the user might want to remove these observations. The same goes for `DataID` 6598 in trait 3117, where two values of "SLA: undefined if petiole in- or excluded" had been provided.
 
-![workflow_general_explore_anc_filtered_observations](workflow_general_explore_anc_filtered_observations.png){width=100%}
+![workflow_general_explore_anc_filtered_observations](workflow_general_explore_anc_filtered_observations.png){width="100%"}
 
 Now that the excluding criteria have been identified, the user might decide to only remove the trait records for `DataID` 7222, 7223 and 6598, while keeping the rest of the observation, because it might contain representative records for other traits. In this case, use the `rtry_exclude` function with `baseOn` specified to `ObsDataID`:
 
-```R
+``` {.r}
 # Criteria
 # 1. DataID equals to 7222, 7223 or 6598
 workdata <- rtry_exclude(workdata, DataID %in% c(7222, 7223, 6598), baseOn = ObsDataID)
 ```
 
-```R
+``` {.r}
 ## dim:   451 17
 ```
 
 Double check the `workdata` the functions `rtry_select_row` and `rtry_explore`.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID and TraitName
 # Then sort the output by TraitID using the sortBy argument
 tmp_excluded <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, sortBy = TraitID)
 ```
 
-```R
+``` {.r}
 ## dim:   11 5
 ```
 
 It is clear that the defined `DataID`s have been removed, while the corresponding ancillary data are kept.
 
-![workflow_general_explore_anc_filtered_extremes](workflow_general_explore_anc_filtered_extremes.png){width=100%}
+![workflow_general_explore_anc_filtered_extremes](workflow_general_explore_anc_filtered_extremes.png){width="100%"}
 
 <br>
 
@@ -626,45 +626,45 @@ When dealing with data related to the specific leaf area (SLA), it is important 
 
 Knowing that the SLA values can be found in `DataID` 6582, 6583 and 6584, users can first check if negative values exist in the dataset using the functions `rtry_select_row()` and `rtry_explore()`. The temporary data are saved as `tmp_unexcluded`. Note: To exclude numeric values, it is recommended to use the column `StdValue`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
 # Then explore the unique values of the StdValue within the selected data
 tmp_unexcluded <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
 tmp_unexcluded <- rtry_explore(tmp_unexcluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   128 17
 ## dim:   98 9
 ```
 
 Here, it can be seen that the dataset does not contains negative SLA.
 
-![workflow_general_filter_sla_explore_before](workflow_general_filter_sla_explore_before.png){width=100%}
+![workflow_general_filter_sla_explore_before](workflow_general_filter_sla_explore_before.png){width="100%"}
 
 However, for demonstration purpose, in case negative values are discovered, the following command can be used:
 
-```R
+``` {.r}
 # Criteria
 # 1. DataID equals to 6582, 6583 or 6584
 # 2. StdValue smaller than 0
 workdata <- rtry_exclude(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 0), baseOn = ObsDataID)
 ```
 
-```R
+``` {.r}
 ## dim:   451 17
 ```
 
 Once the excluding is completed, it is always recommended to double check the `workdata` the functions `rtry_select_row()` and `rtry_explore()`.
 
-```R
+``` {.r}
 # Select the rows where DataID is 6582, 6583 and 6584, i.e. the data containing the SLA information
 # Then explore the unique values of the StdValue within the selected data
 tmp_excluded <- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))
 tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName, Comment, sortBy = StdValue)
 ```
 
-```R
+``` {.r}
 ## dim:   128 17
 ## dim:   98 9
 ```
@@ -675,47 +675,47 @@ tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValu
 
 The final example for the excluding process would be to remove the outliers. To do so, we take advantage of the column `ErrorRisk` provided inside the TRY output. The `ErrorRisk` quantifies the maximum distance of the trait record from a respective mean at the Species, Genus or Gamily level in terms of standard deviation (a modified z-transformation). An `ErrorRisk` value of 4 indicates that the trait record is four standard deviations larger or smaller than the mean value based on Species, Genus or Family (Kattge et al. 2011, 2020). We here filter the data with `ErrorRisk` larger than or equal to 4.0. With this in mind, the `rtry_explore()` function is used to explore the data.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
 # Then sort the output by ErrorRisk using the sortBy argument
 tmp_unexcluded <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
 ```
 
-```R
+``` {.r}
 ## dim:   95 6
 ```
 
 From the exploration result, it can be seen that there are a few outliers (with `ErrorRisk` larger than 4.0 in this case). It can also be observed that for those `ErrorRisk` equals NA, data may contain the georeference information and exposition of the observation. These are the values where `ErrorRisk` does not apply and should be kept.
 
-![workflow_general_explore_anc_unfiltered_outliers](workflow_general_explore_anc_unfiltered_outliers.png){width=100%}
+![workflow_general_explore_anc_unfiltered_outliers](workflow_general_explore_anc_unfiltered_outliers.png){width="100%"}
 
 After understanding what data to be excluded, use the `rtry_exclude()` function to perform the data removal:
 
-```R
+``` {.r}
 # Criteria
 # 1. ErrorRisk larger than or equal to 4
 workdata <- rtry_exclude(workdata, ErrorRisk >= 4, baseOn = ObsDataID)
 ```
 
-```R
+``` {.r}
 ## dim:   446 17
 ```
 
 Always double check the excluded data before continuing the preprocessing.
 
-```R
+``` {.r}
 # Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk
 # Then sort the output by ErrorRisk using the sortBy argument
 tmp_excluded <- rtry_explore(workdata, DataID, DataName, TraitID, TraitName, ErrorRisk, sortBy = ErrorRisk)
 ```
 
-```R
+``` {.r}
 ## dim:   92 6
 ```
 
 From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` larger than or equal to 4.0) were removed.
 
-![workflow_general_explore_anc_filtered_outliers](workflow_general_explore_anc_filtered_outliers.png){width=100%}
+![workflow_general_explore_anc_filtered_outliers](workflow_general_explore_anc_filtered_outliers.png){width="100%"}
 
 <br>
 
@@ -723,16 +723,16 @@ From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` 
 
 As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2019](https://onlinelibrary.wiley.com/doi/full/10.1111/gcb.14904) GCB). To keep track of potential duplicate entries, a unique identifier known as `OrigObsDataID` is assigned when certain observation data have previously been contributed. With the help of this `OrigObsDataID`, the `rtry` package provides a function `rtry_remove_dup()` for users to easily remove the duplicates from the data for further processing.
 
-The `rtry_remove_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also,  if the imported TRY data contains restricted dataset that belongs to another dataset (i.e. having an `OrigObsDataID`), these restricted data will also be removed resulting in data loss.
+The `rtry_remove_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also, if the imported TRY data contains restricted dataset that belongs to another dataset (i.e. having an `OrigObsDataID`), these restricted data will also be removed resulting in data loss.
 
 To remove the duplicates from `workdata`, simply use the call the function:
 
-```R
+``` {.r}
 # Remove duplicates
 workdata <- rtry_remove_dup(workdata)
 ```
 
-```R
+``` {.r}
 ## 42 duplicates removed.
 ## dim:   404 17
 ```
@@ -749,7 +749,7 @@ The `rtry_trans_wider()` takes five arguments `input`, `names_from`, `values_fro
 
 To ensure the long table to wide table transformation would not result in duplicate entries because of the potentially existence of multiple `ObservationID` for a single trait, the first step is to select only the traits with numerical values, and then to simply this example, only the most relevant columns will be selected.
 
-```R
+``` {.r}
 #-------------------------------------------------
 # Exclude
 # 1. All entries with "" in TraitID
@@ -763,27 +763,27 @@ num_traits <- rtry_select_row(workdata, complete.cases(TraitID) & complete.cases
 num_traits <- rtry_select_col(num_traits, ObservationID, AccSpeciesID, AccSpeciesName, TraitID, TraitName, StdValue, UnitName)
 ```
 
-```R
+``` {.r}
 ## dim:   81 17
 ## dim:   81 7
 ## col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName StdValue UnitName
 ```
 
-![workflow_general_trans_wider_num_traits](workflow_general_trans_wider_num_traits.png){width=100%}
+![workflow_general_trans_wider_num_traits](workflow_general_trans_wider_num_traits.png){width="100%"}
 
 Now that only the traits with numerical values were selected, in order to keep the ancillary data while transforming the data from long table into wide table on traits, the ancillary data needs to be added manually as additional columns before proceeding.
 
 For demonstration purpose, the latitude and longitude information will be added to the input data to create a georeferenced trait table before proceeding. To extract the unique values of the ancillary data and the corresponding `ObservationID`, use the `rtry_select_anc()` function.
 
-```R
+``` {.r}
 # Extract the unique value of latitude data and the corresponding ObservationID
-workdata_lat <- rtry_select_anc(workdata, Latitude)
+workdata_lat <- rtry_select_anc(workdata, 59)
 
 # Extract the unique value of longitude data and the corresponding ObservationID
-workdata_lon <- rtry_select_anc(workdata, Longitude)
+workdata_lon <- rtry_select_anc(workdata, 60)
 ```
 
-```R
+``` {.r}
 ## dim:   48 2
 ## col:   ObservationID Latitude
 ## dim:   47 2
@@ -792,14 +792,14 @@ workdata_lon <- rtry_select_anc(workdata, Longitude)
 
 Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted ancillary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_join_left()` function provided in the `rtry` package.
 
-```R
+``` {.r}
 # To merge the extracted ancillary data with the numerical traits
 # Merge the relevant data frames based on the ObservationID using rtry_join_left (left join)
 num_traits_georef <- rtry_join_left(num_traits, workdata_lat, baseOn = ObservationID)
 num_traits_georef <- rtry_join_left(num_traits_georef, workdata_lon, baseOn = ObservationID)
 ```
 
-```R
+``` {.r}
 ## dim:   81 8
 ## col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName StdValue UnitName Latitude
 ## dim:   81 9
@@ -808,23 +808,23 @@ num_traits_georef <- rtry_join_left(num_traits_georef, workdata_lon, baseOn = Ob
 
 Use either `head()` or `View()` function to view the merge data. It can be seen that the extracted latitude and longitude information were added to the right of the numerical traits.
 
-![workflow_general_trans_wider_num_traits_georef](workflow_general_trans_wider_num_traits_georef.png){width=100%}
+![workflow_general_trans_wider_num_traits_georef](workflow_general_trans_wider_num_traits_georef.png){width="100%"}
 
 Once the trait records and the necessary ancillary data were prepared, the transformation is performed on the `TraitID`, `TraitName` and `UnitName`, meaning to get the name of these three columns as part of the name of the output column (`names_from`), and then use the `StdValue` as the cell values (`values_from`). Also, the mean function is to be applied to each cell in the output (`values_fn`). To do so, use the following command:
 
-```R
+``` {.r}
 # Perform wide table transformation on TraitID, TraitName and UnitName
 # With cell values to be the mean values calculated for StdValue
 num_traits_georef_wider <- rtry_trans_wider(num_traits_georef, names_from = c(TraitID, TraitName, UnitName), values_from = c(StdValue), values_fn = list(StdValue = mean))
 ```
 
-```R
+``` {.r}
 # dim:   81 8
 ```
 
 Immediately, it can be seen that the columns `TraitID`, `TraitName` and `UnitName` were "transformed" into new columns, which were named for example "3115_Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole excluded_mm2 mg-1".
 
-![workflow_general_trans_wider_traits](workflow_general_trans_wider_traits.png){width=100%}
+![workflow_general_trans_wider_traits](workflow_general_trans_wider_traits.png){width="100%"}
 
 <br>
 
@@ -834,12 +834,12 @@ The `rtry_export()` takes four arguments `data`, `output`, `quote` and `encoding
 
 To save the two preprocessed wide tables `workdata_wider_traits` and `workdata_wider_data`, simply:
 
-```R
+``` {.r}
 # Export the data into a CSV file
 rtry_export(num_traits_georef_wider, "output/workdata_wider_traits.csv")
 ```
 
-```R
+``` {.r}
 ## New directory created at: output
 ## File saved at: output/workdata_wider_traits.csv
 ```

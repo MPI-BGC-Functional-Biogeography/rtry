@@ -4,12 +4,12 @@
 \alias{rtry_select_anc}
 \title{Select ancillary data in wide table format}
 \usage{
-rtry_select_anc(input, name, showOverview = TRUE)
+rtry_select_anc(input, id, showOverview = TRUE)
 }
 \arguments{
 \item{input}{Input data frame or data table.}
 
-\item{name}{The name of ancillary data (\code{DataName} in the TRY data) to be selected.}
+\item{id}{The ID of ancillary data (\code{DataID} in the TRY data) to be selected.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected data.}
 }
@@ -19,12 +19,13 @@ An object of the same type as the input data.
 \description{
 This function selects one specified ancillary data together with the \code{ObservationID}
 from the imported data and transforms it into a wide table format for further processing.
-It works for only one ancillary data in \code{DataName} at a time.
+It works for only one ancillary data in \code{DataID} at a time.
 }
 \examples{
 # Obtain a list of ObservationID and the corresponding ancillary data of interest
-# (e.g. "Latitude") from the provided sample data (data_TRY_15160)
-Latitude <- rtry_select_anc(data_TRY_15160, Latitude)
+# using the specified DataID (e.g. DataID 59 for latitude) from the provided sample
+# data (data_TRY_15160)
+Latitude <- rtry_select_anc(data_TRY_15160, 59)
 
 # Expected message:
 # dim:   98 2

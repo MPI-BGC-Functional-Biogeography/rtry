@@ -29,8 +29,8 @@
 #'                 StdValue, UnitName)
 #'
 #' # 3. Extract the values of georeferences and the corresponding ObservationID.
-#' lat <- rtry_select_anc(data_TRY_15160, Latitude)
-#' lon <- rtry_select_anc(data_TRY_15160, Longitude)
+#' lat <- rtry_select_anc(data_TRY_15160, 59)
+#' lon <- rtry_select_anc(data_TRY_15160, 60)
 #'
 #' # 4. Merge the relevant data frames based on the ObservationID using rtry_join_left().
 #' num_traits_georef <- rtry_join_left(num_traits, lat, baseOn = ObservationID)

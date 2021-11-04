@@ -32,8 +32,8 @@ both data frames or data tables.
 # Longitude and one with Latitude (e.g. using rtry_select_anc()), and would like to
 # merge two data tables into one according to the common identifier ObservationID.
 # It does not matter if either Longitude or Latitude data has no record
-lon <- rtry_select_anc(data_TRY_15160, Longitude)
-lat <- rtry_select_anc(data_TRY_15160, Latitude)
+lon <- rtry_select_anc(data_TRY_15160, 60)
+lat <- rtry_select_anc(data_TRY_15160, 59)
 
 georef <- rtry_join_outer(lon, lat, baseOn = ObservationID)
 

@@ -21,8 +21,8 @@
 #' # Longitude and one with Latitude (e.g. using rtry_select_anc()), and would like to
 #' # add a column Latitude to the data table with Longitude based on the common
 #' # identifier ObservationID
-#' lon <- rtry_select_anc(data_TRY_15160, Longitude)
-#' lat <- rtry_select_anc(data_TRY_15160, Latitude)
+#' lon <- rtry_select_anc(data_TRY_15160, 60)
+#' lat <- rtry_select_anc(data_TRY_15160, 59)
 #'
 #' georef <- rtry_join_left(lon, lat, baseOn = ObservationID)
 #'
