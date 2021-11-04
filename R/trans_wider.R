@@ -10,7 +10,7 @@
 #' @return A data frame of the transformed wide table.
 #' @references This function makes use of the \code{\link[tidyr]{pivot_wider}} function
 #'             within the \code{tidyr} package.
-#' @seealso \code{\link{rtry_select_row}}, \code{\link{rtry_select_col}}, \code{\link{rtry_select_aux}},
+#' @seealso \code{\link{rtry_select_row}}, \code{\link{rtry_select_col}}, \code{\link{rtry_select_anc}},
 #'          \code{\link{rtry_join_left}}
 #' @examples
 #' # Provide the standardized trait values per observation, together with species names
@@ -29,8 +29,8 @@
 #'                 StdValue, UnitName)
 #'
 #' # 3. Extract the values of georeferences and the corresponding ObservationID.
-#' lat <- rtry_select_aux(TRYdata_15160, Latitude)
-#' lon <- rtry_select_aux(TRYdata_15160, Longitude)
+#' lat <- rtry_select_anc(TRYdata_15160, Latitude)
+#' lon <- rtry_select_anc(TRYdata_15160, Longitude)
 #'
 #' # 4. Merge the relevant data frames based on the ObservationID using rtry_join_left().
 #' num_traits_georef <- rtry_join_left(num_traits, lat, baseOn = ObservationID)
