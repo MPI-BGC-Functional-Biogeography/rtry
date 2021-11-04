@@ -2,7 +2,7 @@
 
 # Overview
 
-`rtry` is an R package to support the application of plant trait data providing easily applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, filtering trait data according to different attributes, long- to wide-table transformation, data export, and geocoding. The `rtry` package is designed to support the preprocessing of data released from the TRY Plant Trait Database (https://www.try-db.org), but is also applicable for other trait data.
+`rtry` is an R package to support the application of plant trait data providing easily applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, excluding trait data according to different attributes, long- to wide-table transformation, data export, and geocoding. The `rtry` package is designed to support the preprocessing of data released from the TRY Plant Trait Database (https://www.try-db.org), but is also applicable for other trait data.
 
 <br>
 
@@ -89,8 +89,8 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - `rtry_join_outer`: Outer join for two data frames
 - `rtry_select_col`: Select columns
 - `rtry_select_row`: Select rows
-- `rtry_select_aux`: Select auxiliary data in wide table format
-- `rtry_filter`: Filter data
+- `rtry_select_anc`: Select ancillary data in wide table format
+- `rtry_exclude`: Exclude data
 - `rtry_rm_col`: Remove columns
 - `rtry_rm_dup`: Remove duplicates in data
 - `rtry_trans_wider`: Transform data from long to wide table
@@ -102,7 +102,7 @@ Function naming convention where each function begins with the prefix ```rtry_``
 
 # Usage
 
-A simple example showing how to use the `rtry` package to import, explore and filter trait data based on observation.
+A simple example showing how to use the `rtry` package to import, explore and exclude trait data based on observation.
 
 ```R
 # Load the rtry package
@@ -114,7 +114,7 @@ TRYdata1 <- rtry_import(system.file("testdata", "TRYdata_15160.txt", package = "
 # Explore the imported data
 # Group the input data based on AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID and TraitName, and
 # sort by TraitID
-# Note: For TraitID == "NA", meaning that entry is an auxiliary data
+# Note: For TraitID == "NA", meaning that entry is an ancillary data
 TRYdata1_explore_aux <- rtry_explore(TRYdata1,
                           AccSpeciesID, AccSpeciesName, DataID, DataName,
                           TraitID, TraitName,
@@ -122,44 +122,44 @@ TRYdata1_explore_aux <- rtry_explore(TRYdata1,
 View(TRYdata1_explore_aux)
 
 # In the sample dataset, different trait measurements on the same entity (plant) and
-# the corresponding auxiliary data are combined to observation via the ObservationID
+# the corresponding ancillary data are combined to observation via the ObservationID
 # For details, see Kattge et al. 2011 GCB
-# Filter (remove) observations of juvenile plants or saplings
+# Exclude (remove) observations of juvenile plants or saplings
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
-tmp_unfiltered <- rtry_select_row(TRYdata1, DataID %in% 413)
-tmp_unfiltered <- rtry_explore(tmp_unfiltered,
+tmp_unexcluded <- rtry_select_row(TRYdata1, DataID %in% 413)
+tmp_unexcluded <- rtry_explore(tmp_unexcluded,
                     DataID, DataName, OriglName, OrigValueStr, OrigUnitStr,
                     StdValue, Comment,
                     sortBy = OrigValueStr)
-View(tmp_unfiltered)
+View(tmp_unexcluded)
 
 # Criteria
 # 1. DataID equals to 413
 # 2. OrigValueStr equals to "juvenile" or "saplings"
-TRYdata1 <- rtry_filter(TRYdata1,
+TRYdata1 <- rtry_exclude(TRYdata1,
               (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "saplings")),
               baseOn = ObservationID)
 View(TRYdata1)
 
-# Double check the workdata to ensure the filtering worked as expected
+# Double check the workdata to ensure the excluding worked as expected
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
-tmp_filtered <- rtry_select_row(TRYdata1, DataID %in% 413)
-tmp_filtered <- rtry_explore(tmp_filtered,
+tmp_excluded <- rtry_select_row(TRYdata1, DataID %in% 413)
+tmp_excluded <- rtry_explore(tmp_excluded,
                   DataID, DataName, OriglName, OrigValueStr, OrigUnitStr,
                   StdValue, Comment,
                   sortBy = OrigValueStr)
-View(tmp_filtered)
+View(tmp_excluded)
 ```
 
-Additional vignettes provide a detailed introduction to `rtry` and examples workflows for trait data preprocessing and for geocoding are available at:
+Additional vignettes provide a detailed introduction to `rtry` and example workflows for trait data preprocessing and for geocoding are available at:
 
 - Introduction to `rtry` (rtry-introduction)
 
 -   The general workflow (rtry-workflow-general)
 -   An example workflow setup to demonstrate how to use the `rtry` package to preprocess of the data exported from the TRY database
-    -   Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, filtering specific data and removing duplicates, and finally exporting the preprocess data
+    -   Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, excluding specific data and removing duplicates, and finally exporting the preprocess data
 
 -   Perform (reverse) geocoding (rtry-workflow-geocoding)
 

@@ -38,7 +38,7 @@ Note that the georeference system used is WGS84 projection.
 
 Make sure you have the `rtry` package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
-Apart from this vignette that comes along with the `rtry` package without additional download and acts as a guideline for users to follow, we also provide a corresponding R Markdown script (`.Rmd`) and a HTML file (`.html`), located inside the `examples` directory can be downloaded from the MPI-BGC Nextcloud, so that the users can run the example script (`.Rmd`) directly and compare the expected results (`.html`) in the browser.
+Apart from this vignette that comes along with the `rtry` package without additional download and acts as a guideline for users to follow, we also provide a corresponding R Markdown script (`.Rmd`) and a HTML file (`.html`), located inside the `examples` directory. The directory can be downloaded from the MPI-BGC Nextcloud, so that the users can run the example script (`.Rmd`) directly and compare the expected results (`.html`) in the browser.
 
 Similarly, the sample data required to try out this example workflow are not only provided within the `rtry` package, but also inside the `examples/input` directory on the MPI-BGC Nextcloud. In order to follow the workflow smoothly, make sure the R script is placed inside the folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory from the Nextcloud.
 
@@ -138,7 +138,7 @@ output_coordinates <- NULL # somethings received error messages 'no object found
 output_coordinates <- lapply(input_addresses, function(address) {
   # Calling the Nominatim OpenStreetMap API
   # Please change the email address into your own email address
-  geocode_output <- rtry_geocoding(address, email = "jens.kattge@bgc-jena.mpg.de")
+  geocode_output <- rtry_geocoding(address, email = "john.doe@example.com")
 
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
@@ -234,7 +234,7 @@ output_locations <- NULL # somethings received error messages 'no object found'
 # Please change the email address to your own email address
 output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   # Calling the Nominatim OpenStreetMap API
-  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "jens.kattge@bgc-jena.mpg.de")
+  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "john.doe@example.com")
 
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
