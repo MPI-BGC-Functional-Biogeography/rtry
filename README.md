@@ -12,7 +12,7 @@ There are three sources where users can download the `rtry` package and the rele
 
 **CRAN**
 
-The `rtry` package is available on the CRAN repository.
+The `rtry` package is available on the CRAN repository. This is the recommended option to obtain the latest version of the package.
 
 **GitHub Repository**
 
@@ -26,7 +26,7 @@ Developers are also welcome to contribute to the package.
 
 **Nextcloud**
 
-We have setup a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows.
+We have setup a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
 
 - Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 - Password: `mpi-bgc-rtry`
@@ -37,11 +37,11 @@ We have setup a shared directory on the MPI-BGC Nextcloud, where users can obtai
 
 ## R environment
 
-R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package. It is also recommended to use the latest version of RStudio when using the package.
+R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
 
-The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package. The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
 <br>
 

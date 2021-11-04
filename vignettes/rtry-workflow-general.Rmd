@@ -333,7 +333,7 @@ workdata <- rtry_select_row(workdata, TraitID > 0 | DataID %in% c(59, 60, 61, 66
 
 To view the data, use either `head()` or `View()`.
 
-In order to better understand the data, inside the data viewer, click on the column `ObservationID` to sort the dataset. This way, it can be seen that for example:
+In order to better understand the data, inside the data viewer (only available via RStudio), click on the column `ObservationID` to sort the dataset. This way, it can be seen that for example:
 
 1. For `ObservationID` 94068, there are two `ObsDataID` 1021243 and 1021245 with the first one belonging to the `TraitID` 3115 and the latter an ancillary data. Looking deeper into the `DataID` and `DataName`, we can see that this data "SLA: petiole excluded" is measured within "growth chambers", and could be eliminated later on depending on the research question.
 2. For `ObservationID` 158137, we can see there are four ancillary data with the `DataID` 59, 60, 61 and 413. Looking further into the `ErrorRisk` of the data "SLA: petiole excluded", which is roughly 2.5, meaning the observation is 2.5 standard deviation away from the mean. This is probably a "good" value that we would want to keep later. On top of this, it can be seen that the `OrigObsDataID` is `NA`, meaning that it is not a duplicate. Also, the "Plant developmental status" (`DataID` 413) could be an important information for further processing.
@@ -673,7 +673,7 @@ tmp_excluded <- rtry_explore(tmp_excluded, DataID, DataName, OriglName, OrigValu
 
 ## Filter outliers according to error risk (`ErrorRisk`)
 
-The final example for the excluding process would be to remove the outliers. To do so, exclude the data with `ErrorRisk` larger than or equal to 4.0. With this in mind, the `rtry_explore()` function is used to explore the data as reference.
+The final example for the excluding process would be to remove the outliers. To do so, we take advantage of the column `ErrorRisk` provided inside the TRY output. The `ErrorRisk` quantifies the maximum distance of the trait record from a respective mean at the Species, Genus or Gamily level in terms of standard deviation (a modified z-transformation). An `ErrorRisk` value of 4 indicates that the trait record is four standard deviations larger or smaller than the mean value based on Species, Genus or Family (Kattge et al. 2011, 2020). We here filter the data with `ErrorRisk` larger than or equal to 4.0. With this in mind, the `rtry_explore()` function is used to explore the data.
 
 ```R
 # Group the input data based on DataID, DataName, TraitID, TraitName and ErrorRisk

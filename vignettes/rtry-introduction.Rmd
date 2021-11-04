@@ -109,7 +109,7 @@ There are three sources where users can download the `rtry` package and the rele
 
 **CRAN**
 
-The `rtry` package is available on the CRAN repository.
+The `rtry` package is available on the CRAN repository. This is the recommended option to obtain the latest version of the package.
 
 **GitHub Repository**
 
@@ -123,7 +123,7 @@ Developers are also welcome to contribute to the package.
 
 **Nextcloud**
 
-We have set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows.
+We have set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
 
 - Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 - Password: `mpi-bgc-rtry`
@@ -144,21 +144,19 @@ The overview of the folder structure is as follow. If the user wishes to try out
 
 ## R environment
 
-R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package. It is also recommended to use the latest version of RStudio when using the package.
+R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
 
-The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package. The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
 <br>
 
 ## Memory requirement
 
-> (Perhaps Gerhard could provide some details in the RAM requirements from experiences)
-
 Since R reads the entire dataset into the memory all at once and because R holds the objects it is using in virtual memory, memory capacity is important when loading large dataset (>500,000 trait records) released from the TRY database.
 
-When a memory issue occurs, users could either use a machine with more memory (RAM) installed, or they could request smaller datasets (instead of one large dataset) and import the datasets into RStudio separately.
+When a memory issue occurs, users could either use a machine with more memory (RAM) installed, or they could request smaller datasets (instead of one large dataset) and import the datasets into R separately. It is also possible to use `memory.limit()` to increase the default memory, e.g. `memory.limit(size=2500)`, where the size is in MB. Note that you need to be using 64-bit in order to take real advantage of this.
 
 <br>
 
@@ -190,7 +188,7 @@ install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 
 Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
 
-You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if it appears.
+You may ignore the warning message "`Rtools is required to build R packages but is not currently installed`" if it appears.
 
 Once the installation is completed, the `rtry` package needs to be loaded with the command:
 
@@ -202,7 +200,7 @@ library(rtry)
 
 ## Update the `rtry` package
 
-To update the `rtry` package to a newer version, simply restart RStudio and use the same installation command.
+To update the `rtry` package to a newer version in the future, simply restart RStudio and use the same installation command.
 
 From CRAN:
 
@@ -218,7 +216,7 @@ Else,  if the user downloaded the latest source package (`.tar.gz`) of `rtry` fr
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 ```
 
-You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if it appears.
+You may ignore the warning message "`Rtools is required to build R packages but is not currently installed`" if it appears.
 
 <br>
 
@@ -280,6 +278,28 @@ View(TRYdata_15160)
 
 This invokes a data viewer window immediately and it does not import the data. For more information about the sample data within the package and how to import them, see the section "Sample datasets within the `rtry` package" below.
 
+There are more ways to explore a dataset in R, some of which can be seen below:
+
+```R
+# Show the dimensions of the dataset
+dim(TRYdata_15160)
+
+# Show the column names
+colnames(TRYdata_15160)
+
+# Show first 100 rows
+TRYdata_15160[1:100,]
+
+# Show first 10 rows
+head(TRYdata_15160)
+
+# Show last 10 rows
+tail(TRYdata_15160)
+
+# Produce result summaries of various model fitting functions
+summary(TRYdata_15160)
+```
+
 
 <br>
 
@@ -299,12 +319,11 @@ vignette("rtry-introduction")
 
 <br>
 
-
 ---
 
 ## Functionality of the `rtry` package
 
-The `rtry` package is a compilation of functions developed to support the preprocessing of trait data, foremost if received via the TRY database. In `rtry`, a function is a combination of R commands used with specified attributes to enable easy application. Sometimes these attributes are specified even for the structure and column names used in the data released from TRY.
+The `rtry` package is a compilation of functions developed to support the preprocessing of trait data, foremost if received via the TRY database. To enable easy application, some attributes within the `rtry` package are specified for the structure and column names used in the data released from TRY.
 
 To realize the full functionality of `rtry` for other trait datasets, these should be transformed to the data structure used in the data releases from the TRY database: long table format specifically including the column names of the IDs: `ObservationID`, `ObsDataID`, `TraitID`, `DataID`, `OrigObsDataID`, `AccSpeciesID`, `DatasetID`, and the columns `StdValue`, `OrigValueStr` and `ErrorRisk`. Different measurements (traits and ancillary data) are combined via the `ObservationID`. If additional datasets are used with the TRY data, these need to be consistent with the respective data from TRY.
 

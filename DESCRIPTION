@@ -2,59 +2,59 @@ Package: rtry
 Title: Preprocessing Plant Trait Data
 Version: 1.0.0
 Authors@R: c(
-    person(given = "Olee Hoi Ying", 
-        family = "Lam", 
-        email = "hlam9@wisc.edu", 
-        role = c("aut", "cre"), 
-        comment = c(ORCID = "0000-0002-7731-3246")), 
-    person(given = "Susanne", 
-        family = "Tautenhahn", 
-        email = "staut@bgc-jena.mpg.de", 
-        role = c("aut"), 
+    person(given = "Olee Hoi Ying",
+        family = "Lam",
+        email = "hlam9@wisc.edu",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-7731-3246")),
+    person(given = "Susanne",
+        family = "Tautenhahn",
+        email = "staut@bgc-jena.mpg.de",
+        role = c("aut"),
         comment = c(ORCID = "0000-0002-2753-3443")),
-    person(given = "Gabriel", 
-        family = "Walther", 
-        email = "gabriel.walther@uni-jena.de", 
-        role = c("aut"), 
+    person(given = "Gabriel",
+        family = "Walther",
+        email = "gabriel.walther@uni-jena.de",
+        role = c("aut"),
         comment = c(ORCID = "0000-0003-3550-9045")),
-    person(given = "Gerhard", 
-        family = "Boenisch", 
-        email = "boenisch@bgc-jena.mpg.de", 
+    person(given = "Gerhard",
+        family = "Boenisch",
+        email = "boenisch@bgc-jena.mpg.de",
         role = c("aut")),
-    person(given = "Pramod", 
-        family = "Baddam", 
-        email = "pbaddam@bgc-jena.mpg.de", 
-        role = c("aut"), 
+    person(given = "Pramod",
+        family = "Baddam",
+        email = "pbaddam@bgc-jena.mpg.de",
+        role = c("aut"),
         comment = c(ORCID = "0000-0002-7858-9295")),
-    person(given = "Jens", 
-        family = "Kattge", 
-        email = "jkattge@bgc-jena.mpg.de", 
-        role = c("aut"), 
-        comment = c(ORCID = "0000-0002-1022-8469")), 
-    person(given = "Fellowship Group Functional Biogeography at MPI-BGC, Jena, Germany", 
+    person(given = "Jens",
+        family = "Kattge",
+        email = "jkattge@bgc-jena.mpg.de",
+        role = c("aut"),
+        comment = c(ORCID = "0000-0002-1022-8469")),
+    person(given = "Fellowship Group Functional Biogeography at MPI-BGC, Jena, Germany",
         role = c("cph")))
-Description: Designed to support the application of plant trait data providing easy applicable functions 
-    for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns 
-    and rows, filtering trait data according to different attributes, geocoding, long- to wide-table 
-    transformation, and data export. rtry was initially developed as part of the TRY R project to 
+Description: Designed to support the application of plant trait data providing easy applicable functions
+    for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns
+    and rows, excluding trait data according to different attributes, geocoding, long- to wide-table 
+    transformation, and data export. rtry was initially developed as part of the TRY R project to
     preprocess trait data received via the TRY database.
 License: CC BY 4.0
 Depends: R (>= 4.0.0)
-Imports: utils, 
-    data.table, 
-    dplyr, 
-    tidyr, 
-    jsonlite, 
+Imports: utils,
+    data.table,
+    dplyr,
+    tidyr,
+    jsonlite,
     curl
-URL: https://github.com/MPI-BGC-Functional-Biogeography/rtry, 
+URL: https://github.com/MPI-BGC-Functional-Biogeography/rtry,
     https://www.try-db.org/TryWeb/Home.php
 BugReports: https://github.com/MPI-BGC-Functional-Biogeography/rtry/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests: knitr, 
-    rmarkdown, 
+Suggests: knitr,
+    rmarkdown,
     testthat
 VignetteBuilder: knitr
 Maintainer: Olee Hoi Ying Lam <hlam9@wisc.edu>
