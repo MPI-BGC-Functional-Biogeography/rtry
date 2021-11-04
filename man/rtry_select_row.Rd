@@ -36,10 +36,10 @@ listed in the TRY data, therefore, if the column \code{ObservationID} has been r
 this function will not work.
 }
 \examples{
-# Within the provided sample data (TRYdata_15160) select the georeferenced traits
+# Within the provided sample data (data_TRY_15160) select the georeferenced traits
 # records together with records for Latitude and Longitude (DataID 59 and 60) and
 # exclude duplicate trait records
-data_selected <- rtry_select_row(TRYdata_15160,
+data_selected <- rtry_select_row(data_TRY_15160,
                    (TraitID > 0) | (DataID \%in\% c(59, 60)),
                    getAncillary = TRUE,
                    rmDuplicates = TRUE)

@@ -2,12 +2,12 @@ context("Combine data by columns (rtry_bind_col)")
 
 
 test_that("basic test", {
-  df1 <- rtry_select_col(TRYdata_15160,
+  df1 <- rtry_select_col(data_TRY_15160,
                            ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
                            ValueKindName, TraitID, TraitName, DataID, DataName,
                            OrigObsDataID, ErrorRisk, Comment)
 
-  df2 <- rtry_select_col(TRYdata_15160,
+  df2 <- rtry_select_col(data_TRY_15160,
                            OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName)
 
   df <- rtry_bind_col(df1, df2)

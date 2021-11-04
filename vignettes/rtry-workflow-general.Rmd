@@ -65,14 +65,14 @@ packageVersion("rtry")
 
 # Import TRY data
 
-The `rtry_import()` takes five arguments `input`, `separator`, `encoding`, `quote` and `showOverview`, and returns a data table that contains the entire dataset. Since the function by default imports the text file exported from the TRY database for further processing, to import the TRY data (e.g. `TRYdata_15160.txt`), simply type the following:
+The `rtry_import()` takes five arguments `input`, `separator`, `encoding`, `quote` and `showOverview`, and returns a data table that contains the entire dataset. Since the function by default imports the text file exported from the TRY database for further processing, to import the TRY data (e.g. `data_TRY_15160.txt`), simply type the following:
 
 ```R
-TRYdata1 <- rtry_import("input/TRYdata_15160.txt")
+TRYdata1 <- rtry_import("input/data_TRY_15160.txt")
 ```
 
 ```R
-## input: input/TRYdata_15160.txt
+## input: input/data_TRY_15160.txt
 ## dim:   1782 28
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28
 ```
@@ -94,11 +94,11 @@ View(TRYdata1)
 Import another TRY dataset:
 
 ```R
-TRYdata2 <- rtry_import("input/TRYdata_15161.txt")
+TRYdata2 <- rtry_import("input/data_TRY_15161.txt")
 ```
 
 ```R
-## input: input/TRYdata_15161.txt
+## input: input/data_TRY_15161.txt
 ## dim:   4627 28
 ## col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName ObservationID ObsDataID TraitID TraitName DataID DataName OriglName OrigValueStr OrigUnitStr ValueKindName OrigUncertaintyStr UncertaintyName Replicates StdValue UnitName RelUncertaintyPercent OrigObsDataID ErrorRisk Reference Comment V28
 ```

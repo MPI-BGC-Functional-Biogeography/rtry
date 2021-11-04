@@ -2,17 +2,17 @@ context("Select TRY ancillary data in wide table format (rtry_select_anc)")
 
 
 test_that("basic test", {
-  df_sel_aux1 <- rtry_select_anc(TRYdata_15160, Latitude)
+  df_sel_aux1 <- rtry_select_anc(data_TRY_15160, Latitude)
 
   expect_equal(class(df_sel_aux1), c("data.table", "data.frame"))
   expect_equal(dim(df_sel_aux1), c(98, 2))
 
-  df_sel_aux2 <- rtry_select_anc(TRYdata_15160, Longitude)
+  df_sel_aux2 <- rtry_select_anc(data_TRY_15160, Longitude)
 
   expect_equal(class(df_sel_aux2), c("data.table", "data.frame"))
   expect_equal(dim(df_sel_aux2), c(97, 2))
 
-  df_sel_aux3 <- rtry_select_anc(TRYdata_15160, Altitude)
+  df_sel_aux3 <- rtry_select_anc(data_TRY_15160, Altitude)
 
   expect_equal(class(df_sel_aux3), c("data.table", "data.frame"))
   expect_equal(dim(df_sel_aux3), c(23, 2))

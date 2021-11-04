@@ -1,11 +1,11 @@
-#' Sample TRY data (Request 15160)
+#' Sample TRY data (Request 15161)
 #'
 #' A dataset requested from the [TRY Database](https://www.try-db.org/TryWeb/Prop0.php).
-#' The request ID of this dataset is 15160, which contains \code{TraitID}: 3115, 3116
+#' The request ID of this dataset is 15161, which contains \code{TraitID}: 3117
 #' and \code{AccSpeciesID}: 10773, 35846, 45737.
-#' The raw dataset (\code{TRYdata_15160.txt}) is also provided in the directory \code{testdata}.
+#' The raw dataset (\code{data_TRY_15161.txt}) is also provided in the directory \code{testdata}.
 #'
-#' @format A data frame with 1782 rows and 28 variables:
+#' @format A data frame with 4627 rows and 28 variables:
 #' \describe{
 #'   \item{LastName}{Surname of data contributor.}
 #'   \item{FirstName}{First name of data contributor.}
@@ -36,4 +36,4 @@
 #'   \item{Comment}{Explanation for the \code{OriglName} in the contributed dataset.}
 #'   \item{V28}{Empty, an artifact due to different interpretation of column separator by MySQL and R.}
 #' }
-"TRYdata_15160"
+"data_TRY_15161"

@@ -2,7 +2,7 @@ context("Select data by columns (rtry_select_col)")
 
 
 test_that("basic test", {
-  df_sel_col <- rtry_select_col(TRYdata_15160,
+  df_sel_col <- rtry_select_col(data_TRY_15160,
                         ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
                         ValueKindName, TraitID, TraitName, DataID, DataName,
                         OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName,

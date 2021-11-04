@@ -13,10 +13,10 @@
 #' @references This function makes use of the \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{summarise}}
 #'             and \code{\link[dplyr]{arrange}} functions within the \code{dplyr} package.
 #' @examples
-#' # Explore the unique values in the provided sample data (TRYdata_15160)
+#' # Explore the unique values in the provided sample data (data_TRY_15160)
 #' # based on the attributes AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID
 #' # and DataName, sorted by TraitID
-#' data_explore <- rtry_explore(TRYdata_15160,
+#' data_explore <- rtry_explore(data_TRY_15160,
 #'                   AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID, DataName,
 #'                   sortBy = TraitID)
 #'

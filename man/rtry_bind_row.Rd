@@ -25,8 +25,8 @@ the binding process simply puts the data one after another while matching the co
 filled with \code{NA}.
 }
 \examples{
-# Combine the two provided sample data (TRYdata_15160 and TRYdata_15160)
-data <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
+# Combine the two provided sample data (data_TRY_15160 and data_TRY_15161)
+data <- rtry_bind_row(data_TRY_15160, data_TRY_15161)
 
 # Expected message:
 # dim:   6409 28

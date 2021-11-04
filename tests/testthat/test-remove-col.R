@@ -2,7 +2,7 @@ context("Remove data columns (rtry_remove_col)")
 
 
 test_that("basic test", {
-  df <- rtry_remove_col(TRYdata_15160,
+  df <- rtry_remove_col(data_TRY_15160,
           LastName, FirstName, DatasetID, Dataset, SpeciesName,
           OrigUncertaintyStr, UncertaintyName, Replicates,
           RelUncertaintyPercent, Reference, V28)

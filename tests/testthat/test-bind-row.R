@@ -2,7 +2,7 @@ context("Combine data by rows (rtry_bind_row)")
 
 
 test_that("basic test", {
-  df <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
+  df <- rtry_bind_row(data_TRY_15160, data_TRY_15161)
 
   expect_equal(class(df), c("data.table", "data.frame"))
   expect_equal(ncol(df), 28)

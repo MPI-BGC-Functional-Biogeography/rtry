@@ -13,11 +13,11 @@
 #' @examples
 #' # Assuming a user has selected different columns as separated data tables
 #' # and later on would like to combine them as one for further processing.
-#' data1 <- rtry_select_col(TRYdata_15160,
+#' data1 <- rtry_select_col(data_TRY_15160,
 #'            ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName, ValueKindName,
 #'            TraitID, TraitName, DataID, DataName, OrigObsDataID, ErrorRisk, Comment)
 #'
-#' data2 <- rtry_select_col(TRYdata_15160,
+#' data2 <- rtry_select_col(data_TRY_15160,
 #'            OriglName, OrigValueStr, OrigUnitStr, StdValue, UnitName)
 #'
 #' data <- rtry_bind_col(data1, data2)

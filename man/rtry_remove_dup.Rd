@@ -28,8 +28,8 @@ the TRY database (if only public data were requested), the duplicate will be
 removed and this may result in data loss.
 }
 \examples{
-# Remove the duplicates within the provided sample data (TRYdata_15160)
-data_rm_dup <- rtry_remove_dup(TRYdata_15160)
+# Remove the duplicates within the provided sample data (data_TRY_15160)
+data_rm_dup <- rtry_remove_dup(data_TRY_15160)
 
 # Expected message:
 # 45 duplicates removed.

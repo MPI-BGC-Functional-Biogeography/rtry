@@ -13,8 +13,8 @@
 #' @references This function makes use of the \code{\link[dplyr]{bind_rows}} function within the \code{dplyr} package.
 #' @seealso \code{\link{rtry_bind_col}}, \code{\link{rtry_join_left}}, \code{\link{rtry_join_outer}}
 #' @examples
-#' # Combine the two provided sample data (TRYdata_15160 and TRYdata_15160)
-#' data <- rtry_bind_row(TRYdata_15160, TRYdata_15161)
+#' # Combine the two provided sample data (data_TRY_15160 and data_TRY_15161)
+#' data <- rtry_bind_row(data_TRY_15160, data_TRY_15161)
 #'
 #' # Expected message:
 #' # dim:   6409 28

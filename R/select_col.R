@@ -10,8 +10,8 @@
 #'             within the \code{dplyr} package.
 #' @seealso \code{\link{rtry_remove_col}}
 #' @examples
-#' # Select certain columns from the provided sample data (TRYdata_15160)
-#' data_selected <- rtry_select_col(TRYdata_15160,
+#' # Select certain columns from the provided sample data (data_TRY_15160)
+#' data_selected <- rtry_select_col(data_TRY_15160,
 #'                    ObsDataID, ObservationID, AccSpeciesID, AccSpeciesName,
 #'                    ValueKindName, TraitID, TraitName, DataID, DataName, OriglName,
 #'                    OrigValueStr, OrigUnitStr, StdValue, UnitName, OrigObsDataID,

@@ -25,10 +25,10 @@ based on the specified column names. A column (\code{Count}) is added, which sho
 within each group. The data are grouped by the first attribute if not specified with the argument \code{sortBy}.
 }
 \examples{
-# Explore the unique values in the provided sample data (TRYdata_15160)
+# Explore the unique values in the provided sample data (data_TRY_15160)
 # based on the attributes AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID
 # and DataName, sorted by TraitID
-data_explore <- rtry_explore(TRYdata_15160,
+data_explore <- rtry_explore(data_TRY_15160,
                   AccSpeciesID, AccSpeciesName, TraitID, TraitName, DataID, DataName,
                   sortBy = TraitID)
 

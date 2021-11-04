@@ -21,8 +21,8 @@ An object of the same type as the input data.
 This function removes specified columns from the imported data for further processing.
 }
 \examples{
-# Remove certain columns from the provided sample data (TRYdata_15160)
-data_rm_col <- rtry_remove_col(TRYdata_15160,
+# Remove certain columns from the provided sample data (data_TRY_15160)
+data_rm_col <- rtry_remove_col(data_TRY_15160,
                  LastName, FirstName, DatasetID, Dataset, SpeciesName,
                  OrigUncertaintyStr, UncertaintyName, Replicates,
                  RelUncertaintyPercent, Reference, V28)

@@ -11,8 +11,8 @@
 #'             within the \code{dplyr} package.
 #' @seealso \code{\link{rtry_select_col}}
 #' @examples
-#' # Remove certain columns from the provided sample data (TRYdata_15160)
-#' data_rm_col <- rtry_remove_col(TRYdata_15160,
+#' # Remove certain columns from the provided sample data (data_TRY_15160)
+#' data_rm_col <- rtry_remove_col(data_TRY_15160,
 #'                  LastName, FirstName, DatasetID, Dataset, SpeciesName,
 #'                  OrigUncertaintyStr, UncertaintyName, Replicates,
 #'                  RelUncertaintyPercent, Reference, V28)

@@ -2,7 +2,7 @@ context("Import CSV file (rtry_import)")
 
 
 test_that("basic test", {
-  input_path_1 <- system.file("testdata", "TRYdata_15160.txt", package = "rtry")
+  input_path_1 <- system.file("testdata", "data_TRY_15160.txt", package = "rtry")
   input_1 <- rtry_import(input_path_1)
 
   expect_equal(class(input_1), c("data.table", "data.frame"))

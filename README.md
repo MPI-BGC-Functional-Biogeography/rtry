@@ -109,7 +109,7 @@ A simple example showing how to use the `rtry` package to import, explore and ex
 library(rtry)
 
 # Import the raw sample dataset provided within rtry package
-TRYdata1 <- rtry_import(system.file("testdata", "TRYdata_15160.txt", package = "rtry"))
+TRYdata1 <- rtry_import(system.file("testdata", "data_TRY_15160.txt", package = "rtry"))
 
 # Explore the imported data
 # Group the input data based on AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID and TraitName, and

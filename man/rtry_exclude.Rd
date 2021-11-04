@@ -32,7 +32,7 @@ specified in the arguments for excluding (\code{\dots}) are fulfilled for one of
 # Example 1: Exclude observations on juvenile plants or unknown state:
 # Identify observations where the plant developmental status (DataID 413) is either
 # "juvenile" or "unknown", and exclude the whole observation
-data_excluded <- rtry_exclude(TRYdata_15160,
+data_excluded <- rtry_exclude(data_TRY_15160,
                    (DataID \%in\% 413) & (OrigValueStr \%in\% c("juvenile", "unknown")),
                    baseOn = ObservationID)
 
@@ -42,7 +42,7 @@ data_excluded <- rtry_exclude(TRYdata_15160,
 # Example 2: Exclude outliers:
 # Identify the outliers, i.e. trait records where the ErrorRisk is larger than 4
 # and exclude these records (not the whole observation)
-data_excluded <- rtry_exclude(TRYdata_15160,
+data_excluded <- rtry_exclude(data_TRY_15160,
                    ErrorRisk > 4,
                    baseOn = ObsDataID)
 

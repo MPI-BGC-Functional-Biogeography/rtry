@@ -23,8 +23,8 @@ It works for only one ancillary data in \code{DataName} at a time.
 }
 \examples{
 # Obtain a list of ObservationID and the corresponding ancillary data of interest
-# (e.g. "Latitude") from the provided sample data (TRYdata_15160)
-Latitude <- rtry_select_anc(TRYdata_15160, Latitude)
+# (e.g. "Latitude") from the provided sample data (data_TRY_15160)
+Latitude <- rtry_select_anc(data_TRY_15160, Latitude)
 
 # Expected message:
 # dim:   98 2

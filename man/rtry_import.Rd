@@ -37,10 +37,10 @@ import other file formats, such as \code{.csv} files with comma separated values
 \examples{
 # Example 1: Import data exported from the TRY database
 # Specify file path to the raw data provided within the rtry package
-input_path <- system.file("testdata", "TRYdata_15160.txt", package = "rtry")
+input_path <- system.file("testdata", "data_TRY_15160.txt", package = "rtry")
 
 # For own data and Windows users the path might rather look similar to this:
-# input_path <- "C:/Users/User/Desktop/TRYdata_15160.txt"
+# input_path <- "C:/Users/User/Desktop/data_TRY_15160.txt"
 
 # Import data file using rtry_import
 input <- rtry_import(input_path)
@@ -50,7 +50,7 @@ input <- rtry_import(input_path)
 #            quote = "", showOverview = TRUE)
 
 # Expected message:
-# input: ~/R/R-4.0.3/library/rtry/testdata/TRYdata_15160.txt
+# input: ~/R/R-4.0.3/library/rtry/testdata/data_TRY_15160.txt
 # dim:   1782 28
 # col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName
 #        ObservationID ObsDataID TraitID TraitName DataID DataName OriglName

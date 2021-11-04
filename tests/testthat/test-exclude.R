@@ -2,7 +2,7 @@ context("Exclude (remove) data (rtry_exclude)")
 
 
 test_that("basic test", {
-  exclude1 <- rtry_exclude(TRYdata_15160,
+  exclude1 <- rtry_exclude(data_TRY_15160,
                          OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown"),
                          baseOn = ObservationID)
 

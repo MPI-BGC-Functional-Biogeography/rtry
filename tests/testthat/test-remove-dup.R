@@ -2,7 +2,7 @@ context("Remove duplicates (rtry_remove_dup)")
 
 
 test_that("basic test", {
-  df_rm <- rtry_remove_dup(TRYdata_15160)
+  df_rm <- rtry_remove_dup(data_TRY_15160)
 
   expect_equal(class(df_rm), c("data.table", "data.frame"))
   expect_equal(ncol(df_rm), 28)

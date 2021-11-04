@@ -20,7 +20,7 @@
 #' # 1. Select only the trait records that have standardized numeric values.
 #' #    The complete.cases() is used to ensure the cases are complete, i.e. have no
 #' #    missing values.
-#' num_traits <- rtry_select_row(TRYdata_15160,
+#' num_traits <- rtry_select_row(data_TRY_15160,
 #'                 complete.cases(TraitID) & complete.cases(StdValue))
 #'
 #' # 2. Select the relevant columns for transformation.
@@ -29,8 +29,8 @@
 #'                 StdValue, UnitName)
 #'
 #' # 3. Extract the values of georeferences and the corresponding ObservationID.
-#' lat <- rtry_select_anc(TRYdata_15160, Latitude)
-#' lon <- rtry_select_anc(TRYdata_15160, Longitude)
+#' lat <- rtry_select_anc(data_TRY_15160, Latitude)
+#' lon <- rtry_select_anc(data_TRY_15160, Longitude)
 #'
 #' # 4. Merge the relevant data frames based on the ObservationID using rtry_join_left().
 #' num_traits_georef <- rtry_join_left(num_traits, lat, baseOn = ObservationID)
