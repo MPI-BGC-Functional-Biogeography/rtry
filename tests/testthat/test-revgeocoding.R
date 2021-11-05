@@ -2,7 +2,7 @@ context("Perform reverse geocoding (rtry_revgeocoding)")
 
 
 test_that("basic test", {
-  input_coordinate <- head(coordinates, 1)
+  input_coordinate <- head(data_coordinates, 1)
   input_lat_lon <- data.frame(lat = input_coordinate$Latitude, lon = input_coordinate$Longitude)
 
   output <- rtry_revgeocoding(input_lat_lon, "john.doe@example.com")
@@ -23,7 +23,7 @@ test_that("rtry_revgeocoding handles empty argument", {
 
 
 test_that("rtry_revgeocoding handles missing email address", {
-  input_coordinate <- head(coordinates, 1)
+  input_coordinate <- head(data_coordinates, 1)
   input_lat_lon <- data.frame(lat = input_coordinate$Latitude, lon = input_coordinate$Longitude)
 
   message = "Please make sure you have provided a valid email address."
@@ -33,7 +33,7 @@ test_that("rtry_revgeocoding handles missing email address", {
 
 
 test_that("rtry_revgeocoding handles invalid email address", {
-  input_coordinate <- head(coordinates, 1)
+  input_coordinate <- head(data_coordinates, 1)
   input_lat_lon <- data.frame(lat = input_coordinate$Latitude, lon = input_coordinate$Longitude)
 
   message = "Please provide a valid email address."

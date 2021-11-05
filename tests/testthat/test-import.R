@@ -8,7 +8,7 @@ test_that("basic test", {
   expect_equal(class(input_1), c("data.table", "data.frame"))
 
 
-  input_path_2 <- system.file("testdata", "locations.csv", package = "rtry")
+  input_path_2 <- system.file("testdata", "data_locations.csv", package = "rtry")
   input_2 <- rtry_import(input_path_2, separator = ",", quote = "\"")
 
   expect_equal(class(input_2), c("data.table", "data.frame"))

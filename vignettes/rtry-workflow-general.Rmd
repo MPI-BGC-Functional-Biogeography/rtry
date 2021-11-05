@@ -206,7 +206,7 @@ Via the `View(TRYdata2_explore_anc)` function, it can be seen that in the `TRYda
 
 Here, it is clear that `DataID` 6584 and 6598 share very similar `DataName`. This could mean that in the original dataset, two values of "SLA: undefined if petiole in- or excluded" were mapped to this trait, and the user might want to have this information in mind before further preprocessing.
 
-![workflow_general_explore_anc](workflow_general_explore_anc_TRYdata2.png){width="100%"}
+![workflow_general_explore_anc_TRYdata2](workflow_general_explore_anc_TRYdata2.png){width="100%"}
 
 <br>
 

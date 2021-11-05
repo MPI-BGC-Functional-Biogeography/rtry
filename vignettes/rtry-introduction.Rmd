@@ -421,19 +421,19 @@ Detailed description of each dataset can be found in the reference manual (`.pdf
 # For the documentation of a specific dataset (e.g. `data_TRY_15160` or `locations`)
 # Type a `?` in front of the name of the dataset
 ?data_TRY_15160
-?locations
+?data_locations
 
 # To view the dataset by invoking the data viewer
 # Use the `View` function
 View(data_TRY_15160)
-View(locations)
+View(data_locations)
 ```
 
 To load a dataset (`.rda` format) from the `rtry` package and load the dataset into the workspace:
 
 ```R
 data(data_TRY_15160)
-data(locations)
+data(data_locations)
 ```
 
 This `data` function creates an object in the `envir` environment (by default the user's workspace) replacing any which already existed. (Note: All `rtry` sample datasets in `.rda` format are in the package folder `data`.)
@@ -443,15 +443,15 @@ To access the address of a dataset in its raw data format, the following R comma
 ```R
 # To obtain the exact path of the raw dataset within the package
 system.file("testdata", "data_TRY_15160.txt", package = "rtry")
-system.file("testdata", "locations.csv", package = "rtry")
+system.file("testdata", "data_locations.csv", package = "rtry")
 
 # Expected return on a Mac OS is similar to this:
 ## [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rtry/testdata/data_TRY_15160.txt"
-## [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rtry/testdata/locations.csv"
+## [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rtry/testdata/data_locations.csv"
 
 # Expected return on a Windows OS is similar to this:
 ## [1] "C:/Program Files/R/R-4.0.3/library/rtry/testdata/data_TRY_15160.txt"
-## [1] "C:/Program Files/R/R-4.0.3/library/rtry/testdata/locations.csv"
+## [1] "C:/Program Files/R/R-4.0.3/library/rtry/testdata/data_locations.csv"
 ```
 
 Note: All `rtry` sample datasets in their raw data format are in the package folder `testdata`.

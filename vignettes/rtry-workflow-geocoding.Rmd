@@ -90,14 +90,14 @@ To load the `.csv` file with location information, use `rtry_import()`:
 
 ```R
 # Load the locations from a .csv file
-input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 
 # View the location data in the data viewer
 View(input_locations)
 ```
 
 ```R
-## input: input/locations.csv
+## input: input/data_locations.csv
 ## dim:   20 3
 ## col:   Country code Country Location
 ```
@@ -203,11 +203,11 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 To load the `.csv` file with coordinates information, use `rtry_import()`:
 
 ```R
-input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
 ```R
-## input: input/coordinates.csv
+## input: input/data_coordinates.csv
 ## dim:   20 2
 ## col:   Latitude Longitude
 ```

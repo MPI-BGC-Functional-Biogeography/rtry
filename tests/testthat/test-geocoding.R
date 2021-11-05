@@ -2,7 +2,7 @@ context("Perform geocoding (rtry_geocoding)")
 
 
 test_that("basic test", {
-  input_location <- head(locations, 1)
+  input_location <- head(data_locations, 1)
   input_address <- paste(input_location$Location, input_location$Country, sep = ", ")
 
   expect_equal(input_address, "Hajdúdorog, Hungary")
@@ -23,7 +23,7 @@ test_that("rtry_geocoding handles empty argument", {
 
 
 test_that("rtry_geocoding handles missing email address", {
-  input_location <- head(locations, 1)
+  input_location <- head(data_locations, 1)
   input_address <- paste(input_location$Location, input_location$Country, sep = ", ")
 
   message = "Please make sure you have provided a valid email address."
@@ -33,7 +33,7 @@ test_that("rtry_geocoding handles missing email address", {
 
 
 test_that("rtry_geocoding handles invalid email address", {
-  input_location <- head(locations, 1)
+  input_location <- head(data_locations, 1)
   input_address <- paste(input_location$Location, input_location$Country, sep = ", ")
 
   message = "Please provide a valid email address."

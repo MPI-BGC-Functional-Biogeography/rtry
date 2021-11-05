@@ -41,14 +41,14 @@
 #'
 #' # Example 2: Import CSV file
 #' # Specify file path to the raw data provided within the rtry package
-#' input_path <- system.file("testdata", "locations.csv", package = "rtry")
+#' input_path <- system.file("testdata", "data_locations.csv", package = "rtry")
 #'
 #' # Import data file using rtry_import
 #' input <- rtry_import(input_path, separator = ",", encoding = "UTF-8",
 #'            quote = "\"", showOverview = TRUE)
 #'
 #' # Expected message:
-#' # input: ~/R/R-4.0.3/library/rtry/testdata/locations.csv
+#' # input: ~/R/R-4.0.3/library/rtry/testdata/data_locations.csv
 #' # dim:   20 3
 #' # col:   Country code Country Location
 #' @export
