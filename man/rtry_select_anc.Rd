@@ -9,7 +9,7 @@ rtry_select_anc(input, id, showOverview = TRUE)
 \arguments{
 \item{input}{Input data frame or data table.}
 
-\item{id}{The ID of ancillary data (\code{DataID} in the TRY data) to be selected.}
+\item{id}{The ID of the ancillary data (\code{DataID} in the TRY data) to be selected.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected data.}
 }
@@ -24,8 +24,8 @@ It works for only one ancillary data in \code{DataID} at a time.
 \examples{
 # Obtain a list of ObservationID and the corresponding ancillary data of interest
 # using the specified DataID (e.g. DataID 59 for latitude) from the provided sample
-# data (data_TRY_15160)
-Latitude <- rtry_select_anc(data_TRY_15160, 59)
+# data (e.g. data_TRY_15160)
+lat <- rtry_select_anc(data_TRY_15160, 59)
 
 # Expected message:
 # dim:   98 2

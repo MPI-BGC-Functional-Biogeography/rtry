@@ -5,7 +5,7 @@
 #' It works for only one ancillary data in \code{DataID} at a time.
 #'
 #' @param input Input data frame or data table.
-#' @param id The ID of ancillary data (\code{DataID} in the TRY data) to be selected.
+#' @param id The ID of the ancillary data (\code{DataID} in the TRY data) to be selected.
 #' @param showOverview Default \code{TRUE} displays the dimension and column names of the selected data.
 #' @return An object of the same type as the input data.
 #' @references This function makes use of the \code{\link[base]{subset}} and \code{\link[dplyr]{distinct}} functions
@@ -14,8 +14,8 @@
 #' @examples
 #' # Obtain a list of ObservationID and the corresponding ancillary data of interest
 #' # using the specified DataID (e.g. DataID 59 for latitude) from the provided sample
-#' # data (data_TRY_15160)
-#' Latitude <- rtry_select_anc(data_TRY_15160, 59)
+#' # data (e.g. data_TRY_15160)
+#' lat <- rtry_select_anc(data_TRY_15160, 59)
 #'
 #' # Expected message:
 #' # dim:   98 2
