@@ -22,80 +22,116 @@ knitr::opts_chunk$set(
 )
 ```
 
-***
+------------------------------------------------------------------------
 
 # Overview
 
 `rtry` is an R package to support the application of plant trait data providing easily applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, excluding trait data according to different attributes, long- to wide-table transformation, data export, and geocoding. The `rtry` package is designed to support the preprocessing of data released from the TRY Plant Trait Database, but is also applicable for other trait data.
 
-The TRY database (https://www.try-db.org/TryWeb/Home.php) has been designed as an integrated database for all kinds of plant traits and provides unprecedented coverage of plant traits. In addition to the trait values the TRY database offers rich and harmonized information to facilitate excluding of trait data according to different aspects, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data excluding is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information for trait data excluding is not straightforward without in-depth knowledge of the inherent data structure.
+The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php){.uri}) has been designed as an integrated database for all kinds of plant traits and provides unprecedented coverage of plant traits (Kattge et al. 2011, 2020). In addition to the trait values, the TRY database offers rich and harmonized information to facilitate filtering trait data according to different aspects, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without in-depth knowledge of the inherent data structure.
 
-We developed the `rtry` package to support data preprocessing, i.e. data excluding, taking advantage of the relevant features of the TRY database. The package is supposed to be applicable without advanced knowledge of the R software or the data structure released from TRY.
+Therefore, we developed the `rtry` package to support data preprocessing, particularly data removal (filtering), taking advantage of the relevant features of trait data released from the TRY database. The package is supposed to be applicable without advanced knowledge of the R software or the data structure released from TRY.
 
 Additional vignettes providing example workflows for trait data preprocessing and geocoding are available at:
 
 -   [The general workflow](rtry-workflow-general.html)
 
     -   An example workflow setup to demonstrate how to use the `rtry` package to preprocess the data exported from the TRY database
-    -   Covers most of the `rtry` functions from importing and exploring to binding multiple data frames, as well as selecting or excluding specific data, removing duplicates, and finally exporting the preprocessed data
+    -   Covers most of the `rtry` functions from importing and exploring to binding multiple data frames, as well as selecting or excluding specific data, removing duplicates, converting long-table to wide-table, and finally exporting the preprocessed data
 
 -   [Perform (reverse) geocoding](rtry-workflow-geocoding.html)
 
-    -   An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on the TRY data
+    -   An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on a dataset
     -   Covers mainly the functions `rtry_geocoding` and `rtry_revgeocoding`
 
-
-The `rtry` package is the first product of the TRY R project, which is maintained on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry. The project is supposed to support the development of R tools for trait data preprocessing and analysis, starting with tools to preprocess trait data released from the TRY database. Further developments of the package will also be available on this open access GitHub repository.
+The `rtry` package is the first product of the TRY R project, which is maintained on the GitHub repository of the Functional Biogeography group at the Max-Planck Institute for Biogeochemistry in Jena: <https://github.com/MPI-BGC-Functional-Biogeography/rtry>. The project is supposed to support the development of R tools for trait data preprocessing and analysis, starting with tools to preprocess trait data released from the TRY database. Further developments of the package will also be available on this open access GitHub repository.
 
 <br>
 
-***
+------------------------------------------------------------------------
 
 # The TRY data format
 
-Through the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php; Kattge et al. 2020), trait data are released in a table-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding. Each row of the long-table represents either a trait record or a record with context information (i.e. ancillary data).
+The TRY database integrates different datasets into one common structure with harmonized plant species, traits and context information (ancillary data), like latitude and longitude of the sampling site (Kattge et al. 2011b). Most datasets contributed to TRY are in a wide-table format, where all data belonging to one observation are in one row. The different kinds of data, like species names, traits, or ancillary data, are in different columns (see Figure 1).
 
+![Figure 1: A typical example of a dataset contributed to TRY. The data are stored in a wide table format, with all data belonging to an observation stored in one row and the different types of data (species, traits, ancillary data) in different columns.](introduction_wide_table.png){width="100%"}
 
-Different records belonging to the same observation (e.g. trait value and the respective records for latitude and longitude of the sampling site, and the sampling date) are combined across records by the `ObservationID` (see Table below) (Madin et al. 2007, Kattge et al. 2011b).
+\
+In the context of data integration into TRY, the column headers of traits and ancillary data are first assigned a so-called `DataName` (and `DataID`). In a second step, `DataName`s for traits are combined to `TraitName`s (and `TraitID`s). For the example in Figure 1 the column header "LeafN" (`OriglName`) would first be assigned to `DataID` 15 (Leaf nitrogen content per dry mass (Nmass)), and in a second step to `TraitID` 14 (Leaf nitrogen (N) content per leaf dry mass). In many cases several `DataID`s are combined to one `TraitID`, and the `DataName`s (and `OriglName`s) contain additional information, which may be lost in more generalized `TraitName`s. Finally, the wide-table format is transformed into a long-table format, where each row contains one record - either a trait value or an ancillary data - with some additional information. Each row in the TRY data table has a unique identifier (IS), the `ObsDataID`. The `ObservationID` links the different trait records and ancillary data of an observation.
 
-In TRY version 5, there are 27 columns, with a header in the first row of the text file (see Table below). Datasets released from other version of the TRY database may contain different numbers of columns. However, this is taken into account within the `rtry` package, as it provides a function for detailed data exploration (`rtry_explore()`, for details please refer to the section "The `rtry` package" below).
+![Figure 2: Representation of row 2 (observation 2) from Figure 1 in a long-table format as used within TRY and for data relese, with unique identifiers for each data record (\`ObsDataID\`), observation (\`ObservationID\`), ancillary data and traits.](introduction_long_table.png){width="100%"}
 
-Table: Column headers of data released from the TRY version 5
+Through the TRY Data Portal (<https://www.try-db.org/TryWeb/dp.php>), trait data are released in a tab-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding. Each row of the long-table represents either a trait record or an ancillary data. Different records belonging to the same observation are combined by the `ObservationID`.
 
-|      | Column         | Comment                                                      |
-| ---- | -------------- | ------------------------------------------------------------ |
-| 1.   | LastName       | Surname of data contributor                                  |
-| 2.   | FirstName      | First name of data contributor                               |
-| 3.   | DatasetID      | Unique identifier of contributed dataset                     |
-| 4.   | Dataset        | Name of contributed dataset                                  |
-| 5.   | SpeciesName    | Original name of species                                     |
-| 6.   | AccSpeciesID   | Unique identifier of consolidated species name               |
-| 7.   | AccSpeciesName | Consolidated species name                                    |
-| 8.   | ObservationID  | Unique identifier for each observation                       |
-| 9.   | ObsDataID      | Unique identifier for each record                            |
-| 10.  | TraitID        | Unique identifier for traits (only if the record is a trait) |
-| 11.  | TraitName      | Name of trait (only if the record is a trait)                |
-| 12.  | DataID         | Unique identifier for each sub-trait or context information  |
-| 13.  | DataName       | Name of sub-trait or context information                     |
-| 14.  | OriglName      | Original name of sub-trait or context information            |
-| 15.  | OrigValueStr   | Original value as text string                                |
-| 16.  | OrigUnitStr    | Original unit as text string                                 |
-| 17.  | ValueKindName  | Value kind (single measurement, mean, median, etc.)          |
-| 18.  | OrigUncertaintyStr | Original uncertainty as text string                      |
-| 19.  | UncertaintyName | Kind of uncertainty (standard deviation, standard error, etc.) |
-| 20.  | Replicates      | Count of replicates                                          |
-| 21.  | StdValue        | Standardized value: available for standardized traits        |
-| 22.  | UnitName        | Standard unit: available for standardized traits             |
-| 23.  | RelUncertaintyPercent | Relative uncertainty in %                              |
-| 24.  | OrigObsDataID   | Unique identifier for duplicate entries                      |
-| 25.  | ErrorRisk       | Indication for outliers: distance to mean in standard deviations |
-| 26.  | Reference       | Reference to be cited if trait record is used in analysis    |
-| 27.  | Comment         | Explanation for the `OriglName` in the contributed dataset |
-| 28.  | V28             | Empty, an artifact due to different interpretation of column separator by MySQL and R |
+In TRY version 5, the output long-table has 27 columns, with a header in the first row of the text file (see Table below). Datasets released from other versions of the TRY database may contain different numbers of columns. However, this is taken into account within the `rtry` package, as it provides a function for detailed data exploration (`rtry_explore()`, for details please refer to the section "The `rtry` package" below).
+
++------+-----------------------+---------------------------------------------------------------------------------------------+
+|      | Column                | Comment                                                                                     |
++======+=======================+=============================================================================================+
+| 1\.  | LastName              | Surname of data contributor                                                                 |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 2\.  | FirstName             | First name of data contributor                                                              |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 3\.  | DatasetID             | Unique identifier of contributed dataset                                                    |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 4\.  | Dataset               | Name of contributed dataset                                                                 |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 5\.  | SpeciesName           | Original name of species                                                                    |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 6\.  | AccSpeciesID          | Unique identifier of consolidated species name                                              |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 7\.  | AccSpeciesName        | Consolidated species name                                                                   |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 8\.  | ObservationID         | Unique identifier for each observation in TRY                                               |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 9\.  | ObsDataID             | Unique identifier for each row in the TRY data table, either trait record or ancillary data |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 10\. | TraitID               | Unique identifier for traits (only if the record is a trait)                                |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 11\. | TraitName             | Name of trait (only if the record is a trait)                                               |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 12\. | DataID                | Unique identifier for each `DataName` (either sub-trait or ancillary data)                  |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 13\. | DataName              | Name of sub-trait or ancillary data                                                         |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 14\. | OriglName             | Original name of sub-trait or ancillary data                                                |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 15\. | OrigValueStr          | Original value of trait or ancillary data                                                   |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 16\. | OrigUnitStr           | Original unit of trait or ancillary data                                                    |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 17\. | ValueKindName         | Value kind (single measurement, mean, median, etc.)                                         |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 18\. | OrigUncertaintyStr    | Original uncertainty                                                                        |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 19\. | UncertaintyName       | Kind of uncertainty (standard deviation, standard error, etc.)                              |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 20\. | Replicates            | Number of replicates                                                                        |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 21\. | StdValue              | Standardized trait value: available for frequent continuous traits                          |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 22\. | UnitName              | Standard unit: available for frequent continuous traits                                     |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 23\. | RelUncertaintyPercent | Relative uncertainty in %                                                                   |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 24\. | OrigObsDataID         | Unique identifier for duplicate trait records                                               |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 25\. | ErrorRisk             | Indication for outliers trait values: distance to mean in standard deviations               |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 26\. | Reference             | Reference to be cited if trait record is used in analysis                                   |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 27\. | Comment               | Explanation for the `OriglName` in the contributed dataset                                  |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+| 28\. | V28                   | Empty, an artifact due to different interpretation of column separator by MySQL and R       |
++------+-----------------------+---------------------------------------------------------------------------------------------+
+
+: Column headers of data released from the TRY version 5
+
+For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011, 2011b, 2020, the TRY website (<https://www.try-db.org/TryWeb/Database.php>) and the Data Release Notes distributed with each data release.
 
 <br>
 
-***
+------------------------------------------------------------------------
 
 # The `rtry` package
 
@@ -105,7 +141,7 @@ The `rtry` package provides a set of easily applicable functions to facilitate t
 
 ## Sources of `rtry`
 
-There are three sources where users can download the `rtry` package and the relevant documentation.
+There are three sources where the users can download the `rtry` package and the relevant documentation.
 
 **CRAN**
 
@@ -113,30 +149,30 @@ The `rtry` package is available on the CRAN repository. This is the recommended 
 
 **GitHub Repository**
 
-As mentioned before, the TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry.
+As mentioned before, the TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: <https://github.com/MPI-BGC-Functional-Biogeography/rtry>.
 
-- Code: the source code for the released package, as well as the developing functions
-- Wiki: the documentation of the package and the example workflows, as well as some additional information related to the TRY R project
-- Issues: users can use this platform to report bugs or provide feature suggestions
+-   Code: the source code for the released package, as well as the developing functions
+-   Wiki: the documentation of the package and the example workflows, as well as some additional information related to the TRY R project
+-   Issues: users can use this platform to report bugs or provide feature suggestions
 
 Developers are also welcome to contribute to the package.
 
 **Nextcloud**
 
-We have set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
+We have also set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
 
-- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
-- Password: `mpi-bgc-rtry`
+-   Link: <https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae>
+-   Password: `mpi-bgc-rtry`
 
 The overview of the folder structure is as follow. If the user wishes to try out the package with the provided example scripts, it is advised to download the entire `examples` directory and maintain the folder structure:
 
-```markdown
+``` {.markdown}
 .
-├── build					# Source files for the rtry package
-│   ├── rtry_x.x.x		# Source package
-├── docs					# Documentation files
-├── examples				# Scripts of example workflow
-│   ├── input				# Input files needed for testing
+├── build                   # Source files for the rtry package
+│   ├── rtry_x.x.x          # Source package
+├── docs                    # Documentation files
+├── examples                # Scripts of example workflow
+│   ├── input               # Input files needed for testing
 └── README.md
 ```
 
@@ -146,17 +182,17 @@ The overview of the folder structure is as follow. If the user wishes to try out
 
 R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
-The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
+The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: <https://cran.r-project.org/>
 
-In case RStudio is used, we also recommend to use the latest version of RStudio when using the package. The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at <https://www.rstudio.com/products/rstudio/download/>. It is sufficient to use the free and open-source version of RStudio Desktop.
 
 <br>
 
 ## Memory requirement
 
-Since R reads the entire dataset into the memory all at once and because R holds the objects it is using in virtual memory, memory capacity is important when loading large dataset (>500,000 trait records) released from the TRY database.
+Since R reads the entire dataset into the memory all at once and because R holds the objects it is using in virtual memory, memory capacity is important when loading large dataset (\>500,000 trait records) released from the TRY database.
 
-When a memory issue occurs, users could either use a machine with more memory (RAM) installed, or they could request smaller datasets (instead of one large dataset) and import the datasets into R separately. It is also possible to use `memory.limit()` to increase the default memory, e.g. `memory.limit(size=2500)`, where the size is in MB. Note that you need to be using 64-bit in order to take real advantage of this.
+When a memory issue occurs, users could either use a machine with more memory (RAM) installed, or they could request multiple smaller datasets (instead of one large dataset) and import the datasets into R separately. It is also possible to use [`memory.limit()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/memory.size) to increase the default memory, e.g. `memory.limit(size=2500)`, where the size is in MB. Note that you need to be using 64-bit in order to take real advantage of this.
 
 <br>
 
@@ -164,25 +200,25 @@ When a memory issue occurs, users could either use a machine with more memory (R
 
 The installation of the `rtry` package can be performed through the RStudio console.
 
-First, install all the dependencies with the command.
+First, install all the dependencies with the command:
 
-```R
+``` {.r}
 install.packages(c("data.table", "dplyr", "tidyr", "jsonlite", "curl"))
 ```
 
-Once installation is completed, the message `The downloaded source packages are in <path>` should be seen.
+Once the installation is completed, the message "`The downloaded source packages are in <path>`" should be seen.
 
 Next, install the `rtry` package with the command:
 
 From CRAN:
 
-```R
+``` {.r}
 install.packages("rtry")
 ```
 
-Else, if user downloaded the source package (`.tar.gz`) from the GitHub repository or Nextcloud:
+Else, if the user downloaded the source package (`.tar.gz`) from the GitHub repository or Nextcloud:
 
-```R
+``` {.r}
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 ```
 
@@ -192,7 +228,7 @@ You may ignore the warning message "`Rtools is required to build R packages but 
 
 Once the installation is completed, the `rtry` package needs to be loaded with the command:
 
-```R
+``` {.r}
 library(rtry)
 ```
 
@@ -204,14 +240,14 @@ To update the `rtry` package to a newer version in the future, simply restart RS
 
 From CRAN:
 
-```R
+``` {.r}
 # Remember to restart RStudio first
 install.packages("rtry")
 ```
 
-Else,  if the user downloaded the latest source package (`.tar.gz`) of `rtry` from the GitHub repository or Nextcloud:
+Else, if the user downloaded the latest source package (`.tar.gz`) of `rtry` from the GitHub repository or Nextcloud:
 
-```R
+``` {.r}
 # Remember to restart RStudio first
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 ```
@@ -226,7 +262,7 @@ You may ignore the warning message "`Rtools is required to build R packages but 
 
 To check the version of the loaded `rtry` package:
 
-```R
+``` {.r}
 packageVersion("rtry")
 ```
 
@@ -236,11 +272,11 @@ packageVersion("rtry")
 
 To get an overview of the `rtry` package and the corresponding documentations:
 
-```R
+``` {.r}
 help(package = "rtry")
 ```
 
-This command displays an index of all help pages with the vignettes, functions, and data of the `rtry` package on the `Help` panel on RStudio.
+This command displays an index of all help pages with the vignettes, functions, and sample datasets of the `rtry` package on the `Help` panel on RStudio.
 
 <br>
 
@@ -248,13 +284,13 @@ This command displays an index of all help pages with the vignettes, functions, 
 
 Inside the `rtry` package, each function has its corresponding documentation providing a brief description of the function, and explanation for each argument. For the documentation of a specific function, such as `rtry_import()`, type a `?` in front of the function name:
 
-```R
+``` {.r}
 ?rtry_import
 ```
 
 To view the R code underlying the function, the `View` function can be used within R or RStudio:
 
-```R
+``` {.r}
 View(rtry_import)
 ```
 
@@ -266,21 +302,21 @@ For the source code with comments, go to your local R directory, then look for t
 
 Several sample datasets have been provided within the `rtry` package. To obtain the documentation of the data such as `data_TRY_15160`, use the following command:
 
-```R
+``` {.r}
 ?data_TRY_15160
 ```
 
 To view the sample data, call the `View` function:
 
-```R
+``` {.r}
 View(data_TRY_15160)
 ```
 
-This invokes a data viewer window immediately and it does not import the data. For more information about the sample data within the package and how to import them, see the section "Sample datasets within the `rtry` package" below.
+This invokes a data viewer window immediately within RStudio and it does not import the data. For more information about the sample data within the package and how to import them, see the section "Sample datasets within the `rtry` package" below.
 
-There are more ways to explore a dataset in R, some of which can be seen below:
+There are more standard ways to explore a dataset in R, some of which can be seen below:
 
-```R
+``` {.r}
 # Show the dimensions of the dataset
 dim(data_TRY_15160)
 
@@ -300,32 +336,31 @@ tail(data_TRY_15160)
 summary(data_TRY_15160)
 ```
 
-
 <br>
 
 ### Obtain vignettes of the package
 
 To open a list of vignettes for the `rtry` package:
 
-```R
+``` {.r}
 browseVignettes("rtry")
 ```
 
-To directly view a vignette (e.g. `rtry-introduction`) of the `rtry` package from the `Help` panel:
+To directly view a vignette (e.g. `rtry-introduction`) of the `rtry` package from the `Help` panel of RStudio:
 
-```R
+``` {.r}
 vignette("rtry-introduction")
 ```
 
 <br>
 
----
+------------------------------------------------------------------------
 
 ## Functionality of the `rtry` package
 
-The `rtry` package is a compilation of functions developed to support the preprocessing of trait data, foremost if received via the TRY database. To enable easy application, some attributes within the `rtry` package are specified for the structure and column names used in the data released from TRY.
+The `rtry` package is a compilation of functions developed to support the preprocessing of trait data, foremost if received via the TRY database. To enable easy application, some attributes within the `rtry` package are specified for the structure or column names used in the data released from TRY.
 
-To realize the full functionality of `rtry` for other trait datasets, these should be transformed to the data structure used in the data releases from the TRY database: long table format specifically including the column names of the IDs: `ObservationID`, `ObsDataID`, `TraitID`, `DataID`, `OrigObsDataID`, `AccSpeciesID`, `DatasetID`, and the columns `StdValue`, `OrigValueStr` and `ErrorRisk`. Different measurements (traits and ancillary data) are combined via the `ObservationID`. If additional datasets are used with the TRY data, these need to be consistent with the respective data from TRY.
+To realize the full functionality of `rtry` for other trait datasets, these datasets should be transformed to the data structure used in the data releases from the TRY database: long-table format specifically including the column names of the IDs: `ObservationID`, `ObsDataID`, `TraitID`, `DataID`, `OrigObsDataID`, `AccSpeciesID`, `DatasetID`, and the columns `StdValue`, `OrigValueStr` and `ErrorRisk`. Different measurements (traits and ancillary data) are combined via the `ObservationID`. If additional datasets are used with the TRY data, these need to be consistent with the respective data from TRY.
 
 <br>
 
@@ -333,7 +368,7 @@ To realize the full functionality of `rtry` for other trait datasets, these shou
 
 There are some implicit aspects with respect to writing commands in R that make commands short and convenient. For example, the `rtry_import` function is by default set to fit the data released from TRY, and is specified as:
 
-```R
+``` {.r}
 rtry_import(
   input,
   separator = "\t",
@@ -345,15 +380,15 @@ rtry_import(
 
 The example above is copied from the reference manual and includes the function name and all possible arguments for this function.
 
-If the argument is followed by "`=`", it means a default value is specified. Else it awaits user input at all times. If an argument is specified by default, it does not need to be explicitly written when calling the function. Therefore, importing data released from TRY is as simple as:
+If the argument is followed by "`=`", it means a default value is specified. Else it awaits the user input at all times. If an argument is specified by default, it does not need to be explicitly written when calling the function. Therefore, importing a data released from TRY is as simple as:
 
-```R
+``` {.r}
 data <- rtry_import(input_path)
 ```
 
 However, to import other file formats, the arguments may need to be explicitly defined. For example, to import a data file with comma separated values (`.csv`):
 
-```R
+``` {.r}
 data <- rtry_import(input_path,
           separator = ",",
           encoding = "UTF-8",
@@ -365,9 +400,9 @@ By explicitly defining the arguments, the default values are overridden.
 
 In R, the order of operations when given a sequence of arguments is:
 
-1. Check for exact match for a named argument, e.g. `separator`.
-2. Check for a partial match, e.g. `sep`.
-3. Check for a positional match, according to the sequence given in the reference manual. In this case, a user would just specify the values of the arguments without providing the argument name itself, e.g. `data <- rtry_import(input_path, ",", "UTF-8", "\"", TRUE)`.
+1.  Check for exact match for a named argument, e.g. `separator`.
+2.  Check for a partial match, e.g. `sep`.
+3.  Check for a positional match, according to the sequence given in the reference manual. In this case, a user would just specify the values of the arguments without providing the argument name itself, e.g. `data <- rtry_import(input_path, ",", "UTF-8", "\"", TRUE)`.
 
 <br>
 
@@ -375,26 +410,26 @@ In R, the order of operations when given a sequence of arguments is:
 
 Inside the `rtry` package, we use a function naming convention where each function begins with the prefix `rtry_` followed by what the specific function does. The `rtry` package consists of the following functions:
 
-- `rtry_import`: Import data
-- `rtry_explore`: Explore data
-- `rtry_bind_col`: Bind data by columns
-- `rtry_bind_row`: Bind data by rows
-- `rtry_join_left`: Left join for two data frames
-- `rtry_join_outer`: Outer join for two data frames
-- `rtry_select_col`: Select columns
-- `rtry_select_row`: Select rows
-- `rtry_select_anc`: Select ancillary data in wide table format
-- `rtry_exclude`: Exclude data
-- `rtry_rm_col`: Remove columns
-- `rtry_rm_dup`: Remove duplicates in data
-- `rtry_trans_wider`: Transform data from long to wide table
-- `rtry_export`: Export preprocessed data
-- `rtry_geocoding`: Perform geocoding
-- `rtry_revgeocoding`: Perform reverse geocoding
+-   `rtry_import`: Import data
+-   `rtry_explore`: Explore data
+-   `rtry_bind_col`: Bind data by columns
+-   `rtry_bind_row`: Bind data by rows
+-   `rtry_join_left`: Left join for two data frames
+-   `rtry_join_outer`: Outer join for two data frames
+-   `rtry_select_col`: Select columns
+-   `rtry_select_row`: Select rows
+-   `rtry_select_anc`: Select ancillary data in wide table format
+-   `rtry_exclude`: Exclude data
+-   `rtry_rm_col`: Remove columns
+-   `rtry_rm_dup`: Remove duplicates in data
+-   `rtry_trans_wider`: Transform data from long to wide table
+-   `rtry_export`: Export preprocessed data
+-   `rtry_geocoding`: Perform geocoding
+-   `rtry_revgeocoding`: Perform reverse geocoding
 
-Detailed description of each function can be found in the reference manual (`.pdf`) generated by CRAN, or via the command:
+Detailed description of each function can be found in the reference manual (`.pdf`), or via the command:
 
-```R
+``` {.r}
 # For the documentation of a specific function (e.g. `rtry_import())
 # Type a `?` in front of the function name
 ?rtry_import
@@ -417,21 +452,22 @@ Several sample datasets have been provided within the `rtry` package in both `.r
 
 Detailed description of each dataset can be found in the reference manual (`.pdf`) generated by CRAN, or via the command:
 
-```R
-# For the documentation of a specific dataset (e.g. `data_TRY_15160` or `locations`)
+``` {.r}
+# For the documentation of a specific dataset
+# e.g. `data_TRY_15160` or `data_locations`
 # Type a `?` in front of the name of the dataset
 ?data_TRY_15160
 ?data_locations
 
-# To view the dataset by invoking the data viewer
+# To view the dataset by invoking the data viewer in RStudio
 # Use the `View` function
 View(data_TRY_15160)
 View(data_locations)
 ```
 
-To load a dataset (`.rda` format) from the `rtry` package and load the dataset into the workspace:
+To load a dataset (`.rda` format) from the `rtry` package into the workspace:
 
-```R
+``` {.r}
 data(data_TRY_15160)
 data(data_locations)
 ```
@@ -440,7 +476,7 @@ This `data` function creates an object in the `envir` environment (by default th
 
 To access the address of a dataset in its raw data format, the following R command will return the exact path:
 
-```R
+``` {.r}
 # To obtain the exact path of the raw dataset within the package
 system.file("testdata", "data_TRY_15160.txt", package = "rtry")
 system.file("testdata", "data_locations.csv", package = "rtry")
@@ -458,15 +494,15 @@ Note: All `rtry` sample datasets in their raw data format are in the package fol
 
 <br>
 
-***
+------------------------------------------------------------------------
 
 # Data license
 
-The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Despite the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
+The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Although the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
 
 <br>
 
-***
+------------------------------------------------------------------------
 
 # Authorship guidelines
 
@@ -474,7 +510,7 @@ The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-B
 
 <br>
 
-***
+------------------------------------------------------------------------
 
 # References
 
@@ -482,6 +518,6 @@ Kattge, J., S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, G. Bönisch, E. Ga
 
 Kattge, J., K. Ogle, G. Bönisch, S. Díaz, S. Lavorel, J. Madin, K. Nadrowski, S. Nöllert, K. Sartor and C. Wirth (2011b). "A generic structure for plant trait databases." <u>Methods in Ecology and Evolution</u> **2**(2): 202-213.
 
-Kattge, J., G. Bönisch, S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, S. Tautenhahn (2019). "TRY plant trait database – enhanced coverage and open access." <u>Global Change Biology</u> **26**(1): 119-188.
+Kattge, J., G. Bönisch, S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, S. Tautenhahn (2020). "TRY plant trait database -- enhanced coverage and open access." <u>Global Change Biology</u> **26**(1): 119-188.
 
 Madin, J., S. Bowers, M. Schildhauer, S. Krivov, D. Pennington and F. Villa (2007). "An ontology for describing and synthesizing ecological observation data." <u>Ecological Informatics</u> **2**: 279-296.
