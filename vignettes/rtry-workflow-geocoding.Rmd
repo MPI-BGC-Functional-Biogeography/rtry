@@ -22,13 +22,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-***
+------------------------------------------------------------------------
 
 This vignette is intended to demonstrate how to use the functions `rtry_geocoding` and `rtry_revgeocoding` within the `rtry` package to perform geocoding and reverse geocoding for a list of locations or coordinates.
 
 Geocoding is the process of converting an address into geographic coordinates (latitude and longitude), while reverse geocoding is the process of converting geographic coordinates (latitude and longitude) into an address.
 
-The functions `rtry_geocoding` and `rtry_revgeocoding` are based on Nominatim, a search engine for OpenStreetMap (OSM) data. The data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence). As part of the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/), an absolute maximum of 1 request per second (no heavy usage) and a valid email address to identify the request are required when using this OSM service. For details, please refer to: https://wiki.openstreetmap.org/wiki/Nominatim.
+The functions `rtry_geocoding` and `rtry_revgeocoding` are based on Nominatim, a search engine for OpenStreetMap (OSM) data. The data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence). As part of the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/), an absolute maximum of 1 request per second (no heavy usage) and a valid email address to identify the request are required when using this OSM service. For details, please refer to: <https://wiki.openstreetmap.org/wiki/Nominatim>.
 
 Note that the georeference system used is WGS84 projection.
 
@@ -42,12 +42,12 @@ Apart from this vignette that comes along with the `rtry` package without additi
 
 Similarly, the sample data required to try out this example workflow are not only provided within the `rtry` package, but also inside the `examples/input` directory on the MPI-BGC Nextcloud. In order to follow the workflow smoothly, make sure the R script is placed inside the folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory from the Nextcloud.
 
-- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
-- Password: `mpi-bgc-rtry`
+-   Link: <https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae>
+-   Password: `mpi-bgc-rtry`
 
 To start, set the work directory to the location where the `examples` directory is located:
 
-```R
+``` {.r}
 # Set the working directory
 setwd("<path_to_rtry_examples_dir>")
 
@@ -57,10 +57,9 @@ getwd()
 
 Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
 
-
 Load the required packages using the commands:
 
-```R
+``` {.r}
 # Load the rtry package
 library(rtry)
 
@@ -77,18 +76,18 @@ library(dplyr)
 
 The `rtry_geocoding()` takes two parameters `address` and `email`, and returns a data frame that contains latitude (`lat`) and longitude (`lon`) in WGS84 projection.
 
-```R
+``` {.r}
 rtry_geocoding(address = NULL, email = NULL)
 ```
 
 | Argument  | Description                |
-| --------- | -------------------------- |
+|-----------|----------------------------|
 | `address` | String of an address       |
 | `email`   | String of an email address |
 
 To load the `.csv` file with location information, use `rtry_import()`:
 
-```R
+``` {.r}
 # Load the locations from a .csv file
 input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 
@@ -96,19 +95,17 @@ input_locations <- rtry_import("input/data_locations.csv", separator = ",", enco
 View(input_locations)
 ```
 
-```R
+``` {.r}
 ## input: input/data_locations.csv
 ## dim:   20 3
 ## col:   Country code Country Location
 ```
 
-![workflow_geocoding_input](workflow_geocoding_locations.png){width=40%}
-
-
+![workflow_geocoding_input](workflow_geocoding_locations.png){width="40%"}
 
 Then, the location data should be converted into the required format for `address`, i.e. `<location>, <country>`:
 
-```R
+``` {.r}
 # Extract and combine the location and country names
 input_addresses <- paste(input_locations$Location, input_locations$Country, sep = ", ")
 
@@ -116,20 +113,18 @@ input_addresses <- paste(input_locations$Location, input_locations$Country, sep 
 head(input_addresses)
 ```
 
-```R
+``` {.r}
 ## [1] "Hajdúdorog, Hungary" "Diósd, Hungary"      "Fót, Hungary"        "Bőcs, Hungary"
 ## [5] "Regéc, Hungary"      "Sáska, Hungary"
 ```
 
-Note that file encoding `UTF-8` is used, and it is normal for the RStudio console to display character in Unicode character (`<U+0000>` semantic) depending on the system language setting. For example, "Bőcs" might be displayed as "B<U+0151>cs".
-
-
+Note that file encoding `UTF-8` is used, and it is normal for the RStudio console to display character in Unicode character (`<U+0000>` semantic) depending on the system language setting. For example, "Bőcs" might be displayed as "B\<U+0151\>cs".
 
 In order to apply the function `rtry_geocoding()` to the list `input_addresses`, use `lapply()`, and please remember to change the email address into your own email address.
 
 Since OSM is an absolute maximum of 1 request per second, in the following example, a 2 second delay has been set between each search.
 
-```R
+``` {.r}
 # Prepare counter for printed progress messages
 counter <- 1
 output_coordinates <- NULL # somethings received error messages 'no object found'
@@ -155,7 +150,7 @@ output_coordinates <- lapply(input_addresses, function(address) {
   bind_rows() %>% data.frame()
 ```
 
-```R
+``` {.r}
 ## Geocoding 1/20 completed.
 ## Geocoding 2/20 completed.
 ## Geocoding 3/20 completed.
@@ -167,11 +162,11 @@ The progress of the geocoding can be seen in the console. Once the geocoding is 
 
 The `output_coordinates` would look like the following. Note that the location which is unknown to OSM, the resulting latitude and longitude will remain or marked as `NA`.
 
-![workflow_geocoding_output](workflow_geocoding_coordinates.png){width=40%}
+![workflow_geocoding_output](workflow_geocoding_coordinates.png){width="40%"}
 
 Substitute the coordinates into the corresponding columns of the input data.
 
-```R
+``` {.r}
 # Add the output coordinates to the corresponding columns in the input data
 input_locations$Latitude <- output_coordinates$lat
 input_locations$Longitude <- output_coordinates$lon
@@ -179,11 +174,20 @@ input_locations$Longitude <- output_coordinates$lon
 # If necessary, re-arrange the columns
 input_locations <- rtry_select_col(input_locations, "Country code", Country, Location, Latitude, Longitude, showOverview = FALSE)
 
+# View data
+head(input_locations)
+
 # Export into .csv
+# If the specified output directory does not exist, it will be created automatically
 rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
-![workflow_geocoding_input_coordinates](workflow_geocoding_locations_coordinates.png){width=60%}
+``` {.r}
+## New directory created at: output 
+## File saved at: output/locations_to_coordinates.csv
+```
+
+![workflow_geocoding_input_coordinates](workflow_geocoding_locations_coordinates.png){width="60%"}
 
 <br>
 
@@ -191,32 +195,35 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 
 The `rtry_revgeocoding()` takes two parameters `lat_lon` and `email`, and returns a data frame that contains the corresponding location.
 
-```R
+``` {.r}
 rtry_revgeocoding(lat_lon = NULL, email = NULL)
 ```
 
-| Argument  | Description                                                  |
-| --------- | ------------------------------------------------------------ |
++-----------+--------------------------------------------------------------------+
+| Argument  | Description                                                        |
++===========+====================================================================+
 | `lat_lon` | A data frame consisting latitude and longitude in WGS84 projection |
-| `email`   | String of an email address                                   |
++-----------+--------------------------------------------------------------------+
+| `email`   | String of an email address                                         |
++-----------+--------------------------------------------------------------------+
 
 To load the `.csv` file with coordinates information, use `rtry_import()`:
 
-```R
+``` {.r}
 input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
-```R
+``` {.r}
 ## input: input/data_coordinates.csv
 ## dim:   20 2
 ## col:   Latitude Longitude
 ```
 
-![workflow_revgeocoding_coordinates](workflow_revgeocoding_coordinates.png){width=30%}
+![workflow_revgeocoding_coordinates](workflow_revgeocoding_coordinates.png){width="30%"}
 
 Then, the coordinates data should be converted into a `data.frame`:
 
-```R
+``` {.r}
 # Extract and converted the coordinates into a data frame
 input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
 ```
@@ -225,7 +232,7 @@ In order to apply the function `rtry_revgeocoding` to the `input_lat_lon`, use `
 
 Since OSM is an absolute maximum of 1 request per second, in the following example, a 2 second delay has been set between each search.
 
-```R
+``` {.r}
 # Prepare counter for printed progress messages
 counter <- 1
 output_locations <- NULL # somethings received error messages 'no object found'
@@ -251,7 +258,7 @@ output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   bind_rows() %>% data.frame()
 ```
 
-```R
+``` {.r}
 ## Reverse Geocoding 1/20 completed.
 ## Reverse Geocoding 2/20 completed.
 ## Reverse Geocoding 3/20 completed.
@@ -263,11 +270,11 @@ The progress of the reverse geocoding can be seen in the console. Once the rever
 
 The output location information would look like the following. Note that for some coordinates, OpenStreetMap might not have the town/city information, in such case, those columns will be marked as `NA`.
 
-![workflow_revgeocoding_locations](workflow_revgeocoding_locations.png){width=100%}
+![workflow_revgeocoding_locations](workflow_revgeocoding_locations.png){width="100%"}
 
 Substitute the `country_code` and `country` into the corresponding columns of the input list, while the location information is extracted from either `town` or `city`.
 
-```R
+``` {.r}
 # Add the output location information to the corresponding columns in the input data
 input_coordinates$'Country code' <- output_locations$country_code
 input_coordinates$Country <- output_locations$country
@@ -276,8 +283,16 @@ input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locat
 # If necessary, re-arrange the columns
 input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Country code", Country, Location, showOverview = FALSE)
 
+# View data
+head(input_coordinates)
+
 # Export into .csv
+# If the specified output directory does not exist, it will be created automatically
 rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
 ```
 
-![workflow_revgeocoding_coordinates_locations](workflow_revgeocoding_coordinates_locations.png){width=60%}
+``` {.r}
+## File saved at: output/locations_to_coordinates.csv
+```
+
+![workflow_revgeocoding_coordinates_locations](workflow_revgeocoding_coordinates_locations.png){width="60%"}
