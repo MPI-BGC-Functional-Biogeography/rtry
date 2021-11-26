@@ -46,6 +46,15 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))};if(c.ajax=f,c.queue=d,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,maxw:/\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var g,h,i,j=a.document,k=j.documentElement,l=[],m=[],n=[],o={},p=30,q=j.getElementsByTagName("head")[0]||k,r=j.getElementsByTagName("base")[0],s=q.getElementsByTagName("link"),t=function(){var a,b=j.createElement("div"),c=j.body,d=k.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=j.createElement("body"),c.style.background="none"),k.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild(c):c.removeChild(b),k.style.fontSize=d,e&&(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var c="clientWidth",d=k[c],e="CSS1Compat"===j.compatMode&&d||j.body[c]||d,f={},o=s[s.length-1],r=(new Date).getTime();if(b&&g&&p>r-g)return a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in l)if(l.hasOwnProperty(v)){var w=l[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(m[w.rules]))}for(var C in n)n.hasOwnProperty(C)&&n[C]&&n[C].parentNode===q&&q.removeChild(n[C]);n.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=j.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var e=a.replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var g=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},h=!f&&d;b.length&&(b+="/"),h&&(f=1);for(var i=0;f>i;i++){var j,k,n,o;h?(j=d,m.push(g(a))):(j=e[i].match(c.regex.findStyles)&&RegExp.$1,m.push(RegExp.$2&&g(RegExp.$2))),n=j.split(","),o=n.length;for(var p=0;o>p;p++)k=n[p],l.push({media:k.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:m.length-1,hasquery:k.indexOf("(")>-1,minw:k.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:k.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},w=function(){if(d.length){var b=d.shift();f(b.href,function(c){v(c,b.href,b.media),o[b.href]=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var b=0;b<s.length;b++){var c=s[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!o[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!r||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 };
 </script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script>
 
 /**
@@ -1478,45 +1487,6 @@ window.onload = function() {
   PagedTableDoc.initAll();
 };
 </script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
-});
-</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -1528,11 +1498,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -1545,32 +1510,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -1580,10 +1520,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -1600,6 +1536,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
@@ -1612,7 +1551,6 @@ summary {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -1676,7 +1614,7 @@ summary {
 
 
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -1688,8 +1626,8 @@ summary {
 <ul>
 <li><a href="#prepare-the-environment"><span class="toc-section-number">1</span> Prepare the environment</a><ul>
 <li><a href="#reset-rs-brain"><span class="toc-section-number">1.1</span> Reset R’s brain</a></li>
-<li><a href="#load-rtry-package"><span class="toc-section-number">1.2</span> Load rtry package</a></li>
-<li><a href="#set-working-directory"><span class="toc-section-number">1.3</span> Set working directory</a></li>
+<li><a href="#set-working-directory"><span class="toc-section-number">1.2</span> Set working directory</a></li>
+<li><a href="#load-rtry-package"><span class="toc-section-number">1.3</span> Load rtry package</a></li>
 </ul></li>
 <li><a href="#geocoding-using-rtry"><span class="toc-section-number">2</span> Geocoding using <code>rtry</code></a><ul>
 <li><a href="#load-the-locations-from-a-.csv-file"><span class="toc-section-number">2.1</span> Load the locations from a .csv file</a></li>
@@ -1717,20 +1655,36 @@ summary {
 #----------------------------------------------------------
 rm(list=ls())</code></pre>
 </div>
+<div id="set-working-directory" class="section level2">
+<h2><span class="header-section-number">1.2</span> Set working directory</h2>
+<pre class="r"><code>#-------------------------------------------------
+# Make sure the working directory is set to the &quot;examples&quot; folder
+# Inside which there should be the &quot;input&quot; folder containing the sample dataset
+# Sample dataset used: locations.csv, coordinates.csv
+#-------------------------------------------------
+getwd()</code></pre>
+<pre><code>## [1] &quot;D:/Leo/MPI-BGC_ownCloud/TRY_R/rtry_test/examples&quot;</code></pre>
+<pre class="r"><code>#-------------------------------------------------
+# If the working directory is incorrect
+# Uncomment the following command and change the directory path before execution
+#-------------------------------------------------
+# setwd(&quot;&lt;path_to_rtry_examples_dir&gt;&quot;)</code></pre>
+</div>
 <div id="load-rtry-package" class="section level2">
-<h2><span class="header-section-number">1.2</span> Load rtry package</h2>
+<h2><span class="header-section-number">1.3</span> Load rtry package</h2>
 <pre class="r"><code>#-------------------------------------------------
 # Make sure the rtry package is installed before loading
 #-------------------------------------------------
 library(rtry)
 packageVersion(&quot;rtry&quot;)</code></pre>
-<pre><code>## [1] &#39;0.0.0.9500&#39;</code></pre>
+<pre><code>## [1] &#39;1.0.0&#39;</code></pre>
 <pre class="r"><code>#-------------------------------------------------
 # Check if the additional packages are installed
 # If not, install the required packages before loading
 #-------------------------------------------------
 if (!require(dplyr)) install.packages(&#39;dplyr&#39;)</code></pre>
 <pre><code>## Loading required package: dplyr</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -1741,28 +1695,13 @@ if (!require(dplyr)) install.packages(&#39;dplyr&#39;)</code></pre>
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(dplyr)</code></pre>
 </div>
-<div id="set-working-directory" class="section level2">
-<h2><span class="header-section-number">1.3</span> Set working directory</h2>
-<pre class="r"><code>#-------------------------------------------------
-# Make sure the working directory is set to the &quot;examples&quot; folder
-# Inside which there should be the &quot;input&quot; folder containing the sample dataset
-# Sample dataset used: TRYdata_15160.txt, TRYdata_15161.txt
-#-------------------------------------------------
-getwd()</code></pre>
-<pre><code>## [1] &quot;C:/Users/hlam/ownCloud/TRY_R/rtry_test/examples&quot;</code></pre>
-<pre class="r"><code>#-------------------------------------------------
-# If the working directory is incorrect
-# Uncomment the following command and change the directory path before execution
-#-------------------------------------------------
-# setwd(&quot;&lt;path_to_rtry_examples_dir&gt;&quot;)</code></pre>
-</div>
 </div>
 <div id="geocoding-using-rtry" class="section level1">
 <h1><span class="header-section-number">2</span> Geocoding using <code>rtry</code></h1>
 <div id="load-the-locations-from-a-.csv-file" class="section level2">
 <h2><span class="header-section-number">2.1</span> Load the locations from a .csv file</h2>
-<pre class="r"><code>input_locations &lt;- rtry_import(&quot;input/locations.csv&quot;, separator = &quot;,&quot;, encoding = &quot;UTF-8&quot;, quote = &quot;\&quot;&quot;)</code></pre>
-<pre><code>## input: input/locations.csv</code></pre>
+<pre class="r"><code>input_locations &lt;- rtry_import(&quot;input/data_locations.csv&quot;, separator = &quot;,&quot;, encoding = &quot;UTF-8&quot;, quote = &quot;\&quot;&quot;)</code></pre>
+<pre><code>## input: input/data_locations.csv</code></pre>
 <pre><code>## dim:   20 3</code></pre>
 <pre><code>## col:   Country code Country Location</code></pre>
 <pre class="r"><code>head(input_locations)</code></pre>
@@ -1793,16 +1732,16 @@ output_coordinates &lt;- NULL # somethings received error messages &#39;no objec
 output_coordinates &lt;- lapply(input_addresses, function(address) {
   # Calling the Nominatim OpenStreetMap API
   # Please change the email address into your own email address
-  geocode_output &lt;- rtry_geocoding(address, email = &quot;jens.kattge@bgc-jena.mpg.de&quot;)
-  
+  geocode_output &lt;- rtry_geocoding(address, email = &quot;john.doe@example.com&quot;)
+
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
   Sys.sleep(2)
-  
+
   # Print message in console to see the progress
   message(&quot;Geocoding &quot;, counter, &quot;/&quot;, nrow(input_locations), &quot; completed.&quot;)
   counter &lt;&lt;- counter + 1
-  
+
   # Return data.frame with the input address, output of the rtry_geocoding function
   return(data.frame(address = address, geocode_output))
 }) %&gt;%
@@ -1828,10 +1767,11 @@ output_coordinates &lt;- lapply(input_addresses, function(address) {
 <pre><code>## Geocoding 18/20 completed.</code></pre>
 <pre><code>## Geocoding 19/20 completed.</code></pre>
 <pre><code>## Geocoding 20/20 completed.</code></pre>
-<pre class="r"><code>head(output_coordinates)</code></pre>
+<pre class="r"><code># View data
+head(output_coordinates)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["address"],"name":[1],"type":["chr"],"align":["left"]},{"label":["lat"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["lon"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hajdúdorog, Hungary","2":"47.81572","3":"21.50068","_rn_":"1"},{"1":"Diósd, Hungary","2":"47.40626","3":"18.94486","_rn_":"2"},{"1":"Fót, Hungary","2":"47.61259","3":"19.19801","_rn_":"3"},{"1":"Bocs, Hungary","2":"48.03855","3":"20.97164","_rn_":"4"},{"1":"Regéc, Hungary","2":"48.39307","3":"21.34520","_rn_":"5"},{"1":"Sáska, Hungary","2":"46.93572","3":"17.47631","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["address"],"name":[1],"type":["chr"],"align":["left"]},{"label":["lat"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["lon"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hajdúdorog, Hungary","2":"47.81572","3":"21.50068","_rn_":"1"},{"1":"Diósd, Hungary","2":"47.40802","3":"18.94225","_rn_":"2"},{"1":"Fót, Hungary","2":"47.61259","3":"19.19801","_rn_":"3"},{"1":"Bocs, Hungary","2":"48.05073","3":"20.97172","_rn_":"4"},{"1":"Regéc, Hungary","2":"48.41512","3":"21.42049","_rn_":"5"},{"1":"Sáska, Hungary","2":"46.96784","3":"17.49291","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1848,7 +1788,7 @@ input_locations &lt;- rtry_select_col(input_locations, &quot;Country code&quot;,
 head(input_locations)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Country code"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Location"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Latitude"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Longitude"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hu","2":"Hungary","3":"Hajdúdorog","4":"47.81572","5":"21.50068"},{"1":"Hu","2":"Hungary","3":"Diósd","4":"47.40626","5":"18.94486"},{"1":"Hu","2":"Hungary","3":"Fót","4":"47.61259","5":"19.19801"},{"1":"Hu","2":"Hungary","3":"Bocs","4":"48.03855","5":"20.97164"},{"1":"Hu","2":"Hungary","3":"Regéc","4":"48.39307","5":"21.34520"},{"1":"Hu","2":"Hungary","3":"Sáska","4":"46.93572","5":"17.47631"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Country code"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Location"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Latitude"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Longitude"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hu","2":"Hungary","3":"Hajdúdorog","4":"47.81572","5":"21.50068"},{"1":"Hu","2":"Hungary","3":"Diósd","4":"47.40802","5":"18.94225"},{"1":"Hu","2":"Hungary","3":"Fót","4":"47.61259","5":"19.19801"},{"1":"Hu","2":"Hungary","3":"Bocs","4":"48.05073","5":"20.97172"},{"1":"Hu","2":"Hungary","3":"Regéc","4":"48.41512","5":"21.42049"},{"1":"Hu","2":"Hungary","3":"Sáska","4":"46.96784","5":"17.49291"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1863,8 +1803,8 @@ head(input_locations)</code></pre>
 <h1><span class="header-section-number">3</span> Reverse geocoding using <code>rtry</code></h1>
 <div id="load-the-coordinates-from-a-.csv-file" class="section level2">
 <h2><span class="header-section-number">3.1</span> Load the coordinates from a .csv file</h2>
-<pre class="r"><code>input_coordinates &lt;- rtry_import(&quot;input/coordinates.csv&quot;, separator = &quot;,&quot;, encoding = &quot;UTF-8&quot;, quote = &quot;\&quot;&quot;)</code></pre>
-<pre><code>## input: input/coordinates.csv</code></pre>
+<pre class="r"><code>input_coordinates &lt;- rtry_import(&quot;input/data_coordinates.csv&quot;, separator = &quot;,&quot;, encoding = &quot;UTF-8&quot;, quote = &quot;\&quot;&quot;)</code></pre>
+<pre><code>## input: input/data_coordinates.csv</code></pre>
 <pre><code>## dim:   20 2</code></pre>
 <pre><code>## col:   Latitude Longitude</code></pre>
 <pre class="r"><code>head(input_coordinates)</code></pre>
@@ -1897,16 +1837,16 @@ output_locations &lt;- NULL # somethings received error messages &#39;no object 
 # Please change the email address to your own email address
 output_locations &lt;- apply(input_lat_lon, 1, function(lat_lon) {
   # Calling the Nominatim OpenStreetMap API
-  rev_geocode_output &lt;- rtry_revgeocoding(lat_lon, email = &quot;jens.kattge@bgc-jena.mpg.de&quot;)
-  
+  rev_geocode_output &lt;- rtry_revgeocoding(lat_lon, email = &quot;john.doe@example.com&quot;)
+
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
   Sys.sleep(2)
-  
+
   # Print message in console to see the progress
   message(&quot;Reverse Geocoding &quot;, counter, &quot;/&quot;, length(input_lat_lon$lat), &quot; completed.&quot;)
   counter &lt;&lt;- counter + 1
-  
+
   # Return data.frame with the input coordinates, output of the rtry_revgeocoding function
   return(data.frame(lat = lat_lon[1], lon = lat_lon[2], rev_geocode_output))
 }) %&gt;%
@@ -1932,10 +1872,11 @@ output_locations &lt;- apply(input_lat_lon, 1, function(lat_lon) {
 <pre><code>## Reverse Geocoding 18/20 completed.</code></pre>
 <pre><code>## Reverse Geocoding 19/20 completed.</code></pre>
 <pre><code>## Reverse Geocoding 20/20 completed.</code></pre>
-<pre class="r"><code>head(output_locations)</code></pre>
+<pre class="r"><code># View data
+head(output_locations)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["lat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lon"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["full_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["town"],"name":[4],"type":["chr"],"align":["left"]},{"label":["city"],"name":[5],"type":["chr"],"align":["left"]},{"label":["country"],"name":[6],"type":["chr"],"align":["left"]},{"label":["country_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"47.81572","2":"21.50068","3":"Hajdúdorog, Hajdúböszörményi járás, Hajdú-Bihar, Great Plain and North, 4087, Hungary","4":"Hajdúdorog","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...1"},{"1":"47.40626","2":"18.94486","3":"Diósd, Érdi járás, Pest megye, Central Hungary, 2049, Hungary","4":"Diósd","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...2"},{"1":"47.61259","2":"19.19801","3":"Fót, Dunakeszi járás, Pest megye, Central Hungary, Hungary","4":"Fót","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...3"},{"1":"48.03855","2":"20.97164","3":"Bocs, Miskolci járás, Borsod-Abaúj-Zemplén, Northern Hungary, Great Plain and North, 3574, Hungary","4":"NA","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...4"},{"1":"48.39307","2":"21.34520","3":"Regéc, Gönci járás, Borsod-Abaúj-Zemplén, Northern Hungary, Great Plain and North, Hungary","4":"NA","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...5"},{"1":"46.93572","2":"17.47631","3":"Sáska, Tapolcai járás, Veszprém, Central Transdanubia, Transdanubia, Hungary","4":"NA","5":"NA","6":"Hungary","7":"hu","_rn_":"lat...6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["lat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lon"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["full_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["town"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["city"],"name":[5],"type":["chr"],"align":["left"]},{"label":["country"],"name":[6],"type":["chr"],"align":["left"]},{"label":["country_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"47.81572","2":"21.50068","3":"Hajdúdorog, Hajdúböszörményi járás, Hajdú-Bihar, Great Plain and North, 4087, Hungary","4":"NA","5":"Hajdúdorog","6":"Hungary","7":"hu","_rn_":"lat...1"},{"1":"47.40626","2":"18.94486","3":"Diósd, Érdi járás, Pest, Central Hungary, 2049, Hungary","4":"NA","5":"Diósd","6":"Hungary","7":"hu","_rn_":"lat...2"},{"1":"47.61259","2":"19.19801","3":"Fót, Dunakeszi járás, Pest, Central Hungary, Hungary","4":"NA","5":"Fót","6":"Hungary","7":"hu","_rn_":"lat...3"},{"1":"48.03855","2":"20.97164","3":"Bocs, Miskolci járás, Borsod-Abaúj-Zemplén, Northern Hungary, Great Plain and North, 3574, Hungary","4":"NA","5":"Bocs","6":"Hungary","7":"hu","_rn_":"lat...4"},{"1":"48.39307","2":"21.34520","3":"Regéc, Gönci járás, Borsod-Abaúj-Zemplén, Northern Hungary, Great Plain and North, 3893, Hungary","4":"NA","5":"Regéc","6":"Hungary","7":"hu","_rn_":"lat...5"},{"1":"46.93572","2":"17.47631","3":"Sáska, Tapolcai járás, Veszprém, Central Transdanubia, Transdanubia, Hungary","4":"NA","5":"Sáska","6":"Hungary","7":"hu","_rn_":"lat...6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1950,10 +1891,11 @@ input_coordinates$Location &lt;- ifelse(!is.na(output_locations$town), output_lo
 # If necessary, re-arrange the columns
 input_coordinates &lt;- rtry_select_col(input_coordinates, Latitude, Longitude, &quot;Country code&quot;, Country, Location, showOverview = FALSE)
 
+# View data
 head(input_coordinates)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Latitude"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Longitude"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Country code"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Country"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Location"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"47.81572","2":"21.50068","3":"hu","4":"Hungary","5":"Hajdúdorog"},{"1":"47.40626","2":"18.94486","3":"hu","4":"Hungary","5":"Diósd"},{"1":"47.61259","2":"19.19801","3":"hu","4":"Hungary","5":"Fót"},{"1":"48.03855","2":"20.97164","3":"hu","4":"Hungary","5":"NA"},{"1":"48.39307","2":"21.34520","3":"hu","4":"Hungary","5":"NA"},{"1":"46.93572","2":"17.47631","3":"hu","4":"Hungary","5":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Latitude"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Longitude"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Country code"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Country"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Location"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"47.81572","2":"21.50068","3":"hu","4":"Hungary","5":"Hajdúdorog"},{"1":"47.40626","2":"18.94486","3":"hu","4":"Hungary","5":"Diósd"},{"1":"47.61259","2":"19.19801","3":"hu","4":"Hungary","5":"Fót"},{"1":"48.03855","2":"20.97164","3":"hu","4":"Hungary","5":"Bocs"},{"1":"48.39307","2":"21.34520","3":"hu","4":"Hungary","5":"Regéc"},{"1":"46.93572","2":"17.47631","3":"hu","4":"Hungary","5":"Sáska"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1991,7 +1933,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

@@ -18,6 +18,23 @@ rm(list=ls())
 ```
 
 
+## Set working directory
+```{r}
+#-------------------------------------------------
+# Make sure the working directory is set to the "examples" folder
+# Inside which there should be the "input" folder containing the sample dataset
+# Sample dataset used: locations.csv, coordinates.csv
+#-------------------------------------------------
+getwd()
+
+#-------------------------------------------------
+# If the working directory is incorrect
+# Uncomment the following command and change the directory path before execution
+#-------------------------------------------------
+# setwd("<path_to_rtry_examples_dir>")
+```
+
+
 ## Load rtry package
 ```{r}
 #-------------------------------------------------
@@ -35,27 +52,10 @@ library(dplyr)
 ```
 
 
-## Set working directory
-```{r}
-#-------------------------------------------------
-# Make sure the working directory is set to the "examples" folder
-# Inside which there should be the "input" folder containing the sample dataset
-# Sample dataset used: TRYdata_15160.txt, TRYdata_15161.txt
-#-------------------------------------------------
-getwd()
-
-#-------------------------------------------------
-# If the working directory is incorrect
-# Uncomment the following command and change the directory path before execution
-#-------------------------------------------------
-# setwd("<path_to_rtry_examples_dir>")
-```
-
-
 # Geocoding using `rtry`
 ## Load the locations from a .csv file
 ```{r}
-input_locations <- rtry_import("input/locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 
 head(input_locations)
 ```
@@ -83,22 +83,23 @@ output_coordinates <- NULL # somethings received error messages 'no object found
 output_coordinates <- lapply(input_addresses, function(address) {
   # Calling the Nominatim OpenStreetMap API
   # Please change the email address into your own email address
-  geocode_output <- rtry_geocoding(address, email = "jens.kattge@bgc-jena.mpg.de")
-  
+  geocode_output <- rtry_geocoding(address, email = "john.doe@example.com")
+
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
   Sys.sleep(2)
-  
+
   # Print message in console to see the progress
   message("Geocoding ", counter, "/", nrow(input_locations), " completed.")
   counter <<- counter + 1
-  
+
   # Return data.frame with the input address, output of the rtry_geocoding function
   return(data.frame(address = address, geocode_output))
 }) %>%
   # Stack the list output into data.frame
   bind_rows() %>% data.frame()
 
+# View data
 head(output_coordinates)
 ```
 
@@ -127,7 +128,7 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 # Reverse geocoding using `rtry`
 ## Load the coordinates from a .csv file
 ```{r}
-input_coordinates <- rtry_import("input/coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 
 head(input_coordinates)
 ```
@@ -154,22 +155,23 @@ output_locations <- NULL # somethings received error messages 'no object found'
 # Please change the email address to your own email address
 output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   # Calling the Nominatim OpenStreetMap API
-  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "jens.kattge@bgc-jena.mpg.de")
-  
+  rev_geocode_output <- rtry_revgeocoding(lat_lon, email = "john.doe@example.com")
+
   # No heavy uses (an absolute maximum of 1 request per second)
   # Here set to 2 seconds between each search
   Sys.sleep(2)
-  
+
   # Print message in console to see the progress
   message("Reverse Geocoding ", counter, "/", length(input_lat_lon$lat), " completed.")
   counter <<- counter + 1
-  
+
   # Return data.frame with the input coordinates, output of the rtry_revgeocoding function
   return(data.frame(lat = lat_lon[1], lon = lat_lon[2], rev_geocode_output))
 }) %>%
   # Stack the list output into data.frame
   bind_rows() %>% data.frame()
 
+# View data
 head(output_locations)
 ```
 
@@ -185,6 +187,7 @@ input_coordinates$Location <- ifelse(!is.na(output_locations$town), output_locat
 # If necessary, re-arrange the columns
 input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Country code", Country, Location, showOverview = FALSE)
 
+# View data
 head(input_coordinates)
 ```
 
