@@ -14,24 +14,24 @@
 #'   \item{SpeciesName}{Original name of species.}
 #'   \item{AccSpeciesID}{Unique identifier of consolidated species name.}
 #'   \item{AccSpeciesName}{Consolidated species name.}
-#'   \item{ObservationID}{Unique identifier for each observation.}
-#'   \item{ObsDataID}{Unique identifier for each record.}
+#'   \item{ObservationID}{Unique identifier for each observation in TRY.}
+#'   \item{ObsDataID}{Unique identifier for each row in the TRY data table, either trait record or ancillary data.}
 #'   \item{TraitID}{Unique identifier for traits (only if the record is a trait).}
 #'   \item{TraitName}{Name of trait (only if the record is a trait).}
-#'   \item{DataID}{Unique identifier for each sub-trait or context information.}
-#'   \item{DataName}{Name of sub-trait or context information.}
-#'   \item{OriglName}{Original name of sub-trait or context information.}
-#'   \item{OrigValueStr}{Original value as text string.}
-#'   \item{OrigUnitStr}{Original unit as text string.}
+#'   \item{DataID}{Unique identifier for each \code{DataName} (either sub-trait or ancillary data).}
+#'   \item{DataName}{Name of sub-trait or ancillary data.}
+#'   \item{OriglName}{Original name of sub-trait or ancillary data.}
+#'   \item{OrigValueStr}{Original value of trait or ancillary data.}
+#'   \item{OrigUnitStr}{Original unit of trait or ancillary data.}
 #'   \item{ValueKindName}{Value kind (single measurement, mean, median, etc.).}
-#'   \item{OrigUncertaintyStr}{Original uncertainty as text string.}
+#'   \item{OrigUncertaintyStr}{Original uncertainty.}
 #'   \item{UncertaintyName}{Kind of uncertainty (standard deviation, standard error, etc.).}
-#'   \item{Replicates}{Count of replicates.}
-#'   \item{StdValue}{Standardized value: available for standardized traits.}
-#'   \item{UnitName}{Standard unit: available for standardized traits.}
+#'   \item{Replicates}{Number of replicates.}
+#'   \item{StdValue}{Standardized trait value: available for frequent continuous traits.}
+#'   \item{UnitName}{Standard unit: available for frequent continuous traits.}
 #'   \item{RelUncertaintyPercent}{Relative uncertainty in %.}
-#'   \item{OrigObsDataID}{Unique identifier for duplicate entries.}
-#'   \item{ErrorRisk}{Indication for outliers: distance to mean in standard deviations.}
+#'   \item{OrigObsDataID}{Unique identifier for duplicate trait records.}
+#'   \item{ErrorRisk}{Indication for outliers trait values: distance to mean in standard deviations.}
 #'   \item{Reference}{Reference to be cited if trait record is used in analysis.}
 #'   \item{Comment}{Explanation for the \code{OriglName} in the contributed dataset.}
 #'   \item{V28}{Empty, an artifact due to different interpretation of column separator by MySQL and R.}
