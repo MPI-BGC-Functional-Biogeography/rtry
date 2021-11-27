@@ -44,7 +44,7 @@ Additional vignettes providing example workflows for trait data preprocessing an
     -   An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on a dataset
     -   Covers mainly the functions `rtry_geocoding` and `rtry_revgeocoding`
 
-The `rtry` package is the first product of the TRY R project, which is maintained on the GitHub repository of the Functional Biogeography group at the Max-Planck Institute for Biogeochemistry in Jena: <https://github.com/MPI-BGC-Functional-Biogeography/rtry>. The project is supposed to support the development of R tools for trait data preprocessing and analysis, starting with tools to preprocess trait data released from the TRY database. Further developments of the package will also be available on this open access GitHub repository.
+The `rtry` package is the first product of the TRY R project, which is maintained on the GitHub repository of the Functional Biogeography group at the Max-Planck Institute for Biogeochemistry in Jena: https://github.com/MPI-BGC-Functional-Biogeography/rtry. The project is supposed to support the development of R tools for trait data preprocessing and analysis, starting with tools to preprocess trait data released from the TRY database. Further developments of the package will also be available on this open access GitHub repository.
 
 <br>
 
@@ -56,78 +56,49 @@ The TRY database integrates different datasets into one common structure with ha
 
 ![Figure 1: A typical example of a dataset contributed to TRY. The data are stored in a wide table format, with all data belonging to an observation stored in one row and the different types of data (species, traits, ancillary data) in different columns.](introduction_wide_table.png){width="100%"}
 
-\
+
 In the context of data integration into TRY, the column headers of traits and ancillary data are first assigned a so-called `DataName` (and `DataID`). In a second step, `DataName`s for traits are combined to `TraitName`s (and `TraitID`s). For the example in Figure 1 the column header "LeafN" (`OriglName`) would first be assigned to `DataID` 15 (Leaf nitrogen content per dry mass (Nmass)), and in a second step to `TraitID` 14 (Leaf nitrogen (N) content per leaf dry mass). In many cases several `DataID`s are combined to one `TraitID`, and the `DataName`s (and `OriglName`s) contain additional information, which may be lost in more generalized `TraitName`s. Finally, the wide-table format is transformed into a long-table format, where each row contains one record - either a trait value or an ancillary data - with some additional information. Each row in the TRY data table has a unique identifier (IS), the `ObsDataID`. The `ObservationID` links the different trait records and ancillary data of an observation.
 
 ![Figure 2: Representation of row 2 (observation 2) from Figure 1 in a long-table format as used within TRY and for data relese, with unique identifiers for each data record (\`ObsDataID\`), observation (\`ObservationID\`), ancillary data and traits.](introduction_long_table.png){width="100%"}
 
-Through the TRY Data Portal (<https://www.try-db.org/TryWeb/dp.php>), trait data are released in a tab-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding. Each row of the long-table represents either a trait record or an ancillary data. Different records belonging to the same observation are combined by the `ObservationID`.
+Through the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php), trait data are released in a tab-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding. Each row of the long-table represents either a trait record or an ancillary data. Different records belonging to the same observation are combined by the `ObservationID`.
 
 In TRY version 5, the output long-table has 27 columns, with a header in the first row of the text file (see Table below). Datasets released from other versions of the TRY database may contain different numbers of columns. However, this is taken into account within the `rtry` package, as it provides a function for detailed data exploration (`rtry_explore()`, for details please refer to the section "The `rtry` package" below).
 
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-|      | Column                | Comment                                                                                     |
-+======+=======================+=============================================================================================+
-| 1\.  | LastName              | Surname of data contributor                                                                 |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 2\.  | FirstName             | First name of data contributor                                                              |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 3\.  | DatasetID             | Unique identifier of contributed dataset                                                    |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 4\.  | Dataset               | Name of contributed dataset                                                                 |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 5\.  | SpeciesName           | Original name of species                                                                    |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 6\.  | AccSpeciesID          | Unique identifier of consolidated species name                                              |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 7\.  | AccSpeciesName        | Consolidated species name                                                                   |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 8\.  | ObservationID         | Unique identifier for each observation in TRY                                               |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 9\.  | ObsDataID             | Unique identifier for each row in the TRY data table, either trait record or ancillary data |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 10\. | TraitID               | Unique identifier for traits (only if the record is a trait)                                |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 11\. | TraitName             | Name of trait (only if the record is a trait)                                               |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 12\. | DataID                | Unique identifier for each `DataName` (either sub-trait or ancillary data)                  |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 13\. | DataName              | Name of sub-trait or ancillary data                                                         |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 14\. | OriglName             | Original name of sub-trait or ancillary data                                                |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 15\. | OrigValueStr          | Original value of trait or ancillary data                                                   |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 16\. | OrigUnitStr           | Original unit of trait or ancillary data                                                    |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 17\. | ValueKindName         | Value kind (single measurement, mean, median, etc.)                                         |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 18\. | OrigUncertaintyStr    | Original uncertainty                                                                        |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 19\. | UncertaintyName       | Kind of uncertainty (standard deviation, standard error, etc.)                              |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 20\. | Replicates            | Number of replicates                                                                        |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 21\. | StdValue              | Standardized trait value: available for frequent continuous traits                          |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 22\. | UnitName              | Standard unit: available for frequent continuous traits                                     |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 23\. | RelUncertaintyPercent | Relative uncertainty in %                                                                   |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 24\. | OrigObsDataID         | Unique identifier for duplicate trait records                                               |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 25\. | ErrorRisk             | Indication for outliers trait values: distance to mean in standard deviations               |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 26\. | Reference             | Reference to be cited if trait record is used in analysis                                   |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 27\. | Comment               | Explanation for the `OriglName` in the contributed dataset                                  |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
-| 28\. | V28                   | Empty, an artifact due to different interpretation of column separator by MySQL and R       |
-+------+-----------------------+---------------------------------------------------------------------------------------------+
+|      | Column    | Comment                                  |
+| ---- | --------- | ---------------------------------------- |
+| 1.   | LastName  | Surname of data contributor              |
+| 2.   | FirstName | First name of data contributor           |
+| 3.   | DatasetID | Unique identifier of contributed dataset |
+| 4.   | Dataset   | Name of contributed dataset              |
+| 5.   | SpeciesName | Original name of species |
+| 6.   | AccSpeciesID | Unique identifier of consolidated species name |
+| 7.   | AccSpeciesName | Consolidated species name |
+| 8.   | ObservationID | Unique identifier for each observation in TRY |
+| 9.   | ObsDataID | Unique identifier for each row in the TRY data table, either trait record or ancillary data |
+| 10.   | TraitID | Unique identifier for traits (only if the record is a trait) |
+| 11.   | TraitName | Name of trait (only if the record is a trait) |
+| 12.   | DataID | Unique identifier for each `DataName` (either sub-trait or ancillary data) |
+| 13.   | DataName | Name of sub-trait or ancillary data |
+| 14.   | OriglName | Original name of sub-trait or ancillary data |
+| 15.   | OrigValueStr | Original value of trait or ancillary data |
+| 16.   | OrigUnitStr | Original unit of trait or ancillary data |
+| 17.   | ValueKindName | Value kind (single measurement, mean, median, etc.) |
+| 18.   | OrigUncertaintyStr | Original uncertainty |
+| 19.   | UncertaintyName | Kind of uncertainty (standard deviation, standard error, etc.) |
+| 20.   | Replicates | Number of replicates |
+| 21.   | StdValue | Standardized trait value: available for frequent continuous traits |
+| 22.   | UnitName | Standard unit: available for frequent continuous traits |
+| 23.   | RelUncertaintyPercent | Relative uncertainty in % |
+| 24.   | OrigObsDataID | Unique identifier for duplicate trait records |
+| 25.   | ErrorRisk | Indication for outliers trait values: distance to mean in standard deviations |
+| 26.   | Reference | Reference to be cited if trait record is used in analysis |
+| 27.   | Comment | Explanation for the `OriglName` in the contributed dataset |
+| 28.   | V28 | Empty, an artifact due to different interpretation of column separator by MySQL and R |
 
 : Column headers of data released from the TRY version 5
 
-For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011, 2011b, 2020, the TRY website (<https://www.try-db.org/TryWeb/Database.php>) and the Data Release Notes distributed with each data release.
+For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011, 2011b, 2020, the TRY website (https://www.try-db.org/TryWeb/Database.php) and the Data Release Notes distributed with each data release.
 
 <br>
 
@@ -149,7 +120,7 @@ The `rtry` package is available on the CRAN repository. This is the recommended 
 
 **GitHub Repository**
 
-As mentioned before, the TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: <https://github.com/MPI-BGC-Functional-Biogeography/rtry>.
+As mentioned before, the TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry.
 
 -   Code: the source code for the released package, as well as the developing functions
 -   Wiki: the documentation of the package and the example workflows, as well as some additional information related to the TRY R project
@@ -161,7 +132,7 @@ Developers are also welcome to contribute to the package.
 
 We have also set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
 
--   Link: <https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae>
+-   Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 -   Password: `mpi-bgc-rtry`
 
 The overview of the folder structure is as follow. If the user wishes to try out the package with the provided example scripts, it is advised to download the entire `examples` directory and maintain the folder structure:
@@ -182,9 +153,9 @@ The overview of the folder structure is as follow. If the user wishes to try out
 
 R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
-The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: <https://cran.r-project.org/>
+The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/.
 
-In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at <https://www.rstudio.com/products/rstudio/download/>. It is sufficient to use the free and open-source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at https://www.rstudio.com/products/rstudio/download/. It is sufficient to use the free and open-source version of RStudio Desktop.
 
 <br>
 
