@@ -16,7 +16,7 @@ The `rtry` package is available on the CRAN repository. This is the recommended 
 
 **GitHub Repository**
 
-As mentioned before, the TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry.
+The TRY R project is an open-source project that can be found on the MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BGC-Functional-Biogeography/rtry.
 
 - Code: the source code for the released package, as well as the developing functions
 - Wiki: the documentation of the package and the example workflows, as well as some additional information related to the TRY R project
@@ -26,7 +26,7 @@ Developers are also welcome to contribute to the package.
 
 **Nextcloud**
 
-We have setup a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
+We have also setup a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
 
 - Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
 - Password: `mpi-bgc-rtry`
@@ -41,7 +41,7 @@ R 4.0.3 was used to develop and build the `rtry` package, and this is the minimu
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
 
-In case RStudio is used, we also recommend to use the latest version of RStudio when using the package. The released version of RStudio, an integrated development environment (IDE) designed for productive R programming, can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
 
 <br>
 
@@ -49,13 +49,13 @@ In case RStudio is used, we also recommend to use the latest version of RStudio 
 
 The installation of the `rtry` package can be performed through the RStudio console.
 
-First, install all the dependencies with the command.
+First, install all the dependencies with the command:
 
 ```R
 install.packages(c("data.table", "dplyr", "tidyr", "jsonlite", "curl"))
 ```
 
-Once installation is completed, the message `The downloaded source packages are in <path>` should be seen.
+Once the installation is completed, the message "`The downloaded source packages are in <path>`" should be seen.
 
 Next, install the `rtry` package with the command:
 
@@ -71,15 +71,15 @@ Else, if user downloaded the source package (`.tar.gz`) from the GitHub reposito
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 ```
 
-You may ignore the warning message `Rtools is required to build R packages but is not currently installed` if appears.
+You may ignore the warning message "`Rtools is required to build R packages but is not currently installed`" if appears.
 
-Once installation is completed, the `rtry` package can be loaded with the command `library(rtry)`.
+Once the installation is completed, the `rtry` package needs to be loaded with the command `library(rtry)`.
 
 <br>
 
 # Functions
 
-Function naming convention where each function begins with the prefix ```rtry_``` followed by the description of what the specific function does.
+Inside the `rtry` package, we use a function naming convention where each function begins with the prefix `rtry_` followed by the description of what the specific function does. The `rtry` package consists of the following functions:
 
 - `rtry_import`: Import data
 - `rtry_explore`: Explore data
@@ -89,11 +89,11 @@ Function naming convention where each function begins with the prefix ```rtry_``
 - `rtry_join_outer`: Outer join for two data frames
 - `rtry_select_col`: Select columns
 - `rtry_select_row`: Select rows
-- `rtry_select_anc`: Select ancillary data in wide table format
+- `rtry_select_anc`: Select ancillary data in wide-table format
 - `rtry_exclude`: Exclude data
-- `rtry_rm_col`: Remove columns
-- `rtry_rm_dup`: Remove duplicates in data
-- `rtry_trans_wider`: Transform data from long to wide table
+- `rtry_remove_col`: Remove columns
+- `rtry_remove_dup`: Remove duplicates in data
+- `rtry_trans_wider`: Transform data from long- to wide-table
 - `rtry_export`: Export preprocessed data
 - `rtry_geocoding`: Perform geocoding
 - `rtry_revgeocoding`: Perform reverse geocoding
@@ -115,16 +115,15 @@ TRYdata1 <- rtry_import(system.file("testdata", "data_TRY_15160.txt", package = 
 # Group the input data based on AccSpeciesID, AccSpeciesName, DataID, DataName, TraitID and TraitName, and
 # sort by TraitID
 # Note: For TraitID == "NA", meaning that entry is an ancillary data
-TRYdata1_explore_aux <- rtry_explore(TRYdata1,
+TRYdata1_explore_anc <- rtry_explore(TRYdata1,
                           AccSpeciesID, AccSpeciesName, DataID, DataName,
                           TraitID, TraitName,
                           sortBy = TraitID)
-View(TRYdata1_explore_aux)
+View(TRYdata1_explore_anc)
 
 # In the sample dataset, different trait measurements on the same entity (plant) and
 # the corresponding ancillary data are combined to observation via the ObservationID
 # For details, see Kattge et al. 2011 GCB
-# Exclude (remove) observations of juvenile plants or saplings
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Then explore the unique values of the OrigValueStr within the selected data
 tmp_unexcluded <- rtry_select_row(TRYdata1, DataID %in% 413)
@@ -134,6 +133,7 @@ tmp_unexcluded <- rtry_explore(tmp_unexcluded,
                     sortBy = OrigValueStr)
 View(tmp_unexcluded)
 
+# Exclude (remove) observations of juvenile plants or saplings
 # Criteria
 # 1. DataID equals to 413
 # 2. OrigValueStr equals to "juvenile" or "saplings"
@@ -158,11 +158,10 @@ Additional vignettes provide a detailed introduction to `rtry` and example workf
 - Introduction to `rtry` (rtry-introduction)
 
 -   The general workflow (rtry-workflow-general)
--   An example workflow setup to demonstrate how to use the `rtry` package to preprocess of the data exported from the TRY database
+    -   An example workflow setup to demonstrate how to use the `rtry` package to preprocess of the data exported from the TRY database
     -   Covers most of the `rtry_` functions from importing and exploring to binding multiple data, as well as selecting, excluding specific data and removing duplicates, and finally exporting the preprocess data
 
 -   Perform (reverse) geocoding (rtry-workflow-geocoding)
-
     -   An example workflow setup to demonstrate how to use the `rtry` package to perform geocoding and reverse geocoding on the TRY data
     -   Covers mainly the functions `rtry_geocoding` and `rtry_revgeocoding`
 
@@ -174,6 +173,6 @@ vignette("<name_of_vignette>")
 
 # Data license
 
-The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Despite the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
+The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Although the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
 
 <br>
