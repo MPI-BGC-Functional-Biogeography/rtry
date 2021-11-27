@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 `rtry` is an R package to support the application of plant trait data providing easily applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, excluding trait data according to different attributes, long- to wide-table transformation, data export, and geocoding. The `rtry` package is designed to support the preprocessing of data released from the TRY Plant Trait Database, but is also applicable for other trait data.
 
-The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php){.uri}) has been designed as an integrated database for all kinds of plant traits and provides unprecedented coverage of plant traits (Kattge et al. 2011, 2020). In addition to the trait values, the TRY database offers rich and harmonized information to facilitate filtering trait data according to different aspects, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without in-depth knowledge of the inherent data structure.
+The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php)) has been designed as an integrated database for all kinds of plant traits and provides unprecedented coverage of plant traits (Kattge et al. 2011, 2020). In addition to the trait values, the TRY database offers rich and harmonized information to facilitate filtering trait data according to different aspects, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without in-depth knowledge of the inherent data structure.
 
 Therefore, we developed the `rtry` package to support data preprocessing, particularly data removal (filtering), taking advantage of the relevant features of trait data released from the TRY database. The package is supposed to be applicable without advanced knowledge of the R software or the data structure released from TRY.
 
@@ -418,11 +418,11 @@ Inside the `rtry` package, we use a function naming convention where each functi
 -   `rtry_join_outer`: Outer join for two data frames
 -   `rtry_select_col`: Select columns
 -   `rtry_select_row`: Select rows
--   `rtry_select_anc`: Select ancillary data in wide table format
+-   `rtry_select_anc`: Select ancillary data in wide-table format
 -   `rtry_exclude`: Exclude data
--   `rtry_rm_col`: Remove columns
--   `rtry_rm_dup`: Remove duplicates in data
--   `rtry_trans_wider`: Transform data from long to wide table
+-   `rtry_remove_col`: Remove columns
+-   `rtry_remove_dup`: Remove duplicates in data
+-   `rtry_trans_wider`: Transform data from long- to wide-table
 -   `rtry_export`: Export preprocessed data
 -   `rtry_geocoding`: Perform geocoding
 -   `rtry_revgeocoding`: Perform reverse geocoding
