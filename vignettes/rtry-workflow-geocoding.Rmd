@@ -199,13 +199,10 @@ The `rtry_revgeocoding()` takes two parameters `lat_lon` and `email`, and return
 rtry_revgeocoding(lat_lon = NULL, email = NULL)
 ```
 
-+-----------+--------------------------------------------------------------------+
-| Argument  | Description                                                        |
-+===========+====================================================================+
+| Argument  | Description                |
+|-----------|----------------------------|
 | `lat_lon` | A data frame consisting latitude and longitude in WGS84 projection |
-+-----------+--------------------------------------------------------------------+
-| `email`   | String of an email address                                         |
-+-----------+--------------------------------------------------------------------+
+| `email`   | String of an email address |
 
 To load the `.csv` file with coordinates information, use `rtry_import()`:
 

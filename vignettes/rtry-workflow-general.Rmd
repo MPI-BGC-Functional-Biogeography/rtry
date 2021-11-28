@@ -845,7 +845,7 @@ num_traits_georef_wider <- rtry_trans_wider(num_traits_georef, names_from = c(Tr
 ```
 
 ``` {.r}
-# dim:   27 8
+## dim:   27 8
 ```
 
 Immediately, it can be seen that the columns `TraitID`, `TraitName` and `UnitName` were "transformed" into new columns, which were named for example "3115_Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole excluded_mm2 mg-1".
