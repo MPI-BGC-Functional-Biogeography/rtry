@@ -8,7 +8,7 @@
 
 ## Sources of `rtry`
 
-There are three sources where users can download the `rtry` package and the relevant documentation.
+There are two sources where users can download the `rtry` package and the relevant documentation.
 
 **CRAN**
 
@@ -24,20 +24,13 @@ The TRY R project is an open-source project that can be found on the MPI-BGC-Fun
 
 Developers are also welcome to contribute to the package.
 
-**Nextcloud**
-
-We have also setup a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
-
-- Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
-- Password: `mpi-bgc-rtry`
-
 <br>
 
 # Installation guide
 
 ## R environment
 
-R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
+R 4.0.5 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
 
@@ -65,7 +58,7 @@ From CRAN:
 install.packages("rtry")
 ```
 
-Else, if user downloaded the source package (`.tar.gz`) from the GitHub repository or Nextcloud:
+Else, if user downloaded the source package (`.tar.gz`) from the GitHub repository:
 
 ```R
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
@@ -145,12 +138,12 @@ View(TRYdata1_explore_anc)
 
 # Select the rows where DataID is 413, i.e. the data containing the plant development status
 # Explore the unique values of the OrigValueStr within the selected data
-tmp_unexcluded <- rtry_select_row(TRYdata1, DataID %in% 413)
-tmp_unexcluded <- rtry_explore(tmp_unexcluded,
+tmp_unfiltered <- rtry_select_row(TRYdata1, DataID %in% 413)
+tmp_unfiltered <- rtry_explore(tmp_unfiltered,
                     DataID, DataName, OriglName, OrigValueStr, OrigUnitStr,
                     StdValue, Comment,
                     sortBy = OrigValueStr)
-View(tmp_unexcluded)
+View(tmp_unfiltered)
 
 # Exclude (remove) observations of juvenile plants or unknown development state
 # Criteria
@@ -190,7 +183,7 @@ vignette("<name_of_vignette>")
 
 <br>
 
-# Data license
+# Copyright license
 
 The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-BGC-Functional-Biogeography/rtry/blob/main/LICENSE.md) license, with a remark that the (reverse) geocoding functions provided within the package used the Nominatim developed with OpenStreetMap. Although the API and the data provided are free to use for any purpose, including commercial use, note that they are governed by the [Open Database License (ODbL)](https://wiki.osmfoundation.org/wiki/Licence).
 
