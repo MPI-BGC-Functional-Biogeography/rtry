@@ -435,8 +435,8 @@ system.file("testdata", "data_locations.csv", package = "rtry")
 ## [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rtry/testdata/data_locations.csv"
 
 # Expected return on a Windows OS is similar to this:
-## [1] "C:/Program Files/R/R-4.0.3/library/rtry/testdata/data_TRY_15160.txt"
-## [1] "C:/Program Files/R/R-4.0.3/library/rtry/testdata/data_locations.csv"
+## [1] "C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_TRY_15160.txt"
+## [1] "C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_locations.csv"
 ```
 
 Note: All `rtry` sample datasets in their raw data format are in the package folder `testdata`.
