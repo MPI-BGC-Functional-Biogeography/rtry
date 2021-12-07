@@ -174,7 +174,7 @@ Else, if the user downloaded the source package (`.tar.gz`) from the GitHub repo
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
 ```
 
-Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
+Note: The character "`\`" is used as escape character in R to give the following character special meaning (e.g. "`\n`" for newline, "`\t`" for tab, "`\r`" for carriage return and so on). Therefore, for Windows users, it is important to use the "`\`" in the file path of the command instead of "`/`" in order for R to correctly understand the input path.
 
 You may ignore the warning message "`Rtools is required to build R packages but is not currently installed`" if it appears.
 
