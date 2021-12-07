@@ -112,7 +112,7 @@ The `rtry` package provides a set of easily applicable functions to facilitate t
 
 ## Sources of `rtry`
 
-There are three sources where the users can download the `rtry` package and the relevant documentation.
+There are two sources where the users can download the `rtry` package and the relevant documentation.
 
 **CRAN**
 
@@ -128,30 +128,11 @@ The MPI-BGC-Functional-Biogeography GitHub repository: https://github.com/MPI-BG
 
 Developers are also welcome to contribute to the package.
 
-**Nextcloud**
-
-We have also set up a shared directory on the MPI-BGC Nextcloud, where users can obtain the source package and the corresponding documentation, as well as the sample data and example workflows. Pre-prepared folder structure for the two example workflows can be found.
-
--   Link: https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae
--   Password: `mpi-bgc-rtry`
-
-The overview of the folder structure is as follow. If the user wishes to try out the package with the provided example scripts, it is advised to download the entire `examples` directory and maintain the folder structure:
-
-``` {.markdown}
-.
-├── build                   # Source files for the rtry package
-│   ├── rtry_x.x.x          # Source package
-├── docs                    # Documentation files
-├── examples                # Scripts of example workflow
-│   ├── input               # Input files needed for testing
-└── README.md
-```
-
 <br>
 
 ## R environment
 
-R 4.0.3 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
+R 4.0.5 was used to develop and build the `rtry` package, and this is the minimum version required to use the package.
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/.
 
@@ -187,7 +168,7 @@ From CRAN:
 install.packages("rtry")
 ```
 
-Else, if the user downloaded the source package (`.tar.gz`) from the GitHub repository or Nextcloud:
+Else, if the user downloaded the source package (`.tar.gz`) from the GitHub repository:
 
 ```R
 install.packages("<path_to_rtry.tar.gz>", repos = NULL, type = "source")
@@ -216,7 +197,7 @@ From CRAN:
 install.packages("rtry")
 ```
 
-Else, if the user downloaded the latest source package (`.tar.gz`) of `rtry` from the GitHub repository or Nextcloud:
+Else, if the user downloaded the latest source package (`.tar.gz`) of `rtry` from the GitHub repository:
 
 ```R
 # Remember to restart RStudio first
@@ -283,7 +264,13 @@ To obtain the documentation of the data such as `data_TRY_15160`, use the follow
 ?data_TRY_15160
 ```
 
-To view the sample data, call the `View` function:
+To display the first 6 rows present in the sample data:
+
+```R
+head(data_TRY_15160)
+```
+
+Another option to view the sample data when using RStudio is the `View` function:
 
 ```R
 View(data_TRY_15160)
@@ -291,27 +278,6 @@ View(data_TRY_15160)
 
 For more information about the sample data within the package and how to import them, see the section "Sample datasets within the `rtry` package" below.
 
-There are more standard ways to explore a dataset in R, some of which can be seen below:
-
-```R
-# Show the dimensions of the dataset
-dim(data_TRY_15160)
-
-# Show the column names
-colnames(data_TRY_15160)
-
-# Show first 100 rows
-data_TRY_15160[1:100,]
-
-# Show first 10 rows
-head(data_TRY_15160)
-
-# Show last 10 rows
-tail(data_TRY_15160)
-
-# Produce result summaries of various model fitting functions
-summary(data_TRY_15160)
-```
 
 <br>
 
