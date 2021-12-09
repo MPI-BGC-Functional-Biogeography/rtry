@@ -38,28 +38,21 @@ Note that the georeference system used is WGS84 projection.
 
 Make sure you have the `rtry` package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
-Apart from this vignette that comes along with the `rtry` package without additional download and acts as a guideline for users to follow, we also provide a corresponding R Markdown script (`.Rmd`) and a HTML file (`.html`), located inside the `examples` directory. The directory can be downloaded from the MPI-BGC Nextcloud, so that the users can run the example script (`.Rmd`) directly and compare the expected results (`.html`) in the browser.
+To start, set the work directory to the desired location:
 
-Similarly, the sample data required to try out this example workflow are not only provided within the `rtry` package, but also inside the `examples/input` directory on the MPI-BGC Nextcloud. In order to follow the workflow smoothly, make sure the R script is placed inside the folder in which the sample data is saved inside the `input` folder. This can be done manually or achieved simply by downloading the entire `examples` directory from the Nextcloud.
-
--   Link: <https://nextcloud.bgc-jena.mpg.de/s/RMd5kqg7tRWXpae>
--   Password: `mpi-bgc-rtry`
-
-To start, set the work directory to the location where the `examples` directory is located:
-
-``` {.r}
+```R
 # Set the working directory
-setwd("<path_to_rtry_examples_dir>")
+setwd("<path_to_dir>")
 
 # Check the working directory
 getwd()
 ```
 
-Note: The character `\` is used as escape character in R to give the following character special meaning (e.g. `\n` for newline, `\t` for tab, `\r` for carriage return and so on). Therefore, for Windows users, it is important to replace the `\` in the file path with `/` in order for R to correctly understand the input path.
+Note: The character "`\`" is used as escape character in R to give the following character special meaning (e.g. "`\n`" for newline, "`\t`" for tab, "`\r`" for carriage return and so on). Therefore, for Windows users, it is important to use the "`\`" in the file path of the command instead of "`/`" in order for R to correctly understand the input path.
 
 Load the required packages using the commands:
 
-``` {.r}
+```R
 # Load the rtry package
 library(rtry)
 
@@ -74,9 +67,9 @@ library(dplyr)
 
 # Use `rtry` for geocoding
 
-The `rtry_geocoding()` takes two parameters `address` and `email`, and returns a data frame that contains latitude (`lat`) and longitude (`lon`) in WGS84 projection.
+`rtry_geocoding()` takes two parameters `address` and `email`, and returns a data frame that contains latitude (`lat`) and longitude (`lon`) in WGS84 projection.
 
-``` {.r}
+```R
 rtry_geocoding(address = NULL, email = NULL)
 ```
 
@@ -87,7 +80,7 @@ rtry_geocoding(address = NULL, email = NULL)
 
 To load the `.csv` file with location information, use `rtry_import()`:
 
-``` {.r}
+```R
 # Load the locations from a .csv file
 input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 
@@ -95,7 +88,7 @@ input_locations <- rtry_import("input/data_locations.csv", separator = ",", enco
 View(input_locations)
 ```
 
-``` {.r}
+```R
 ## input: input/data_locations.csv
 ## dim:   20 3
 ## col:   Country code Country Location
@@ -105,7 +98,7 @@ View(input_locations)
 
 Then, the location data should be converted into the required format for `address`, i.e. `<location>, <country>`:
 
-``` {.r}
+```R
 # Extract and combine the location and country names
 input_addresses <- paste(input_locations$Location, input_locations$Country, sep = ", ")
 
@@ -113,7 +106,7 @@ input_addresses <- paste(input_locations$Location, input_locations$Country, sep 
 head(input_addresses)
 ```
 
-``` {.r}
+```R
 ## [1] "Hajdúdorog, Hungary" "Diósd, Hungary"      "Fót, Hungary"        "Bőcs, Hungary"
 ## [5] "Regéc, Hungary"      "Sáska, Hungary"
 ```
@@ -124,7 +117,7 @@ In order to apply the function `rtry_geocoding()` to the list `input_addresses`,
 
 Since OSM is an absolute maximum of 1 request per second, in the following example, a 2 second delay has been set between each search.
 
-``` {.r}
+```R
 # Prepare counter for printed progress messages
 counter <- 1
 output_coordinates <- NULL # somethings received error messages 'no object found'
@@ -150,7 +143,7 @@ output_coordinates <- lapply(input_addresses, function(address) {
   bind_rows() %>% data.frame()
 ```
 
-``` {.r}
+```R
 ## Geocoding 1/20 completed.
 ## Geocoding 2/20 completed.
 ## Geocoding 3/20 completed.
@@ -166,7 +159,7 @@ The `output_coordinates` would look like the following. Note that the location w
 
 Substitute the coordinates into the corresponding columns of the input data.
 
-``` {.r}
+```R
 # Add the output coordinates to the corresponding columns in the input data
 input_locations$Latitude <- output_coordinates$lat
 input_locations$Longitude <- output_coordinates$lon
@@ -182,8 +175,8 @@ head(input_locations)
 rtry_export(input_locations, "output/locations_to_coordinates.csv")
 ```
 
-``` {.r}
-## New directory created at: output 
+```R
+## New directory created at: output
 ## File saved at: output/locations_to_coordinates.csv
 ```
 
@@ -195,7 +188,7 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 
 The `rtry_revgeocoding()` takes two parameters `lat_lon` and `email`, and returns a data frame that contains the corresponding location.
 
-``` {.r}
+```R
 rtry_revgeocoding(lat_lon = NULL, email = NULL)
 ```
 
@@ -206,11 +199,11 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 
 To load the `.csv` file with coordinates information, use `rtry_import()`:
 
-``` {.r}
+```R
 input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
 ```
 
-``` {.r}
+```R
 ## input: input/data_coordinates.csv
 ## dim:   20 2
 ## col:   Latitude Longitude
@@ -220,7 +213,7 @@ input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", 
 
 Then, the coordinates data should be converted into a `data.frame`:
 
-``` {.r}
+```R
 # Extract and converted the coordinates into a data frame
 input_lat_lon <- data.frame(lat = input_coordinates$Latitude, lon = input_coordinates$Longitude)
 ```
@@ -229,7 +222,7 @@ In order to apply the function `rtry_revgeocoding` to the `input_lat_lon`, use `
 
 Since OSM is an absolute maximum of 1 request per second, in the following example, a 2 second delay has been set between each search.
 
-``` {.r}
+```R
 # Prepare counter for printed progress messages
 counter <- 1
 output_locations <- NULL # somethings received error messages 'no object found'
@@ -255,7 +248,7 @@ output_locations <- apply(input_lat_lon, 1, function(lat_lon) {
   bind_rows() %>% data.frame()
 ```
 
-``` {.r}
+```R
 ## Reverse Geocoding 1/20 completed.
 ## Reverse Geocoding 2/20 completed.
 ## Reverse Geocoding 3/20 completed.
@@ -271,7 +264,7 @@ The output location information would look like the following. Note that for som
 
 Substitute the `country_code` and `country` into the corresponding columns of the input list, while the location information is extracted from either `town` or `city`.
 
-``` {.r}
+```R
 # Add the output location information to the corresponding columns in the input data
 input_coordinates$'Country code' <- output_locations$country_code
 input_coordinates$Country <- output_locations$country
@@ -288,7 +281,7 @@ head(input_coordinates)
 rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
 ```
 
-``` {.r}
+```R
 ## File saved at: output/locations_to_coordinates.csv
 ```
 
