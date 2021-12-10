@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 `rtry` is an R package to support the application of plant trait data providing easily applicable functions for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns and rows, excluding trait data according to different attributes, long- to wide-table transformation, data export, and geocoding. The `rtry` package is designed to support the preprocessing of data released from the TRY Plant Trait Database, but is also applicable for other trait data.
 
-The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php)) has been designed as an integrated database for all kinds of plant traits (Kattge et al. 2011, 2020). In addition to the trait values, the TRY database offers rich information to facilitate filtering trait data according to different attributes, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without knowledge of the inherent data structure.
+The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php)) has been designed as an integrated database for all kinds of plant traits (Kattge et al. 2011a, 2020). In addition to the trait values, the TRY database offers rich information to facilitate filtering trait data according to different attributes, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without knowledge of the inherent data structure.
 
 Therefore, we developed the `rtry` package to support data preprocessing, particularly data exploration and removal (filtering), taking advantage of the features of trait data released from the TRY database. The package is supposed to be applicable without advanced knowledge of the the data structure released from TRY or the R software.
 
@@ -98,7 +98,7 @@ In TRY version 5, the output long-table has 27 columns, with a header in the fir
 
 : Column headers of data released from the TRY version 5
 
-For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011, 2011b, 2020, the TRY website (https://www.try-db.org/TryWeb/Database.php) and the Data Release Notes distributed with each data release.
+For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011a, 2011b, 2020, the TRY website (https://www.try-db.org/TryWeb/Database.php) and the Data Release Notes distributed with each data release.
 
 <br>
 
@@ -463,18 +463,10 @@ The `rtry` package is distributed under the [CC BY 4.0](https://github.com/MPI-B
 
 ------------------------------------------------------------------------
 
-# Authorship guidelines
-
-> reference for the `rtry` package, pending CRAN submission
-
-<br>
-
-------------------------------------------------------------------------
-
 # References
 
-Kattge, J., S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, G. Bönisch, E. Garnier (2011a). "TRY - a global database of plant traits." <u>Global Change Biology</u> **17**(9): 2905-2935.
+Kattge, J., S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, G. Bönisch, E. Garnier (2011a). "TRY - a global database of plant traits." <u>Global Change Biology</u> **17**(9): 2905-2935. doi: [10.1111/j.1365-2486.2011.02451.x](https://doi.org/10.1111/j.1365-2486.2011.02451.x)
 
-Kattge, J., K. Ogle, G. Bönisch, S. Díaz, S. Lavorel, J. Madin, K. Nadrowski, S. Nöllert, K. Sartor and C. Wirth (2011b). "A generic structure for plant trait databases." <u>Methods in Ecology and Evolution</u> **2**(2): 202-213.
+Kattge, J., K. Ogle, G. Bönisch, S. Díaz, S. Lavorel, J. Madin, K. Nadrowski, S. Nöllert, K. Sartor and C. Wirth (2011b). "A generic structure for plant trait databases." <u>Methods in Ecology and Evolution</u> **2**(2): 202-213. doi: [10.1111/j.2041-210X.2010.00067.x](https://doi.org/10.1111/j.2041-210X.2010.00067.x)
 
-Kattge, J., G. Bönisch, S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, S. Tautenhahn (2020). "TRY plant trait database -- enhanced coverage and open access." <u>Global Change Biology</u> **26**(1): 119-188.
+Kattge, J., G. Bönisch, S. Díaz, S. Lavorel, I. C. Prentice, P. Leadley, S. Tautenhahn (2020). "TRY plant trait database -- enhanced coverage and open access." <u>Global Change Biology</u> **26**(1): 119-188. doi: [10.1111/gcb.14904](https://doi.org/10.1111/gcb.14904)
