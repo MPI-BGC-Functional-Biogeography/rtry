@@ -21,9 +21,7 @@ rm(list=ls())
 ## Set working directory
 ```{r}
 #-------------------------------------------------
-# Make sure the working directory is set to the "examples" folder
-# Inside which there should be the "input" folder containing the sample dataset
-# Sample dataset used: locations.csv, coordinates.csv
+# Make sure the working directory is set to the desired location
 #-------------------------------------------------
 getwd()
 
@@ -31,7 +29,7 @@ getwd()
 # If the working directory is incorrect
 # Uncomment the following command and change the directory path before execution
 #-------------------------------------------------
-# setwd("<path_to_rtry_examples_dir>")
+# setwd("<path_to_dir>")
 ```
 
 
@@ -55,7 +53,13 @@ library(dplyr)
 # Geocoding using `rtry`
 ## Load the locations from a .csv file
 ```{r}
-input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+path_to_data <- system.file("testdata", "data_locations.csv", package = "rtry")
+path_to_data
+```
+
+
+```{r}
+input_locations <- rtry_import(path_to_data, separator = ",", encoding = "UTF-8", quote = "\"")
 
 head(input_locations)
 ```
@@ -128,7 +132,13 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 # Reverse geocoding using `rtry`
 ## Load the coordinates from a .csv file
 ```{r}
-input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+path_to_data <- system.file("testdata", "data_coordinates.csv", package = "rtry")
+path_to_data
+```
+
+
+```{r}
+input_coordinates <- rtry_import(path_to_data, separator = ",", encoding = "UTF-8", quote = "\"")
 
 head(input_coordinates)
 ```
