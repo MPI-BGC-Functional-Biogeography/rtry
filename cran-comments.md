@@ -1,5 +1,5 @@
 ## Test environments
-* Local Windows 10, R 4.0.3
+* Local Windows 10, R 4.0.5
 * GitHub Actions: macOS-latest, windows-latest, ubuntu-20.04
 * win-builder: devel and release
 * r-hub: Windows Server 2008 R2 SP1 (R-devel, 32/64 bit), Ubuntu Linux 20.04.1 LTS (R-release, GCC), Fedora Linux (R-devel, clang, gfortran)
