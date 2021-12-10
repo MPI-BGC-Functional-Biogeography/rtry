@@ -2,12 +2,12 @@ context("Exclude (remove) data (rtry_exclude)")
 
 
 test_that("basic test", {
-  exclude1 <- rtry_exclude(data_TRY_15160,
+  filtered1 <- rtry_exclude(data_TRY_15160,
                          OrigValueStr %in% c("adult", "mature", "mature, healthy", "unknown"),
                          baseOn = ObservationID)
 
-  expect_equal(class(exclude1), c("data.table", "data.frame"))
-  expect_equal(dim(exclude1), c(863, 28))
+  expect_equal(class(filtered1), c("data.table", "data.frame"))
+  expect_equal(dim(filtered1), c(863, 28))
 })
 
 

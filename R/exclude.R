@@ -20,7 +20,7 @@
 #' # Example 1: Exclude observations on juvenile plants or unknown state:
 #' # Identify observations where the plant developmental status (DataID 413) is either
 #' # "juvenile" or "unknown", and exclude the whole observation
-#' data_excluded <- rtry_exclude(data_TRY_15160,
+#' data_filtered <- rtry_exclude(data_TRY_15160,
 #'                    (DataID %in% 413) & (OrigValueStr %in% c("juvenile", "unknown")),
 #'                    baseOn = ObservationID)
 #'
@@ -30,7 +30,7 @@
 #' # Example 2: Exclude outliers:
 #' # Identify the outliers, i.e. trait records where the ErrorRisk is larger than 4
 #' # and exclude these records (not the whole observation)
-#' data_excluded <- rtry_exclude(data_TRY_15160,
+#' data_filtered <- rtry_exclude(data_TRY_15160,
 #'                    ErrorRisk > 4,
 #'                    baseOn = ObsDataID)
 #'
@@ -64,14 +64,14 @@ rtry_exclude <- function(input, ..., baseOn, showOverview = TRUE){
     input <- subset(input, input$exclude == FALSE, select = -(exclude))
 
     # Copy the processed input into a new variable
-    excludedData <- input
+    filteredData <- input
 
-    # If the argument showOverview is set to be TRUE, print the dimension of the excluded data
+    # If the argument showOverview is set to be TRUE, print the dimension of the filtered data
     if(showOverview == TRUE){
-      message("dim:   ", paste0(dim(excludedData), sep = " "))
+      message("dim:   ", paste0(dim(filteredData), sep = " "))
     }
 
-    # Return the excluded data
-    return(excludedData)
+    # Return the filtered data
+    return(filteredData)
   }
 }
