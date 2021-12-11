@@ -78,18 +78,30 @@ rtry_geocoding(address = NULL, email = NULL)
 | `address` | String of an address       |
 | `email`   | String of an email address |
 
+In the context of this example workflow, we will use the location data provided within the `rtry` package. In this specific case the input argument for the file `data_locations.csv` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
+
+```R
+# Obtain and print the path to the sample dataset within the rtry package
+path_to_data <- system.file("testdata", "data_locations.csv", package = "rtry")
+path_to_data
+```
+
+```R
+## [1] "C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_locations.csv"
+```
+
 To load the `.csv` file with location information, use `rtry_import()`:
 
 ```R
 # Load the locations from a .csv file
-input_locations <- rtry_import("input/data_locations.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+input_locations <- rtry_import(path_to_data, separator = ",", encoding = "UTF-8", quote = "\"")
 
 # View the location data in the data viewer
 View(input_locations)
 ```
 
 ```R
-## input: input/data_locations.csv
+## input: C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_locations.csv
 ## dim:   20 3
 ## col:   Country code Country Location
 ```
@@ -197,14 +209,26 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 | `lat_lon` | A data frame consisting latitude and longitude in WGS84 projection |
 | `email`   | String of an email address |
 
-To load the `.csv` file with coordinates information, use `rtry_import()`:
+Here, we will use the coordinates data provided within the `rtry` package. In this specific case the input argument for the file `data_coordinates.csv` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
 
 ```R
-input_coordinates <- rtry_import("input/data_coordinates.csv", separator = ",", encoding = "UTF-8", quote = "\"")
+# Obtain and print the path to the sample dataset within the rtry package
+path_to_data <- system.file("testdata", "data_coordinates.csv", package = "rtry")
+path_to_data
 ```
 
 ```R
-## input: input/data_coordinates.csv
+## [1] "C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_coordinates.csv"
+```
+
+To load the `.csv` file with coordinates information, use `rtry_import()`:
+
+```R
+input_coordinates <- rtry_import(path_to_data, separator = ",", encoding = "UTF-8", quote = "\"")
+```
+
+```R
+## input: C:/Program Files/R/R-4.0.5/library/rtry/testdata/data_coordinates.csv
 ## dim:   20 2
 ## col:   Latitude Longitude
 ```
