@@ -6,7 +6,7 @@
 #' The data provided by OSM is free to use for any purpose, including commercial use,
 #' and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 #'
-#' @param lat_lon A data frame consisting latitude and longitude in WGS84 projection.
+#' @param lat_lon A data frame containing latitude and longitude in WGS84 projection.
 #' @param email String of an email address.
 #' @return A data frame that contains address.
 #' @seealso \code{\link{rtry_geocoding}}

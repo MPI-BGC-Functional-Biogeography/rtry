@@ -206,7 +206,7 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 
 | Argument  | Description                |
 |-----------|----------------------------|
-| `lat_lon` | A data frame consisting latitude and longitude in WGS84 projection |
+| `lat_lon` | A data frame containing latitude and longitude in WGS84 projection |
 | `email`   | String of an email address |
 
 Here, we will use the coordinates data provided within the `rtry` package. In this specific case the input argument for the file `data_coordinates.csv` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
