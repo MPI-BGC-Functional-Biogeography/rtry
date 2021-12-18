@@ -198,7 +198,7 @@ View(TRYdata1_explore_anc)
 
 With this exploration and the way it is sorted, it is clear that in the `TRYdata1`: (1) there are two traits (`TraitID` 3115 and 3116); (2) within each trait, whether or not similar data exists (`DataID` and `DataName`); and (3) what types of ancillary data are provided (`DataID` and `DataName`, `TraitID`: `NA`) and how many (Count).
 
-In the case of `TraitID` 3115, it can be seen that `DataID` 7222 and 7223 contains the extreme values (min or max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further preprocessing is performed.
+In the case of `TraitID` 3115, it can be seen that `DataID` 7222 and 7223 contain the extreme values (min or max) of the "Leaf specific area (SLA): petiole excluded". This information might be useful later on when further preprocessing is performed.
 
 A similar procedure can be performed on the other TRY data (`TRYdata2`).
 
@@ -403,7 +403,7 @@ The `rtry` package provides the function `rtry_exclude` to exclude (remove) non-
 
 The `rtry_exclude` function is designed to use the `baseOn` argument with either the column header `ObservationID` or `ObsDataID`. When the `baseOn` argument is set to `ObservationID`, the function removes all records of the whole observation if one selection criteria is fulfilled. If the `baseOn` argument is set to `ObsDataID`, only the (trait) record, which fulfills the selection criteria is removed. Other column headers may be used for the `baseOn` argument, but the result would need to be checked carefully.
 
-The `rtry_exclude` function is very powerful and can be used on a range of different criteria. This function is therefore key for data cleaning. The workflow provides examples for the exclusion of whole observations using ancillary data (8.1 and 8.2), and the exclusion of single trait records according to addtional trait specifications (8.3) and outliers (8.4 and 8.5).
+The `rtry_exclude` function is very powerful and can be used on a range of different criteria. This function is therefore key for data cleaning. The workflow provides examples for the exclusion of whole observations using ancillary data (8.1 and 8.2), and the exclusion of single trait records according to additional trait specifications (8.3) and outliers (8.4 and 8.5).
 
 <br>
 
@@ -697,8 +697,8 @@ Here, it can be seen that there are three trait records with SLA value less than
 ```R
 # Criteria
 # 1. DataID equals to 6582, 6583 or 6584
-# 2. StdValue smaller than 0
-workdata <- rtry_exclude(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 0), baseOn = ObsDataID)
+# 2. StdValue smaller than 5
+workdata <- rtry_exclude(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 5), baseOn = ObsDataID)
 ```
 
 ```R
@@ -773,7 +773,7 @@ From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` 
 
 # Remove duplicates based on duplicate identifier (`OrigObsDataID`)
 
-As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). To keep track of potential duplicate entries, a unique identifier `OrigObsDataID` is assigned when the probability is high that certain trait records have previously been contributed (Kattge el al. [2020](https://doi.org/10.1111/gcb.14904)). With the help of this `OrigObsDataID`, the `rtry` package provides a function `rtry_remove_dup` for users to easily remove the duplicates from the data for further processing.
+As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). To keep track of potential duplicate entries, a unique identifier `OrigObsDataID` is assigned when the probability is high that certain trait records have previously been contributed (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). With the help of this `OrigObsDataID`, the `rtry` package provides a function `rtry_remove_dup` for users to easily remove the duplicates from the data for further processing.
 
 `rtry_remove_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also, if the original, not duplicate, trait record was not imported to `rtry` (e.g. if only public data or specific datasets were requested from TRY and the original trait record was part of the restricted data or another dataset) the duplicates identified by TRY will still be removed, resulting in data loss.
 
