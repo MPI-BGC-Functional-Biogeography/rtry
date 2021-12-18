@@ -389,7 +389,7 @@ tmp_unfiltered
 #-------------------------------------------------
 # Criteria
 # 1. DataID equals to 6582, 6583 or 6584
-# 2. StdValue smaller than 0
+# 2. StdValue smaller than 5
 #-------------------------------------------------
 workdata <- rtry_exclude(workdata, (DataID %in% c(6582, 6583, 6584)) & (StdValue < 5), baseOn = ObsDataID)
 workdata

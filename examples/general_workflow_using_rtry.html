@@ -1668,7 +1668,7 @@ rm(list=ls())</code></pre>
 # Make sure the working directory is set to the desired location
 #-------------------------------------------------
 getwd()</code></pre>
-<pre><code>## [1] &quot;C:/rtry/examples&quot;</code></pre>
+<pre><code>## [1] &quot;D:/rtry/examples&quot;</code></pre>
 <pre class="r"><code>#-------------------------------------------------
 # If the working directory is incorrect
 # Uncomment the following command and change the directory path before execution
@@ -2163,7 +2163,7 @@ tmp_unfiltered &lt;- rtry_select_row(workdata, DataID %in% c(6582, 6583, 6584))<
 #-------------------------------------------------
 # Criteria
 # 1. DataID equals to 6582, 6583 or 6584
-# 2. StdValue smaller than 0
+# 2. StdValue smaller than 5
 #-------------------------------------------------
 workdata &lt;- rtry_exclude(workdata, (DataID %in% c(6582, 6583, 6584)) &amp; (StdValue &lt; 5), baseOn = ObsDataID)</code></pre>
 <pre><code>## dim:   215 17</code></pre>
@@ -2343,6 +2343,7 @@ num_traits_georef_wider &lt;- rtry_trans_wider(num_traits_georef, names_from = c
 # Note: If the specified output directory does not exist, it will be created automatically.
 #-------------------------------------------------
 rtry_export(num_traits_georef_wider, &quot;output/workdata_wider_traits.csv&quot;)</code></pre>
+<pre><code>## New directory created at: output</code></pre>
 <pre><code>## File saved at: output/workdata_wider_traits.csv</code></pre>
 </div>
 </div>
