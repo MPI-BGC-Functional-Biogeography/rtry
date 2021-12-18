@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 The TRY database ([https://www.try-db.org](https://www.try-db.org/TryWeb/Home.php)) has been designed as an integrated database for all kinds of plant traits (Kattge et al. 2011a, 2020). In addition to the trait values, the TRY database offers rich information to facilitate filtering trait data according to different attributes, e.g. exposition (natural environment, growth chambers, etc.), georeference, or sampling date. However, the size of datasets released from TRY is often too large to be handled by spreadsheets like Microsoft Excel and the relevant information for trait data filtering is contained at different places of the released data, e.g. trait names, species names, ancillary data representing context information, units of trait data, and identifiers for duplicates and outliers. Therefore, finding all relevant information to select or remove trait data is not straightforward without knowledge of the inherent data structure.
 
-Therefore, we developed the `rtry` package to support data preprocessing, particularly data exploration and removal (filtering), taking advantage of the features of trait data released from the TRY database. The package is supposed to be applicable without advanced knowledge of the the data structure released from TRY or the R software.
+Therefore, we developed the `rtry` package to support data preprocessing, particularly data exploration and removal (filtering), taking advantage of the features of trait data released from the TRY database. The package is supposed to be applicable without advanced knowledge of the data structure released from TRY or the R software.
 
 Additional vignettes providing example workflows for trait data preprocessing and geocoding are available at:
 
@@ -61,9 +61,11 @@ In the context of data integration into TRY, the column headers of traits and an
 
 ![Figure 2: Representation of row 2 (observation 2) from Figure 1 in a long-table format as used within TRY and for data release, with unique identifiers for each data record (\`ObsDataID\`), observation (\`ObservationID\`), ancillary data and traits.](introduction_long_table.png){width="100%"}
 
-Through the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php), trait data are released in a tab-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding. Each row of the long-table represents either a trait record or an ancillary data. Different records belonging to the same observation are combined by the `ObservationID`.
+Through the TRY Data Portal (https://www.try-db.org/TryWeb/dp.php), trait data are released in a tab-delimited long-table format as zipped text file (`.txt`) with `Latin-1` encoding.
 
-In TRY version 5, the output long-table has 27 columns, with a header in the first row of the text file (see Table below). Datasets released from other versions of the TRY database may contain different numbers of columns. However, this is taken into account within the `rtry` package, as it provides a function for detailed data exploration (`rtry_explore()`, for details please refer to the section "The `rtry` package" below).
+In TRY version 5, the output long-table has 27 columns, with a header in the first row of the text file (see Table 1). Datasets released from other versions of the TRY database may contain different numbers of columns. However, this is taken into account within the `rtry` package, as it provides a function for detailed data exploration (`rtry_explore()`, for details please refer to the section "The `rtry` package" below).
+
+Table 1: Column headers of data released from the TRY version 5
 
 |      | Column    | Comment                                  |
 | ---- | --------- | ---------------------------------------- |
@@ -91,12 +93,10 @@ In TRY version 5, the output long-table has 27 columns, with a header in the fir
 | 22.   | UnitName | Standard unit: available for frequent continuous traits |
 | 23.   | RelUncertaintyPercent | Relative uncertainty in % |
 | 24.   | OrigObsDataID | Unique identifier for duplicate trait records |
-| 25.   | ErrorRisk | Indication for outliers trait values: distance to mean in standard deviations |
+| 25.   | ErrorRisk | Indication for outlier trait values: distance to mean in standard deviations |
 | 26.   | Reference | Reference to be cited if trait record is used in analysis |
 | 27.   | Comment | Explanation for the `OriglName` in the contributed dataset |
 | 28.   | V28 | Empty, an artifact due to different interpretation of column separator by MySQL and R |
-
-: Column headers of data released from the TRY version 5
 
 For more detailed information about data harmonization and integration in the TRY database please check the publications Kattge et al. 2011a, 2011b, 2020, the TRY website (https://www.try-db.org/TryWeb/Database.php) and the Data Release Notes distributed with each data release.
 

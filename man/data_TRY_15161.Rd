@@ -31,7 +31,7 @@ A data frame with 4627 rows and 28 variables:
 \item{UnitName}{Standard unit: available for frequent continuous traits.}
 \item{RelUncertaintyPercent}{Relative uncertainty in \%.}
 \item{OrigObsDataID}{Unique identifier for duplicate trait records.}
-\item{ErrorRisk}{Indication for outliers trait values: distance to mean in standard deviations.}
+\item{ErrorRisk}{Indication for outlier trait values: distance to mean in standard deviations.}
 \item{Reference}{Reference to be cited if trait record is used in analysis.}
 \item{Comment}{Explanation for the \code{OriglName} in the contributed dataset.}
 \item{V28}{Empty, an artifact due to different interpretation of column separator by MySQL and R.}
