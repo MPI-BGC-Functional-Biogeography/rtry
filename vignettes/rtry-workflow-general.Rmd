@@ -674,7 +674,7 @@ It is clear that the defined `DataID`s have been removed, while the correspondin
 
 ## Exclude data according to standard values (`StdValue`)
 
-For demonstration purposes, we assume the user has decided that SLA (specific leaf area) values below 5 mm2mg-1 are out of the relevant range for the purpose of the analyses.
+For demonstration purposes, we assume the user has decided that SLA (specific leaf area) values below 5 mm<sup>2</sup>mg<sup>-1</sup> are out of the relevant range for the purpose of the analyses.
 
 Knowing that the SLA values can be found in `DataID` 6582, 6583 and 6584, first check if values below 5 exist in the dataset using the functions `rtry_select_row` and `rtry_explore`. The temporary data are saved as `tmp_unfiltered`. Note: To exclude numeric values, it is recommended to use the column `StdValue`.
 
@@ -692,7 +692,7 @@ tmp_unfiltered <- rtry_explore(tmp_unfiltered, DataID, DataName, OriglName, Orig
 
 ![workflow_general_filter_sla_explore_before](workflow_general_filter_sla_explore_before.png){width="100%"}
 
-Here, it can be seen that there are three trait records with SLA value less than 5 mm2mg-1. To exclude these records, use the following command:
+Here, it can be seen that there are three trait records with SLA value less than 5 mm<sup>2</sup>mg<sup>-1</sup>. To exclude these records, use the following command:
 
 ```R
 # Criteria
