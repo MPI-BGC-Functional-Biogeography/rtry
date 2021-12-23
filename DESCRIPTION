@@ -35,8 +35,8 @@ Authors@R: c(
         role = c("cph")))
 Description: Designed to support the application of plant trait data providing easy applicable functions
     for the basic steps of data preprocessing, e.g. data import, data exploration, selection of columns
-    and rows, excluding trait data according to different attributes, geocoding, long- to wide-table 
-    transformation, and data export. rtry was initially developed as part of the TRY R project to
+    and rows, excluding trait data according to different attributes, geocoding, long- to wide-table
+    transformation, and data export. 'rtry' was initially developed as part of the TRY R project to
     preprocess trait data received via the TRY database.
 License: CC BY 4.0
 Depends: R (>= 4.0.0)
