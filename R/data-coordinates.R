@@ -8,4 +8,5 @@
 #'   \item{Latitude}{Latitude, in WGS84 projection.}
 #'   \item{Longitude}{Longitude, in WGS84 projection.}
 #' }
+#' @return A data frame with 20 rows and 2 variables of sample coordinates data.
 "data_coordinates"

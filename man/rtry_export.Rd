@@ -15,6 +15,9 @@ rtry_export(data, output, quote = TRUE, encoding = "UTF-8")
 
 \item{encoding}{Default \code{"UTF-8"}. File encoding.}
 }
+\value{
+No return value, called for exporting a \code{.csv} file.
+}
 \description{
 This function exports the preprocessed data as comma separated values to a \code{.csv} file.
 If the specified output directory does not exist, it will be created.

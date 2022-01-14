@@ -40,6 +40,9 @@ A data frame with 1782 rows and 28 variables:
 \usage{
 data_TRY_15160
 }
+\value{
+A data frame with 1782 rows and 28 variables of sample TRY data (Request 15160).
+}
 \description{
 A dataset requested from the \href{https://www.try-db.org/TryWeb/Prop0.php}{TRY Database}.
 The request ID of this dataset is 15160, which contains \code{TraitID}: 3115, 3116

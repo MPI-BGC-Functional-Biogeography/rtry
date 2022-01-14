@@ -15,6 +15,9 @@ A data frame with 20 rows and 3 variables:
 \usage{
 data_locations
 }
+\value{
+A data frame with 20 rows and 3 variables of sample locations data.
+}
 \description{
 A dataset containing 20 location information.
 The raw dataset (\code{data_locations.csv}) is also provided in the directory \code{testdata}.

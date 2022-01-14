@@ -9,4 +9,5 @@
 #'   \item{Country}{Full name of a country.}
 #'   \item{Location}{Specific location, e.g. town or city name.}
 #' }
+#' @return A data frame with 20 rows and 3 variables of sample locations data.
 "data_locations"

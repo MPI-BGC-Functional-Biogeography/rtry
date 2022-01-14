@@ -6,6 +6,7 @@
 #' @param data The data to be saved.
 #' @param output Output path.
 #' @param quote Default \code{TRUE} inserts double quotes around any character or factor columns.
+#' @return No return value, called for exporting a \code{.csv} file.
 #' @param encoding Default \code{"UTF-8"}. File encoding.
 #' @references This function makes use of the \code{\link[utils]{write.csv}} function
 #'             within the \code{utils} package.

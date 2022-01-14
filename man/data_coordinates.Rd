@@ -14,6 +14,9 @@ A data frame with 20 rows and 2 variables:
 \usage{
 data_coordinates
 }
+\value{
+A data frame with 20 rows and 2 variables of sample coordinates data.
+}
 \description{
 A dataset containing 20 sets of latitudes and longitudes in WGS84 projection.
 The raw dataset (\code{data_coordinates.csv}) is also provided in the directory \code{testdata}.
