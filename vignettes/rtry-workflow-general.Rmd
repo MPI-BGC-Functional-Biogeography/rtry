@@ -24,13 +24,13 @@ knitr::opts_chunk$set(
 
 ------------------------------------------------------------------------
 
-This vignette is intended to demonstrate how to use the `rtry` package to preprocess data exported from the TRY database, from importing and exploring the data to binding multiple datasets, to selecting, excluding specific data using user-defined criteria and removing duplicates, and finally exporting the preprocessed data.
+This vignette is intended to demonstrate how to use the 'rtry' package to preprocess data exported from the TRY database, from importing and exploring the data to binding multiple datasets, to selecting, excluding specific data using user-defined criteria and removing duplicates, and finally exporting the preprocessed data.
 
 <br>
 
 # Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
+Make sure you have the 'rtry' package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
 To start, set the working directory to the desired location:
 
@@ -60,7 +60,7 @@ packageVersion("rtry")
 
 `rtry_import()` takes five arguments `input`, `separator`, `encoding`, `quote` and `showOverview`, and returns a data table that contains the entire dataset. Since the function by default imports the text file exported from the TRY database for further processing, to import the TRY data, simply type in the path to the text file.
 
-In the context of this example workflow, we will use the trait data provided within the `rtry` package. In this specific case the input argument for the file `data_TRY_15160.txt` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
+In the context of this example workflow, we will use the trait data provided within the 'rtry' package. In this specific case the input argument for the file `data_TRY_15160.txt` can be obtained via `system.file()` that finds the full file path to the 'rtry' package:
 
 ```R
 # Obtain and print the path to the sample dataset within the rtry package
@@ -101,7 +101,7 @@ View(TRYdata1)
 We see that datasets released from TRY are in a long-table format, where the traits are defined in the columns `TraitID` and `TraitName`. Ancillary data are defined in the columns `DataID` and `DataName`, which also provide additional information for the traits.
 
 
-Import another sample TRY dataset (`data_TRY_15161.txt`) within the `rtry` package:
+Import another sample TRY dataset (`data_TRY_15161.txt`) within the 'rtry' package:
 
 ```R
 path_to_data <- system.file("testdata", "data_TRY_15161.txt", package = "rtry")
@@ -275,7 +275,7 @@ To view the data, use either `head()` or `View()`.
 
 # Select columns
 
-Within the `rtry` package, there are two ways to reduce the number of columns, i.e. either selecting the columns to keep: `rtry_select_col()` or explicitly removing certain columns: `rtry_remove_col()`.
+Within the 'rtry' package, there are two ways to reduce the number of columns, i.e. either selecting the columns to keep: `rtry_select_col()` or explicitly removing certain columns: `rtry_remove_col()`.
 
 Note: To ensure that the later preprocessing steps (such as data selection and duplicates removal) work properly, do not remove the column `ObservationID` and `OrigObsDataID`.
 
@@ -397,7 +397,7 @@ workdata <- workdata_unexcluded
 
 # Exclude (remove) data
 
-The `rtry` package provides the function `rtry_exclude` to exclude (remove) non-representative data.
+The 'rtry' package provides the function `rtry_exclude` to exclude (remove) non-representative data.
 
 `rtry_exclude()` takes four arguments `input`, `...`, `baseOn` and `showOverview` to exclude data from the input data based on the specified criteria.
 
@@ -773,9 +773,9 @@ From the exploration result, it can be seen that the outliers (i.e. `ErrorRisk` 
 
 # Remove duplicates based on duplicate identifier (`OrigObsDataID`)
 
-As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). To keep track of potential duplicate entries, a unique identifier `OrigObsDataID` is assigned when the probability is high that certain trait records have previously been contributed (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). With the help of this `OrigObsDataID`, the `rtry` package provides a function `rtry_remove_dup` for users to easily remove the duplicates from the data for further processing.
+As of July 2019, the TRY database comprised 588 data sets from 765 data contributors (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). To keep track of potential duplicate entries, a unique identifier `OrigObsDataID` is assigned when the probability is high that certain trait records have previously been contributed (Kattge et al. [2020](https://doi.org/10.1111/gcb.14904)). With the help of this `OrigObsDataID`, the 'rtry' package provides a function `rtry_remove_dup` for users to easily remove the duplicates from the data for further processing.
 
-`rtry_remove_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also, if the original, not duplicate, trait record was not imported to `rtry` (e.g. if only public data or specific datasets were requested from TRY and the original trait record was part of the restricted data or another dataset) the duplicates identified by TRY will still be removed, resulting in data loss.
+`rtry_remove_dup()` takes two arguments `input` and `showOverview`, and returns a data table of the input data after removing the duplicates. Note: This function depends on the duplicate identifier `OrigObsDataID` listed in the TRY data, therefore, if the column `OrigObsDataID` has been removed, this function will not work. Also, if the original, not duplicate, trait record was not imported to 'rtry' (e.g. if only public data or specific datasets were requested from TRY and the original trait record was part of the restricted data or another dataset) the duplicates identified by TRY will still be removed, resulting in data loss.
 
 To remove the duplicates from `workdata`, simply use the call the function:
 
@@ -795,7 +795,7 @@ Once the function is called and executed, by default the number of duplicates re
 
 # Transform to wide table
 
-For data management purposes, the TRY data is structured as a long-table, and this is what has been used so far. However, for human operators, it is often more common to read and understand a dataset in a wide-table format. Therefore, the `rtry` package offers the function `rtry_trans_wider` for users to transform the long-table into a wide-table (i.e. increasing the number of columns and decreasing the number of rows) when needed. The `rtry_trans_wider` function represents the selected data-types (traits, ancillary data) as columns and every observation becomes one row.
+For data management purposes, the TRY data is structured as a long-table, and this is what has been used so far. However, for human operators, it is often more common to read and understand a dataset in a wide-table format. Therefore, the 'rtry' package offers the function `rtry_trans_wider` for users to transform the long-table into a wide-table (i.e. increasing the number of columns and decreasing the number of rows) when needed. The `rtry_trans_wider` function represents the selected data-types (traits, ancillary data) as columns and every observation becomes one row.
 
 `rtry_trans_wider()` takes five arguments `input`, `names_from`, `values_from`, `values_fn` and `showOverview` to transform the original long-table format of the TRY data into a wide-table format. Note: This function is based on the function `tidyr::pivot_wider`.
 
@@ -842,7 +842,7 @@ workdata_lon <- rtry_select_anc(workdata, 60)
 ## col:   ObservationID Longitude
 ```
 
-Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted ancillary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_join_left` function provided in the `rtry` package.
+Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted ancillary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_join_left` function provided in the 'rtry' package.
 
 ```R
 # To merge the extracted ancillary data with the numerical traits

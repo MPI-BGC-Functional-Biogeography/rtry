@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ------------------------------------------------------------------------
 
-This vignette is intended to demonstrate how to use the functions `rtry_geocoding` and `rtry_revgeocoding` within the `rtry` package to perform geocoding and reverse geocoding for a list of locations or coordinates.
+This vignette is intended to demonstrate how to use the functions `rtry_geocoding` and `rtry_revgeocoding` within the 'rtry' package to perform geocoding and reverse geocoding for a list of locations or coordinates.
 
 Geocoding is the process of converting an address into geographic coordinates (latitude and longitude), while reverse geocoding is the process of converting geographic coordinates (latitude and longitude) into an address.
 
@@ -36,7 +36,7 @@ Note that the georeference system used is WGS84 projection.
 
 # Prepare the workflow environment
 
-Make sure you have the `rtry` package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
+Make sure you have the 'rtry' package installed. If not, you may refer to the vignette ["Introduction to rtry" (rtry-introduction)](rtry-introduction.html).
 
 To start, set the work directory to the desired location:
 
@@ -65,7 +65,7 @@ library(dplyr)
 
 <br>
 
-# Use `rtry` for geocoding
+# Use 'rtry' for geocoding
 
 `rtry_geocoding()` takes two parameters `address` and `email`, and returns a data frame that contains latitude (`lat`) and longitude (`lon`) in WGS84 projection.
 
@@ -78,7 +78,7 @@ rtry_geocoding(address = NULL, email = NULL)
 | `address` | String of an address       |
 | `email`   | String of an email address |
 
-In the context of this example workflow, we will use the location data provided within the `rtry` package. In this specific case the input argument for the file `data_locations.csv` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
+In the context of this example workflow, we will use the location data provided within the 'rtry' package. In this specific case the input argument for the file `data_locations.csv` can be obtained via `system.file()` that finds the full file path to the 'rtry' package:
 
 ```R
 # Obtain and print the path to the sample dataset within the rtry package
@@ -196,7 +196,7 @@ rtry_export(input_locations, "output/locations_to_coordinates.csv")
 
 <br>
 
-# Use `rtry` for reverse geocoding
+# Use 'rtry' for reverse geocoding
 
 The `rtry_revgeocoding()` takes two parameters `lat_lon` and `email`, and returns a data frame that contains the corresponding location.
 
@@ -209,7 +209,7 @@ rtry_revgeocoding(lat_lon = NULL, email = NULL)
 | `lat_lon` | A data frame containing latitude and longitude in WGS84 projection |
 | `email`   | String of an email address |
 
-Here, we will use the coordinates data provided within the `rtry` package. In this specific case the input argument for the file `data_coordinates.csv` can be obtained via `system.file()` that finds the full file path to the `rtry` package:
+Here, we will use the coordinates data provided within the 'rtry' package. In this specific case the input argument for the file `data_coordinates.csv` can be obtained via `system.file()` that finds the full file path to the 'rtry' package:
 
 ```R
 # Obtain and print the path to the sample dataset within the rtry package
