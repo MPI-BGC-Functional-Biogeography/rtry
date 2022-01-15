@@ -888,10 +888,10 @@ To save the two preprocessed wide tables `workdata_wider_traits` and `workdata_w
 
 ```R
 # Export the data into a CSV file
-rtry_export(num_traits_georef_wider, "output/workdata_wider_traits.csv")
+output_file = file.path(tempdir(), "workdata_wider_traits.csv")
+rtry_export(num_traits_georef_wider, output_file)
 ```
 
 ```R
-## New directory created at: output
-## File saved at: output/workdata_wider_traits.csv
+## File saved at: C:/Users/user/AppData/Local/Temp/Rtmp4wJAvQ/workdata_wider_traits.csv
 ```

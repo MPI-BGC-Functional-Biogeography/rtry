@@ -183,13 +183,12 @@ input_locations <- rtry_select_col(input_locations, "Country code", Country, Loc
 head(input_locations)
 
 # Export into .csv
-# If the specified output directory does not exist, it will be created automatically
-rtry_export(input_locations, "output/locations_to_coordinates.csv")
+output_file = file.path(tempdir(), "locations_to_coordinates.csv")
+rtry_export(input_locations, output_file)
 ```
 
 ```R
-## New directory created at: output
-## File saved at: output/locations_to_coordinates.csv
+## File saved at: C:/Users/user/AppData/Local/Temp/Rtmp4wJAvQ/locations_to_coordinates.csv
 ```
 
 ![workflow_geocoding_input_coordinates](workflow_geocoding_locations_coordinates.png){width="60%"}
@@ -301,12 +300,12 @@ input_coordinates <- rtry_select_col(input_coordinates, Latitude, Longitude, "Co
 head(input_coordinates)
 
 # Export into .csv
-# If the specified output directory does not exist, it will be created automatically
-rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
+output_file = file.path(tempdir(), "coordinates_to_locations.csv")
+rtry_export(input_coordinates, output_file)
 ```
 
 ```R
-## File saved at: output/locations_to_coordinates.csv
+## File saved at: C:/Users/user/AppData/Local/Temp/Rtmp4wJAvQ/locations_to_coordinates.csv
 ```
 
 ![workflow_revgeocoding_coordinates_locations](workflow_revgeocoding_coordinates_locations.png){width="60%"}

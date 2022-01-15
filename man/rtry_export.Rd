@@ -23,10 +23,11 @@ This function exports the preprocessed data as comma separated values to a \code
 If the specified output directory does not exist, it will be created.
 }
 \examples{
-\dontrun{
 # Export the preprocessed data to a specific location
-rtry_export(data, "./output/TRYdata_processed.csv")
-}
+rtry_export(data_TRY_15160, file.path(tempdir(), "TRYdata_unprocessed.csv"))
+
+# Expected message:
+# File saved at: C:\Users\user\AppData\Local\Temp\Rtmp4wJAvQ/TRYdata_unprocessed.csv
 }
 \references{
 This function makes use of the \code{\link[utils]{write.csv}} function

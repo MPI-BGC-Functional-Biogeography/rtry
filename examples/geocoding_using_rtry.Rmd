@@ -124,7 +124,8 @@ head(input_locations)
 
 ## Export into .csv
 ```{r}
-rtry_export(input_locations, "output/locations_to_coordinates.csv")
+output_file = file.path(tempdir(), "locations_to_coordinates.csv")
+rtry_export(input_locations, output_file)
 ```
 
 
@@ -204,5 +205,6 @@ head(input_coordinates)
 
 ## Export into .csv
 ```{r}
-rtry_export(input_coordinates, "output/coordinates_to_locations.csv")
+output_file = file.path(tempdir(), "coordinates_to_locations.csv")
+rtry_export(input_coordinates, output_file)
 ```

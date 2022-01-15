@@ -519,7 +519,8 @@ num_traits_georef_wider
 # Export the data into a CSV file
 # Note: If the specified output directory does not exist, it will be created automatically.
 #-------------------------------------------------
-rtry_export(num_traits_georef_wider, "output/workdata_wider_traits.csv")
+output_file = file.path(tempdir(), "workdata_wider_traits.csv")
+rtry_export(num_traits_georef_wider, output_file)
 ```
 
 

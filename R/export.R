@@ -11,10 +11,11 @@
 #' @references This function makes use of the \code{\link[utils]{write.csv}} function
 #'             within the \code{utils} package.
 #' @examples
-#' \dontrun{
 #' # Export the preprocessed data to a specific location
-#' rtry_export(data, "./output/TRYdata_processed.csv")
-#' }
+#' rtry_export(data_TRY_15160, file.path(tempdir(), "TRYdata_unprocessed.csv"))
+#'
+#' # Expected message:
+#' # File saved at: C:\Users\user\AppData\Local\Temp\Rtmp4wJAvQ/TRYdata_unprocessed.csv
 #' @export
 rtry_export <- function(data, output, quote = TRUE, encoding = "UTF-8"){
   # If either of the input or output is missing, show the message
