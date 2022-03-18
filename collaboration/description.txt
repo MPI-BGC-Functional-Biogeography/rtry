@@ -1,0 +1,1 @@
+This directory aims to keep and store all contributed source code of the 'rtry' package.
