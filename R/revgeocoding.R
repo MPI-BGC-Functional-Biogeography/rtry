@@ -11,9 +11,9 @@
 #' @return A data frame that contains address.
 #' @seealso \code{\link{rtry_geocoding}}
 #' @examples
-#' # Convert the coordinates of MPI-BGC (50.91012, 11.56674) into an address
+#' # Convert the coordinates of MPI-BGC (50.9101, 11.56674) into an address
 #' # Note: Please change to your own email address when executing this function
-#' rtry_revgeocoding(data.frame(50.91012, 11.56674),
+#' rtry_revgeocoding(data.frame(50.9101, 11.56674),
 #'   email = "john.doe@example.com")
 #'
 #' # Expected message:

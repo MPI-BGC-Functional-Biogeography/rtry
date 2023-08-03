@@ -22,9 +22,9 @@ The data provided by OSM is free to use for any purpose, including commercial us
 and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 }
 \examples{
-# Convert the coordinates of MPI-BGC (50.91012, 11.56674) into an address
+# Convert the coordinates of MPI-BGC (50.9101, 11.56674) into an address
 # Note: Please change to your own email address when executing this function
-rtry_revgeocoding(data.frame(50.91012, 11.56674),
+rtry_revgeocoding(data.frame(50.9101, 11.56674),
   email = "john.doe@example.com")
 
 # Expected message:
