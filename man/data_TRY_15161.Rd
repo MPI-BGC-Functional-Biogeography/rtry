@@ -41,7 +41,7 @@ A data frame with 4627 rows and 28 variables:
 data_TRY_15161
 }
 \value{
-A data frame with 1782 rows and 28 variables of sample TRY data (Request 15161).
+A data frame with 4627 rows and 28 variables of sample TRY data (Request 15161).
 }
 \description{
 A dataset requested from the \href{https://www.try-db.org/TryWeb/Prop0.php}{TRY Database}.

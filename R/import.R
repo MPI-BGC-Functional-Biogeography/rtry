@@ -31,7 +31,7 @@
 #' #            quote = "", showOverview = TRUE)
 #'
 #' # Expected message:
-#' # input: ~/R/R-4.0.3/library/rtry/testdata/data_TRY_15160.txt
+#' # input: ~/R/R-4.0.5/library/rtry/testdata/data_TRY_15160.txt
 #' # dim:   1782 28
 #' # col:   LastName FirstName DatasetID Dataset SpeciesName AccSpeciesID AccSpeciesName
 #' #        ObservationID ObsDataID TraitID TraitName DataID DataName OriglName
@@ -48,7 +48,7 @@
 #'            quote = "\"", showOverview = TRUE)
 #'
 #' # Expected message:
-#' # input: ~/R/R-4.0.3/library/rtry/testdata/data_locations.csv
+#' # input: ~/R/R-4.0.5/library/rtry/testdata/data_locations.csv
 #' # dim:   20 3
 #' # col:   Country code Country Location
 #' @export

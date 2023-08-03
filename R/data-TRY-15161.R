@@ -36,5 +36,5 @@
 #'   \item{Comment}{Explanation for the \code{OriglName} in the contributed dataset.}
 #'   \item{V28}{Empty, an artifact due to different interpretation of column separator by MySQL and R.}
 #' }
-#' @return A data frame with 1782 rows and 28 variables of sample TRY data (Request 15161).
+#' @return A data frame with 4627 rows and 28 variables of sample TRY data (Request 15161).
 "data_TRY_15161"
