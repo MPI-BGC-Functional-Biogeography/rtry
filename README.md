@@ -34,7 +34,7 @@ R 4.0.5 was used to develop and build the `rtry` package, and this is the minimu
 
 The latest version of R can be downloaded from CRAN, a network of ftp and web servers around the world that store the code and documentation of R: https://cran.r-project.org/
 
-In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at https://www.rstudio.com/products/rstudio/download/, it is sufficient to use the free and open source version of RStudio Desktop.
+In case RStudio is used, we also recommend to use the latest version of RStudio when using the package, which can be found at https://posit.co/download/rstudio-desktop/, it is sufficient to use the free and open source version of RStudio Desktop.
 
 <br>
 
