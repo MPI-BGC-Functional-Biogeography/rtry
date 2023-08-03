@@ -30,7 +30,7 @@ rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany",
 
 # Expected message:
 #        lat      lon
-# 1 50.91011 11.56682
+# 1 50.9101 11.56674
 
 # Learn to perform geocoding to a list of locations via the vignette (Workflow for
 # geocoding using rtry): vignette("rtry-workflow-geocoding").

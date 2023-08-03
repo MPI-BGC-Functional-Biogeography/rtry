@@ -19,7 +19,7 @@
 #'
 #' # Expected message:
 #' #        lat      lon
-#' # 1 50.91011 11.56682
+#' # 1 50.9101 11.56674
 #'
 #' # Learn to perform geocoding to a list of locations via the vignette (Workflow for
 #' # geocoding using rtry): vignette("rtry-workflow-geocoding").
@@ -45,7 +45,7 @@ rtry_geocoding <- function(address, email){
       tryCatch(
         geocode <- jsonlite::fromJSON(
           gsub('\\@addr\\@', gsub('\\s+', '\\%20', address),
-               paste0("http://nominatim.openstreetmap.org/search/@addr@?format=json&addressdetails=0&limit=1", "&email=", email))
+               paste0("http://nominatim.openstreetmap.org/search?q=@addr@&format=json&addressdetails=0&limit=1", "&email=", email))
         ), error = function(c) return(data.frame("NA"))
       )
 
