@@ -11,6 +11,7 @@
 #' @return A data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection.
 #' @seealso \code{\link{rtry_revgeocoding}}
 #' @examples
+#' \dontrun{
 #' # Convert the address of MPI-BGC ("Hans-Knoell-Strasse 10, 07745 Jena, Germany")
 #' # into coordinates in latitudes and longitudes
 #' # Note: Please change to your own email address when executing this function
@@ -20,6 +21,7 @@
 #' # Expected message:
 #' #        lat      lon
 #' # 1 50.9101 11.56674
+#' }
 #'
 #' # Learn to perform geocoding to a list of locations via the vignette (Workflow for
 #' # geocoding using rtry): vignette("rtry-workflow-geocoding").

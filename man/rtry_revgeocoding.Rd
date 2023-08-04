@@ -22,6 +22,7 @@ The data provided by OSM is free to use for any purpose, including commercial us
 and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 }
 \examples{
+\dontrun{
 # Convert the coordinates of MPI-BGC (50.9101, 11.56674) into an address
 # Note: Please change to your own email address when executing this function
 rtry_revgeocoding(data.frame(50.9101, 11.56674),
@@ -30,6 +31,7 @@ rtry_revgeocoding(data.frame(50.9101, 11.56674),
 # Expected message:
 #               full_address town city country country_code
 # 1 Jena, Thuringia, Germany   NA Jena Germany           de
+}
 
 # Learn to perform reverse geocoding to a list of coordinates via the vignette
 # (Workflow for geocoding using rtry): vignette("rtry-workflow-geocoding").

@@ -2,6 +2,10 @@ context("Perform geocoding (rtry_geocoding)")
 
 
 test_that("basic test", {
+  # following CRAN’s “graceful failure” policy
+  # in case OSM service not working
+  skip_on_cran()
+
   input_location <- head(data_locations, 1)
   input_address <- paste(input_location$Location, input_location$Country, sep = ", ")
 

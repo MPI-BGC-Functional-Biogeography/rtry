@@ -22,6 +22,7 @@ The data provided by OSM is free to use for any purpose, including commercial us
 and is governed by the distribution license \href{https://wiki.osmfoundation.org/wiki/Licence}{ODbL}.
 }
 \examples{
+\dontrun{
 # Convert the address of MPI-BGC ("Hans-Knoell-Strasse 10, 07745 Jena, Germany")
 # into coordinates in latitudes and longitudes
 # Note: Please change to your own email address when executing this function
@@ -31,6 +32,7 @@ rtry_geocoding("Hans-Knoell-Strasse 10, 07745 Jena, Germany",
 # Expected message:
 #        lat      lon
 # 1 50.9101 11.56674
+}
 
 # Learn to perform geocoding to a list of locations via the vignette (Workflow for
 # geocoding using rtry): vignette("rtry-workflow-geocoding").

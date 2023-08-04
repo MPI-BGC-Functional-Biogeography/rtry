@@ -2,6 +2,10 @@ context("Perform reverse geocoding (rtry_revgeocoding)")
 
 
 test_that("basic test", {
+  # following CRAN’s “graceful failure” policy
+  # in case OSM service not working
+  skip_on_cran()
+
   input_coordinate <- head(data_coordinates, 1)
   input_lat_lon <- data.frame(lat = input_coordinate$Latitude, lon = input_coordinate$Longitude)
 
