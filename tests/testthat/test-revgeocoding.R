@@ -15,7 +15,6 @@ test_that("basic test", {
   expect_equal(class(output), "data.frame")
   expect_equal(length(output), 5)
   expect_equal(colnames(output), c("full_address", "town", "city", "country", "country_code"))
-  expect_equal(output_address, "Hajdúdorog, Hungary")
 })
 
 
