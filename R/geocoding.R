@@ -44,15 +44,36 @@ rtry_geocoding <- function(address, email){
       if(is.null(address))
         return(data.frame("NA"))
 
+      osm_search_url <- "http://nominatim.openstreetmap.org/search?q="
+
       tryCatch(
-        geocode <- jsonlite::fromJSON(
+        {
+          geocode <- jsonlite::fromJSON(
           gsub('\\@addr\\@', gsub('\\s+', '\\%20', address),
-               paste0("http://nominatim.openstreetmap.org/search?q=@addr@&format=json&addressdetails=0&limit=1", "&email=", email))
-        ), error = function(c) return(data.frame("NA"))
+               paste0(osm_search_url, "@addr@&format=json&addressdetails=0&limit=1", "&email=", email))
+          )
+        },
+        error = function(e){
+          message("Nominatim (OSM) is giving errors, please check if the service is running on: ")
+          message(gsub('\\@addr\\@', gsub('\\s+', '\\%20', address),
+                       paste0(osm_search_url, "@addr@")
+          ))
+          geocode <- data.frame(lat = NA, lon = NA)
+          return(geocode)
+        },
+        warning = function(w){
+          message("Nominatim (OSM) is giving warnings, please check if the service is running on: ")
+          message(gsub('\\@addr\\@', gsub('\\s+', '\\%20', address),
+                       paste0(osm_search_url, "@addr@")
+          ))
+          geocode <- data.frame(lat = NA, lon = NA)
+          return(geocode)
+        }
       )
 
-      if(length(geocode) == 0) {
-        return(data.frame("NA"))
+      if(!exists("geocode") || length(geocode) == 0) {
+        geocode <- data.frame(lat = NA, lon = NA)
+        return(geocode)
       }
 
       # Return the data frame that contains latitudes (lat) and longitudes (lon) in WGS84 projection

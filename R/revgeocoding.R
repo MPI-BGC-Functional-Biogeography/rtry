@@ -47,17 +47,27 @@ rtry_revgeocoding <- function(lat_lon, email){
         return(data.frame("NA"))
       }
 
+      osm_reverse_url <- "https://nominatim.openstreetmap.org/reverse?format=json"
+
       tryCatch(
         rev_geocode <- jsonlite::fromJSON(
-          paste0("https://nominatim.openstreetmap.org/reverse?format=json", "&lat=", lat, "&lon=", lon, "&accept-language=en","&addressdetails=1", "&zoom=10", "&email=", email)
-        ), error = function(c) return(data.frame("NA"))
+          paste0(osm_reverse_url, "&lat=", lat, "&lon=", lon, "&accept-language=en","&addressdetails=1", "&zoom=10", "&email=", email)
+        ),
+        error = function(e){
+          message("Nominatim (OSM) is giving errors, please check if the service is running on: ")
+          message(paste0(osm_reverse_url, "&lat=", lat, "&lon=", lon))
+        },
+        warning = function(w){
+          message("Nominatim (OSM) is giving warnings, please check if the service is running on: ")
+          message(paste0(osm_reverse_url, "&lat=", lat, "&lon=", lon))
+        }
       )
 
       # Create an "empty" variable
       extracted_address <- data.frame(full_address = NA, town = NA, city = NA, country = NA, country_code = NA)
 
       # If an address exists, extract the relevant information from the result
-      if(length(rev_geocode) != 0){
+      if(exists("rev_geocode") && length(rev_geocode) != 0){
         full_address <- rev_geocode$display_name
         town = rev_geocode$address$town
         city = rev_geocode$address$city
@@ -77,7 +87,7 @@ rtry_revgeocoding <- function(lat_lon, email){
         extracted_address[1,] <- tmp_data
 
       } else{
-        return(data.frame("NA"))
+        return(extracted_address)
       }
 
       # Return a data frame that contains a list of addresses
