@@ -4,12 +4,12 @@
 \alias{rtry_select_anc}
 \title{Select ancillary data in wide table format}
 \usage{
-rtry_select_anc(input, id, showOverview = TRUE)
+rtry_select_anc(input, ..., showOverview = TRUE)
 }
 \arguments{
 \item{input}{Input data frame or data table.}
 
-\item{id}{The ID of the ancillary data (\code{DataID} in the TRY data) to be selected.}
+\item{\dots}{The IDs of the ancillary data (\code{DataID} in the TRY data) to be selected.}
 
 \item{showOverview}{Default \code{TRUE} displays the dimension and column names of the selected data.}
 }
@@ -19,20 +19,30 @@ An object of the same type as the input data.
 \description{
 This function selects one specified ancillary data together with the \code{ObservationID}
 from the imported data and transforms it into a wide table format for further processing.
-It works for only one ancillary data in \code{DataID} at a time.
 }
 \examples{
 # Obtain a list of ObservationID and the corresponding ancillary data of interest
-# using the specified DataID (e.g. DataID 59 for latitude) from the provided sample
-# data (e.g. data_TRY_15160)
-lat <- rtry_select_anc(data_TRY_15160, 59)
+# using the specified DataID (e.g. DataID 60 for longitude and 59 for latitude) from
+# the provided sample data (e.g. data_TRY_15160)
+georef <- rtry_select_anc(data_TRY_15160, 60, 59)
 
 # Expected message:
-# dim:   98 2
-# col:   ObservationID Latitude
+# dim:   98 3
+# col:   ObservationID Longitude Latitude
+
+
+# Obtain a list of ObservationID and one corresponding ancillary data of interest
+# using the specified DataID (e.g. DataID 61 for altitude) from the provided sample
+# data (e.g. data_TRY_15160)
+alt <- rtry_select_anc(data_TRY_15160, 61)
+
+# Expected message:
+# dim:   23 2
+# col:   ObservationID Altitude
 }
 \references{
 This function makes use of the \code{\link[base]{subset}} and \code{\link[dplyr]{distinct}} functions
 within the \code{base} and \code{dplyr} packages respectively. It also uses the functions
-\code{\link{rtry_select_col}} and \code{\link{rtry_remove_col}}.
+\code{\link{rtry_select_col}} and \code{\link{rtry_remove_col}}, as well as the function
+\code{\link{rtry_join_outer}} to select and combine the extracted ancillary data with the \code{ObservationID}.
 }

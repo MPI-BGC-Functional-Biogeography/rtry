@@ -828,18 +828,13 @@ Now that only the traits with numerical values were selected, in order to keep t
 For demonstration purpose, the latitude and longitude information will be added to the input data to create a geo-referenced trait table before proceeding. To extract the unique values of the ancillary data and the corresponding `ObservationID`, use the `rtry_select_anc` function.
 
 ```R
-# Extract the unique value of latitude (DataID 59) and the corresponding ObservationID
-workdata_lat <- rtry_select_anc(workdata, 59)
-
-# Extract the unique value of longitude (DataID 60) and the corresponding ObservationID
-workdata_lon <- rtry_select_anc(workdata, 60)
+# Extract the unique value of latitude (DataID 59) and longitude (DataID 60) together with the corresponding ObservationID
+workdata_georef <- rtry_select_anc(workdata, 59, 60)
 ```
 
 ```R
-## dim:   47 2
-## col:   ObservationID Latitude
-## dim:   47 2
-## col:   ObservationID Longitude
+## dim:   47 3
+## col:   ObservationID Latitude Longitude
 ```
 
 Next, add the extracted latitude and longitude information to the traits. To do so, make use of the `ObservationID` in both the trait records and the extracted ancillary data to merge the data frames. And in order to keep all the trait records, a left join should be used. This can be done using the `rtry_join_left` function provided in the 'rtry' package.
@@ -847,13 +842,10 @@ Next, add the extracted latitude and longitude information to the traits. To do 
 ```R
 # To merge the extracted ancillary data with the numerical traits
 # Merge the relevant data frames based on the ObservationID using rtry_join_left (left join)
-num_traits_georef <- rtry_join_left(num_traits, workdata_lat, baseOn = ObservationID)
-num_traits_georef <- rtry_join_left(num_traits_georef, workdata_lon, baseOn = ObservationID)
+num_traits_georef <- rtry_join_left(num_traits, workdata_georef, baseOn = ObservationID)
 ```
 
 ```R
-## dim:   25 8
-## col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName StdValue UnitName Latitude
 ## dim:   25 9
 ## col:   ObservationID AccSpeciesID AccSpeciesName TraitID TraitName StdValue UnitName Latitude Longitude
 ```
