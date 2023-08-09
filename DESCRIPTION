@@ -1,6 +1,6 @@
 Package: rtry
 Title: Preprocessing Plant Trait Data
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(
     person(given = "Olee Hoi Ying",
         family = "Lam",
